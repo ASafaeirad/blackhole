@@ -2,8 +2,6 @@ const { init } = require('@fullstacksjs/eslint-config/init');
 
 module.exports = init({
   root: true,
-  ignorePatterns: ['**/*'],
-  plugins: ['@nx'],
   modules: {
     auto: false,
     test: true,
@@ -12,9 +10,12 @@ module.exports = init({
     storybook: true,
     import: true,
   },
+  ignorePatterns: ['**/*'],
+  plugins: ['@nx', 'solid'],
   settings: {
     'import/internal-regex': '^@blackhole/',
   },
+  extends: ['plugin:solid/typescript'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],

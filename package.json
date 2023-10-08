@@ -1,12 +1,11 @@
 {
+  "private": true,
   "name": "@blackhole/source",
   "version": "0.0.0",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "prepare": "./scripts/prepare"
   },
-  "private": true,
   "devDependencies": {
     "@cspell/eslint-plugin": "7.3.7",
     "@fullstacksjs/eslint-config": "10.3.1",
@@ -15,10 +14,11 @@
     "@nx/workspace": "16.10.0",
     "cspell": "7.3.7",
     "eslint": "8.51.0",
+    "eslint-plugin-solid": "0.13.0",
     "globals": "13.23.0",
     "husky": "8.0.3",
-    "nx-cloud": "latest",
     "nx": "16.10.0",
+    "nx-cloud": "latest",
     "prettier": "3.0.3",
     "typescript": "5.2.2"
   }
