@@ -2,13 +2,18 @@
   "name": "@blackhole/source",
   "version": "0.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nx/js": "16.10.0",
     "@nx/workspace": "16.10.0",
+    "@typescript-eslint/eslint-plugin": "6.7.4",
+    "@typescript-eslint/parser": "6.7.4",
+    "eslint": "8.51.0",
+    "globals": "13.23.0",
     "nx": "16.10.0",
-    "nx-cloud": "latest"
+    "nx-cloud": "latest",
+    "typescript": "5.2.2"
   }
 }

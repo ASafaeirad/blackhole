@@ -4,35 +4,27 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "ZDc1N2FkNmEtYTM5OC00ZjQ1LWFhY2MtMTEwM2Y0NjM5YzZkfHJlYWQtd3JpdGU="
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/eslint.config.js"]
     }
   },
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
-      "sharedGlobals"
+      "sharedGlobals",
+      "!{projectRoot}/eslint.config.js"
     ],
-    "production": [
-      "default"
-    ],
+    "production": ["default"],
     "sharedGlobals": []
   }
 }
