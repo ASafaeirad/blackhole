@@ -4,8 +4,7 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZDc1N2FkNmEtYTM5OC00ZjQ1LWFhY2MtMTEwM2Y0NjM5YzZkfHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -16,6 +15,12 @@
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.js"]
+    },
+    "test": {
+      "inputs": ["default", "^production"]
+    },
+    "e2e": {
+      "inputs": ["default", "^production"]
     }
   },
   "namedInputs": {
@@ -24,7 +29,19 @@
       "sharedGlobals",
       "!{projectRoot}/.eslintrc.js"
     ],
-    "production": ["default"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json"
+    ],
     "sharedGlobals": []
+  },
+  "generators": {
+    "@nx/web:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "vitest",
+      "e2eTestRunner": "playwright"
+    }
   }
 }
