@@ -1,0 +1,40 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      actions: 'read'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+          cache: 'pnpm'
+
+      - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'dev'
+
+      - run: pnpm install
+
+      - run: pnpm nx affected --base=origin/dev -t lint --parallel=3
+      - run: pnpm nx affected --base=origin/dev -t test --parallel=3 --configuration=ci
+      - run: pnpm nx affected --base=origin/dev -t build --parallel=3

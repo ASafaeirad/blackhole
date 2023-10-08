@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+RESET='\033[39m'
+CYAN='\033[1;36m'
+YELLOW='\033[1;93m'
+GREEN='\033[1;32m'
+ERR='\033[1;91m'
+BOLD='\033[1m'
+
+BRANCH_PREFIX="ski"
+PR_PREFIX="BH"
+
+echo -en "${BOLD}"
+
+type gh >/dev/null 2>&1 || {
+  echo -e "${ERR}Sorry, this script needs github-cli.${RESET}"
+  exit 1
+}
+
+BASE=${1:-"dev"}
+BRANCH_NAME=$(git branch --show-current)
+TITLE=$(
+  echo "${BRANCH_NAME}" |
+    sed -r "s/\-/\ /g" |
+    sed -r "s/hotfix (.*)/ [Hotfix]: \1/gi" |
+    sed -r "s/$BRANCH_PREFIX ([0-9]*) (.*)/[$PR_PREFIX-\1]: \2/gi" |
+    sed -r 's/[^ _-]*/\u&/g'
+)
+
+read -e -p "$(echo -ne "${BOLD}title: ${YELLOW}")" -i "$TITLE" TITLE
+echo -ne "${RESET}\n"
+
+TITLE_WORDS=($TITLE)
+
+VERB=${TITLE_WORDS[1]}
+REST=${TITLE_WORDS[*]:2}
+
+if [[ "$VERB" =~ (s|sh|ch|x|z)$ ]]; then
+  VERB+="es"
+else
+  VERB+="s"
+fi
+
+read -e -p "$(echo -ne "${BOLD}body: ${YELLOW}")" -i "This PR ${VERB,,} ${REST,,}." BODY
+echo -ne "${RESET}\n"
+
+echo -e "Creating PR:"
+echo -e "title:\t${CYAN}$TITLE${RESET}"
+echo -e "body:\t${CYAN}$BODY${RESET}"
+echo -e "base:\t${CYAN}$BASE${RESET}"
+echo -en "Continue? [${GREEN}y${RESET}/${ERR}n${RESET}]${RESET} "
+read -rn1 -p "" confirm
+
+[[ ! $confirm =~ ^([yY])$ ]] && exit 1
+echo -e "\n"
+
+echo "\$ gh pr create --base \"$BASE\" --title \"$TITLE\" --body \"$BODY\" --assignee \"@me\""
+gh pr create --base "$BASE" --title "$TITLE" --body "$BODY" --assignee "@me"

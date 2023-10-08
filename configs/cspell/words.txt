@@ -1,0 +1,9 @@
+fullstacksjs
+blackhole
+Parens
+vite
+
+nrwl
+cacheable
+devkit
+Buildable
