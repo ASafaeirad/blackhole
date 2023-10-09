@@ -1,0 +1,51 @@
+{
+  "name": "nx-plugin",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/nx-plugin/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tools/nx-plugin",
+        "main": "libs/tools/nx-plugin/src/index.ts",
+        "tsConfig": "libs/tools/nx-plugin/tsconfig.lib.json",
+        "assets": [
+          "libs/tools/nx-plugin/*.md",
+          {
+            "input": "./libs/tools/nx-plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/tools/nx-plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/tools/nx-plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/tools/nx-plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/nx-plugin/**/*.ts",
+          "libs/tools/nx-plugin/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
