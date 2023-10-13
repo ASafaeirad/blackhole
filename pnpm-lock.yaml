@@ -52,6 +52,9 @@ devDependencies:
   '@nx/workspace':
     specifier: 16.10.0
     version: 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)
+  '@nxext/solid':
+    specifier: 16.7.0
+    version: 16.7.0(@nx/cypress@16.10.0)(@nx/jest@16.10.0)(@nx/linter@16.10.0)(@nx/vite@16.10.0)(@swc-node/register@1.6.8)(@swc/core@1.3.92)
   '@playwright/test':
     specifier: 1.38.0
     version: 1.38.0
@@ -2609,6 +2612,25 @@ packages:
     resolution: {integrity: sha512-y7ynAt3lVjvXF7+xVVezGnq4pJliX/ducCa9/AV6iB03M1JUcV0iq/9qK6h+4ieFPXhTAX2a/VuBNgksjnUQZw==}
     dev: true
 
+  /@nrwl/cypress@16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-ns6VQrrF08XYwZE4OduLVK2rwpN6dNrkVArw4fzJccuZ1g3YxR5JSuxpdBQA3FjKWoo2DybivuQudpIlYGq3UQ==}
+    dependencies:
+      '@nx/cypress': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)(typescript@5.2.2)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - cypress
+      - debug
+      - eslint
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+    dev: true
+
   /@nrwl/devkit@16.10.0(nx@16.10.0):
     resolution: {integrity: sha512-fRloARtsDQoQgQ7HKEy0RJiusg/HSygnmg4gX/0n/Z+SUS+4KoZzvHjXc6T5ZdEiSjvLypJ+HBM8dQzIcVACPQ==}
     dependencies:
@@ -2793,6 +2815,36 @@ packages:
       - '@swc-node/register'
       - '@swc/core'
       - debug
+    dev: true
+
+  /@nx/cypress@16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-suYc5jC6Os0D78Fn2pAIuGOkM6nhIWsSEb94PWwdZWE0XKQiWrgQJZBXDIu3x2zq6oZxYdx8OufUFli8vr4/Tw==}
+    peerDependencies:
+      cypress: '>= 3 < 14'
+    peerDependenciesMeta:
+      cypress:
+        optional: true
+    dependencies:
+      '@nrwl/cypress': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)(typescript@5.2.2)
+      '@nx/devkit': 16.10.0(nx@16.10.0)
+      '@nx/js': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(nx@16.10.0)(typescript@5.2.2)
+      '@nx/linter': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)
+      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.2.2)
+      detect-port: 1.5.1
+      semver: 7.5.3
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - eslint
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
     dev: true
 
   /@nx/devkit@16.10.0(nx@16.10.0):
@@ -3210,6 +3262,28 @@ packages:
       rxjs: 7.8.1
       tslib: 2.6.2
       yargs-parser: 21.1.1
+    transitivePeerDependencies:
+      - '@swc-node/register'
+      - '@swc/core'
+      - debug
+    dev: true
+
+  /@nxext/solid@16.7.0(@nx/cypress@16.10.0)(@nx/jest@16.10.0)(@nx/linter@16.10.0)(@nx/vite@16.10.0)(@swc-node/register@1.6.8)(@swc/core@1.3.92):
+    resolution: {integrity: sha512-soxA3EuvulXG8Hi2fZFhKriU+4Qs0LFvpd/nEvV7hHdL7T3tcIQpgerOrzuP/cHc7tRpf2C+MOiPBWT6FE7TRQ==}
+    peerDependencies:
+      '@nx/cypress': ^16.7.1
+      '@nx/jest': ^16.7.1
+      '@nx/linter': ^16.7.1
+      '@nx/vite': ^16.7.1
+    dependencies:
+      '@nx/cypress': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)(typescript@5.2.2)
+      '@nx/devkit': 16.10.0(nx@16.10.0)
+      '@nx/jest': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(nx@16.10.0)(typescript@5.2.2)
+      '@nx/linter': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(eslint@8.51.0)(nx@16.10.0)
+      '@nx/vite': 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)(@types/node@18.7.1)(nx@16.10.0)(typescript@5.2.2)(vite@4.4.11)(vitest@0.32.0)
+      nx: 16.10.0(@swc-node/register@1.6.8)(@swc/core@1.3.92)
+      tslib: 2.6.2
+      typescript: 5.1.6
     transitivePeerDependencies:
       - '@swc-node/register'
       - '@swc/core'
