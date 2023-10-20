@@ -17,7 +17,9 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

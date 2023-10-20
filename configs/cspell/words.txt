@@ -1,8 +1,10 @@
-fullstacksjs
 blackhole
+
+fullstacksjs
 Parens
 vite
 vitest
+jsdom
 
 nrwl
 cacheable
