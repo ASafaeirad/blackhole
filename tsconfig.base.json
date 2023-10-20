@@ -17,11 +17,7 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "baseUrl": ".",
-    "paths": {
-      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"],
-      "@undefined/test-vitest": ["libs/test-vitest/src/index.ts"],
-      "@undefined/vitest-no": ["libs/vitest-no/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }

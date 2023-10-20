@@ -1,19 +1,35 @@
-import { GeneratorCallback, Tree, ensurePackage, NX_VERSION } from '@nx/devkit';
-import { NormalizedSchema } from '../schema';
+import type { Tree } from '@nx/devkit';
+import {
+  joinPathFragments,
+  offsetFromRoot,
+  readProjectConfiguration,
+  updateProjectConfiguration,
+} from '@nx/devkit';
 
-export async function addVitest(
-  tree: Tree,
-  options: NormalizedSchema,
-): Promise<GeneratorCallback> {
-  const { vitestGenerator } = ensurePackage<typeof import('@nx/vite')>(
-    '@nx/vite',
-    NX_VERSION,
+import type { NormalizedSchema } from '../schema';
+
+export function addVitest(tree: Tree, options: NormalizedSchema) {
+  const project = readProjectConfiguration(tree, options.name);
+
+  const coveragePath = joinPathFragments(
+    'coverage',
+    project.root === '.' ? options.name : project.root,
   );
-  return await vitestGenerator(tree, {
-    coverageProvider: 'v8',
-    project: options.name,
-    uiFramework: 'react',
-    inSourceTests: false,
-    skipFormat: true,
-  });
+  const testOptions = {
+    passWithNoTests: true,
+    reportsDirectory: joinPathFragments(
+      offsetFromRoot(project.root),
+      coveragePath,
+    ),
+  };
+
+  project.targets ??= {};
+
+  project.targets.test = {
+    executor: '@nx/vite:test',
+    outputs: ['{options.reportsDirectory}'],
+    options: testOptions,
+  };
+
+  updateProjectConfiguration(tree, options.name, project);
 }
