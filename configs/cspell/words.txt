@@ -2,6 +2,7 @@ fullstacksjs
 blackhole
 Parens
 vite
+vitest
 
 nrwl
 cacheable

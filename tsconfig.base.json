@@ -6,9 +6,11 @@
     "declaration": false,
     "moduleResolution": "Node",
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "target": "ES2015",
+    "target": "ESNext",
     "module": "ESNext",
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
@@ -16,7 +18,9 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"]
+      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"],
+      "@undefined/test-vitest": ["libs/test-vitest/src/index.ts"],
+      "@undefined/vitest-no": ["libs/vitest-no/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
