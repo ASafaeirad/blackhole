@@ -21,7 +21,7 @@
       ]
     },
     "test": {
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"]
     },
     "e2e": {
       "inputs": ["default", "^production"]
