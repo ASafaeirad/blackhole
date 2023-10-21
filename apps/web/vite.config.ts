@@ -1,7 +1,7 @@
 /// <reference types='vitest' />
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/web',
@@ -16,6 +16,6 @@ export default defineConfig({
       dir: '../../node_modules/.vitest',
     },
     environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{tsx}'],
+    include: ['src/**/*.{spec}.{ts,tsx}'],
   },
 });
