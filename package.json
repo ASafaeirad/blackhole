@@ -11,7 +11,6 @@
     "@fullstacksjs/eslint-config": "10.3.4",
     "@nx/devkit": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",
-    "@nx/jest": "16.10.0",
     "@nx/js": "16.10.0",
     "@nx/linter": "16.10.0",
     "@nx/playwright": "16.10.0",
