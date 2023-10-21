@@ -14,7 +14,7 @@
       "inputs": ["production", "^production"]
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.js"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.js", "{projectRoot}/.eslintrc.json"]
     },
     "test": {
       "inputs": ["default", "^production"]
@@ -27,13 +27,13 @@
     "default": [
       "{projectRoot}/**/*",
       "sharedGlobals",
-      "!{projectRoot}/.eslintrc.js"
+      "!{projectRoot}/.eslintrc.json"
     ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/.eslintrc.js"
+      "!{projectRoot}/.eslintrc.json"
     ],
     "sharedGlobals": []
   },
