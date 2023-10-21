@@ -14,6 +14,7 @@ module.exports = init({
   plugins: ['@nx', 'solid'],
   settings: {
     'import/internal-regex': '^@blackhole/',
+    'solid/typescript': require('typescript'),
   },
   extends: ['plugin:solid/typescript'],
   overrides: [

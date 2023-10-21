@@ -1,9 +1,9 @@
 {
-  "extends": "../../tsconfig.solid.json",
+  "extends": "<%= offsetFromRoot %>tsconfig.solid.json",
   "files": [],
   "include": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.lib.json" },
     { "path": "./tsconfig.spec.json" }
   ]
 }

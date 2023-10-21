@@ -14,10 +14,14 @@
       "inputs": ["production", "^production"]
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.js"]
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.js",
+        "{projectRoot}/.eslintrc.json"
+      ]
     },
     "test": {
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"]
     },
     "e2e": {
       "inputs": ["default", "^production"]
@@ -27,12 +31,14 @@
     "default": [
       "{projectRoot}/**/*",
       "sharedGlobals",
-      "!{projectRoot}/.eslintrc.js"
+      "!{projectRoot}/.eslintrc.json"
     ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json"
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/.eslintrc.js"
     ],
     "sharedGlobals": []
   },
