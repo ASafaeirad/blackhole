@@ -22,8 +22,8 @@
     "noImplicitReturns": true,
     "baseUrl": ".",
     "paths": {
-      "@blackhole/db": ["libs/shared/db/src/index.ts"],
-      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"]
+      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/shared/db": ["libs/db/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
