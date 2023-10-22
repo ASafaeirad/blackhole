@@ -3,7 +3,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  cacheDir: '../../../node_modules/.vite/shared-db',
+  cacheDir: '../../../node_modules/.vite/db',
   plugins: [nxViteTsPaths()],
   test: {
     globals: true,
