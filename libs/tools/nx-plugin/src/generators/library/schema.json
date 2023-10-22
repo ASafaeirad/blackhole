@@ -15,10 +15,35 @@
       },
       "x-prompt": "What name would you like to use?"
     },
-    "tags": {
+    "type": {
       "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
+      "description": "Provide the library type",
+      "x-prompt": {
+        "message": "Which type of library would you like to generate?",
+        "type": "list",
+        "items": [
+          { "value": "data", "label": "Data Access" },
+          { "value": "feature", "label": "Feature" },
+          { "value": "util", "label": "Utility" },
+          { "value": "ui", "label": "UI Component" }
+        ]
+      }
+    },
+    "scope": {
+      "type": "string",
+      "description": "Provide the library type",
+      "x-prompt": {
+        "message": "Which type of library would you like to generate?",
+        "type": "list",
+        "items": [
+          { "value": "shared", "label": "Shared" },
+          { "value": "user", "label": "User" },
+          { "value": "task", "label": "Task and Project" },
+          { "value": "focus", "label": "Focus" },
+          { "value": "analytics", "label": "Analytics" },
+          { "value": "notification", "label": "Notification" }
+        ]
+      }
     },
     "unitTestRunner": {
       "type": "boolean",
@@ -35,5 +60,5 @@
       "description": "The library name used to import it"
     }
   },
-  "required": ["name"]
+  "required": ["name", "scope", "type"]
 }

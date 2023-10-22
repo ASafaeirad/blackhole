@@ -8,20 +8,20 @@ import {
 
 import type { NormalizedProjectSchema } from './schema';
 
-export function addLinting(tree: Tree, options: NormalizedProjectSchema) {
+export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
   addTargetDefaults(tree);
-  const projectConfig = readProjectConfiguration(tree, options.name);
+  const projectConfig = readProjectConfiguration(tree, schema.name);
 
   projectConfig.targets ??= {};
   projectConfig.targets['lint'] = {
     executor: '@nx/linter:eslint',
     outputs: ['{options.outputFile}'],
     options: {
-      lintFilePatterns: [`${options.projectRoot}/**/*.{ts,spec.ts}`],
+      lintFilePatterns: [`${schema.projectRoot}/**/*.{ts,spec.ts}`],
     },
   };
 
-  updateProjectConfiguration(tree, options.name, projectConfig);
+  updateProjectConfiguration(tree, schema.name, projectConfig);
 }
 
 function addTargetDefaults(tree: Tree) {

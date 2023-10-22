@@ -8,15 +8,15 @@ import {
 
 import type { NormalizedSchema } from '../schema';
 
-export function createFiles(tree: Tree, options: NormalizedSchema) {
+export function createFiles(tree: Tree, schema: NormalizedSchema) {
   generateFiles(
     tree,
     joinPathFragments(__dirname, '../files'),
-    options.projectRoot,
+    schema.projectRoot,
     {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
+      ...schema,
+      ...names(schema.name),
+      offsetFromRoot: offsetFromRoot(schema.projectRoot),
     },
   );
 }

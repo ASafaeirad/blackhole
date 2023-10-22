@@ -5,16 +5,18 @@ import { addImportPath } from '../shared/addImportPath';
 import { addLinting } from '../shared/addLinting';
 import { addProject } from '../shared/addProject';
 import { addVitest } from '../shared/addVitest';
+import { normalizeOptions } from '../shared/normalizeOptions';
 import type { SolidLibrarySchema } from './schema';
 import { createFiles } from './utils/createFiles';
 import { initGenerator } from './utils/init';
-import { normalizeOptions } from './utils/normalizeOptions';
 
 export async function solidLibraryGenerator(
   tree: Tree,
   schema: SolidLibrarySchema,
 ) {
-  const options = await normalizeOptions(tree, schema);
+  const options = await normalizeOptions(tree, schema, {
+    callingGenerator: '@blackhole/nx:solid-library',
+  });
   const initTask = await initGenerator(tree);
   addProject(tree, options);
   createFiles(tree, options);

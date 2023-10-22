@@ -2,39 +2,38 @@ import type { Tree } from '@nx/devkit';
 import { names } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 
-import type { NormalizedSchema, SolidLibrarySchema } from '../schema';
+import type { NormalizedProjectSchema, ProjectSchema } from './schema';
 
 export async function normalizeOptions(
   host: Tree,
-  options: SolidLibrarySchema,
-): Promise<NormalizedSchema> {
+  schema: ProjectSchema,
+  option: { callingGenerator: `@blackhole/nx:${string}` },
+): Promise<NormalizedProjectSchema> {
   const {
     projectName,
     names: projectNames,
     projectRoot,
     importPath,
   } = await determineProjectNameAndRootOptions(host, {
-    name: options.name,
+    name: schema.name,
     projectType: 'library',
-    directory: options.directory,
-    importPath: options.importPath,
+    directory: schema.directory,
+    importPath:
+      schema.importPath ?? `@blackhole/${schema.scope}/${schema.name}`,
     projectNameAndRootFormat: 'derived',
-    callingGenerator: '@blackhole/nx:solid-library',
+    ...option,
   });
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
+  const name = names(schema.name).fileName;
+  const projectDirectory = schema.directory
+    ? `${names(schema.directory).fileName}/${name}`
     : name;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map(s => s.trim())
-    : [];
 
   return {
-    ...options,
+    ...schema,
     inSourceTests: false,
     name: projectName,
     projectRoot,
-    parsedTags,
+    parsedTags: [`type:${schema.type}`, `scope:${schema.scope}`],
     fileName: projectNames.projectSimpleName,
     projectDirectory,
     importPath: importPath!,

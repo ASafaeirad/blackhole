@@ -3,11 +3,11 @@ import { addProjectConfiguration } from '@nx/devkit';
 
 import type { NormalizedProjectSchema } from './schema';
 
-export function addProject(tree: Tree, options: NormalizedProjectSchema) {
-  addProjectConfiguration(tree, options.name, {
-    root: options.projectRoot,
-    sourceRoot: `${options.projectRoot}/src`,
+export function addProject(tree: Tree, schema: NormalizedProjectSchema) {
+  addProjectConfiguration(tree, schema.name, {
+    root: schema.projectRoot,
+    sourceRoot: `${schema.projectRoot}/src`,
     projectType: 'library',
-    tags: options.parsedTags,
+    tags: schema.parsedTags,
   });
 }
