@@ -23,7 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
-      "@blackhole/shared/db": ["libs/db/src/index.ts"]
+      "@blackhole/shared/supabase": ["libs/shared/supabase/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

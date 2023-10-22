@@ -1,7 +1,7 @@
 {
-  "name": "db",
+  "name": "supabase",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/db/src",
+  "sourceRoot": "libs/shared/supabase/src",
   "projectType": "library",
   "tags": ["type:data", "scope:shared"],
   "targets": {
@@ -9,7 +9,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/db/**/*.{ts,spec.ts}"]
+        "lintFilePatterns": ["libs/shared/supabase/**/*.{ts,spec.ts}"]
       }
     },
     "test": {
@@ -17,21 +17,31 @@
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../../coverage/libs/shared/db"
+        "reportsDirectory": "../../../coverage/libs/shared/supabase"
       }
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm supabase start",
-        "cwd": "libs/shared/db"
+        "cwd": "libs/shared/supabase"
       }
     },
     "stop": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm supabase stop",
-        "cwd": "libs/shared/db"
+        "cwd": "libs/shared/supabase"
+      }
+    },
+    "gen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "pnpm supabase gen types typescript --local --schema public >./libs/shared/supabase/src/lib/Database.ts",
+          "pnpm eslint ./libs/shared/supabase/src/lib/Database.ts --fix"
+        ],
+        "parallel": false
       }
     }
   }
