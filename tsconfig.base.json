@@ -11,14 +11,19 @@
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "CommonJS",
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
     "baseUrl": ".",
     "paths": {
-      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"]
+      "@blackhole/db": ["libs/shared/db/src/index.ts"],
+      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
