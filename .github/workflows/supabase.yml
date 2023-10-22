@@ -16,6 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - uses: supabase/setup-cli@v1
+
       - run: supabase link --project-ref $SUPABASE_PROJECT_ID
+        working-directory: ./libs/shared/supabase
+
       - run: supabase db push
+        working-directory: ./libs/shared/supabase

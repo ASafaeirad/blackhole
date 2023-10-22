@@ -23,14 +23,14 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm supabase start",
+        "command": "pnpm --silent dlx supabase start",
         "cwd": "libs/shared/supabase"
       }
     },
     "stop": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm supabase stop",
+        "command": "pnpm --silent dlx supabase stop",
         "cwd": "libs/shared/supabase"
       }
     },
