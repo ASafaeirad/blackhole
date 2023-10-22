@@ -1,21 +1,10 @@
 import type { Tree } from '@nx/devkit';
-import {
-  convertNxGenerator,
-  formatFiles,
-  names,
-  runTasksInSerial,
-} from '@nx/devkit';
+import { names } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 
-import type { NormalizedSchema, SolidLibrarySchema } from './schema';
-import { addImportPath } from './utils/addImportPath';
-import { addLinting } from './utils/addLinting';
-import { addProject } from './utils/addProject';
-import { addVitest } from './utils/addVitest';
-import { createFiles } from './utils/createFiles';
-import { initGenerator } from './utils/init';
+import type { NormalizedSchema, SolidLibrarySchema } from '../schema';
 
-async function normalizeOptions(
+export async function normalizeOptions(
   host: Tree,
   options: SolidLibrarySchema,
 ): Promise<NormalizedSchema> {
@@ -51,19 +40,3 @@ async function normalizeOptions(
     importPath: importPath!,
   };
 }
-
-export async function libraryGenerator(host: Tree, schema: SolidLibrarySchema) {
-  const options = await normalizeOptions(host, schema);
-  const initTask = await initGenerator(host);
-  addProject(host, options);
-  createFiles(host, options);
-  addVitest(host, options);
-  addLinting(host, options);
-  addImportPath(host, options);
-
-  await formatFiles(host);
-  return runTasksInSerial(initTask);
-}
-
-export default libraryGenerator;
-export const librarySchematic = convertNxGenerator(libraryGenerator);
