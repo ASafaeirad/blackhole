@@ -1,14 +1,2 @@
 blackhole
 Pomodoro
-
-fullstacksjs
-Parens
-vite
-vitest
-jsdom
-
-nrwl
-cacheable
-devkit
-Buildable
-nxext

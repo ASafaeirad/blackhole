@@ -1,0 +1,11 @@
+fullstacksjs
+Parens
+vite
+vitest
+jsdom
+supabase
+nrwl
+cacheable
+devkit
+Buildable
+nxext
