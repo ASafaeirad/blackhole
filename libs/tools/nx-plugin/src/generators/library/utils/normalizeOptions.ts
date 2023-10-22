@@ -2,24 +2,24 @@ import type { Tree } from '@nx/devkit';
 import { names } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 
-import type { NormalizedProjectSchema, ProjectSchema } from './schema';
+import type { NormalizedSchema, TypeScriptLibrarySchema } from '../schema';
 
 export async function normalizeOptions(
-  host: Tree,
-  options: ProjectSchema,
-): Promise<NormalizedProjectSchema> {
+  tree: Tree,
+  options: TypeScriptLibrarySchema,
+): Promise<NormalizedSchema> {
   const {
     projectName,
     names: projectNames,
     projectRoot,
     importPath,
-  } = await determineProjectNameAndRootOptions(host, {
+  } = await determineProjectNameAndRootOptions(tree, {
     name: options.name,
     projectType: 'library',
     directory: options.directory,
     importPath: options.importPath,
     projectNameAndRootFormat: 'derived',
-    callingGenerator: '@nxext/solid:library',
+    callingGenerator: '@blackhole/nx:library',
   });
   const name = names(options.name).fileName;
   const projectDirectory = options.directory

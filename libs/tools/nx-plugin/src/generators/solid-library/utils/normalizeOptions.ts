@@ -19,7 +19,7 @@ export async function normalizeOptions(
     directory: options.directory,
     importPath: options.importPath,
     projectNameAndRootFormat: 'derived',
-    callingGenerator: '@nxext/solid:library',
+    callingGenerator: '@blackhole/nx:solid-library',
   });
   const name = names(options.name).fileName;
   const projectDirectory = options.directory

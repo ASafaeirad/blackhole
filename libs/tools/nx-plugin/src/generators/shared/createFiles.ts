@@ -8,9 +8,9 @@ import {
 
 import type { NormalizedProjectSchema } from './schema';
 
-export function createFiles(host: Tree, options: NormalizedProjectSchema) {
+export function createFiles(tree: Tree, options: NormalizedProjectSchema) {
   generateFiles(
-    host,
+    tree,
     joinPathFragments(__dirname, '../files'),
     options.projectRoot,
     {

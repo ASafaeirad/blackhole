@@ -5,14 +5,14 @@ import { addImportPath } from '../shared/addImportPath';
 import { addLinting } from '../shared/addLinting';
 import { addProject } from '../shared/addProject';
 import { addVitest } from '../shared/addVitest';
-import type { SolidLibrarySchema } from './schema';
+import type { TypeScriptLibrarySchema } from './schema';
 import { createFiles } from './utils/createFiles';
 import { initGenerator } from './utils/init';
 import { normalizeOptions } from './utils/normalizeOptions';
 
 export async function solidLibraryGenerator(
   tree: Tree,
-  schema: SolidLibrarySchema,
+  schema: TypeScriptLibrarySchema,
 ) {
   const options = await normalizeOptions(tree, schema);
   const initTask = await initGenerator(tree);

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "Lib",
+  "title": "TypeScript Library",
+  "description": "Create a TypeScript Library for the Blackhole workspace.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "unitTestRunner": {
+      "type": "boolean",
+      "description": "Do you need vitest?",
+      "default": true
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the lib is placed.",
+      "alias": "d"
+    },
+    "importPath": {
+      "type": "string",
+      "description": "The library name used to import it"
+    }
+  },
+  "required": ["name"]
+}
