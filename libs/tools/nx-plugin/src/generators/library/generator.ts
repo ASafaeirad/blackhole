@@ -10,7 +10,7 @@ import type { TypeScriptLibrarySchema } from './schema';
 import { createFiles } from './utils/createFiles';
 import { initGenerator } from './utils/init';
 
-export async function solidLibraryGenerator(
+export async function tsLibraryGenerator(
   tree: Tree,
   schema: TypeScriptLibrarySchema,
 ) {
@@ -28,5 +28,5 @@ export async function solidLibraryGenerator(
   return runTasksInSerial(initTask);
 }
 
-export default solidLibraryGenerator;
-export const librarySchematic = convertNxGenerator(solidLibraryGenerator);
+export default tsLibraryGenerator;
+export const librarySchematic = convertNxGenerator(tsLibraryGenerator);
