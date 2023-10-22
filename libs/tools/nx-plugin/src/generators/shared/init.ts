@@ -10,7 +10,7 @@ import {
   solidVersion,
   vitePluginSolidVersion,
   vitestCoverageV8Version,
-} from '../../shared/versions';
+} from './versions';
 
 export async function initGenerator(tree: Tree) {
   const installTask = addDependenciesToPackageJson(

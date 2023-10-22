@@ -1,9 +1,9 @@
 {
   "generators": {
-    "lib": {
-      "factory": "./src/generators/lib/generator",
-      "schema": "./src/generators/lib/schema.json",
-      "description": "Blackhole lib generator"
+    "solid-lib": {
+      "factory": "./src/generators/solid-library/generator",
+      "schema": "./src/generators/solid-library/schema.json",
+      "description": "Blackhole Solid lib generator"
     }
   }
 }

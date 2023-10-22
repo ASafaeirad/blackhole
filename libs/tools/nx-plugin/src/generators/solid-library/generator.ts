@@ -1,11 +1,10 @@
 import type { Tree } from '@nx/devkit';
 import { convertNxGenerator, formatFiles, runTasksInSerial } from '@nx/devkit';
 
+import { addImportPath } from '../shared/addImportPath';
+import { addLinting } from '../shared/addLinting';
+import { addProject } from '../shared/addProject';
 import type { SolidLibrarySchema } from './schema';
-import { addImportPath } from './utils/addImportPath';
-import { addLinting } from './utils/addLinting';
-import { addProject } from './utils/addProject';
-import { addVitest } from './utils/addVitest';
 import { createFiles } from './utils/createFiles';
 import { initGenerator } from './utils/init';
 import { normalizeOptions } from './utils/normalizeOptions';
@@ -18,7 +17,6 @@ export async function solidLibraryGenerator(
   const initTask = await initGenerator(host);
   addProject(host, options);
   createFiles(host, options);
-  addVitest(host, options);
   addLinting(host, options);
   addImportPath(host, options);
 

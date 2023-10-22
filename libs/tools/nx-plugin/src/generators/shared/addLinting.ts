@@ -6,15 +6,15 @@ import {
   updateProjectConfiguration,
 } from '@nx/devkit';
 
-import type { NormalizedSchema } from '../schema';
+import type { NormalizedProjectSchema } from './schema';
 
-export function addLinting(tree: Tree, options: NormalizedSchema) {
+export function addLinting(tree: Tree, options: NormalizedProjectSchema) {
   addTargetDefaults(tree);
   const projectConfig = readProjectConfiguration(tree, options.name);
 
   projectConfig.targets ??= {};
-  projectConfig.targets.lint = {
-    executor: '@nx/eslint:lint',
+  projectConfig.targets['lint'] = {
+    executor: '@nx/linter:eslint',
     outputs: ['{options.outputFile}'],
     options: {
       lintFilePatterns: [`${options.projectRoot}/**/*.{ts,spec.ts}`],
@@ -27,17 +27,17 @@ export function addLinting(tree: Tree, options: NormalizedSchema) {
 function addTargetDefaults(tree: Tree) {
   const nxJson = readNxJson(tree)!;
 
-  const productionFileSet = nxJson.namedInputs?.production;
+  const productionFileSet = nxJson.namedInputs?.['production'];
 
   if (productionFileSet) {
     productionFileSet.push('!{projectRoot}/.eslintrc.js');
-    nxJson.namedInputs!.production = Array.from(new Set(productionFileSet));
+    nxJson.namedInputs!['production'] = Array.from(new Set(productionFileSet));
   }
 
   nxJson.targetDefaults ??= {};
 
-  nxJson.targetDefaults.lint ??= {};
-  nxJson.targetDefaults.lint.inputs ??= [
+  nxJson.targetDefaults['lint'] ??= {};
+  nxJson.targetDefaults['lint'].inputs ??= [
     'default',
     `{workspaceRoot}/.eslintrc.js`,
     `{workspaceRoot}/.eslintignore`,

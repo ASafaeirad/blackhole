@@ -6,7 +6,7 @@ import {
   updateProjectConfiguration,
 } from '@nx/devkit';
 
-import type { NormalizedSchema } from '../schema';
+import type { NormalizedSchema } from '../solid-library/schema';
 
 export function addVitest(tree: Tree, options: NormalizedSchema) {
   const project = readProjectConfiguration(tree, options.name);
@@ -25,7 +25,7 @@ export function addVitest(tree: Tree, options: NormalizedSchema) {
 
   project.targets ??= {};
 
-  project.targets.test = {
+  project.targets['test'] = {
     executor: '@nx/vite:test',
     outputs: ['{options.reportsDirectory}'],
     options: testOptions,

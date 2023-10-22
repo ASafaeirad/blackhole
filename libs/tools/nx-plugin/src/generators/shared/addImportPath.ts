@@ -1,9 +1,9 @@
 import type { Tree } from '@nx/devkit';
 import { getWorkspaceLayout, joinPathFragments, updateJson } from '@nx/devkit';
 
-import type { NormalizedSchema } from '../schema';
+import type { NormalizedProjectSchema } from './schema';
 
-export function addImportPath(tree: Tree, options: NormalizedSchema) {
+export function addImportPath(tree: Tree, options: NormalizedProjectSchema) {
   const { libsDir } = getWorkspaceLayout(tree);
 
   return updateJson(tree, 'tsconfig.base.json', json => {

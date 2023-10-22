@@ -1,12 +1,10 @@
-export interface SolidLibrarySchema {
-  name: string;
-  tags?: string;
-  unitTest: boolean;
-  directory?: string;
-  importPath?: string;
-}
+import type { NormalizedProjectSchema, ProjectSchema } from '../shared/schema';
 
-export interface NormalizedSchema extends SolidLibrarySchema {
+export interface SolidLibrarySchema extends ProjectSchema {}
+
+export interface NormalizedSchema
+  extends SolidLibrarySchema,
+    NormalizedProjectSchema {
   projectRoot: string;
   projectDirectory: string;
   fileName: string;
