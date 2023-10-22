@@ -26,6 +26,13 @@
         "command": "pnpm supabase start",
         "cwd": "libs/shared/db"
       }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm supabase stop",
+        "cwd": "libs/shared/db"
+      }
     }
   }
 }
