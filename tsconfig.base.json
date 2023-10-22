@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "CommonJS",
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -23,7 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@blackhole/db": ["libs/shared/db/src/index.ts"],
-      "@blackhole/nx-plugin": ["libs/tools/nx-plugin/src/index.ts"]
+      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "module": "ESNext",
     "types": [
       "vitest/globals",
       "vitest/importMeta",

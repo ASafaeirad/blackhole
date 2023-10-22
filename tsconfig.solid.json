@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "module": "ESNext",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"]
