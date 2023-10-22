@@ -17,7 +17,7 @@ export async function normalizeOptions(
   } = await determineProjectNameAndRootOptions(host, {
     name: schema.name,
     projectType: 'library',
-    directory: schema.directory,
+    directory: schema.directory ?? `libs/${schema.scope}`,
     importPath:
       schema.importPath ?? `@blackhole/${schema.scope}/${schema.name}`,
     projectNameAndRootFormat: 'derived',
