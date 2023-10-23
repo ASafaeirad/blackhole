@@ -26,7 +26,7 @@ export async function normalizeOptions(
   const name = names(schema.name).fileName;
   const projectDirectory = schema.directory
     ? `${names(schema.directory).fileName}/${name}`
-    : name;
+    : `${schema.scope}/${name}`;
 
   return {
     ...schema,
