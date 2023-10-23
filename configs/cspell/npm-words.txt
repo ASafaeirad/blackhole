@@ -10,3 +10,11 @@ devkit
 Buildable
 nxext
 dotenv
+csstype
+Segoe
+Roboto
+Menlo
+Consolas
+Neue
+Noto
+pandacss
