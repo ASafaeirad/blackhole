@@ -1,0 +1,26 @@
+name: Deploy Supabase
+
+on:
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+jobs:
+  supabase:
+    runs-on: ubuntu-20.04
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_AUTH_GITHUB_SECRET: ${{ secrets.SUPABASE_AUTH_GITHUB_SECRET }}
+      SUPABASE_AUTH_GITHUB_CLIENT_ID: ${{ vars.SUPABASE_AUTH_GITHUB_CLIENT_ID }}
+      SUPABASE_PROJECT_ID: ${{ vars.SUPABASE_PROJECT_ID }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: supabase/setup-cli@v1
+
+      - run: supabase link --project-ref $SUPABASE_PROJECT_ID
+        working-directory: ./libs/shared/supabase
+
+      - run: supabase db push
+        working-directory: ./libs/shared/supabase

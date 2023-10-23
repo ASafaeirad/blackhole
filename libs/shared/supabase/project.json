@@ -1,0 +1,48 @@
+{
+  "name": "supabase",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/supabase/src",
+  "projectType": "library",
+  "tags": ["type:data", "scope:shared"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/supabase/**/*.{ts,spec.ts}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../../coverage/libs/shared/supabase"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --silent dlx supabase start",
+        "cwd": "libs/shared/supabase"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --silent dlx supabase stop",
+        "cwd": "libs/shared/supabase"
+      }
+    },
+    "gen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "pnpm supabase gen types typescript --local --schema public >./libs/shared/supabase/src/lib/Database.ts",
+          "pnpm eslint ./libs/shared/supabase/src/lib/Database.ts --fix"
+        ],
+        "parallel": false
+      }
+    }
+  }
+}

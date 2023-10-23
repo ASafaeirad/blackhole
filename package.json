@@ -36,6 +36,7 @@
     "nx-cloud": "latest",
     "prettier": "3.0.3",
     "solid-devtools": "0.27.7",
+    "supabase": "1.106.1",
     "swc-loader": "0.1.15",
     "typescript": "5.2.2",
     "vite": "4.4.11",
