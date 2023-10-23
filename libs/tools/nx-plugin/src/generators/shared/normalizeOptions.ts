@@ -20,7 +20,7 @@ export async function normalizeOptions(
     directory: schema.directory ?? `libs/${schema.scope}`,
     importPath:
       schema.importPath ?? `@blackhole/${schema.scope}/${schema.name}`,
-    projectNameAndRootFormat: 'derived',
+    projectNameAndRootFormat: 'as-provided',
     ...option,
   });
   const name = names(schema.name).fileName;
@@ -32,7 +32,7 @@ export async function normalizeOptions(
     ...schema,
     inSourceTests: false,
     name: projectName,
-    projectRoot,
+    projectRoot: `${projectRoot}/${projectName}`,
     parsedTags: [`type:${schema.type}`, `scope:${schema.scope}`],
     fileName: projectNames.projectSimpleName,
     projectDirectory,
