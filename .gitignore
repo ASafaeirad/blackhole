@@ -37,5 +37,4 @@ Thumbs.db
 .env.local
 
 .nx/cache
-
 migrations.json

@@ -14,8 +14,7 @@ export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
 
   projectConfig.targets ??= {};
   projectConfig.targets['lint'] = {
-    executor: '@nx/eslint:eslint',
-    outputs: ['{options.outputFile}'],
+    executor: '@nx/eslint:lint',
   };
 
   updateProjectConfiguration(tree, schema.name, projectConfig);

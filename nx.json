@@ -1,12 +1,15 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "@nx/linter:eslint": {
+    "@nx/eslint:lint": {
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,tsx,spec.tsx}"]
       }
     },
     "@nx/vite:test": {
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
+      "cache": true,
       "options": {
         "passWithNoTests": true
       }
@@ -24,12 +27,12 @@
       ],
       "cache": true
     },
-    "e2e": {
-      "inputs": ["default", "^production"],
+    "test": {
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
       "cache": true
     },
-    "@nx/vite:test": {
-      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
+    "e2e": {
+      "inputs": ["default", "^production"],
       "cache": true
     },
     "spell": {
