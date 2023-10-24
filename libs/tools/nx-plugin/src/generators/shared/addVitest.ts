@@ -16,7 +16,6 @@ export function addVitest(tree: Tree, schema: NormalizedSchema) {
     project.root === '.' ? schema.name : project.root,
   );
   const testOptions = {
-    passWithNoTests: true,
     reportsDirectory: joinPathFragments(
       offsetFromRoot(project.root),
       coveragePath,

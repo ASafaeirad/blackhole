@@ -1,6 +1,16 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "@nx/linter:eslint": {
+      "options": {
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,tsx,spec.tsx}"]
+      }
+    },
+    "@nx/vite:test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],

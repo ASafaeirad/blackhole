@@ -16,9 +16,6 @@ export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
   projectConfig.targets['lint'] = {
     executor: '@nx/eslint:eslint',
     outputs: ['{options.outputFile}'],
-    options: {
-      lintFilePatterns: [`${schema.projectRoot}/**/*.{ts,spec.ts}`],
-    },
   };
 
   updateProjectConfiguration(tree, schema.name, projectConfig);
