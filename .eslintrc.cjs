@@ -22,6 +22,7 @@ module.exports = init({
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
         '@nx/enforce-module-boundaries': [
           'error',
           {

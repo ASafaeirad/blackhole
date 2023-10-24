@@ -20,3 +20,6 @@ Noto
 pandacss
 outdir
 postcss
+unocss
+easings
+extralight

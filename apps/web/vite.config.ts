@@ -1,5 +1,6 @@
 /// <reference types='vitest' />
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
@@ -9,7 +10,7 @@ export default defineConfig({
     port: 3000,
     host: 'localhost',
   },
-  plugins: [solidPlugin(), nxViteTsPaths()],
+  plugins: [solidPlugin(), nxViteTsPaths(), UnoCSS()],
   test: {
     globals: true,
     cache: {
