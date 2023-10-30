@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx nx affected --base=dev -t lint --parallel=3
-npx nx affected --base=dev -t spell --parallel=3
-npx nx affected --base=dev -t tsc --parallel=3
+pnpm nx affected --base=dev -t lint --parallel=3
+pnpm nx affected --base=dev -t spell --parallel=3
+pnpm nx affected --base=dev -t tsc --parallel=3
