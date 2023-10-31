@@ -71,5 +71,6 @@
       "unitTestRunner": "vitest",
       "e2eTestRunner": "playwright"
     }
-  }
+  },
+  "defaultProject": "web"
 }

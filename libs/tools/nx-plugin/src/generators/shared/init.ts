@@ -12,7 +12,7 @@ import {
   vitestCoverageV8Version,
 } from './versions';
 
-export async function initGenerator(tree: Tree) {
+export function initGenerator(tree: Tree) {
   const installTask = addDependenciesToPackageJson(
     tree,
     {},
