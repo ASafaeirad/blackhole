@@ -19,7 +19,7 @@ export async function solidLibraryGenerator(
   const options = await normalizeOptions(tree, schema, {
     callingGenerator: '@blackhole/nx:solid-library',
   });
-  const initTask = await initGenerator(tree);
+  const initTask = initGenerator(tree);
   addProject(tree, options);
   createFiles(tree, options);
   addLinting(tree, options);
