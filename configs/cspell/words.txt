@@ -1,2 +1,8 @@
 blackhole
 Pomodoro
+cssvar
+combinators
+Parseable
+Smoothings
+whitespaces
+nesw

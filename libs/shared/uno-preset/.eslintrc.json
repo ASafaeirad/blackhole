@@ -1,0 +1,24 @@
+{
+  "extends": ["../../../.eslintrc.js"],
+  "ignorePatterns": ["!**/*", "node_modules/**/*"],
+  "rules": {
+    "fp/no-let": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-unnecessary-condition": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "complexity": "off",
+    "fp/no-loops": "off",
+    "@typescript-eslint/prefer-for-of": "off",
+    "default-case": "off",
+    "@typescript-eslint/switch-exhaustiveness-check": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "rules": {
+        "@nx/dependency-checks": "error"
+      }
+    }
+  ]
+}

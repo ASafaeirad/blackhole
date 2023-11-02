@@ -1,5 +1,7 @@
 import { defineConfig } from 'unocss';
 
+import { presetBlackhole } from '../../libs/shared/uno-preset/src/index'; // eslint-disable-line @nx/enforce-module-boundaries, import/no-relative-packages
+
 const palette = {
   flare: 'lch(65 60.36 26.96)',
   gray: {
@@ -19,18 +21,27 @@ const palette = {
 };
 
 export default defineConfig({
-  theme: {},
-  rules: [
-    ['color-primary', { color: palette.gray[100] }],
-    ['color-alternative', { color: palette.gray[900] }],
-    ['color-muted', { color: palette.tint[50] }],
-    ['color-active', { color: palette.tint[50] }],
-
-    ['bg-primary', { backgroundColor: palette.gray[900] }],
-    ['bg-elevated', { backgroundColor: palette.gray[800] }],
-    ['bg-alternative', { backgroundColor: palette.gray[100] }],
-    ['bg-subtle', { backgroundColor: palette.tint[30] }],
-    ['bg-cta', { backgroundColor: palette.gray[700] }],
-  ],
-  presets: [],
+  theme: {
+    colors: {
+      border: {
+        red: '#f00',
+      },
+      shadow: {},
+      bg: {
+        primary: palette.gray[900],
+        elevated: palette.gray[800],
+        alternative: palette.gray[100],
+        subtle: palette.tint[30],
+        cta: palette.gray[700],
+      },
+      text: {
+        primary: palette.gray[100],
+        alternative: palette.gray[900],
+        muted: palette.tint[50],
+        active: palette.tint[50],
+      },
+    },
+  },
+  rules: [],
+  presets: [presetBlackhole()],
 });

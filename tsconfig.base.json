@@ -24,6 +24,7 @@
     "paths": {
       "@blackhole/design": ["libs/shared/design/src/index.tsx"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"]
     }
   },
