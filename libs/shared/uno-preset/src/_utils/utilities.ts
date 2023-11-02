@@ -45,7 +45,7 @@ export function directionSize(propertyPrefix: string): DynamicMatcher {
  * Obtain color from theme by camel-casing colors.
  */
 function getThemeColor(theme: Theme, colors: string[], scope: ColorScope) {
-  let obj: Theme['colors'] | string = theme.colors?.[scope];
+  let obj: Record<string, string> | string | undefined = theme.colors?.[scope];
 
   let index = -1;
 
@@ -141,7 +141,7 @@ export function parseColor(
       no = scale;
       colorData = getThemeColor(theme, colors.slice(0, -1), scope);
       if (!colorData || typeof colorData === 'string') color = undefined;
-      else color = colorData[no] as string;
+      else color = colorData[no];
     } else {
       colorData = getThemeColor(theme, colors, scope);
 
@@ -150,7 +150,7 @@ export function parseColor(
         colorData = getThemeColor(theme, [name], scope);
       }
       if (typeof colorData === 'string') color = colorData;
-      else if (no && colorData) color = colorData[no] as string;
+      else if (no && colorData) color = colorData[no];
     }
   }
 
