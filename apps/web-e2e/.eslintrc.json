@@ -1,4 +1,4 @@
 {
-  "extends": ["../../.eslintrc.js", "plugin:playwright/recommended"],
+  "extends": ["../../.eslintrc.cjs", "plugin:playwright/recommended"],
   "ignorePatterns": ["!**/*"]
 }
