@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "nx serve web",
+    "lint": "nx run-many --target lint --fix",
+    "test": "nx run-many --target test",
+    "spell": "nx run-many --target spell",
     "prepare": "./scripts/prepare"
   },
   "type": "module",

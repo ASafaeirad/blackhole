@@ -18,6 +18,13 @@
       "options": {
         "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
       }
+    },
+    "spell": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --silent dlx cspell . --config ../../.cspell.json",
+        "cwd": "{projectRoot}"
+      }
     }
   },
   "implicitDependencies": ["web"]

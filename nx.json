@@ -9,7 +9,7 @@
     "lint": {
       "inputs": [
         "default",
-        "{workspaceRoot}/.eslintrc.js",
+        "{workspaceRoot}/.eslintrc.cjs",
         "{projectRoot}/.eslintrc.json"
       ],
       "cache": true
@@ -21,6 +21,14 @@
     "@nx/vite:test": {
       "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
       "cache": true
+    },
+    "spell": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.cspell.json",
+        "{workspaceRoot}/configs/cspell/*.txt"
+      ]
     }
   },
   "namedInputs": {
@@ -34,7 +42,8 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/.eslintrc.js"
+      "!{projectRoot}/.eslintrc.js",
+      "!{projectRoot}/.eslintrc.cjs"
     ],
     "sharedGlobals": []
   },

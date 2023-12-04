@@ -4,9 +4,10 @@ module.exports = init({
   root: true,
   modules: {
     auto: false,
+    prettier: true,
     test: true,
     typescript: true,
-    cspell: true,
+    cspell: false,
     storybook: true,
     import: true,
   },

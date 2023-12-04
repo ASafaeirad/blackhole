@@ -59,13 +59,20 @@
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/apps/web"
-      },
-      "lint": {
-        "executor": "@nx/eslint:eslint",
-        "outputs": ["{options.outputFile}"],
-        "options": {
-          "lintFilePatterns": ["apps/web/**/*.{ts,tsx}"]
-        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/web/**/*.{ts,tsx}"]
+      }
+    },
+    "spell": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --silent dlx cspell . --config ../../.cspell.json",
+        "cwd": "{projectRoot}"
       }
     }
   }

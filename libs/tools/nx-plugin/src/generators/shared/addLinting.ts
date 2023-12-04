@@ -30,16 +30,18 @@ function addTargetDefaults(tree: Tree) {
   const productionFileSet = nxJson.namedInputs?.['production'];
 
   if (productionFileSet) {
-    productionFileSet.push('!{projectRoot}/.eslintrc.js');
+    productionFileSet.push('!{projectRoot}/.eslintrc.cjs');
     nxJson.namedInputs!['production'] = Array.from(new Set(productionFileSet));
   }
 
   nxJson.targetDefaults ??= {};
 
-  nxJson.targetDefaults['lint'] ??= {};
+  nxJson.targetDefaults['lint'] ??= {
+    cache: true,
+  };
   nxJson.targetDefaults['lint'].inputs ??= [
     'default',
-    `{workspaceRoot}/.eslintrc.js`,
+    `{workspaceRoot}/.eslintrc.cjs`,
     `{workspaceRoot}/.eslintignore`,
   ];
 
