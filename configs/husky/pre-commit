@@ -3,3 +3,4 @@
 
 npx nx affected --base=dev -t lint --parallel=3
 npx nx affected --base=dev -t spell --parallel=3
+npx nx affected --base=dev -t tsc --parallel=3

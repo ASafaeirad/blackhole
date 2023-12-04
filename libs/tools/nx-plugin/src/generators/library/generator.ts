@@ -5,6 +5,7 @@ import { addImportPath } from '../shared/addImportPath';
 import { addLinting } from '../shared/addLinting';
 import { addProject } from '../shared/addProject';
 import { addSpell } from '../shared/addSpell';
+import { addTSC } from '../shared/addTSC';
 import { addVitest } from '../shared/addVitest';
 import { normalizeOptions } from '../shared/normalizeOptions';
 import type { TypeScriptLibrarySchema } from './schema';
@@ -23,6 +24,7 @@ export async function tsLibraryGenerator(
   addSpell(tree, options);
   addVitest(tree, options);
   addImportPath(tree, options);
+  addTSC(tree, options);
 
   return formatFiles(tree);
 }

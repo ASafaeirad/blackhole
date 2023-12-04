@@ -29,6 +29,10 @@
         "{workspaceRoot}/.cspell.json",
         "{workspaceRoot}/configs/cspell/*.txt"
       ]
+    },
+    "tsc": {
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/tsconfig.*.json"]
     }
   },
   "namedInputs": {

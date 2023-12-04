@@ -8,15 +8,15 @@ import {
 
 import type { NormalizedProjectSchema } from './schema';
 
-export function addSpell(tree: Tree, schema: NormalizedProjectSchema) {
+export function addTSC(tree: Tree, schema: NormalizedProjectSchema) {
   addTargetDefaults(tree);
   const project = readProjectConfiguration(tree, schema.name);
 
   project.targets ??= {};
-  project.targets['spell'] = {
+  project.targets['tsc'] = {
     executor: 'nx:run-commands',
     options: {
-      command: 'pnpm cspell {projectRoot}',
+      command: 'pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit',
     },
   };
 
@@ -27,13 +27,12 @@ function addTargetDefaults(tree: Tree) {
   const nxJson = readNxJson(tree)!;
 
   nxJson.targetDefaults ??= {};
-  nxJson.targetDefaults['spell'] ??= {
+  nxJson.targetDefaults['tsc'] ??= {
     cache: true,
   };
-  nxJson.targetDefaults['spell'].inputs ??= [
+  nxJson.targetDefaults['tsc'].inputs ??= [
     'default',
-    `{workspaceRoot}/.cspell.json`,
-    `{workspaceRoot}/configs/cspell/*.txt`,
+    `{workspaceRoot}/tsconfig.*.json`,
   ];
 
   updateNxJson(tree, nxJson);

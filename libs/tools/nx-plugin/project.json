@@ -50,8 +50,13 @@
     "spell": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm --silent dlx cspell . --config ../../../.cspell.json",
-        "cwd": "{projectRoot}"
+        "command": "pnpm cspell {projectRoot}"
+      }
+    },
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
       }
     }
   },

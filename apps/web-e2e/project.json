@@ -22,8 +22,7 @@
     "spell": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm --silent dlx cspell . --config ../../.cspell.json",
-        "cwd": "{projectRoot}"
+        "command": "pnpm cspell {projectRoot}"
       }
     }
   },
