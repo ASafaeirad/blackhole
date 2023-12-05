@@ -6,7 +6,7 @@
   "tags": ["type:data", "scope:shared"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/shared/supabase/**/*.{ts,spec.ts}"]
@@ -20,18 +20,24 @@
         "reportsDirectory": "../../../coverage/libs/shared/supabase"
       }
     },
+    "spell": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm cspell {projectRoot}"
+      }
+    },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm --silent dlx supabase start",
-        "cwd": "libs/shared/supabase"
+        "cwd": "{projectRoot}"
       }
     },
     "stop": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm --silent dlx supabase stop",
-        "cwd": "libs/shared/supabase"
+        "cwd": "{projectRoot}"
       }
     },
     "gen": {
@@ -42,6 +48,12 @@
           "pnpm eslint ./libs/shared/supabase/src/lib/Database.ts --fix"
         ],
         "parallel": false
+      }
+    },
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
       }
     }
   }

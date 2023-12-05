@@ -4,6 +4,8 @@ import { convertNxGenerator, formatFiles, runTasksInSerial } from '@nx/devkit';
 import { addImportPath } from '../shared/addImportPath';
 import { addLinting } from '../shared/addLinting';
 import { addProject } from '../shared/addProject';
+import { addSpell } from '../shared/addSpell';
+import { addTSC } from '../shared/addTSC';
 import { addVitest } from '../shared/addVitest';
 import { normalizeOptions } from '../shared/normalizeOptions';
 import type { SolidLibrarySchema } from './schema';
@@ -21,6 +23,8 @@ export async function solidLibraryGenerator(
   addProject(tree, options);
   createFiles(tree, options);
   addLinting(tree, options);
+  addSpell(tree, options);
+  addTSC(tree, options);
   addVitest(tree, options);
   addImportPath(tree, options);
 

@@ -9,3 +9,4 @@ cacheable
 devkit
 Buildable
 nxext
+dotenv

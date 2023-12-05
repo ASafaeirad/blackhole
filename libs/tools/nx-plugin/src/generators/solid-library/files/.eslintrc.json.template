@@ -1,4 +1,4 @@
 {
-  "extends": ["<%= offsetFromRoot %>.eslintrc.js"],
+  "extends": ["<%= offsetFromRoot %>.eslintrc.cjs"],
   "ignorePatterns": ["!**/*"]
 }

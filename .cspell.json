@@ -15,5 +15,9 @@
     }
   ],
   "dictionaries": ["workspace", "npm"],
-  "ignorePaths": ["node_modules/", "pnpm-lock.yaml"]
+  "ignorePaths": [
+    "node_modules/",
+    "pnpm-lock.yaml",
+    "libs/shared/supabase/supabase/config.toml"
+  ]
 }

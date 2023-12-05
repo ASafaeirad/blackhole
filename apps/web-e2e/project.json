@@ -13,10 +13,16 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
+      }
+    },
+    "spell": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm cspell {projectRoot}"
       }
     }
   },
