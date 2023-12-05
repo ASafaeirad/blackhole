@@ -1,6 +1,6 @@
 import type { Rule } from '@unocss/core';
 
-import { globalKeywords } from '../utils';
+import { globalKeywords } from '../_utils';
 
 const overflowValues = [
   'auto',

@@ -1,11 +1,11 @@
 import type { Variant } from '@unocss/core';
-
 import {
   getBracket,
-  h,
   variantGetBracket,
   variantGetParameter,
-} from '../utils';
+} from '@unocss/rule-utils';
+
+import { h } from '../_utils';
 
 export const variantSelector: Variant = {
   name: 'selector',

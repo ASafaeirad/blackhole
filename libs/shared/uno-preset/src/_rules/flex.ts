@@ -1,7 +1,7 @@
 import type { Rule } from '@unocss/core';
 
+import { h } from '../_utils';
 import type { Theme } from '../theme';
-import { h } from '../utils';
 
 export const flex: Rule<Theme>[] = [
   // display

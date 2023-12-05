@@ -1,7 +1,7 @@
 import type { Rule, RuleContext } from '@unocss/core';
 
+import { h } from '../_utils';
 import type { Theme } from '../theme';
-import { h } from '../utils';
 
 const directions: Record<string, string> = {
   '': '',

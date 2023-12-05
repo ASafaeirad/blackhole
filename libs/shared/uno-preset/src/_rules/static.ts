@@ -1,6 +1,6 @@
 import type { Rule } from '@unocss/core';
 
-import { globalKeywords, h, makeGlobalStaticRules } from '../utils';
+import { globalKeywords, h, makeGlobalStaticRules } from '../_utils';
 
 const cursorValues = [
   'auto',

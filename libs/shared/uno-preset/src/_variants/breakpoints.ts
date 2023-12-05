@@ -1,6 +1,6 @@
 import type { VariantObject } from '@unocss/core';
 
-import { resolveBreakpoints } from '../utils';
+import { resolveBreakpoints } from '../_utils';
 
 export function calcMaxWidthBySize(size: string) {
   const value = /^-?[0-9]+\.?[0-9]*/.exec(size)?.[0] ?? '';

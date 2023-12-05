@@ -1,6 +1,6 @@
 import type { Rule } from '@unocss/core';
 
-import { colorResolver, globalKeywords, h } from '../utils';
+import { colorResolver, globalKeywords, h } from '../_utils';
 
 export const opacity: Rule[] = [
   [

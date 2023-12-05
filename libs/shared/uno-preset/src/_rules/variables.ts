@@ -1,6 +1,7 @@
 import type { Rule } from '@unocss/core';
+import { hasThemeFn, transformThemeFn } from '@unocss/rule-utils';
 
-import { h, hasThemeFn, transformThemeFn } from '../utils';
+import { h } from '../_utils';
 
 const variablesAbbrMap: Record<string, string> = {
   backface: 'backface-visibility',

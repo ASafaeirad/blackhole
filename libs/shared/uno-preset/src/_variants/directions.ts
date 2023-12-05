@@ -1,6 +1,5 @@
 import type { Variant } from '@unocss/core';
-
-import { variantMatcher } from '../utils';
+import { variantMatcher } from '@unocss/rule-utils';
 
 export const variantLanguageDirections: Variant[] = [
   variantMatcher('rtl', input => ({

@@ -1,8 +1,9 @@
 import type { VariantObject } from '@unocss/core';
 import { escapeRegExp, escapeSelector, warnOnce } from '@unocss/core';
+import { getBracket, variantGetBracket } from '@unocss/rule-utils';
 
 import type { PresetBlackholeOptions } from '..';
-import { getBracket, h, variantGetBracket } from '../_utils';
+import { h } from '../_utils';
 
 /**
  * Note: the order of following pseudo classes will affect the order of generated css.
@@ -123,7 +124,7 @@ function taggedPseudoClassMatcher(
     const bracketValue = h.bracket(match);
     if (bracketValue == null) return;
 
-    const label = rest.split(splitRE, 1)[0] ?? '';
+    const label = rest.split(splitRE, 1)?.[0] ?? '';
     const prefix = `${parent}${escapeSelector(label)}`;
     return [
       label,
@@ -363,25 +364,24 @@ export function variantPseudoClassFunctions(): VariantObject {
 export function variantTaggedPseudoClasses(
   options: PresetBlackholeOptions = {},
 ): VariantObject[] {
-  const attributify = !!options.attributifyPseudo;
+  const attributify = !!options?.attributifyPseudo;
+  let firstPrefix = options?.prefix ?? '';
+  firstPrefix =
+    (Array.isArray(firstPrefix) ? firstPrefix : [firstPrefix]).filter(
+      Boolean,
+    )[0] ?? '';
+  const tagWithPrefix = (tag: string, combinator: string) =>
+    taggedPseudoClassMatcher(
+      tag,
+      attributify ? `[${firstPrefix}${tag}=""]` : `.${firstPrefix}${tag}`,
+      combinator,
+    );
 
   return [
-    taggedPseudoClassMatcher(
-      'group',
-      attributify ? '[group=""]' : '.group',
-      ' ',
-    ),
-    taggedPseudoClassMatcher('peer', attributify ? '[peer=""]' : '.peer', '~'),
-    taggedPseudoClassMatcher(
-      'parent',
-      attributify ? '[parent=""]' : '.parent',
-      '>',
-    ),
-    taggedPseudoClassMatcher(
-      'previous',
-      attributify ? '[previous=""]' : '.previous',
-      '+',
-    ),
+    tagWithPrefix('group', ' '),
+    tagWithPrefix('peer', '~'),
+    tagWithPrefix('parent', '>'),
+    tagWithPrefix('previous', '+'),
   ];
 }
 

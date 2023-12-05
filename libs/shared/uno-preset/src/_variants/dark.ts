@@ -1,7 +1,7 @@
 import type { Variant } from '@unocss/core';
+import { variantMatcher, variantParentMatcher } from '@unocss/rule-utils';
 
 import type { PresetBlackholeOptions } from '..';
-import { variantMatcher, variantParentMatcher } from '../utils';
 
 export function variantColorsMediaOrClass(
   options: PresetBlackholeOptions = {},

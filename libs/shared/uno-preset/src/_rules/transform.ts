@@ -1,7 +1,7 @@
 import type { CSSValues, Rule, RuleContext } from '@unocss/core';
 
+import { h, makeGlobalStaticRules, positionMap, xyzMap } from '../_utils';
 import type { Theme } from '../theme';
-import { h, makeGlobalStaticRules, positionMap, xyzMap } from '../utils';
 
 const transformValues = ['translate', 'rotate', 'scale'];
 

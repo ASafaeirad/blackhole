@@ -1,7 +1,7 @@
 import type { CSSEntries, Rule, RuleContext, StaticRule } from '@unocss/core';
 
+import { globalKeywords, h, insetMap, makeGlobalStaticRules } from '../_utils';
 import type { Theme } from '../theme';
-import { globalKeywords, h, insetMap, makeGlobalStaticRules } from '../utils';
 
 export const positions: Rule[] = [
   [
