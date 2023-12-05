@@ -63,11 +63,6 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "spell": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm cspell {projectRoot}"
-      }
-    }
+    "spell": {}
   }
 }

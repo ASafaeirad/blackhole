@@ -14,6 +14,8 @@
       "options": {
         "reportsDirectory": "../../../coverage/libs/shared/design"
       }
-    }
+    },
+    "spell": {},
+    "tsc": {}
   }
 }

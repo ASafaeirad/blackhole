@@ -32,6 +32,7 @@ function addTargetDefaults(tree: Tree) {
 
   nxJson.targetDefaults ??= {};
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   nxJson.targetDefaults['lint'] ??= {
     cache: true,
   };

@@ -37,6 +37,10 @@
     },
     "spell": {
       "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm cspell {projectRoot}"
+      },
       "inputs": [
         "default",
         "{workspaceRoot}/.cspell.json",
@@ -45,6 +49,10 @@
     },
     "tsc": {
       "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
+      },
       "inputs": ["default", "{workspaceRoot}/tsconfig.*.json"]
     }
   },

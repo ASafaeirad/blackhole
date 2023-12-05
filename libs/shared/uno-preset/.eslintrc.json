@@ -1,5 +1,5 @@
 {
-  "extends": ["../../../.eslintrc.js"],
+  "extends": ["../../../.eslintrc.cjs"],
   "ignorePatterns": ["!**/*", "node_modules/**/*"],
   "rules": {
     "fp/no-let": "off",

@@ -18,12 +18,7 @@
         "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
       }
     },
-    "spell": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm cspell {projectRoot}"
-      }
-    }
+    "spell": {}
   },
   "implicitDependencies": ["web"]
 }

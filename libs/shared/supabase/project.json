@@ -15,12 +15,6 @@
         "reportsDirectory": "../../../coverage/libs/shared/supabase"
       }
     },
-    "spell": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm cspell {projectRoot}"
-      }
-    },
     "start": {
       "executor": "nx:run-commands",
       "options": {
@@ -45,11 +39,7 @@
         "parallel": false
       }
     },
-    "tsc": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
-      }
-    }
+    "spell": {},
+    "tsc": {}
   }
 }

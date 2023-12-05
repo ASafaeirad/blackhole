@@ -21,6 +21,8 @@
       "options": {
         "reportsDirectory": "../../../coverage/libs/shared/uno-preset"
       }
-    }
+    },
+    "spell": {},
+    "tsc": {}
   }
 }
