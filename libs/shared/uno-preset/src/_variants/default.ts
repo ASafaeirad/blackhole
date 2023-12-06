@@ -1,7 +1,7 @@
 import type { Variant } from '@unocss/core';
 
 import type { PresetBlackholeOptions } from '..';
-import type { Theme } from '../theme';
+import type { Theme } from '../_theme';
 import { variantAria } from './aria';
 import { variantBreakpoints } from './breakpoints';
 import { variantCombinators } from './combinators';

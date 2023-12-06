@@ -1,7 +1,7 @@
 import type { Rule } from '@unocss/core';
 
+import type { Theme } from '../_theme';
 import { colorResolver, h } from '../_utils';
-import type { Theme } from '../theme';
 
 export const svgUtilities: Rule<Theme>[] = [
   // fills

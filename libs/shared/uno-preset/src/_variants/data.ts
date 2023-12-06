@@ -1,8 +1,8 @@
 import type { Variant, VariantContext, VariantObject } from '@unocss/core';
 import { variantGetParameter } from '@unocss/rule-utils';
 
+import type { Theme } from '../_theme';
 import { h } from '../_utils';
-import type { Theme } from '../theme';
 
 export const variantDataAttribute: VariantObject = {
   name: 'data',

@@ -1,8 +1,8 @@
 import type { CSSObject, Rule } from '@unocss/core';
 import { toArray } from '@unocss/core';
 
+import type { Theme } from '../_theme';
 import { colorableShadows, colorResolver, h, splitShorthand } from '../_utils';
-import type { Theme } from '../theme';
 
 function handleThemeByKey(
   s: string,

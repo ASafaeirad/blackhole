@@ -1,6 +1,7 @@
 import type { CSSEntries, CSSObject, Rule, RuleContext } from '@unocss/core';
 import { colorOpacityToString, colorToString } from '@unocss/rule-utils';
 
+import type { Theme } from '../_theme';
 import {
   cornerMap,
   directionMap,
@@ -10,7 +11,6 @@ import {
   isCSSMathFn,
   parseColor,
 } from '../_utils';
-import type { Theme } from '../theme';
 
 export const borderStyles = [
   'solid',

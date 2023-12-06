@@ -1,6 +1,6 @@
 import type { Rule } from '@unocss/core';
 
-import type { Theme } from '../theme';
+import type { Theme } from '../_theme';
 import { textAligns, verticalAligns } from './align';
 import { appearance, outline, willChange } from './behaviors';
 import { borders } from './border';

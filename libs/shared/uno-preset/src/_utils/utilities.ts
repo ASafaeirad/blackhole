@@ -15,7 +15,7 @@ import {
   parseCssColor,
 } from '@unocss/rule-utils';
 
-import type { Theme } from '../theme';
+import type { Theme } from '../_theme';
 import { h } from './handlers';
 import { cssMathFnRE, directionMap, globalKeywords } from './mappings';
 
