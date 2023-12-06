@@ -1,4 +1,4 @@
-import type { Postprocessor, PresetOptions } from '@unocss/core';
+import type { PresetOptions } from '@unocss/core';
 import { definePreset } from '@unocss/core';
 import { extractorArbitraryVariants } from '@unocss/extractor-arbitrary-variants';
 
@@ -7,7 +7,6 @@ import { rules } from './rules';
 import { shorthands } from './shorthands';
 import type { Theme, ThemeAnimation } from './theme';
 import { theme } from './theme';
-import { normalizePreflights } from './utils/normalizePreflights';
 import { variants } from './variants';
 
 export type { Theme, ThemeAnimation };
@@ -69,7 +68,6 @@ export const presetBlackhole = definePreset(
     options.dark = options.dark ?? 'class';
     options.attributifyPseudo = options.attributifyPseudo ?? false;
     options.preflight = options.preflight ?? true;
-    const variablePrefix = 'bh-';
 
     return {
       name: '@unocss/preset-blackhole',
@@ -78,10 +76,7 @@ export const presetBlackhole = definePreset(
       variants: variants(options),
       options,
       prefix: options.prefix,
-      postprocess: VarPrefixPostprocessor(variablePrefix),
-      preflights: options.preflight
-        ? normalizePreflights(preflights, variablePrefix)
-        : [],
+      preflights: options.preflight ? preflights : [],
       extractorDefault: options.arbitraryVariants
         ? extractorArbitraryVariants
         : undefined,
@@ -91,17 +86,3 @@ export const presetBlackhole = definePreset(
     };
   },
 );
-
-export function VarPrefixPostprocessor(
-  prefix: string,
-): Postprocessor | undefined {
-  if (prefix !== 'bh-') {
-    return obj => {
-      obj.entries.forEach(i => {
-        i[0] = i[0].replace(/^--bh-/, `--${prefix}`);
-        if (typeof i[1] === 'string')
-          i[1] = i[1].replace(/var\(--bh-/g, `var(--${prefix}`);
-      });
-    };
-  }
-}
