@@ -4,6 +4,7 @@
     "@nx/eslint:lint": {
       "outputs": ["{options.outputFile}"],
       "options": {
+        "maxWarnings": 0,
         "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,tsx,spec.tsx}"]
       }
     },

@@ -1,7 +1,7 @@
 import type { Rule } from '@unocss/core';
 
-import { colorResolver, h } from '../utils';
 import type { Theme } from '../theme';
+import { colorResolver, h } from '../utils';
 import { varEmpty } from './static';
 
 export const ringBase = {
