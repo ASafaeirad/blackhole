@@ -1,6 +1,26 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "@nx/eslint:lint": {
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "maxWarnings": 0,
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,tsx,spec.tsx}"]
+      }
+    },
+    "@nx/vite:test": {
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c {projectRoot}/.storybook --url=http://localhost:4400"
+      }
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
@@ -14,16 +34,20 @@
       ],
       "cache": true
     },
+    "test": {
+      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
+      "cache": true
+    },
     "e2e": {
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "@nx/vite:test": {
-      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
-      "cache": true
-    },
     "spell": {
       "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm cspell {projectRoot}"
+      },
       "inputs": [
         "default",
         "{workspaceRoot}/.cspell.json",
@@ -32,7 +56,42 @@
     },
     "tsc": {
       "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
+      },
       "inputs": ["default", "{workspaceRoot}/tsconfig.*.json"]
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "{projectRoot}/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "cache": true,
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "configDir": "{projectRoot}/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      },
+      "inputs": [
+        "default",
+        "^production",
+        "{projectRoot}/.storybook/**/*",
+        "{projectRoot}/tsconfig.storybook.json"
+      ]
     }
   },
   "namedInputs": {
@@ -47,7 +106,10 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/.eslintrc.js",
-      "!{projectRoot}/.eslintrc.cjs"
+      "!{projectRoot}/.eslintrc.cjs",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ],
     "sharedGlobals": []
   },
@@ -57,6 +119,14 @@
       "linter": "eslint",
       "unitTestRunner": "vitest",
       "e2eTestRunner": "playwright"
+    }
+  },
+  "defaultProject": "web",
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build-storybook"]
+      }
     }
   }
 }

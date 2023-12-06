@@ -18,6 +18,7 @@
   "ignorePaths": [
     "node_modules/",
     "pnpm-lock.yaml",
-    "libs/shared/supabase/supabase/config.toml"
+    "libs/shared/supabase/supabase/config.toml",
+    "libs/shared/uno-preset/src/*"
   ]
 }

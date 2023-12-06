@@ -26,7 +26,6 @@ node_modules
 /coverage
 /libpeerconnection.log
 npm-debug.log
-yarn-error.log
 testem.log
 /typings
 
@@ -37,5 +36,4 @@ Thumbs.db
 .env.local
 
 .nx/cache
-
 migrations.json

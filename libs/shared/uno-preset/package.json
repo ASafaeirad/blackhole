@@ -1,0 +1,16 @@
+{
+  "name": "@blackhole/uno-preset",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "typings": "./index.d.ts",
+  "devDependencies": {
+    "@nx/vite": "17.0.2",
+    "@unocss/core": "0.58.0",
+    "@unocss/extractor-arbitrary-variants": "0.58.0",
+    "@unocss/rule-utils": "0.58.0",
+    "nx-tsconfig-paths.plugin": "link:@nx/vite/plugins/nx-tsconfig-paths.plugin",
+    "vite-plugin-dts": "3.6.3",
+    "vite": "4.5.0"
+  }
+}

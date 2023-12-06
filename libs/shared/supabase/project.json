@@ -6,24 +6,13 @@
   "tags": ["type:data", "scope:shared"],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/shared/supabase/**/*.{ts,spec.ts}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "passWithNoTests": true,
         "reportsDirectory": "../../../coverage/libs/shared/supabase"
-      }
-    },
-    "spell": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm cspell {projectRoot}"
       }
     },
     "start": {
@@ -50,11 +39,7 @@
         "parallel": false
       }
     },
-    "tsc": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
-      }
-    }
+    "spell": {},
+    "tsc": {}
   }
 }

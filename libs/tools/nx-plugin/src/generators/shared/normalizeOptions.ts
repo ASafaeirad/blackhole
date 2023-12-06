@@ -20,19 +20,19 @@ export async function normalizeOptions(
     directory: schema.directory ?? `libs/${schema.scope}`,
     importPath:
       schema.importPath ?? `@blackhole/${schema.scope}/${schema.name}`,
-    projectNameAndRootFormat: 'derived',
+    projectNameAndRootFormat: 'as-provided',
     ...option,
   });
   const name = names(schema.name).fileName;
   const projectDirectory = schema.directory
     ? `${names(schema.directory).fileName}/${name}`
-    : name;
+    : `${schema.scope}/${name}`;
 
   return {
     ...schema,
     inSourceTests: false,
     name: projectName,
-    projectRoot,
+    projectRoot: `${projectRoot}/${projectName}`,
     parsedTags: [`type:${schema.type}`, `scope:${schema.scope}`],
     fileName: projectNames.projectSimpleName,
     projectDirectory,

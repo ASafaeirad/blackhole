@@ -1,8 +1,11 @@
+import { Button } from '@blackhole/design';
+
 const App = () => {
   return (
     <div>
-      <header>
-        <h1>Blackhole</h1>
+      <header class="bg-cta border-solid border">
+        <h1 class="border">Blackhole</h1>
+        <Button>I'm a children</Button>
       </header>
     </div>
   );

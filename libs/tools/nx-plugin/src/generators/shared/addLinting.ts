@@ -14,11 +14,7 @@ export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
 
   projectConfig.targets ??= {};
   projectConfig.targets['lint'] = {
-    executor: '@nx/eslint:eslint',
-    outputs: ['{options.outputFile}'],
-    options: {
-      lintFilePatterns: [`${schema.projectRoot}/**/*.{ts,spec.ts}`],
-    },
+    executor: '@nx/eslint:lint',
   };
 
   updateProjectConfiguration(tree, schema.name, projectConfig);
@@ -36,6 +32,7 @@ function addTargetDefaults(tree: Tree) {
 
   nxJson.targetDefaults ??= {};
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   nxJson.targetDefaults['lint'] ??= {
     cache: true,
   };

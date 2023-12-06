@@ -6,10 +6,12 @@ module.exports = init({
     auto: false,
     prettier: true,
     test: true,
-    typescript: true,
-    cspell: false,
     storybook: true,
     import: true,
+    typescript: {
+      resolverProject: 'tsconfig.base.json',
+      parserProject: ['tsconfig.base.json', './libs/**/tsconfig.*.json'],
+    },
   },
   ignorePatterns: ['**/*'],
   plugins: ['@nx', 'solid'],
@@ -22,6 +24,7 @@ module.exports = init({
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
         '@nx/enforce-module-boundaries': [
           'error',
           {

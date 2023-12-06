@@ -5,4 +5,4 @@ omit_comments() {
   sed -r "s/#(.*)//g"
 }
 
-cat $1 | omit_comments | npx --no-install cspell stdin
+cat $1 | omit_comments | pnpm cspell stdin

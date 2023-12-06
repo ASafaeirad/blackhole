@@ -38,7 +38,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "libs/tools/nx-plugin/**/*.ts",
@@ -47,18 +46,8 @@
         ]
       }
     },
-    "spell": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm cspell {projectRoot}"
-      }
-    },
-    "tsc": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit"
-      }
-    }
+    "spell": {},
+    "tsc": {}
   },
   "tags": []
 }
