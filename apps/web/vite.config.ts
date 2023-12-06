@@ -10,7 +10,11 @@ export default defineConfig({
     port: 3000,
     host: 'localhost',
   },
-  plugins: [solidPlugin(), nxViteTsPaths(), UnoCSS()],
+  plugins: [
+    solidPlugin(),
+    nxViteTsPaths(),
+    UnoCSS({ configFile: '../../uno.config.ts' }),
+  ],
   test: {
     globals: true,
     cache: {

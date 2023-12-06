@@ -15,6 +15,13 @@
         "reportsDirectory": "../../../coverage/libs/shared/design"
       }
     },
+    "storybook": {},
+    "build-storybook": {
+      "options": {
+        "outputDir": "dist/storybook/design"
+      }
+    },
+    "test-storybook": {},
     "spell": {},
     "tsc": {}
   }

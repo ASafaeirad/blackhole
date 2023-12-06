@@ -6,13 +6,12 @@ module.exports = init({
     auto: false,
     prettier: true,
     test: true,
-    typescript: {
-      resolverProject: 'tsconfig.base.json',
-      parserProject: 'tsconfig.base.json',
-    },
-    cspell: false,
     storybook: true,
     import: true,
+    typescript: {
+      resolverProject: 'tsconfig.base.json',
+      parserProject: ['tsconfig.base.json', './libs/**/tsconfig.*.json'],
+    },
   },
   ignorePatterns: ['**/*'],
   plugins: ['@nx', 'solid'],
