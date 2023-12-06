@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "allowJs": true,
+    "esModuleInterop": false,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "verbatimModuleSyntax": true,
+    "types": ["vite/client"],
+    "noUncheckedIndexedAccess": false
+  }
+}
