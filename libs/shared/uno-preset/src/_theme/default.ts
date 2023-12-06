@@ -1,3 +1,4 @@
+import { colors } from './colors';
 import { blur, dropShadow } from './filters';
 import {
   fontFamily,
@@ -28,6 +29,7 @@ import { containers, height, maxHeight, maxWidth, width } from './size';
 import type { Theme } from './types';
 
 export const theme = {
+  colors,
   width,
   height,
   maxWidth,
