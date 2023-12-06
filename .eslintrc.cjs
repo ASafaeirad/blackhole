@@ -14,12 +14,10 @@ module.exports = init({
     },
   },
   ignorePatterns: ['**/*'],
-  plugins: ['@nx', 'solid'],
+  plugins: ['@nx'],
   settings: {
     'import/internal-regex': '^@blackhole/',
-    'solid/typescript': require('typescript'),
   },
-  extends: ['plugin:solid/typescript'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
