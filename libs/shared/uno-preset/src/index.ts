@@ -2,12 +2,12 @@ import type { Postprocessor, PresetOptions } from '@unocss/core';
 import { definePreset } from '@unocss/core';
 import { extractorArbitraryVariants } from '@unocss/extractor-arbitrary-variants';
 
-import type { Theme, ThemeAnimation } from './_theme';
-import { theme } from './_theme';
-import { normalizePreflights } from './_utils/normalizePreflights';
+import { normalizePreflights } from './utils/normalizePreflights';
 import { preflights } from './preflights';
 import { rules } from './rules';
 import { shorthands } from './shorthands';
+import type { Theme, ThemeAnimation } from './theme';
+import { theme } from './theme';
 import { variants } from './variants';
 
 export type { Theme, ThemeAnimation };
