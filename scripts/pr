@@ -7,7 +7,6 @@ GREEN='\033[1;32m'
 ERR='\033[1;91m'
 BOLD='\033[1m'
 
-BRANCH_PREFIX="ski"
 PR_PREFIX="BH"
 
 echo -en "${BOLD}"
@@ -26,7 +25,7 @@ TITLE=$(
     sed -r "s/\-/\ /g" |
     awk '{for (i=1; i<=NF; i++) $i=toupper(substr($i, 1, 1)) tolower(substr($i, 2)); print}'
 )
-TITLE="[BH-${PREFIX}]: $TITLE"
+TITLE="[${PR_PREFIX}-${PREFIX}]: $TITLE"
 
 read -e -p "$(echo -ne "${BOLD}title: ${YELLOW}")" -i "$TITLE" TITLE
 echo -ne "${RESET}\n"

@@ -1,9 +1,5 @@
 import type { Tree } from '@nx/devkit';
-import {
-  addDependenciesToPackageJson,
-  convertNxGenerator,
-  runTasksInSerial,
-} from '@nx/devkit';
+import { addDependenciesToPackageJson, runTasksInSerial } from '@nx/devkit';
 
 import {
   eslintPluginSolidVersion,
@@ -26,5 +22,3 @@ export function initGenerator(tree: Tree) {
 
   return runTasksInSerial(installTask);
 }
-
-export const initSchematic = convertNxGenerator(initGenerator);
