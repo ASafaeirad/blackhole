@@ -15,7 +15,9 @@
         "reportsDirectory": "../../../coverage/libs/shared/design"
       }
     },
-    "storybook": {},
+    "storybook": {
+      "executor": "@nx/storybook:storybook"
+    },
     "build-storybook": {
       "options": {
         "outputDir": "dist/storybook/design"
