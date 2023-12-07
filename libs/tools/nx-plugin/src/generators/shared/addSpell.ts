@@ -13,6 +13,7 @@ export function addSpell(tree: Tree, schema: NormalizedProjectSchema) {
   const project = readProjectConfiguration(tree, schema.name);
 
   project.targets ??= {};
+  project.targets['spell'] = {};
 
   updateProjectConfiguration(tree, schema.name, project);
 }
@@ -26,7 +27,7 @@ function addTargetDefaults(tree: Tree) {
     cache: true,
     executor: 'nx:run-commands',
     options: {
-      command: 'pnpm cspell {projectRoot}',
+      command: 'cspell {projectRoot}',
     },
     inputs: [
       'default',
