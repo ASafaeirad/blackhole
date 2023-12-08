@@ -32,7 +32,7 @@ module.exports = init({
             depConstraints: [
               {
                 sourceTag: 'type:util',
-                onlyDependOnLibsWithTags: ['type:util'],
+                onlyDependOnLibsWithTags: ['type:util', 'type:config'],
               },
               {
                 sourceTag: 'type:ui',

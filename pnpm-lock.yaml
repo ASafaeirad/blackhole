@@ -8,6 +8,9 @@ dependencies:
   '@fullstacksjs/config':
     specifier: 1.1.0-next.3
     version: 1.1.0-next.3
+  '@fullstacksjs/toolbox':
+    specifier: 4.7.0
+    version: 4.7.0
   '@supabase/supabase-js':
     specifier: 2.39.0
     version: 2.39.0
@@ -2445,6 +2448,11 @@ packages:
       - tailwindcss
       - utf-8-validate
     dev: true
+
+  /@fullstacksjs/toolbox@4.7.0:
+    resolution: {integrity: sha512-8LpNqsK2YeI5+ZouC9TEXaJxlkdyj5aDDn1OEIvRvyQRWyJIZgAIluUGYyqXaEKc4gfv85ji11ZgYk55RW8Ybw==}
+    engines: {node: '>=16'}
+    dev: false
 
   /@graphql-eslint/eslint-plugin@3.20.1(@babel/core@7.23.5)(@types/node@20.10.3)(graphql@16.8.1):
     resolution: {integrity: sha512-RbwVlz1gcYG62sECR1u0XqMh8w5e5XMCCZoMvPQ3nJzEBCTfXLGX727GBoRmSvY1x4gJmqNZ1lsOX7lZY14RIw==}
