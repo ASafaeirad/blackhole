@@ -27,7 +27,7 @@ function addTargetDefaults(tree: Tree) {
     cache: true,
     executor: 'nx:run-commands',
     options: {
-      command: 'pnpm tsc --project {projectRoot}/tsconfig.lib.json --noEmit',
+      command: 'tsc --project {projectRoot}/tsconfig.lib.json --noEmit',
     },
     inputs: ['default', `{workspaceRoot}/tsconfig.*.json`],
   };

@@ -20,6 +20,12 @@ module.exports = init({
   },
   overrides: [
     {
+      files: ['*.spec.ts', '*.spec.tsx'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
+    },
+    {
       files: ['*.ts', '*.tsx'],
       rules: {
         'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
@@ -32,7 +38,7 @@ module.exports = init({
             depConstraints: [
               {
                 sourceTag: 'type:util',
-                onlyDependOnLibsWithTags: ['type:util'],
+                onlyDependOnLibsWithTags: ['type:util', 'type:config'],
               },
               {
                 sourceTag: 'type:ui',

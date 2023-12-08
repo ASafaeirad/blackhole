@@ -113,20 +113,5 @@
     ],
     "sharedGlobals": []
   },
-  "generators": {
-    "@nx/web:application": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "vitest",
-      "e2eTestRunner": "playwright"
-    }
-  },
-  "defaultProject": "web",
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "cacheableOperations": ["build-storybook"]
-      }
-    }
-  }
+  "defaultProject": "web"
 }

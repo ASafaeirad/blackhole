@@ -25,7 +25,8 @@
           { "value": "data", "label": "Data Access" },
           { "value": "feature", "label": "Feature" },
           { "value": "util", "label": "Utility" },
-          { "value": "ui", "label": "UI Component" }
+          { "value": "ui", "label": "UI Component" },
+          { "value": "config", "label": "Config" }
         ]
       }
     },

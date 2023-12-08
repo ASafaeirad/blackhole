@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "ESNext",
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -22,9 +22,12 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "baseUrl": ".",
+    "types": ["vite/client"],
     "paths": {
+      "@blackhole/config": ["libs/shared/config/src/index.ts"],
       "@blackhole/design": ["libs/shared/design/src/index.tsx"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/debug": ["libs/shared/debug/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]
     }
