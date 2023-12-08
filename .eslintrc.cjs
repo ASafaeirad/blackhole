@@ -20,6 +20,12 @@ module.exports = init({
   },
   overrides: [
     {
+      files: ['*.spec.ts', '*.spec.tsx'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
+    },
+    {
       files: ['*.ts', '*.tsx'],
       rules: {
         'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],

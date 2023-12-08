@@ -21,7 +21,7 @@ const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   } catch (error) {
-    if (error instanceof Error) alert(error.message);
+    if (error instanceof Error) debug.error(error.message);
   }
 };
 
