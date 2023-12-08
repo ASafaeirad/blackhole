@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { debug } from '@blackhole/debug';
 import { Button } from '@blackhole/design';
 import { onMounted, ref } from 'vue';
 import { supabase } from '@blackhole/supabase';
@@ -31,7 +32,7 @@ const handleLogin = async () => {
     });
     if (error) throw error;
   } catch (error) {
-    if (error instanceof Error) alert(error.message);
+    if (error instanceof Error) debug.error(error.message);
   }
 };
 </script>
