@@ -8,7 +8,6 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "spell": {},
     "test": {
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
@@ -16,6 +15,16 @@
         "reportsDirectory": "../../../coverage/libs/shared/navigation"
       }
     },
-    "tsc": {}
+    "storybook": {
+      "executor": "@nx/storybook:storybook"
+    },
+    "build-storybook": {
+      "options": {
+        "outputDir": "dist/storybook/design"
+      }
+    },
+    "test-storybook": {},
+    "tsc": {},
+    "spell": {}
   }
 }
