@@ -110,5 +110,11 @@ module.exports = init({
         ],
       },
     },
+    {
+      files: ['**/.storybook/*'],
+      rules: {
+        '@nx/enforce-module-boundaries': 'off',
+      },
+    },
   ],
 });

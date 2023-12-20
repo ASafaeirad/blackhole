@@ -1,0 +1,14 @@
+{
+  "name": "storybook",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/storybook/src",
+  "projectType": "library",
+  "tags": ["type:util", "scope:tools"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "spell": {},
+    "tsc": {}
+  }
+}

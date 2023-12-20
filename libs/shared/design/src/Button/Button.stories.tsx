@@ -7,8 +7,13 @@ export default {
   argTypes: {
     onClick: { action: 'clicked' },
   },
+  render: args => ({
+    components: { Button },
+    setup: () => ({ args }),
+    template: '<Button v-bind="args">Button</Button>',
+  }),
 } as Meta<typeof Button>;
 
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {};
+export const Template: Story = {};
