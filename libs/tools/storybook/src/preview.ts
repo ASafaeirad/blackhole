@@ -3,7 +3,7 @@ import 'uno.css';
 
 import type { Preview } from '@storybook/vue3';
 
-export const storybookPreview: Preview = {
+const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -14,3 +14,5 @@ export const storybookPreview: Preview = {
     },
   },
 };
+
+export default preview;

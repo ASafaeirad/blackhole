@@ -62,30 +62,8 @@
       },
       "inputs": ["default", "{workspaceRoot}/tsconfig.*.json"]
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "{projectRoot}/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
     "build-storybook": {
       "cache": true,
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "configDir": "{projectRoot}/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      },
       "inputs": [
         "default",
         "^production",

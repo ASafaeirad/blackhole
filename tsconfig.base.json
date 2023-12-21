@@ -24,11 +24,11 @@
     "baseUrl": ".",
     "types": ["vite/client"],
     "paths": {
+      "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
       "@blackhole/debug": ["libs/shared/debug/src/index.ts"],
       "@blackhole/design": ["libs/shared/design/src/index.tsx"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
-      "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
       "@blackhole/shared/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]

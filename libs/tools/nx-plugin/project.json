@@ -37,14 +37,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/tools/nx-plugin/**/*.ts",
-          "libs/tools/nx-plugin/package.json",
-          "libs/tools/nx-plugin/generators.json"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "spell": {},
     "tsc": {}
