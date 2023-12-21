@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <button><slot /></button>
+  <button class="bg-cta"><slot /></button>
 </template>

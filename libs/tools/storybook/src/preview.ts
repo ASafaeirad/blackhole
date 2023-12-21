@@ -5,6 +5,15 @@ import type { Preview } from '@storybook/vue3';
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: 'lch(11.76% 0 0)',
+        },
+      ],
+    },
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
