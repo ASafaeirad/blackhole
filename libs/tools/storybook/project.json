@@ -24,7 +24,8 @@
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {
-        "configDir": "{projectRoot}/src"
+        "configDir": "{projectRoot}/src",
+        "outputDir": "dist/storybook/"
       },
       "configurations": {
         "ci": {

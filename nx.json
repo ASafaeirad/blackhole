@@ -68,7 +68,9 @@
         "default",
         "^production",
         "{projectRoot}/.storybook/**/*",
-        "{projectRoot}/tsconfig.storybook.json"
+        "{projectRoot}/tsconfig.storybook.json",
+        "{workspaceRoot}/libs/tools/storybook/src/*.ts",
+        "{workspaceRoot}/libs/**/*.stories.@(ts|tsx|mdx)"
       ]
     }
   },
@@ -80,6 +82,7 @@
     ],
     "production": [
       "default",
+      "!{workspaceRoot}/libs/tools/storybook/**/*",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/.eslintrc.json",
@@ -91,5 +94,12 @@
     ],
     "sharedGlobals": []
   },
-  "defaultProject": "web"
+  "defaultProject": "web",
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build-storybook"]
+      }
+    }
+  }
 }

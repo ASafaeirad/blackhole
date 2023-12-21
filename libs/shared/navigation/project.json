@@ -15,15 +15,6 @@
         "reportsDirectory": "../../../coverage/libs/shared/navigation"
       }
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook"
-    },
-    "build-storybook": {
-      "options": {
-        "outputDir": "dist/storybook/design"
-      }
-    },
-    "test-storybook": {},
     "tsc": {},
     "spell": {}
   }
