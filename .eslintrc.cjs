@@ -56,6 +56,7 @@ module.exports = init({
                 sourceTag: 'type:app',
                 onlyDependOnLibsWithTags: [
                   'type:util',
+                  'type:data',
                   'type:config',
                   'type:feature',
                   'type:ui',
