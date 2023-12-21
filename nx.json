@@ -15,12 +15,6 @@
         "passWithNoTests": true
       }
     },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c {projectRoot}/.storybook --url=http://localhost:4400"
-      }
-    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
