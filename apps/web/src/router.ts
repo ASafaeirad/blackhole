@@ -1,7 +1,7 @@
 import type { RouteParams, RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Projects from './Projects.vue';
+import ProjectsView from './ProjectsView.vue';
 
 export type AppRouteNames = 'projects';
 
@@ -9,7 +9,7 @@ export const routes: RouteRecordRaw[] = [
   {
     name: 'projects' as AppRouteNames,
     path: '/',
-    component: Projects,
+    component: ProjectsView,
   },
 ];
 

@@ -1,18 +1,16 @@
-// eslint-disable-next-line import/no-unresolved
-import 'uno.css';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import '../../../shared/design/src/GlobalStyle';
 
-import type { Preview } from '@storybook/vue3';
+import type { Decorator, Preview } from '@storybook/vue3';
+
+const decorators: Decorator[] = [];
 
 const preview: Preview = {
+  decorators,
   parameters: {
     backgrounds: {
       default: 'dark',
-      values: [
-        {
-          name: 'dark',
-          value: 'lch(11.76% 0 0)',
-        },
-      ],
+      values: [{ name: 'dark', value: 'lch(11.76% 0 0)' }],
     },
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {

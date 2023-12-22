@@ -1,10 +1,11 @@
+require('@rushstack/eslint-patch/modern-module-resolution');
 const { init } = require('@fullstacksjs/eslint-config/init');
 
 module.exports = init({
   root: true,
   modules: {
     auto: false,
-    prettier: true,
+    prettier: false,
     test: true,
     storybook: true,
     import: true,
@@ -14,6 +15,11 @@ module.exports = init({
     },
   },
   ignorePatterns: ['**/*'],
+  extends: [
+    'plugin:vue/vue3-recommended',
+    '@vue/eslint-config-typescript',
+    '@vue/eslint-config-prettier/skip-formatting',
+  ],
   plugins: ['@nx'],
   settings: {
     'import/internal-regex': '^@blackhole/',

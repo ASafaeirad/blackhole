@@ -5,7 +5,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "maxWarnings": 0,
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,tsx,spec.tsx}"]
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,vue,tsx,spec.tsx}"]
       }
     },
     "@nx/vite:test": {
