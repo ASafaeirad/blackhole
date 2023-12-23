@@ -1,1 +1,1 @@
-export { default as NavLink } from './NavLink.vue';
+export { NavLink } from './NavLink';

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import '../../../shared/design/src/GlobalStyle';
 
-import type { Decorator, Preview } from '@storybook/vue3';
+import type { Decorator, Preview } from '@storybook/react';
 
 const decorators: Decorator[] = [];
 

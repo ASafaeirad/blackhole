@@ -1,16 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import Logo from './Logo.vue';
+import { Logo } from './Logo';
 
 export default {
   component: Logo,
-  render: args => ({
-    components: { Logo },
-    setup: () => ({ args }),
-    template: '<Logo v-bind="args" />',
-  }),
 } as Meta<typeof Logo>;
 
 type Story = StoryObj<typeof Logo>;
 
-export const Template: Story = {};
+export const Default: Story = {};

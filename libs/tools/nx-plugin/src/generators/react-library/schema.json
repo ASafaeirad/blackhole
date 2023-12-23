@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "ReactLib",
+  "title": "React Library",
+  "description": "Create a React Library for the Blackhole workspace.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "type": {
+      "type": "string",
+      "description": "Provide the library type",
+      "x-prompt": {
+        "message": "Which type of library would you like to generate?",
+        "type": "list",
+        "items": [
+          { "value": "data", "label": "Data Access" },
+          { "value": "feature", "label": "Feature" },
+          { "value": "util", "label": "Utility" },
+          { "value": "ui", "label": "UI Component" },
+          { "value": "config", "label": "Config" }
+        ]
+      }
+    },
+    "scope": {
+      "type": "string",
+      "description": "Provide the library type",
+      "x-prompt": {
+        "message": "Which type of library would you like to generate?",
+        "type": "list",
+        "items": [
+          { "value": "shared", "label": "Shared" },
+          { "value": "user", "label": "User" },
+          { "value": "task", "label": "Task and Project" },
+          { "value": "focus", "label": "Focus" },
+          { "value": "analytics", "label": "Analytics" },
+          { "value": "notification", "label": "Notification" }
+        ]
+      }
+    },
+    "unitTestRunner": {
+      "type": "boolean",
+      "description": "Do you need vitest?",
+      "default": true
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the lib is placed.",
+      "alias": "d"
+    },
+    "importPath": {
+      "type": "string",
+      "description": "The library name used to import it"
+    }
+  },
+  "required": ["name", "scope", "type"]
+}

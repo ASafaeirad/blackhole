@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "<%= offsetFromRoot %>dist/out-tsc"
   },
   "files": ["../../../@types/router.d.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx"],

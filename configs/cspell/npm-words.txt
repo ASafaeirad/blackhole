@@ -30,3 +30,5 @@ preflights
 kobalte
 vitejs
 pinia
+Tanstack
+reduxjs

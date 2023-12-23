@@ -31,8 +31,8 @@
       "@blackhole/design/styles": [
         "libs/shared/design/src/GlobalStyle/index.ts"
       ],
-      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
+      "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]
     }
