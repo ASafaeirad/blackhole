@@ -1,5 +1,5 @@
 {
-  "extends": "<%= offsetFromRoot %>tsconfig.vue.json",
+  "extends": "<%= offsetFromRoot %>tsconfig.react.json",
   "files": [],
   "include": [],
   "references": [

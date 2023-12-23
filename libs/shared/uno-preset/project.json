@@ -5,9 +5,7 @@
   "projectType": "library",
   "tags": ["type:ui", "scope:shared"],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],

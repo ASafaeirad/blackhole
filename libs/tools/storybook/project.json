@@ -5,9 +5,7 @@
   "projectType": "library",
   "tags": ["type:util", "scope:tools"],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "serve": {
       "executor": "@nx/storybook:storybook",
       "options": {

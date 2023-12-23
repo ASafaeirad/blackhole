@@ -1,6 +1,5 @@
-<script setup lang="ts">
-</script>
+export interface Props {}
 
-<template>
-Hello from <%= className %>
-</template>
+export const <%= className %> = (props: Props) => {
+  return <div>Hello from <%= className %></div>;
+}

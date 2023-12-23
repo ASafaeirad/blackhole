@@ -36,9 +36,7 @@
         ]
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "spell": {},
     "tsc": {}
   },

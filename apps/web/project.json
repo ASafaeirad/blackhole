@@ -60,9 +60,7 @@
         "reportsDirectory": "../../coverage/apps/web"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "spell": {}
   }
 }

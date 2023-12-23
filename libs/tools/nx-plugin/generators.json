@@ -14,6 +14,11 @@
       "factory": "./src/generators/vue-library/generator",
       "schema": "./src/generators/vue-library/schema.json",
       "description": "Blackhole Vue lib generator"
+    },
+    "react-lib": {
+      "factory": "./src/generators/react-library/generator",
+      "schema": "./src/generators/react-library/schema.json",
+      "description": "Blackhole React lib generator"
     }
   }
 }

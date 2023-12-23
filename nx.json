@@ -1,13 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "@nx/eslint:lint": {
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "maxWarnings": 0,
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,spec.ts,vue,tsx,spec.tsx}"]
-      }
-    },
     "@nx/vite:test": {
       "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
       "cache": true,
@@ -21,6 +14,12 @@
       "cache": true
     },
     "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "maxWarnings": 0,
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx}"]
+      },
       "inputs": [
         "default",
         "{workspaceRoot}/.eslintrc.cjs",
