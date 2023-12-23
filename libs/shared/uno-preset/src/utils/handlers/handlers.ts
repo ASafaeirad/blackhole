@@ -120,7 +120,7 @@ export function percent(str: string) {
   if (str.endsWith('%')) str = str.slice(0, -1);
   if (!numberRE.test(str)) return;
   const num = Number.parseFloat(str);
-  if (!Number.isNaN(num)) return `${round(num / 100)}`;
+  if (!Number.isNaN(num)) return round(num / 100);
 }
 
 export function fraction(str: string) {
