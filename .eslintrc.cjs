@@ -16,6 +16,7 @@ module.exports = init({
   },
   ignorePatterns: ['**/*'],
   plugins: ['@nx'],
+  extends: ['plugin:unocss/recommended'],
   settings: {
     'import/internal-regex': '^@blackhole/',
   },

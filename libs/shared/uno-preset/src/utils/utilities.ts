@@ -85,7 +85,7 @@ export function splitShorthand(body: string, type: string) {
   return split;
 }
 
-type ColorScope = 'bg' | 'border' | 'shadow' | 'text';
+type ColorScope = 'bg' | 'border' | 'icon' | 'shadow' | 'text';
 
 /**
  * Parse color string into {@link ParsedColorValue} (if possible). Color value will first be matched to theme object before parsing.

@@ -7,7 +7,7 @@ export interface NavLinkProps extends LinkProps {}
 export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
   (props, ref) => (
     <Link
-      className="[&.active]:color-primary color-muted"
+      className="decoration-none color-muted [&.active]:color-primary"
       {...props}
       ref={ref}
     />

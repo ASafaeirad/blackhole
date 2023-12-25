@@ -11,6 +11,9 @@ dependencies:
   '@fullstacksjs/toolbox':
     specifier: 4.7.0
     version: 4.7.0
+  '@radix-ui/react-separator':
+    specifier: 1.0.3
+    version: 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
   '@reduxjs/toolkit':
     specifier: 2.0.1
     version: 2.0.1(react-redux@9.0.4)(react@18.2.0)
@@ -160,6 +163,9 @@ devDependencies:
   eslint-plugin-playwright:
     specifier: 0.20.0
     version: 0.20.0(eslint@8.56.0)
+  eslint-plugin-unocss:
+    specifier: 0.0.1-alpha.3
+    version: 0.0.1-alpha.3(eslint@8.56.0)
   husky:
     specifier: 8.0.3
     version: 8.0.3
@@ -4178,7 +4184,6 @@ packages:
       '@babel/runtime': 7.23.6
       '@types/react': 18.2.45
       react: 18.2.0
-    dev: true
 
   /@radix-ui/react-context@1.0.1(@types/react@18.2.45)(react@18.2.0):
     resolution: {integrity: sha512-ebbrdFoYTcuZ0v4wG5tedGnp9tzcV8awzsxYph7gXUyvnNLuTIcCk1q17JEbnVhXAKG9oX3KtchwiMIAYp9NLg==}
@@ -4355,7 +4360,6 @@ packages:
       '@types/react-dom': 18.2.18
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: true
 
   /@radix-ui/react-roving-focus@1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-2mUg5Mgcu001VkGy+FfzZyzbmuUWzgWkj3rvv4yu+mLw03+mTzbxZHvfcGyFp2b8EkQeMkpRQ5FiA2Vr2O6TeQ==}
@@ -4446,7 +4450,6 @@ packages:
       '@types/react-dom': 18.2.18
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: true
 
   /@radix-ui/react-slot@1.0.2(@types/react@18.2.45)(react@18.2.0):
     resolution: {integrity: sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==}
@@ -4461,7 +4464,6 @@ packages:
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.45)(react@18.2.0)
       '@types/react': 18.2.45
       react: 18.2.0
-    dev: true
 
   /@radix-ui/react-toggle-group@1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Uaj/M/cMyiyT9Bx6fOZO0SAG4Cls0GptBWiBmBxofmDbNVnYYoyRWj/2M/6VCi/7qcXFWnHhRUfdfZFvvkuu8A==}
@@ -6413,7 +6415,6 @@ packages:
     resolution: {integrity: sha512-TJxDm6OfAX2KJWJdMEVTwWke5Sc/E/RlnPGvGfS0W7+6ocy2xhDVQVh/KvC2Uf7kACs+gDytdusDSdWfWkaNzw==}
     dependencies:
       '@types/react': 18.2.45
-    dev: true
 
   /@types/react@18.2.45:
     resolution: {integrity: sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==}
@@ -6733,12 +6734,24 @@ packages:
       - rollup
     dev: true
 
+  /@unocss/config@0.49.8:
+    resolution: {integrity: sha512-tEpxZ/FvmvBV+PdF7hiqRT7F4PTI2HG6Ytw4cgusmp62VeWJ1t1L+9DuGsUDpaLL/LYyYS7wiCdZj/m+GeNBLg==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@unocss/core': 0.49.8
+      unconfig: 0.3.11
+    dev: true
+
   /@unocss/config@0.58.0:
     resolution: {integrity: sha512-WQD29gCZ7cajnMzezD1PRW0qQSxo/C6PX9ktygwhdinFx9nXuLZnKFOz65TiI8y48e53g1i7ivvgY3m4Sq5mIg==}
     engines: {node: '>=14'}
     dependencies:
       '@unocss/core': 0.58.0
       unconfig: 0.3.11
+    dev: true
+
+  /@unocss/core@0.49.8:
+    resolution: {integrity: sha512-00BXRcMn6ERIkWHM64g6Uv6YZ3GUR8HjrMAzJZdd+04WcG2xCOyen8k+yDCxslqL0YsLqXYyLsgFSunHfYWy8w==}
     dev: true
 
   /@unocss/core@0.58.0:
@@ -9896,6 +9909,17 @@ packages:
       fast-glob: 3.3.2
       postcss: 8.4.32
       tailwindcss: 3.4.0(ts-node@10.9.2)
+    dev: true
+
+  /eslint-plugin-unocss@0.0.1-alpha.3(eslint@8.56.0):
+    resolution: {integrity: sha512-fRPwI8t/NkhwjAxWXeg2/pTPvFIm+12AnHlhO6dd/S1JRGNfDYWObTwrlNKL5a/FVFezhuguGInn9bLq50EN6g==}
+    peerDependencies:
+      eslint: ^8.0.0
+    dependencies:
+      '@unocss/config': 0.49.8
+      '@unocss/core': 0.49.8
+      eslint: 8.56.0
+      synckit: 0.8.6
     dev: true
 
   /eslint-scope@5.1.1:

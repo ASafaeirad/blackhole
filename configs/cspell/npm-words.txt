@@ -32,3 +32,4 @@ vitejs
 pinia
 Tanstack
 reduxjs
+clsx
