@@ -4,7 +4,7 @@ import { variantGetParameter } from '@unocss/rule-utils';
 import type { Theme } from '../theme';
 import { h } from '../utils';
 
-export const variantDataAttribute: VariantObject = {
+export const variantDataAttribute: VariantObject<Theme> = {
   name: 'data',
   match(matcher, ctx: VariantContext<Theme>) {
     const variant = variantGetParameter(
@@ -27,7 +27,7 @@ export const variantDataAttribute: VariantObject = {
   },
 };
 
-export const variantGroupDataAttribute: Variant = {
+export const variantGroupDataAttribute: Variant<Theme> = {
   name: 'group-data',
   match(matcher, ctx: VariantContext<Theme>) {
     const variant = variantGetParameter(

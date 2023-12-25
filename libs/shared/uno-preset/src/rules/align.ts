@@ -1,5 +1,6 @@
 import type { Rule } from '@unocss/core';
 
+import type { Theme } from '../theme';
 import { h } from '../utils/handlers';
 import { globalKeywords } from '../utils/mappings';
 
@@ -20,7 +21,7 @@ const verticalAlignAlias: Record<string, string> = {
   ...Object.fromEntries(globalKeywords.map(x => [x, x])),
 };
 
-export const verticalAligns: Rule[] = [
+export const verticalAligns: Rule<Theme>[] = [
   [
     /^(?:vertical|align|v)-([-\w]+%?)$/,
     ([, v]) => ({
@@ -35,7 +36,7 @@ export const verticalAligns: Rule[] = [
   ],
 ];
 
-export const textAligns: Rule[] = [
+export const textAligns: Rule<Theme>[] = [
   'center',
   'left',
   'right',

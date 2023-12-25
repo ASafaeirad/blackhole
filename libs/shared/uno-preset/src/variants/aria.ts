@@ -4,7 +4,7 @@ import { variantGetParameter } from '@unocss/rule-utils';
 import type { Theme } from '../theme';
 import { h } from '../utils';
 
-export const variantAria: VariantObject = {
+export const variantAria: VariantObject<Theme> = {
   name: 'aria',
   match(matcher, ctx: VariantContext<Theme>) {
     const variant = variantGetParameter(

@@ -1,8 +1,9 @@
 import type { Rule } from '@unocss/core';
 
+import type { Theme } from '../theme';
 import { directionSize } from '../utils';
 
-export const paddings: Rule[] = [
+export const paddings: Rule<Theme>[] = [
   [
     /^pa?()-?(-?.+)$/,
     directionSize('padding'),
@@ -27,7 +28,7 @@ export const paddings: Rule[] = [
   ],
 ];
 
-export const margins: Rule[] = [
+export const margins: Rule<Theme>[] = [
   [/^ma?()-?(-?.+)$/, directionSize('margin')],
   [/^m-?xy()()$/, directionSize('margin')],
   [/^m-?([xy])(?:-?(-?.+))?$/, directionSize('margin')],

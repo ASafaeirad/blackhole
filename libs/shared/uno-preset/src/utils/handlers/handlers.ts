@@ -84,17 +84,19 @@ export function auto(str: string) {
   if (str === 'auto' || str === 'a') return 'auto';
 }
 
-export function rem(str: string) {
+export function rem<T extends string | undefined = undefined>(
+  str: string,
+  fallback?: T,
+): T | string {
   if (str.match(unitOnlyRE)) return `1${str}`;
   const match = str.match(numberWithUnitRE);
-  if (!match) return;
+  if (!match) return fallback as T;
   const [, n, unit] = match;
   const num = Number.parseFloat(n);
 
-  if (!Number.isNaN(num)) {
-    if (num === 0) return '0';
-    return unit ? `${round(num)}${unit}` : `${round(num / 4)}rem`;
-  }
+  if (Number.isNaN(num)) return fallback as T;
+  if (num === 0) return '0';
+  return unit ? `${round(num)}${unit}` : `${round(num / 4)}rem`;
 }
 
 export function px(str: string) {

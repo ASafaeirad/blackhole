@@ -1,5 +1,6 @@
 import type { VariantObject } from '@unocss/core';
 
+import type { Theme } from '../theme';
 import { resolveBreakpoints } from '../utils';
 
 export function calcMaxWidthBySize(size: string) {
@@ -14,7 +15,7 @@ export function calcMaxWidthBySize(size: string) {
   return `calc(${size} - 0.1px)`;
 }
 
-export function variantBreakpoints(): VariantObject {
+export function variantBreakpoints(): VariantObject<Theme> {
   const regexCache: Record<string, RegExp> = {};
   return {
     name: 'breakpoints',

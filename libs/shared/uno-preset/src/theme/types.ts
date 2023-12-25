@@ -1,4 +1,4 @@
-import type { Arrayable, CSSObject } from '@unocss/core';
+import type { Arrayable, CSSValue } from '@unocss/core';
 
 import type { colors } from './colors';
 
@@ -11,6 +11,12 @@ export interface ThemeAnimation {
 }
 
 export type Colors = typeof colors;
+
+export interface TextStyle {
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+}
 
 export interface Theme {
   width?: Record<string, string>;
@@ -30,18 +36,8 @@ export interface Theme {
   verticalBreakpoints?: Record<string, string>;
   colors?: Colors;
   fontFamily?: Record<string, string>;
-  fontSize?: Record<
-    string,
-    string | [string, CSSObject | string] | [string, string, string]
-  >;
-  fontWeight?: Record<string, string>;
-  lineHeight?: Record<string, string>;
-  letterSpacing?: Record<string, string>;
-  wordSpacing?: Record<string, string>;
+  textStyle: Record<string, CSSValue>;
   boxShadow?: Record<string, string[] | string>;
-  textIndent?: Record<string, string>;
-  textShadow?: Record<string, string[] | string>;
-  textStrokeWidth?: Record<string, string>;
   ringWidth?: Record<string, string>;
   lineWidth?: Record<string, string>;
   spacing?: Record<string, string>;

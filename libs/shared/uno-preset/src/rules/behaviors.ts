@@ -50,7 +50,7 @@ export const outline: Rule<Theme>[] = [
   ],
 ];
 
-export const appearance: Rule[] = [
+export const appearance: Rule<Theme>[] = [
   [
     'appearance-none',
     {
@@ -70,6 +70,6 @@ function willChangeProperty(prop: string): string | undefined {
   );
 }
 
-export const willChange: Rule[] = [
+export const willChange: Rule<Theme>[] = [
   [/^will-change-(.+)/, ([, p]) => ({ 'will-change': willChangeProperty(p) })],
 ];

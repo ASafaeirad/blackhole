@@ -49,13 +49,7 @@ import {
 import { svgUtilities } from './svg';
 import { transforms } from './transform';
 import { transitions } from './transition';
-import {
-  fonts,
-  tabSizes,
-  textIndents,
-  textShadows,
-  textStrokes,
-} from './typography';
+import { fonts, tabSizes } from './typography';
 import { cssProperty, cssVariables } from './variables';
 
 export const rules: Rule<Theme>[] = [
@@ -73,11 +67,8 @@ export const rules: Rule<Theme>[] = [
   contents,
   fonts,
   tabSizes,
-  textIndents,
   textOverflows,
   textDecorations,
-  textStrokes,
-  textShadows,
   textTransforms,
   textAligns,
   textColors,

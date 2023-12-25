@@ -1,16 +1,6 @@
 import { colors } from './colors';
 import { blur, dropShadow } from './filters';
-import {
-  fontFamily,
-  fontSize,
-  fontWeight,
-  letterSpacing,
-  lineHeight,
-  textIndent,
-  textShadow,
-  textStrokeWidth,
-  wordSpacing,
-} from './font';
+import { fontFamily, textStyle } from './font';
 import {
   borderRadius,
   boxShadow,
@@ -30,7 +20,7 @@ import type { Theme } from './types';
 
 export type { Theme, ThemeAnimation } from './types';
 
-export const theme = {
+export const theme: Theme = {
   colors,
   width,
   height,
@@ -45,18 +35,11 @@ export const theme = {
   minInlineSize: maxWidth,
   minBlockSize: maxHeight,
   fontFamily,
-  fontSize,
-  fontWeight,
+  textStyle,
   breakpoints,
   verticalBreakpoints,
   borderRadius,
-  lineHeight,
-  letterSpacing,
-  wordSpacing,
   boxShadow,
-  textIndent,
-  textShadow,
-  textStrokeWidth,
   blur,
   dropShadow,
   easing,
@@ -68,4 +51,4 @@ export const theme = {
   containers,
   zIndex,
   media,
-} satisfies Theme;
+};

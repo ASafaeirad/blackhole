@@ -1,6 +1,7 @@
 import type { Rule } from '@unocss/core';
 import { hasThemeFn, transformThemeFn } from '@unocss/rule-utils';
 
+import type { Theme } from '../theme';
 import { h } from '../utils';
 
 const variablesAbbrMap: Record<string, string> = {
@@ -19,7 +20,7 @@ const variablesAbbrMap: Record<string, string> = {
   ws: 'white-space',
 };
 
-export const cssVariables: Rule[] = [
+export const cssVariables: Rule<Theme>[] = [
   [
     /^(.+?)-(\$.+)$/,
     ([, name, varname]) => {
@@ -29,7 +30,7 @@ export const cssVariables: Rule[] = [
   ],
 ];
 
-export const cssProperty: Rule[] = [
+export const cssProperty: Rule<Theme>[] = [
   [
     /^\[(.*)\]$/,
     ([_, body], { theme }) => {

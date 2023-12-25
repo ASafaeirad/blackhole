@@ -26,7 +26,7 @@ export const borderStyles = [
   ...globalKeywords,
 ];
 
-export const borders: Rule[] = [
+export const borders: Rule<Theme>[] = [
   // compound
   [
     /^(?:border|b)()(?:-(.+))?$/,
@@ -158,7 +158,10 @@ function borderColorResolver(direction: string) {
   };
 }
 
-function handlerBorder(m: string[], ctx: RuleContext): CSSEntries | undefined {
+function handlerBorder(
+  m: string[],
+  ctx: RuleContext<Theme>,
+): CSSEntries | undefined {
   return handlerBorderSize(m, ctx);
 }
 

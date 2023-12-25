@@ -1,7 +1,9 @@
 import type { Rule } from '@unocss/core';
 import { warnOnce } from '@unocss/core';
 
-export const containerParent: Rule[] = [
+import type { Theme } from '../theme';
+
+export const containerParent: Rule<Theme>[] = [
   [
     /^@container(?:\/(\w+))?(?:-(normal))?$/,
     ([, l, v]) => {

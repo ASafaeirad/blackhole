@@ -27,7 +27,7 @@ export const CONTROL_MINI_NO_NEGATIVE = '$$mini-no-negative';
  * @param propertyPrefix - Property for the css value to be created. Postfix will be appended according to direction matched.
  * @see {@link directionMap}
  */
-export function directionSize(propertyPrefix: string): DynamicMatcher {
+export function directionSize(propertyPrefix: string): DynamicMatcher<Theme> {
   return (
     [_, direction, size]: string[],
     { theme }: RuleContext<Theme>,
@@ -195,7 +195,7 @@ export function colorResolver(
   varName: string,
   scope: ColorScope,
   shouldPass?: (css: CSSObject) => boolean,
-): DynamicMatcher {
+): DynamicMatcher<Theme> {
   return (
     [, body]: string[],
     { theme }: RuleContext<Theme>,

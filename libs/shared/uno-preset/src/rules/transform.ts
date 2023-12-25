@@ -49,7 +49,7 @@ export const transformBase = {
   '--bh-translate-z': 0,
 };
 
-export const transforms: Rule[] = [
+export const transforms: Rule<Theme>[] = [
   // origins
   [
     /^(?:transform-)?origin-(.+)$/,

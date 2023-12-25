@@ -1,11 +1,11 @@
 import type { Variant } from '@unocss/core';
 import { variantMatcher, variantParentMatcher } from '@unocss/rule-utils';
 
-import type { PresetBlackholeOptions } from '..';
+import type { PresetBlackholeOptions, Theme } from '..';
 
 export function variantColorsMediaOrClass(
   options: PresetBlackholeOptions = {},
-): Variant[] {
+): Variant<Theme>[] {
   if (options.dark === 'class' || typeof options.dark === 'object') {
     const { dark = '.dark', light = '.light' } =
       typeof options.dark === 'string' ? {} : options.dark;
