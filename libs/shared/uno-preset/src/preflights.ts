@@ -10,6 +10,7 @@ export const preflights: Preflight<Theme>[] = [
       if (ctx.theme.preflightBase) {
         const css = entriesToCss(Object.entries(ctx.theme.preflightBase));
         const roots = toArray(ctx.theme.preflightRoot ?? [':root']);
+
         return roots.map(root => `${root}{${css}}`).join('');
       }
     },

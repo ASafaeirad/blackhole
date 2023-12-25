@@ -1,0 +1,8 @@
+html {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+hr {
+  margin: 0;
+}

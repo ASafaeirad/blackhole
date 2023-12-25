@@ -1,4 +1,4 @@
-const palette = {
+export const palette = {
   flare: 'lch(65 60.36 26.96)',
   gray: {
     100: 'lch(93.75% 0 0)',
@@ -35,3 +35,38 @@ export const colors = {
     active: palette.tint[50],
   },
 };
+
+type ToString<T> = T extends string ? T : '';
+type MergePath<T extends Record<string, Record<string, string>>> = {
+  [K in keyof T]: T[K] extends Record<string, string>
+    ? T[K] extends infer X
+      ? { [K2 in keyof X as `--${ToString<K>}-${ToString<K2>}`]: string }
+      : unknown
+    : T;
+};
+
+type FlattenProperties<T> = T extends Record<string, infer U> ? U : never;
+type MergeUnion<T> = (T extends any ? (k: T) => void : never) extends (
+  k: infer U,
+) => void
+  ? U
+  : never;
+
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {}; // eslint-disable-line @typescript-eslint/ban-types
+
+type ColorVars = Prettify<
+  MergeUnion<FlattenProperties<MergePath<typeof colors>>>
+>;
+
+export const colorVars: ColorVars = Object.entries(colors).reduce<any>(
+  (acc, [key, value]) => {
+    const obj = Object.entries(value).reduce<any>((acc, [k2, v2]) => {
+      acc[`--${key}-${k2}`] = v2;
+      return acc;
+    }, {});
+    return { ...acc, ...obj };
+  },
+  {},
+);
