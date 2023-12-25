@@ -33,6 +33,7 @@
       ],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/store": ["libs/shared/store/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]
