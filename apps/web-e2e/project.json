@@ -12,12 +12,7 @@
         "config": "apps/web-e2e/playwright.config.ts"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
-      }
-    },
+    "lint": {},
     "spell": {}
   },
   "implicitDependencies": ["web"]

@@ -5,7 +5,7 @@ import { variantGetParameter } from '@unocss/rule-utils';
 import type { Theme } from '../theme';
 import { h } from '../utils';
 
-export const variantContainerQuery: VariantObject = {
+export const variantContainerQuery: VariantObject<Theme> = {
   name: '@',
   match(matcher, ctx: VariantContext<Theme>) {
     if (matcher.startsWith('@container')) return;

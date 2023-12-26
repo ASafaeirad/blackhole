@@ -3,7 +3,7 @@ import type { CSSEntries, Rule, RuleContext, StaticRule } from '@unocss/core';
 import type { Theme } from '../theme';
 import { globalKeywords, h, insetMap, makeGlobalStaticRules } from '../utils';
 
-export const positions: Rule[] = [
+export const positions: Rule<Theme>[] = [
   [
     /^(?:position-|pos-)?(relative|absolute|fixed|sticky)$/,
     ([, v]) => ({ position: v }),
@@ -51,7 +51,7 @@ export const justifies: StaticRule[] = [
   ...makeGlobalStaticRules('justify-self'),
 ];
 
-export const orders: Rule[] = [
+export const orders: Rule<Theme>[] = [
   [/^order-(.+)$/, ([, v]) => ({ order: h.bracket.cssvar.number(v) })],
   ['order-first', { order: '-9999' }],
   ['order-last', { order: '9999' }],
@@ -86,7 +86,7 @@ export const alignments: StaticRule[] = [
   ...makeGlobalStaticRules('self', 'align-self'),
 ];
 
-export const placements: Rule[] = [
+export const placements: Rule<Theme>[] = [
   // contents
   ['place-content-center', { 'place-content': 'center' }],
   ['place-content-start', { 'place-content': 'start' }],
@@ -134,13 +134,13 @@ function handleInsetValue(
 
 function handleInsetValues(
   [, d, v]: string[],
-  ctx: RuleContext,
+  ctx: RuleContext<Theme>,
 ): CSSEntries | undefined {
   const r = handleInsetValue(v, ctx);
   if (r != null && d in insetMap) return insetMap[d].map(i => [i.slice(1), r]);
 }
 
-export const insets: Rule[] = [
+export const insets: Rule<Theme>[] = [
   [
     /^(?:position-|pos-)?inset-(.+)$/,
     ([, v], ctx) => ({ inset: handleInsetValue(v, ctx) }),
@@ -164,7 +164,7 @@ export const insets: Rule[] = [
   ],
 ];
 
-export const floats: Rule[] = [
+export const floats: Rule<Theme>[] = [
   // floats
   ['float-left', { float: 'left' }],
   ['float-right', { float: 'right' }],
@@ -179,7 +179,7 @@ export const floats: Rule[] = [
   ...makeGlobalStaticRules('clear'),
 ];
 
-export const zIndexes: Rule[] = [
+export const zIndexes: Rule<Theme>[] = [
   [/^(?:position-|pos-)?z([\d.]+)$/, ([, v]) => ({ 'z-index': h.number(v) })],
   [
     /^(?:position-|pos-)?z-(.+)$/,
@@ -190,7 +190,7 @@ export const zIndexes: Rule[] = [
   ],
 ];
 
-export const boxSizing: Rule[] = [
+export const boxSizing: Rule<Theme>[] = [
   ['box-border', { 'box-sizing': 'border-box' }],
   ['box-content', { 'box-sizing': 'content-box' }],
   ...makeGlobalStaticRules('box', 'box-sizing'),

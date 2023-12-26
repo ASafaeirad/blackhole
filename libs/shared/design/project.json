@@ -5,9 +5,7 @@
   "projectType": "library",
   "tags": ["type:ui", "scope:shared"],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "test": {
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
@@ -15,15 +13,6 @@
         "reportsDirectory": "../../../coverage/libs/shared/design"
       }
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook"
-    },
-    "build-storybook": {
-      "options": {
-        "outputDir": "dist/storybook/design"
-      }
-    },
-    "test-storybook": {},
     "spell": {},
     "tsc": {}
   }

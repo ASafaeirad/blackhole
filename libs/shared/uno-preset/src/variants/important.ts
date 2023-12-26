@@ -1,6 +1,8 @@
 import type { VariantObject } from '@unocss/core';
 
-export function variantImportant(): VariantObject {
+import type { Theme } from '../theme';
+
+export function variantImportant(): VariantObject<Theme> {
   let re: RegExp;
   return {
     name: 'important',

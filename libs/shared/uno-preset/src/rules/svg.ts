@@ -7,7 +7,7 @@ export const svgUtilities: Rule<Theme>[] = [
   // fills
   [
     /^fill-(.+)$/,
-    colorResolver('fill', 'fill', 'text'),
+    colorResolver('fill', 'fill', 'icon'),
     { autocomplete: 'fill-$colors.text' },
   ],
   [
@@ -47,7 +47,7 @@ export const svgUtilities: Rule<Theme>[] = [
   // stroke colors
   [
     /^stroke-(.+)$/,
-    colorResolver('stroke', 'stroke', 'text'),
+    colorResolver('stroke', 'stroke', 'icon'),
     { autocomplete: 'stroke-$colors.text' },
   ],
   [

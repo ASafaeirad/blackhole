@@ -19,7 +19,7 @@ function handleGap([, d = '', s]: string[], { theme }: RuleContext<Theme>) {
   }
 }
 
-export const gaps: Rule[] = [
+export const gaps: Rule<Theme>[] = [
   [
     /^(?:flex-|grid-)?gap-?()(.+)$/,
     handleGap,

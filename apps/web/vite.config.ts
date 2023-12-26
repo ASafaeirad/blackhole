@@ -1,11 +1,19 @@
-/// <reference types='vitest' />
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import vue from '@vitejs/plugin-vue';
+import react from '@vitejs/plugin-react';
 import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/web',
+  root: __dirname,
+
+  build: {
+    outDir: '../../dist/apps/web',
+    reportCompressedSize: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
+  cacheDir: '../../node_modules/.vite/apps/web',
   server: {
     port: 3000,
     host: 'localhost',
@@ -15,11 +23,16 @@ export default defineConfig({
     host: 'localhost',
   },
   plugins: [
-    vue(),
+    react(),
     nxViteTsPaths(),
     UnoCSS({ configFile: '../../uno.config.ts' }),
   ],
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../coverage/apps/web',
+      provider: 'v8',
+    },
     globals: true,
     cache: {
       dir: '../../node_modules/.vitest',

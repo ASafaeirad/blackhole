@@ -1,16 +1,17 @@
+import { pxToRem } from '../utils/handlers';
 import type { Theme } from './types';
 
 export const spacing = {
-  'DEFAULT': '2rem',
+  'DEFAULT': pxToRem(2),
   'none': '0',
-  '1': '.2rem',
-  '2': '.4rem',
-  '3': '.8rem',
-  '4': '1.2rem',
-  '5': '1.6rem',
-  '6': '2.4rem',
-  '7': '3.2rem',
-  '8': '4rem',
-  '9': '6.4rem',
-  '10': '8rem',
+  '1': pxToRem(2),
+  '2': pxToRem(4),
+  '3': pxToRem(8),
+  '4': pxToRem(12),
+  '5': pxToRem(16),
+  '6': pxToRem(24),
+  '7': pxToRem(32),
+  '8': pxToRem(40),
+  '9': pxToRem(64),
+  '10': pxToRem(80),
 } satisfies Theme['spacing'];

@@ -1,9 +1,10 @@
 import type { Variant, VariantObject } from '@unocss/core';
 import { variantGetBracket } from '@unocss/rule-utils';
 
+import type { Theme } from '../theme';
 import { h } from '../utils';
 
-function scopeMatcher(name: string, combinator: string): VariantObject {
+function scopeMatcher(name: string, combinator: string): VariantObject<Theme> {
   return {
     name: `combinator:${name}`,
     match(matcher, ctx) {
@@ -34,7 +35,7 @@ function scopeMatcher(name: string, combinator: string): VariantObject {
   };
 }
 
-export const variantCombinators: Variant[] = [
+export const variantCombinators: Variant<Theme>[] = [
   scopeMatcher('all', ' '),
   scopeMatcher('children', '>'),
   scopeMatcher('next', '+'),

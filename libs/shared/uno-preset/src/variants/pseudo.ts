@@ -2,7 +2,7 @@ import type { VariantObject } from '@unocss/core';
 import { escapeRegExp, escapeSelector, warnOnce } from '@unocss/core';
 import { getBracket, variantGetBracket } from '@unocss/rule-utils';
 
-import type { PresetBlackholeOptions } from '..';
+import type { PresetBlackholeOptions, Theme } from '..';
 import { h } from '../utils';
 
 /**
@@ -105,7 +105,7 @@ function taggedPseudoClassMatcher(
   tag: string,
   parent: string,
   combinator: string,
-): VariantObject {
+): VariantObject<Theme> {
   const rawRE = new RegExp(
     `^(${escapeRegExp(parent)}:)(\\S+)${escapeRegExp(combinator)}\\1`,
   );
@@ -252,7 +252,7 @@ const PseudoClassesAndElementsColonStr = Object.entries(PseudoClassesColon)
   .sort((a, b) => b.length - a.length)
   .join('|');
 
-export function variantPseudoClassesAndElements(): VariantObject {
+export function variantPseudoClassesAndElements(): VariantObject<Theme> {
   let PseudoClassesAndElementsRE: RegExp;
   let PseudoClassesAndElementsColonRE: RegExp;
   return {
@@ -313,7 +313,7 @@ export function variantPseudoClassesAndElements(): VariantObject {
   };
 }
 
-export function variantPseudoClassFunctions(): VariantObject {
+export function variantPseudoClassFunctions(): VariantObject<Theme> {
   let PseudoClassFunctionsRE: RegExp;
   let PseudoClassColonFunctionsRE: RegExp;
   let PseudoClassVarFunctionRE: RegExp;
@@ -363,7 +363,7 @@ export function variantPseudoClassFunctions(): VariantObject {
 
 export function variantTaggedPseudoClasses(
   options: PresetBlackholeOptions = {},
-): VariantObject[] {
+): VariantObject<Theme>[] {
   const attributify = !!options?.attributifyPseudo;
   let firstPrefix = options?.prefix ?? '';
   firstPrefix =
@@ -387,7 +387,7 @@ export function variantTaggedPseudoClasses(
 
 const PartClassesRE = /(part-\[(.+)]:)(.+)/;
 
-export const variantPartClasses: VariantObject = {
+export const variantPartClasses: VariantObject<Theme> = {
   match(input) {
     const match = PartClassesRE.exec(input);
 

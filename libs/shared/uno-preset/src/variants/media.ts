@@ -4,12 +4,12 @@ import { variantGetParameter, variantParentMatcher } from '@unocss/rule-utils';
 import type { Theme } from '../theme';
 import { h } from '../utils';
 
-export const variantPrint: VariantObject = variantParentMatcher(
+export const variantPrint: VariantObject<Theme> = variantParentMatcher(
   'print',
   '@media print',
 );
 
-export const variantCustomMedia: VariantObject = {
+export const variantCustomMedia: VariantObject<Theme> = {
   name: 'media',
   match(matcher, ctx: VariantContext<Theme>) {
     const variant = variantGetParameter(

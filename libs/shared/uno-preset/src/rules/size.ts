@@ -114,7 +114,7 @@ function getAspectRatio(prop: string) {
   return h.bracket.cssvar.global.auto.number(prop);
 }
 
-export const aspectRatio: Rule[] = [
+export const aspectRatio: Rule<Theme>[] = [
   [
     /^(?:size-)?aspect-(?:ratio-)?(.+)$/,
     ([, d]: string[]) => ({ 'aspect-ratio': getAspectRatio(d) }),

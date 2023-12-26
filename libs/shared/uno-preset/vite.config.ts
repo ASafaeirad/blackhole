@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shared/uno-preset-blackhole',
 
   plugins: [
@@ -16,6 +17,9 @@ export default defineConfig({
   ],
 
   build: {
+    outDir: '../../../dist/libs/uno-preset',
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     lib: {
       entry: 'src/index.ts',
       name: '@blackhole/uno-preset',
@@ -28,6 +32,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../../coverage/libs/shared/uno-preset',
+      provider: 'v8',
+    },
     globals: true,
     cache: {
       dir: '../../../node_modules/.vitest',

@@ -13,9 +13,7 @@ export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
   const projectConfig = readProjectConfiguration(tree, schema.name);
 
   projectConfig.targets ??= {};
-  projectConfig.targets['lint'] = {
-    executor: '@nx/eslint:lint',
-  };
+  projectConfig.targets['lint'] = {};
 
   updateProjectConfiguration(tree, schema.name, projectConfig);
 }

@@ -5,9 +5,10 @@ import {
   variantGetParameter,
 } from '@unocss/rule-utils';
 
+import type { Theme } from '../theme';
 import { h } from '../utils';
 
-export const variantSelector: Variant = {
+export const variantSelector: Variant<Theme> = {
   name: 'selector',
   match(matcher, ctx) {
     const variant = variantGetBracket(
@@ -30,7 +31,7 @@ export const variantSelector: Variant = {
   },
 };
 
-export const variantCssLayer: Variant = {
+export const variantCssLayer: Variant<Theme> = {
   name: 'layer',
   match(matcher, ctx) {
     const variant = variantGetParameter(
@@ -59,7 +60,7 @@ export const variantCssLayer: Variant = {
   },
 };
 
-export const variantInternalLayer: Variant = {
+export const variantInternalLayer: Variant<Theme> = {
   name: 'uno-layer',
   match(matcher, ctx) {
     const variant = variantGetParameter(
@@ -82,7 +83,7 @@ export const variantInternalLayer: Variant = {
   },
 };
 
-export const variantScope: Variant = {
+export const variantScope: Variant<Theme> = {
   name: 'scope',
   match(matcher, ctx) {
     const variant = variantGetBracket(
@@ -105,7 +106,7 @@ export const variantScope: Variant = {
   },
 };
 
-export const variantVariables: Variant = {
+export const variantVariables: Variant<Theme> = {
   name: 'variables',
   match(matcher, ctx) {
     if (!matcher.startsWith('[')) return;

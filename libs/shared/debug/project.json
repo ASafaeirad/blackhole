@@ -5,9 +5,7 @@
   "projectType": "library",
   "tags": ["type:util", "scope:shared"],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "spell": {},
     "test": {
       "executor": "@nx/vite:test",

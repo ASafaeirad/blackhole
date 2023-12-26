@@ -1,0 +1,43 @@
+{
+  "name": "storybook",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/storybook/src",
+  "projectType": "library",
+  "tags": ["type:util", "scope:tools"],
+  "targets": {
+    "lint": {},
+    "serve": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "{projectRoot}/src"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "configDir": "{projectRoot}/src",
+        "outputDir": "dist/storybook/"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c {projectRoot}/src --url=http://localhost:4400"
+      }
+    },
+    "spell": {},
+    "tsc": {}
+  }
+}

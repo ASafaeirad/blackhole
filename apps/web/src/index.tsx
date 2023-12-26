@@ -1,9 +1,13 @@
-// eslint-disable-next-line import/no-unresolved
-import 'uno.css';
-import '@unocss/reset/eric-meyer.css';
+import '@blackhole/design/styles';
 
-import { createApp } from 'vue';
+import { StrictMode } from 'react';
+import * as ReactDOM from 'react-dom/client';
 
-import App from './App.vue';
+import App from './App';
 
-createApp(App).mount('#root');
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

@@ -42,7 +42,8 @@
           { "value": "task", "label": "Task and Project" },
           { "value": "focus", "label": "Focus" },
           { "value": "analytics", "label": "Analytics" },
-          { "value": "notification", "label": "Notification" }
+          { "value": "notification", "label": "Notification" },
+          { "value": "tools", "label": "Tools" }
         ]
       }
     },
