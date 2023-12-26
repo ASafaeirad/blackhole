@@ -1,11 +1,16 @@
-export const Logo = () => (
+import { cn } from '@blackhole/cn';
+
+export interface LogoProps extends React.SVGAttributes<SVGElement> {}
+
+export const Logo = (props: LogoProps) => (
   <svg
     width="106"
     height="72"
     viewBox="0 0 106 72"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
-    className="color-primary"
+    {...props}
+    className={cn('color-primary', props.className)}
   >
     <path
       d="M62.1579 36.9181C61.7618 40.5242 59.2417 43.7071 55.5387 44.7689C51.8357 45.8308 48.0118 44.4669 45.7649 41.6186C44.3841 41.9978 43.0114 42.3725 41.6989 42.729C44.7011 47.7156 50.7746 50.2783 56.6365 48.5974C62.4984 46.9165 66.291 41.5249 66.1946 35.7051C64.8927 36.0982 63.53 36.508 62.1579 36.9181Z"
