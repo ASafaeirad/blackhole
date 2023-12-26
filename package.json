@@ -25,6 +25,7 @@
     "@nx/vite": "17.2.7",
     "@nx/workspace": "17.2.7",
     "@playwright/test": "1.40.1",
+    "@storybook/addon-a11y": "7.6.6",
     "@storybook/addon-essentials": "7.6.6",
     "@storybook/addon-interactions": "7.6.6",
     "@storybook/core-server": "7.6.6",
