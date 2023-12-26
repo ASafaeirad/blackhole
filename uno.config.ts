@@ -6,6 +6,7 @@ export default defineConfig({
   shortcuts: {
     fc: 'flex flex-col',
     fr: 'flex flex-row',
+    f1: 'flex-1',
   },
   presets: [
     presetBlackhole(),

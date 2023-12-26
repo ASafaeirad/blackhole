@@ -12,7 +12,7 @@ export const SideNavItem = ({ children, ...props }: Props) => (
   >
     <div className="fr gap-3 items-center">
       <div className="i-fe-columns" />
-      <div className="flex-1">{children}</div>
+      <div className="f1">{children}</div>
       <div className="i-fe-arrow-down" />
     </div>
   </NavLink>

@@ -13,7 +13,7 @@ import { ProjectsPage } from './ProjectsPage';
 const Layout = () => (
   <div className="fr h-screen">
     <SideNavigation />
-    <div className="flex-1">
+    <div className="f1">
       <Outlet />
     </div>
   </div>
