@@ -33,7 +33,17 @@ const aboutRoute = new Route({
   component: ProjectsPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute]);
+const settingsRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/settings',
+  component: ProjectsPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  aboutRoute,
+  settingsRoute,
+]);
 
 export const router = new Router({ routeTree });
 
