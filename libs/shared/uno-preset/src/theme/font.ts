@@ -30,33 +30,33 @@ const fontWeight = {
 
 export const textStyle = {
   body: {
-    fontSize: '16px',
-    fontWeight: fontWeight.regular,
-    lineHeight: 'normal',
+    'font-size': '16px',
+    'font-weight': fontWeight.regular,
+    'line-height': 'normal',
   },
   large: {
-    fontSize: pxToRem(32),
-    fontWeight: fontWeight.regular,
-    lineHeight: 'normal',
+    'font-size': pxToRem(32),
+    'font-weight': fontWeight.regular,
+    'line-height': 'normal',
   },
   title: {
-    fontSize: pxToRem(26),
-    fontWeight: fontWeight.semiBold,
-    lineHeight: 'normal',
+    'font-size': pxToRem(26),
+    'font-weight': fontWeight.semiBold,
+    'line-height': 'normal',
   },
   logo: {
-    fontSize: pxToRem(32),
-    fontWeight: fontWeight.extraBold,
-    lineHeight: 'normal',
+    'font-size': pxToRem(32),
+    'font-weight': fontWeight.extraBold,
+    'line-height': 'normal',
   },
   small: {
-    fontSize: pxToRem(14),
-    fontWeight: fontWeight.regular,
-    lineHeight: 'normal',
+    'font-size': pxToRem(14),
+    'font-weight': fontWeight.regular,
+    'line-height': 'normal',
   },
   xsamll: {
-    fontSize: pxToRem(12),
-    fontWeight: fontWeight.regular,
-    lineHeight: 'normal',
+    'font-size': pxToRem(12),
+    'font-weight': fontWeight.regular,
+    'line-height': 'normal',
   },
 } satisfies Theme['textStyle'];

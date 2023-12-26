@@ -11,11 +11,12 @@ import { DashboardPage } from './DashboardPage';
 import { ProjectsPage } from './ProjectsPage';
 
 const Layout = () => (
-  <>
+  <div className="fr h-screen">
     <SideNavigation />
-    <hr />
-    <Outlet />
-  </>
+    <div className="flex-1">
+      <Outlet />
+    </div>
+  </div>
 );
 
 const rootRoute = new RootRoute({ component: Layout });

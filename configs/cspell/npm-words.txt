@@ -33,3 +33,4 @@ pinia
 Tanstack
 reduxjs
 clsx
+iconify

@@ -1,1 +1,1 @@
-export { NavLink } from './NavLink';
+export * from './NavLink';
