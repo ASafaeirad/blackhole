@@ -43,9 +43,9 @@ devDependencies:
   '@fullstacksjs/eslint-config':
     specifier: 10.8.0
     version: 10.8.0(@babel/core@7.23.6)(@types/node@20.10.5)(eslint@8.56.0)(graphql@16.8.1)(jest@29.7.0)(prettier@3.1.1)(react@18.2.0)(tailwindcss@3.4.0)(typescript@5.3.3)
-  '@iconify-json/fe':
-    specifier: 1.1.10
-    version: 1.1.10
+  '@iconify-json/solar':
+    specifier: 1.1.9
+    version: 1.1.9
   '@nx/devkit':
     specifier: 17.2.7
     version: 17.2.7(nx@17.2.7)
@@ -2858,8 +2858,8 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iconify-json/fe@1.1.10:
-    resolution: {integrity: sha512-ePFSmtnDTk+PtsmGsPtmLXPQNV/V3iC/Kr7E/yv0PANiwVwqY5JJcaAVyWlVIvB7qaLEhncVhvXp7TwcM9bPpw==}
+  /@iconify-json/solar@1.1.9:
+    resolution: {integrity: sha512-BcWzZqA02BiQduYizqU/J4v4RNs0MkjZUGpMbejpozH8YQSt3+S/LfV6zfVRonx/2DhXTVSqiLa1abDRAZtojQ==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

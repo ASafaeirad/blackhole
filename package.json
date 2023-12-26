@@ -13,7 +13,7 @@
   "type": "module",
   "devDependencies": {
     "@fullstacksjs/eslint-config": "10.8.0",
-    "@iconify-json/fe": "1.1.10",
+    "@iconify-json/solar": "1.1.9",
     "@nx/devkit": "17.2.7",
     "@nx/eslint": "17.2.7",
     "@nx/eslint-plugin": "17.2.7",

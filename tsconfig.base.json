@@ -25,6 +25,7 @@
     "types": ["vite/client"],
     "paths": {
       "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
+      "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
       "@blackhole/debug": ["libs/shared/debug/src/index.ts"],
       "@blackhole/design": ["libs/shared/design/src/index.tsx"],
@@ -33,7 +34,7 @@
       ],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
-      "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
+      "@blackhole/icons": ["libs/shared/icons/src/index.ts"],
       "@blackhole/store": ["libs/shared/store/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]

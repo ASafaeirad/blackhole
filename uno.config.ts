@@ -7,6 +7,7 @@ export default defineConfig({
     fc: 'flex flex-col',
     fr: 'flex flex-row',
     f1: 'flex-1',
+    center: 'justify-center items-center',
   },
   presets: [
     presetBlackhole(),
