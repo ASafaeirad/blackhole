@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@fullstacksjs/config':
-    specifier: 1.1.0-next.3
-    version: 1.1.0-next.3
+    specifier: 1.1.0-next.7
+    version: 1.1.0-next.7
   '@fullstacksjs/toolbox':
     specifier: 4.7.0
     version: 4.7.0
@@ -2473,8 +2473,8 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: true
 
-  /@fullstacksjs/config@1.1.0-next.3:
-    resolution: {integrity: sha512-pcybKyKBcuZ/KsBZ0fSq3DKTw/8tP5iDmqvbUkczWYuMjJNr5qqOXfKLUWSLeOvhBIuZ5C1HR4YFAh59lZiGCA==}
+  /@fullstacksjs/config@1.1.0-next.7:
+    resolution: {integrity: sha512-z6CAM8XSQTsHsI1f5D9BiAXkJ365+ypBc/oLtq+pJVRZBPLbi6ULBvCT9Rv7KOKOXUCLTQs7re6+6tfo9AN7Aw==}
     engines: {node: '>=16'}
     dev: false
 

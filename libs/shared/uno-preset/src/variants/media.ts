@@ -7,7 +7,7 @@ import { h } from '../utils';
 export const variantPrint: VariantObject<Theme> = variantParentMatcher(
   'print',
   '@media print',
-);
+) as VariantObject<Theme>;
 
 export const variantCustomMedia: VariantObject<Theme> = {
   name: 'media',
