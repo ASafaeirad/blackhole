@@ -11,8 +11,11 @@ module.exports = init({
     import: true,
     typescript: {
       resolverProject: 'tsconfig.base.json',
-      parserProject: ['tsconfig.base.json', './libs/**/tsconfig.*.json'],
+      parserProject: ['./libs/**/tsconfig.json', './tsconfig.base.json'],
     },
+  },
+  parserOptions: {
+    tsconfigRootDir: __dirname,
   },
   ignorePatterns: ['**/*'],
   plugins: ['@nx'],
