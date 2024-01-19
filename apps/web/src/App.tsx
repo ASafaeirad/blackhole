@@ -1,3 +1,4 @@
+import { KeyBindingProvider } from '@blackhole/keybinding-manager';
 import { StoreProvider } from '@blackhole/store';
 
 import { Routes } from './Routes';
@@ -5,7 +6,9 @@ import { Routes } from './Routes';
 function App() {
   return (
     <StoreProvider>
-      <Routes />
+      <KeyBindingProvider>
+        <Routes />
+      </KeyBindingProvider>
     </StoreProvider>
   );
 }
