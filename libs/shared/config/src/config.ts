@@ -19,7 +19,8 @@ config.parse({
     anonKey: import.meta.env['VITE_SUPABASE_ANON_KEY'],
   },
   debug: {
-    scopes: import.meta.env['VITE_DEBUG_SCOPE'],
-    level: import.meta.env['VITE_DEBUG_LEVEL']?.split(',').filter(Boolean),
+    scopes:
+      import.meta.env['VITE_DEBUG_SCOPE']?.split(',').filter(Boolean) ?? [],
+    level: import.meta.env['VITE_DEBUG_LEVEL'],
   },
 });

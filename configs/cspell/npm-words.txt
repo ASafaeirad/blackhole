@@ -34,3 +34,6 @@ Tanstack
 reduxjs
 clsx
 iconify
+blocksuite
+keybinds
+usehooks
