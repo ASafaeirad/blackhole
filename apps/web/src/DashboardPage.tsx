@@ -1,5 +1,7 @@
-import { useRegisterKeybinding } from '@blackhole/keybinding-manager';
+import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import { useState } from 'react';
+
+import type { Action } from './App';
 
 interface Block {
   id: string;
@@ -10,13 +12,8 @@ export const DashboardPage = () => {
   const [block, setBlock] = useState<Block>({ id: '1', text: 'hello' });
   const [editMode, setEditMode] = useState(true);
 
-  useRegisterKeybinding({
-    keys: ['Escape'],
-    label: 'NormalMode',
-    command: () => {
-      setEditMode(false);
-    },
-  });
+  useSubscribeAction<Action>('GoToEditMode', () => setEditMode(true));
+  useSubscribeAction<Action>('GoToNormalMode', () => setEditMode(false));
 
   return !editMode ? (
     <div key={block.id}>{block.text}</div>
