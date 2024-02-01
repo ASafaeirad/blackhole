@@ -10,6 +10,6 @@ export default defineConfig({
     globals: true,
     cache: { dir: '../../../node_modules/.vitest' },
     environment: 'jsdom',
-    include: ['src/**/*.{spec}.{ts,tsx}'],
+    include: ['src/**/*.spec.{ts,tsx}'],
   },
 });
