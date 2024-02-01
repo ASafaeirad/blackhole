@@ -1,102 +1,42 @@
-import { ensureArray, isNull } from '@fullstacksjs/toolbox';
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 
-import type { Keybinding, KeySequence } from './Keybinding';
-import { findKeybindingIndex, getPlatformKeys } from './Keybinding';
-import { useSetKeyBindings } from './useSetKeyBindings';
+import type { Keybinding } from './Keybinding';
+import { KeybindingManager } from './KeybindingManager';
 
-export interface KeyBindProviderProps {
+export interface KeyBindProviderProps<TAction extends string> {
   children?: React.ReactNode;
-  initialKeyBindings?: Keybinding[];
-  debounce?: number;
+  actions: Record<TAction, Keybinding>;
 }
 
-export interface KeyBindingDispatch {
-  register: (kb: Keybinding[]) => void;
-  getPlatformKeys: (kb: Keybinding) => KeySequence | undefined;
-}
+const KeyBindingContext = createContext<KeybindingManager<any> | undefined>(
+  undefined,
+);
 
-const KeyBindingContext = createContext<Keybinding[] | undefined>(undefined);
-const KeyBindingDispatcherContext = createContext<
-  KeyBindingDispatch | undefined
->(undefined);
-
-export const KeyBindingProvider = ({
+export const KeyBindingProvider = <T extends string>({
   children,
-  initialKeyBindings = [],
-  debounce,
-}: KeyBindProviderProps) => {
-  const [keybindings, setKeyBindings] = useState(() => initialKeyBindings);
+  actions,
+}: KeyBindProviderProps<T>) => {
+  const manager = useMemo(() => new KeybindingManager(actions), []);
 
-  const register = useCallback(
-    (kbs: Keybinding[]) => {
-      setKeyBindings(prev => {
-        return kbs.reduce((acc, kb) => {
-          const keys = getPlatformKeys(kb);
-          if (!keys) return acc;
-
-          const index = findKeybindingIndex(prev, keys);
-
-          if (!isNull(index)) {
-            acc[index] = kb;
-          } else {
-            acc.push(kb);
-          }
-
-          return acc;
-        }, prev.slice());
-      });
-    },
-    [keybindings],
-  );
-
-  useSetKeyBindings(keybindings, debounce);
-
-  const dispatcher = useMemo<KeyBindingDispatch>(
-    () => ({ register, getPlatformKeys }),
-    [register, getPlatformKeys],
-  );
+  useEffect(() => manager.register(document), []);
 
   return (
-    <KeyBindingDispatcherContext.Provider value={dispatcher}>
-      <KeyBindingContext.Provider value={keybindings}>
-        {children}
-      </KeyBindingContext.Provider>
-    </KeyBindingDispatcherContext.Provider>
+    <KeyBindingContext.Provider value={manager}>
+      {children}
+    </KeyBindingContext.Provider>
   );
 };
 
-export const useKeyBindings = () => {
+export const useSubscribeAction = <T extends string>(
+  action: T,
+  callback: VoidFunction,
+) => {
   const context = useContext(KeyBindingContext);
 
   if (!context)
-    throw new Error('useKeyBind hook must be used with KeyBindProvider');
+    throw new Error(
+      'useSubscribeAction hook must be used with KeyBindingProvider',
+    );
 
-  return context;
-};
-
-export const useKeybindingDispatcher = () => {
-  const context = useContext(KeyBindingDispatcherContext);
-
-  if (!context)
-    throw new Error('useKeyBind hook must be used with KeyBindProvider');
-
-  return context;
-};
-
-export const useRegisterKeybinding = (
-  keyBindings: Keybinding | Keybinding[],
-) => {
-  const { register } = useKeybindingDispatcher();
-
-  useEffect(() => {
-    register(ensureArray(keyBindings));
-  }, [keyBindings]);
+  useEffect(() => context.subscribe(action, callback), []);
 };

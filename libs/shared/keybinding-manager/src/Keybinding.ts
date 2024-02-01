@@ -1,57 +1,153 @@
-import { debug } from '@blackhole/debug';
-import { isEmpty } from '@fullstacksjs/toolbox';
+/* eslint-disable @typescript-eslint/sort-type-constituents */
 
-import type { Platform } from './getPlatform';
-import { getPlatform } from './getPlatform';
-import { arraysAreEqual } from './utils';
+// cspell:disable
+export type KeyboardEventKey =
+  // Control keys
+  | 'enter'
+  | 'escape'
+  | 'backspace'
+  | 'tab'
+  | 'space'
+  | 'delete'
+  | 'end'
+  | 'home'
+  | 'insert'
+  | 'pageup'
+  | 'pagedown'
+  | 'pause'
+  | 'break'
 
-export type KeySequence = string[];
-export type PlatformSpecificKeySequence = Partial<
-  Record<Platform, KeySequence>
->;
+  // fns keys
+  | 'f1'
+  | 'f2'
+  | 'f3'
+  | 'f4'
+  | 'f5'
+  | 'f6'
+  | 'f7'
+  | 'f8'
+  | 'f9'
+  | 'f10'
+  | 'f11'
+  | 'f12'
+  | 'f13'
+  | 'f14'
+  | 'f15'
+  | 'f16'
+  | 'f17'
+  | 'f18'
+  | 'f19'
+  | 'f20'
+  | 'f21'
+  | 'f22'
+  | 'f23'
+  | 'f24'
 
-export interface Keybinding {
-  keys: KeySequence | PlatformSpecificKeySequence;
-  label: string;
-  command?: () => void;
-}
+  // navigation keys
+  | 'arrowdown'
+  | 'arrowleft'
+  | 'arrowright'
+  | 'arrowup'
 
-export const getPlatformKeys = (Keybinding: Keybinding) => {
-  const platform = getPlatform();
+  // lowercase
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f'
+  | 'g'
+  | 'h'
+  | 'i'
+  | 'j'
+  | 'k'
+  | 'l'
+  | 'm'
+  | 'n'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 'r'
+  | 's'
+  | 't'
+  | 'u'
+  | 'v'
+  | 'w'
+  | 'x'
+  | 'y'
+  | 'z'
 
-  const keys = Array.isArray(Keybinding.keys)
-    ? Keybinding.keys
-    : Keybinding.keys[platform];
+  // numbers
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
 
-  if (!keys) {
-    debug.trace(
-      'Keybinding',
-      `No keys found for platform "${platform}" in "${Keybinding.label}"`,
-    );
+  // symbols
+  | '!'
+  | '@'
+  | '#'
+  | '$'
+  | '%'
+  | '^'
+  | '&'
+  | '*'
+  | '('
+  | ')'
+  | '-'
+  | '_'
+  | '='
+  | '+'
+  | '|'
+  | '['
+  | ']'
 
-    return;
-  }
+  // numeric keypad keys
+  | 'numpad0'
+  | 'numpad1'
+  | 'numpad2'
+  | 'numpad3'
+  | 'numpad4'
+  | 'numpad5'
+  | 'numpad6'
+  | 'numpad7'
+  | 'numpad8'
+  | 'numpad9'
+  | 'numpadmultiply'
+  | 'numpadadd'
+  | 'numpadsubtract'
+  | 'numpaddecimal'
+  | 'numpaddivide'
 
-  return keys;
-};
+  // various other keys
+  | 'contextmenu'
+  | 'help'
+  | 'printscreen';
+// cspell:enable
 
-export const findKeybindingIndex = (
-  shortcuts: Keybinding[],
-  keys: string[],
-) => {
-  if (isEmpty(keys)) return undefined;
-
-  const index = shortcuts.findIndex(shortcut => {
-    const shortcutKeys = getPlatformKeys(shortcut);
-    if (!shortcutKeys) return false;
-    return arraysAreEqual(shortcutKeys, keys);
-  });
-
-  if (index === -1) return undefined;
-  return index;
-};
-
-export const findKeybinding = (keyBindings: Keybinding[], keys: string[]) => {
-  const shortcutIndex = findKeybindingIndex(keyBindings, keys);
-  return shortcutIndex != null ? keyBindings[shortcutIndex] : null;
-};
+type Meta = 'alt' | 'ctrl' | 'shift' | 'super';
+type SingleMeta = `${Meta}+${KeyboardEventKey}`;
+type ThreeMetaCombo = Exclude<Meta, 'super'> extends infer O
+  ? O extends Meta
+    ? Exclude<Meta, O> extends infer P
+      ? P extends Meta
+        ? Exclude<Meta, O | P> extends infer Q
+          ? Q extends Meta
+            ? `${O}+${P}+${Q}`
+            : never
+          : never
+        : never
+      : never
+    : never
+  : never;
+type TwoMeta<T = Meta> = T extends Meta
+  ? `${T}+${Exclude<Meta, T>}+${KeyboardEventKey}`
+  : never;
+type ThreeMeta = `${ThreeMetaCombo}+${KeyboardEventKey}`;
+export type Keybinding = KeyboardEventKey | SingleMeta | ThreeMeta | TwoMeta;
