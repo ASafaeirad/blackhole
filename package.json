@@ -13,7 +13,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@fullstacksjs/eslint-config": "10.10.0",
+    "@fullstacksjs/eslint-config": "10.10.1",
     "@iconify-json/solar": "1.1.9",
     "@nx/devkit": "17.2.7",
     "@nx/eslint": "17.2.8",
@@ -58,7 +58,7 @@
     "@vitest/ui": "1.1.0",
     "cspell": "8.2.3",
     "eslint": "8.56.0",
-    "eslint-plugin-playwright": "0.22.0",
+    "eslint-plugin-playwright": "0.22.1",
     "eslint-plugin-unocss": "0.0.1-alpha.3",
     "husky": "8.0.3",
     "jsdom": "23.0.1",
@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@fullstacksjs/config": "1.1.0-next.15",
-    "@fullstacksjs/toolbox": "4.7.0",
+    "@fullstacksjs/toolbox": "4.10.0",
     "@radix-ui/react-separator": "1.0.3",
     "@reduxjs/toolkit": "2.0.1",
     "@supabase/supabase-js": "2.39.1",

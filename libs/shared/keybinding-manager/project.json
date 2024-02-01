@@ -1,7 +1,7 @@
 {
-  "name": "Keybinding-manager",
+  "name": "keybinding-manager",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/Keybinding-manager/src",
+  "sourceRoot": "libs/shared/keybinding-manager/src",
   "projectType": "library",
   "tags": ["type:util", "scope:shared"],
   "targets": {
@@ -12,7 +12,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/shared/Keybinding-manager"
+        "reportsDirectory": "../../../coverage/libs/shared/keybinding-manager"
       }
     }
   }
