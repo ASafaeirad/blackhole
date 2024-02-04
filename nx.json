@@ -27,10 +27,6 @@
       ],
       "cache": true
     },
-    "test": {
-      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
-      "cache": true
-    },
     "e2e": {
       "inputs": ["default", "^production"],
       "cache": true
@@ -88,11 +84,5 @@
     "sharedGlobals": []
   },
   "defaultProject": "web",
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "cacheableOperations": ["build-storybook"]
-      }
-    }
-  }
+  "nxCloudAccessToken": "NWZjYWZhYWYtYzJiNi00OTA2LWFiNDEtNjJjNDQwOTE2OTNjfHJlYWQtd3JpdGU="
 }
