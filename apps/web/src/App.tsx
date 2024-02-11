@@ -1,17 +1,16 @@
-import type { Keybinding } from '@blackhole/keybinding-manager';
+import { Actions } from '@blackhole/actions';
 import { KeyBindingProvider } from '@blackhole/keybinding-manager';
 import { StoreProvider } from '@blackhole/store';
 
 import { Routes } from './Routes';
 
 const actions = {
-  MoveNextBlock: 'j',
-  MovePrevBlock: 'k',
-  GoToEditMode: 'i',
-  GoToNormalMode: 'escape',
-} as const satisfies Record<string, Keybinding>;
-
-export type Action = keyof typeof actions;
+  [Actions.MoveNextBlock]: 'j',
+  [Actions.MovePrevBlock]: 'k',
+  [Actions.GoToEditMode]: 'i',
+  [Actions.GoToNormalMode]: 'escape',
+  [Actions.CreateProject]: 'c',
+} as const;
 
 function App() {
   return (

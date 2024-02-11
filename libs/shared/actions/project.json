@@ -1,0 +1,19 @@
+{
+  "name": "actions",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/actions/src",
+  "projectType": "library",
+  "tags": ["type:config", "scope:shared"],
+  "targets": {
+    "lint": {},
+    "spell": {},
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/libs/shared/actions"
+      }
+    },
+    "tsc": {}
+  }
+}
