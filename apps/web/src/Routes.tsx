@@ -1,9 +1,9 @@
 import { SideNavigation } from '@blackhole/navigation';
 import {
+  createRootRoute,
+  createRoute,
+  createRouter,
   Outlet,
-  RootRoute,
-  Route,
-  Router,
   RouterProvider,
 } from '@tanstack/react-router';
 
@@ -19,21 +19,21 @@ const Layout = () => (
   </div>
 );
 
-const rootRoute = new RootRoute({ component: Layout });
+const rootRoute = createRootRoute({ component: Layout });
 
-const indexRoute = new Route({
+const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
   component: DashboardPage,
 });
 
-const aboutRoute = new Route({
+const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/projects',
   component: ProjectsPage,
 });
 
-const settingsRoute = new Route({
+const settingsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/settings',
   component: ProjectsPage,
@@ -45,6 +45,6 @@ const routeTree = rootRoute.addChildren([
   settingsRoute,
 ]);
 
-export const router = new Router({ routeTree });
+export const router = createRouter({ routeTree });
 
 export const Routes = () => <RouterProvider router={router} />;
