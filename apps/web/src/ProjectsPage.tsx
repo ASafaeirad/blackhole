@@ -1,6 +1,6 @@
 import { Actions } from '@blackhole/actions';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
-import { isEmpty } from '@fullstacksjs/toolbox';
+import { isEmpty, noop } from '@fullstacksjs/toolbox';
 
 export const Key = ({ children }: React.PropsWithChildren) => {
   return <kbd className="p-2 bg-elevated rounded color-muted">{children}</kbd>;
@@ -47,9 +47,7 @@ export const ProjectList = ({ projects }: { projects: Project[] }) => {
 
 export const ProjectsPage = () => {
   const projects = useProjects();
-  useSubscribeAction(Actions.CreateProject, () => {
-    console.log('Create Project');
-  });
+  useSubscribeAction(Actions.CreateProject, noop);
 
   return isEmpty(projects) ? (
     <ProjectEmptyState />
