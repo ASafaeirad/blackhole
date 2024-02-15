@@ -78,24 +78,14 @@ export const borders: Rule<Theme>[] = [
 
   // radius
   [
-    /^(?:border-|b-)?(?:rounded|rd)()(?:-(.+))?$/,
+    /^(?:rounded)()(?:-(.+))?$/,
     handlerRounded,
-    {
-      autocomplete: [
-        '(border|b)-(rounded|rd)',
-        '(border|b)-(rounded|rd)-<num>',
-        '(rounded|rd)',
-        '(rounded|rd)-<num>',
-      ],
-    },
+    { autocomplete: ['rounded', 'rounded-$borderRadius'] },
   ],
-  [/^(?:border-|b-)?(?:rounded|rd)-([rltbse])(?:-(.+))?$/, handlerRounded], // cspell:disable-line
-  [/^(?:border-|b-)?(?:rounded|rd)-([rltb]{2})(?:-(.+))?$/, handlerRounded], // cspell:disable-line
-  [/^(?:border-|b-)?(?:rounded|rd)-([bise][se])(?:-(.+))?$/, handlerRounded], // cspell:disable-line
-  [
-    /^(?:border-|b-)?(?:rounded|rd)-([bi][se]-[bi][se])(?:-(.+))?$/,
-    handlerRounded,
-  ],
+  [/^(?:rounded)-([rltbse])(?:-(.+))?$/, handlerRounded], // cspell:disable-line
+  [/^(?:rounded)-([rltb]{2})(?:-(.+))?$/, handlerRounded], // cspell:disable-line
+  [/^(?:rounded)-([bise][se])(?:-(.+))?$/, handlerRounded], // cspell:disable-line
+  [/^(?:rounded)-([bi][se]-[bi][se])(?:-(.+))?$/, handlerRounded],
 
   // style
   [

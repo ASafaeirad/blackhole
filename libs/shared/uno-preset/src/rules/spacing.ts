@@ -5,14 +5,15 @@ import { directionSize } from '../utils';
 
 export const paddings: Rule<Theme>[] = [
   [
-    /^pa?()-?(-?.+)$/,
+    /^p()-(-?.+)$/,
     directionSize('padding'),
     { autocomplete: ['(m|p)<num>', '(m|p)-<num>'] },
   ],
-  [/^p-?xy()()$/, directionSize('padding'), { autocomplete: '(m|p)-(xy)' }],
-  [/^p-?([xy])(?:-?(-?.+))?$/, directionSize('padding')],
+
+  [/^p([xy])(?:-?(-?.+))?$/, directionSize('padding')],
+
   [
-    /^p-?([rltbse])(?:-?(-?.+))?$/,
+    /^p-([rltbse])(?:-?(-?.+))?$/,
     directionSize('padding'),
     { autocomplete: '(m|p)<directions>-<num>' },
   ],
@@ -22,7 +23,7 @@ export const paddings: Rule<Theme>[] = [
     { autocomplete: '(m|p)-(block|inline)-<num>' },
   ],
   [
-    /^p-?([bi][se])(?:-?(-?.+))?$/,
+    /^p-([bi][se])(?:-?(-?.+))?$/,
     directionSize('padding'),
     { autocomplete: '(m|p)-(bs|be|is|ie)-<num>' },
   ],
@@ -30,9 +31,9 @@ export const paddings: Rule<Theme>[] = [
 
 export const margins: Rule<Theme>[] = [
   [/^ma?()-?(-?.+)$/, directionSize('margin')],
-  [/^m-?xy()()$/, directionSize('margin')],
-  [/^m-?([xy])(?:-?(-?.+))?$/, directionSize('margin')],
-  [/^m-?([rltbse])(?:-?(-?.+))?$/, directionSize('margin')],
+  [/^m-xy()()$/, directionSize('margin')],
+  [/^m-([xy])(?:-?(-?.+))?$/, directionSize('margin')],
+  [/^m-([rltbse])(?:-?(-?.+))?$/, directionSize('margin')],
   [/^m-(block|inline)(?:-(-?.+))?$/, directionSize('margin')],
-  [/^m-?([bi][se])(?:-?(-?.+))?$/, directionSize('margin')],
+  [/^m-([bi][se])(?:-?(-?.+))?$/, directionSize('margin')],
 ];
