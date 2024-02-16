@@ -3,5 +3,7 @@ export enum Actions {
   MovePrevBlock = 'MovePrevBlock',
   GoToEditMode = 'GoToEditMode',
   GoToNormalMode = 'GoToNormalMode',
-  CreateProject = 'CreateProject',
+  CreateTask = 'CreateTask',
+  SaveTask = 'SaveTask',
+  CloseModal = 'CloseModal',
 }

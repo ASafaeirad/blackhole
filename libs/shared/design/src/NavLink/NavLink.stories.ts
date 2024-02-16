@@ -19,6 +19,6 @@ export const Active: Story = {
 
 export const Inactive: Story = {
   args: {
-    to: '/projects',
+    to: '/',
   },
 };
