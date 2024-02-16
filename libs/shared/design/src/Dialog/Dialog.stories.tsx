@@ -17,7 +17,7 @@ export const Default: Story = {
         <Dialog.Trigger asChild>
           <Button>Edit profile</Button>
         </Dialog.Trigger>
-        <Dialog.Content className="fc absolute-center px-7 py-6 bg-elevated border rounded-md gap-5 fixed">
+        <Dialog.Content>
           <Dialog.Title className="text-title">Edit profile</Dialog.Title>
           <Dialog.Description className="color-muted">
             Make changes to your profile here. Click save when you're done.
