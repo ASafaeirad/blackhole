@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-pnpm nx affected --base=origin/dev -t lint --parallel=3 pnpm nx affected
---base=origin/dev -t spell --parallel=3 pnpm nx affected --base=origin/dev -t
-test --parallel=3 --configuration=ci pnpm nx affected --base=origin/dev -t build
---parallel=3
+pnpm nx affected --base=origin/dev -t lint --parallel=3
+pnpm nx affected --base=origin/dev -t spell --parallel=3
+pnpm nx affected --base=origin/dev -t test --parallel=3 --configuration=ci
+pnpm nx affected --base=origin/dev -t build --parallel=3
