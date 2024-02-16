@@ -35,6 +35,8 @@ module.exports = init({
       rules: {
         'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
         '@nx/enforce-module-boundaries': ['error', moduleBoundaries],
+        '@typescript-eslint/no-misused-promises': 'off',
+        'no-bitwise': 'off',
       },
     },
   ],

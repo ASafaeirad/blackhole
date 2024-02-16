@@ -10,13 +10,7 @@ export const SideNavigation = () => {
         <SideNavItem icon="home" to="/">
           Dashboard
         </SideNavItem>
-        <SideNavItem icon="box" to="/projects">
-          Projects
-        </SideNavItem>
       </div>
-      <SideNavItem icon="user" to="/settings">
-        Profile
-      </SideNavItem>
     </div>
   );
 };

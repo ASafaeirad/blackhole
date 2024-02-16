@@ -1,6 +1,7 @@
 import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import { clamp } from '@fullstacksjs/toolbox';
 import { useRef, useState } from 'react';
 
 interface Block {
@@ -28,9 +29,18 @@ export const DashboardPage = () => {
     },
     [index],
   );
-  useSubscribeAction(Actions.GoToNormalMode, () => setEditMode(-1));
-  useSubscribeAction(Actions.MoveNextBlock, () => setIndex(i => i + 1));
-  useSubscribeAction(Actions.MovePrevBlock, () => setIndex(i => i - 1));
+
+  useSubscribeAction(Actions.GoToNormalMode, () => {
+    setEditMode(-1);
+  });
+
+  useSubscribeAction(Actions.MoveNextBlock, () => {
+    setIndex(i => clamp(i + 1, 0, 2));
+  });
+
+  useSubscribeAction(Actions.MovePrevBlock, () => {
+    setIndex(i => clamp(i - 1, 0, 2));
+  });
 
   return (
     <div className="fc gap-2 items-start">

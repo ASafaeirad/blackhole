@@ -44,7 +44,7 @@ module.exports = {
     },
     {
       sourceTag: 'scope:task',
-      onlyDependOnLibsWithTags: ['scope:user', 'scope:task'],
+      onlyDependOnLibsWithTags: ['scope:user', 'scope:task', 'scope:shared'],
     },
     {
       sourceTag: 'scope:focus',

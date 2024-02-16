@@ -1,49 +1,31 @@
-import { SideNavigation } from '@blackhole/navigation';
+import { TaskPage } from '@blackhole/task/task-list';
 import {
   createRootRoute,
   createRoute,
   createRouter,
+  Navigate,
   Outlet,
   RouterProvider,
 } from '@tanstack/react-router';
 
-import { DashboardPage } from './DashboardPage';
-import { ProjectsPage } from './ProjectsPage';
-
 const Layout = () => (
-  <div className="fr h-screen">
-    <SideNavigation />
-    <div className="f1">
-      <Outlet />
-    </div>
+  <div className="relative h-screen">
+    <Outlet />
   </div>
 );
 
-const rootRoute = createRootRoute({ component: Layout });
+const root = createRootRoute({
+  component: Layout,
+  notFoundComponent: () => <Navigate to="/" />,
+});
 
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
+const index = createRoute({
+  getParentRoute: () => root,
   path: '/',
-  component: DashboardPage,
+  component: TaskPage,
 });
 
-const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/projects',
-  component: ProjectsPage,
-});
-
-const settingsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/settings',
-  component: ProjectsPage,
-});
-
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  aboutRoute,
-  settingsRoute,
-]);
+const routeTree = root.addChildren([index]);
 
 export const router = createRouter({ routeTree });
 

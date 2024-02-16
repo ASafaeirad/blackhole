@@ -1,0 +1,19 @@
+{
+  "name": "task-list",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/task/task-list/src",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:task"],
+  "targets": {
+    "lint": {},
+    "spell": {},
+    "tsc": {},
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/libs/task/task-list"
+      }
+    }
+  }
+}
