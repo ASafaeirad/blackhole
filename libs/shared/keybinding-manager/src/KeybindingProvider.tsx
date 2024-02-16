@@ -6,7 +6,7 @@ import type { Mode, WithMode } from './keyMapper';
 
 export interface KeyBindProviderProps<TAction extends string> {
   children?: React.ReactNode;
-  actions: Record<TAction, WithMode<Keybinding>>;
+  keyMaps: Record<TAction, WithMode<Keybinding>>;
 }
 
 const KeyBindingContext = createContext<KeybindingManager<any> | undefined>(
@@ -15,9 +15,9 @@ const KeyBindingContext = createContext<KeybindingManager<any> | undefined>(
 
 export const KeyBindingProvider = <T extends string>({
   children,
-  actions,
+  keyMaps,
 }: KeyBindProviderProps<T>) => {
-  const manager = useMemo(() => new KeybindingManager(actions), []);
+  const manager = useMemo(() => new KeybindingManager(keyMaps), []);
 
   useEffect(() => manager.register(document), []);
 
