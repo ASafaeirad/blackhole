@@ -25,7 +25,7 @@ export class KeybindingManager<TAction extends string> {
     this.#mode = value;
   }
 
-  constructor(actions: Record<string, WithMode<TAction>>) {
+  constructor(actions: Record<TAction, WithMode<Keybinding>>) {
     // @ts-expect-error - TS doesn't understand that Object.keys
     Object.keys(actions).forEach((k: TAction) => {
       const { key, mode } = actions[k];
