@@ -5,15 +5,7 @@
   "projectType": "library",
   "tags": ["type:feature", "scope:task"],
   "targets": {
-    "lint": {},
     "spell": {},
-    "tsc": {},
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
-      "options": {
-        "reportsDirectory": "../../../coverage/libs/task/task-list"
-      }
-    }
+    "tsc": {}
   }
 }

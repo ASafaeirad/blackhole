@@ -1,31 +1,13 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "@nx/vite:test": {
-      "inputs": ["default", "^production", "{projectRoot}/vite.config.ts"],
-      "cache": true,
-      "options": {
-        "passWithNoTests": true
-      }
-    },
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
+    "test": {
       "cache": true
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
-        "maxWarnings": 0,
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx}"]
-      },
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.cjs",
-        "{projectRoot}/.eslintrc.json"
-      ],
-      "cache": true
+        "maxWarnings": 0
+      }
     },
     "e2e": {
       "inputs": ["default", "^production"],
@@ -74,8 +56,6 @@
       "!{workspaceRoot}/libs/tools/storybook/**/*",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/.eslintrc.js",
       "!{projectRoot}/.eslintrc.cjs",
       "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
       "!{projectRoot}/.storybook/**/*",
@@ -83,5 +63,9 @@
     ],
     "sharedGlobals": []
   },
+  "plugins": [
+    { "plugin": "@nx/vite/plugin" },
+    { "plugin": "@nx/eslint/plugin" }
+  ],
   "defaultProject": "web"
 }
