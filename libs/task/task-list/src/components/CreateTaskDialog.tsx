@@ -1,21 +1,18 @@
 import { Actions } from '@blackhole/actions';
+import { Input } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task } from './TaskList';
+import type { Task } from './Task';
 
-interface CreateTaskDialogProps {
-  open: boolean;
+interface Props {
   onCancel: VoidFunction;
   onSubmit: (task: Task) => MaybePromise<void>;
 }
 
-export const CreateTaskDialog = ({
-  onCancel,
-  onSubmit,
-}: CreateTaskDialogProps) => {
+export const CreateTaskDialog = ({ onCancel, onSubmit }: Props) => {
   const [name, setName] = useState('');
 
   useSubscribeAction(
@@ -24,7 +21,7 @@ export const CreateTaskDialog = ({
       if (isNullOrEmptyString(name)) return;
       const id = randomInt().toString();
 
-      await onSubmit({ id, name });
+      await onSubmit({ id, name, status: 'pending' });
     },
     [name],
   );
@@ -34,10 +31,11 @@ export const CreateTaskDialog = ({
   });
 
   return (
-    <input
-      name="name"
-      autoFocus
+    <Input
       onChange={e => setName(e.target.value)}
+      autoFocus
+      autoComplete="off"
+      name="name"
       value={name}
     />
   );

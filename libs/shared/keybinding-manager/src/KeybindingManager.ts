@@ -1,3 +1,5 @@
+import { debug } from '@blackhole/debug';
+
 import { Chord } from './Chord';
 import type { Keybinding } from './Keybinding';
 import type { WithMode } from './keyMapper';
@@ -58,6 +60,7 @@ export class KeybindingManager<TAction extends string> {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
       const actionName = this.#chords[this.#mode].get(chord);
+      debug.trace('KeybindingManager', { chord, actionName });
 
       if (!actionName) return;
       const action = this.#actions.get(actionName);

@@ -1,27 +1,34 @@
-import { cn } from '@blackhole/cn';
+import { Task } from './Task';
 
-export interface Task {
-  id: string;
-  name: string;
-}
-
-interface TaskListProps {
+interface Props {
   tasks: Task[];
   activeIndex: number;
+  onSubmit: (task: Task) => void;
+  onCancel: VoidFunction;
+  editIndex: number;
+  onToggle: (index: number, status: Task['status']) => void;
 }
 
-export const TaskList = ({ tasks, activeIndex }: TaskListProps) => {
+export const TaskList = ({
+  tasks,
+  onSubmit,
+  activeIndex,
+  editIndex,
+  onCancel,
+  onToggle,
+}: Props) => {
   return (
     <div className={'fc gap-2'}>
       {tasks.map((task, i) => (
-        <div
-          className={cn({
-            'border-solid border-green border': i === activeIndex,
-          })}
+        <Task
           key={task.id}
-        >
-          {task.name}
-        </div>
+          edit={i === editIndex}
+          focus={i === activeIndex}
+          onCancel={onCancel}
+          task={task}
+          onSubmit={name => onSubmit({ ...task, name })}
+          onToggle={status => onToggle(i, status)}
+        />
       ))}
     </div>
   );
