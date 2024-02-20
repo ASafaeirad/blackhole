@@ -1,4 +1,3 @@
-import { pxToRem } from '../utils';
 import type { Theme } from './types';
 
 // keep in ASC order: container.ts and breakpoints.ts need that order
@@ -31,14 +30,6 @@ export const duration = {
   700: '700ms',
   1000: '1000ms',
 } satisfies Theme['duration'];
-
-export const borderRadius = {
-  DEFAULT: pxToRem(4),
-  none: '0',
-  md: pxToRem(4),
-  xl: pxToRem(60),
-  full: '9999px',
-} satisfies Theme['borderRadius'];
 
 export const boxShadow = {
   'DEFAULT': [

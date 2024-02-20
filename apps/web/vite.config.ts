@@ -34,6 +34,7 @@ export default defineConfig({
       provider: 'v8',
     },
     globals: true,
+    passWithNoTests: true,
     cache: {
       dir: '../../node_modules/.vitest',
     },

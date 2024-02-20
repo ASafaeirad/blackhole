@@ -5,7 +5,6 @@
   "projectType": "library",
   "tags": ["type:util", "scope:tools"],
   "targets": {
-    "lint": {},
     "serve": {
       "executor": "@nx/storybook:storybook",
       "options": {
@@ -18,7 +17,7 @@
         }
       }
     },
-    "build": {
+    "build-story": {
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {

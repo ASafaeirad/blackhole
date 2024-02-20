@@ -4,11 +4,8 @@ const moduleBoundaries = require('./configs/eslint/module-boundaries.cjs');
 module.exports = init({
   root: true,
   modules: {
-    auto: false,
+    auto: true,
     prettier: true,
-    test: true,
-    storybook: true,
-    import: true,
     typescript: {
       resolverProject: 'tsconfig.base.json',
       parserProject: ['./libs/**/tsconfig.json', './tsconfig.base.json'],
@@ -35,6 +32,8 @@ module.exports = init({
       rules: {
         'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
         '@nx/enforce-module-boundaries': ['error', moduleBoundaries],
+        '@typescript-eslint/no-misused-promises': 'off',
+        'no-bitwise': 'off',
       },
     },
   ],

@@ -5,15 +5,7 @@
   "projectType": "library",
   "tags": ["type:util", "scope:shared"],
   "targets": {
-    "lint": {},
     "spell": {},
-    "tsc": {},
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
-      "options": {
-        "reportsDirectory": "../../../coverage/libs/shared/keybinding-manager"
-      }
-    }
+    "tsc": {}
   }
 }

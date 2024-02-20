@@ -1,5 +1,9 @@
+import { debug } from '@blackhole/debug';
+
 import { Chord } from './Chord';
 import type { Keybinding } from './Keybinding';
+import type { WithMode } from './keyMapper';
+import { Mode } from './keyMapper';
 
 interface Action {
   chord?: string;
@@ -7,20 +11,36 @@ interface Action {
 }
 
 export class KeybindingManager<TAction extends string> {
-  private actions = new Map<TAction, Action>();
-  private chords = new Map<string, TAction>();
+  #actions = new Map<TAction, Action>();
+  #chords = {
+    [Mode.Normal]: new Map<string, TAction>(),
+    [Mode.Insert]: new Map<string, TAction>(),
+  };
 
-  constructor(actions: Record<TAction, Keybinding>) {
-    Object.keys(actions).forEach(key => {
-      const chord = Chord.fromString(actions[key as TAction]).hash;
+  #mode: Mode = Mode.Normal;
 
-      this.chords.set(chord, key as TAction);
-      this.actions.set(key as TAction, { subscribers: [], chord });
+  public get mode() {
+    return this.#mode;
+  }
+
+  public set mode(value: Mode) {
+    this.#mode = value;
+  }
+
+  constructor(actions: Record<TAction, WithMode<Keybinding>>) {
+    // @ts-expect-error - TS doesn't understand that Object.keys
+    Object.keys(actions).forEach((k: TAction) => {
+      const { key, mode } = actions[k];
+      const chord = Chord.fromString(key).hash;
+
+      this.#chords[mode].set(chord, k);
+      this.#actions.set(k, { subscribers: [], chord });
     });
   }
 
   public subscribe(name: TAction, command: VoidFunction) {
-    const action = this.actions.get(name)!;
+    const action = this.#actions.get(name)!;
+
     action.subscribers.push(command);
 
     return () => {
@@ -29,20 +49,21 @@ export class KeybindingManager<TAction extends string> {
     };
   }
 
-  public bind(name: TAction, keys: Keybinding) {
-    const chord = Chord.fromString(keys).hash;
-    const action = this.actions.get(name)!;
-    this.chords.set(chord, name);
+  public bind(name: TAction, { key, mode }: WithMode<Keybinding>) {
+    const chord = Chord.fromString(key).hash;
+    const action = this.#actions.get(name)!;
+    this.#chords[mode].set(chord, name);
     action.chord = chord;
   }
 
   public register(document: Document) {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
-      const actionName = this.chords.get(chord);
+      const actionName = this.#chords[this.#mode].get(chord);
+      debug.trace('KeybindingManager', { chord, actionName });
 
       if (!actionName) return;
-      const action = this.actions.get(actionName);
+      const action = this.#actions.get(actionName);
       if (!action) return;
       event.preventDefault();
       action.subscribers.forEach(subscriber => subscriber());

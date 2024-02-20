@@ -1,9 +1,9 @@
-import { config } from '@blackhole/config';
 import { createClient } from '@supabase/supabase-js';
 
 import type { Database } from './Database';
+import { config } from './supabase.config';
 
 export const supabaseClient = createClient<Database>(
-  config.get('supabase.url'),
-  config.get('supabase.anonKey'),
+  config.get('url'),
+  config.get('anonKey'),
 );

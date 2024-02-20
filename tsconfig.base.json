@@ -24,6 +24,7 @@
     "baseUrl": ".",
     "types": ["vite/client"],
     "paths": {
+      "@blackhole/actions": ["libs/shared/actions/src/index.ts"],
       "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
       "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
@@ -40,6 +41,7 @@
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
       "@blackhole/store": ["libs/shared/store/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
+      "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
       "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]
     }
   },

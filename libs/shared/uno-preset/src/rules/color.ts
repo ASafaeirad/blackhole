@@ -27,7 +27,7 @@ export const bgColors: Rule<Theme>[] = [
   [
     /^bg-(.+)$/,
     colorResolver('background-color', 'bg', 'bg'),
-    { autocomplete: 'bg-$colors.bg' },
+    { autocomplete: ['bg-$colors.bg', 'bg-transparent'] },
   ],
 ];
 

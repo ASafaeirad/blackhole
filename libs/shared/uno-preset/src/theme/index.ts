@@ -1,8 +1,8 @@
+import { borderRadius } from './border';
 import { colors } from './colors';
 import { blur, dropShadow } from './filters';
 import { fontFamily, textStyle } from './font';
 import {
-  borderRadius,
   boxShadow,
   breakpoints,
   duration,

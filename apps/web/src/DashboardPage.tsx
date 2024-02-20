@@ -1,8 +1,8 @@
+import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import { clamp } from '@fullstacksjs/toolbox';
 import { useRef, useState } from 'react';
-
-import type { Action } from './App';
 
 interface Block {
   id: string;
@@ -19,8 +19,8 @@ export const DashboardPage = () => {
   const [index, setIndex] = useState(-1);
   const ref = useRef<HTMLInputElement>(null);
 
-  useSubscribeAction<Action>(
-    'GoToEditMode',
+  useSubscribeAction(
+    Actions.GoToEditMode,
     () => {
       setEditMode(index);
       setTimeout(() => {
@@ -29,9 +29,18 @@ export const DashboardPage = () => {
     },
     [index],
   );
-  useSubscribeAction<Action>('GoToNormalMode', () => setEditMode(-1));
-  useSubscribeAction<Action>('MoveNextBlock', () => setIndex(i => i + 1));
-  useSubscribeAction<Action>('MovePrevBlock', () => setIndex(i => i - 1));
+
+  useSubscribeAction(Actions.GoToNormalMode, () => {
+    setEditMode(-1);
+  });
+
+  useSubscribeAction(Actions.MoveNextBlock, () => {
+    setIndex(i => clamp(i + 1, 0, 2));
+  });
+
+  useSubscribeAction(Actions.MovePrevBlock, () => {
+    setIndex(i => clamp(i - 1, 0, 2));
+  });
 
   return (
     <div className="fc gap-2 items-start">
@@ -47,6 +56,7 @@ export const DashboardPage = () => {
           </div>
         ) : (
           <input
+            key={block.id}
             ref={ref}
             value={block.text}
             onChange={e => {
@@ -54,7 +64,7 @@ export const DashboardPage = () => {
               newBlocks[i] = { ...newBlocks[i], text: e.target.value };
               setBlocks(newBlocks);
             }}
-          ></input>
+          />
         ),
       )}
     </div>

@@ -11,7 +11,7 @@ interface Props extends NavLinkProps {
 export const SideNavItem = ({ children, icon, ...props }: Props) => (
   <NavLink
     {...props}
-    className="p-4 block rd text-body transition-colors [&.active]:bg-elevated hover:bg-elevated"
+    className="p-4 block text-body transition-colors [&.active]:bg-elevated hover:bg-elevated rd"
   >
     <div className="fr gap-3 items-center">
       <Icon icon={icon} />

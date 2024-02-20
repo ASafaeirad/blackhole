@@ -78,9 +78,7 @@ function getThemeColor(theme: Theme, colors: string[], scope: ColorScope) {
 export function splitShorthand(body: string, type: string) {
   const split = body.split(/(?:\/|:)/);
 
-  if (split[0] === `[${type}`) {
-    return [split.slice(0, 2).join(':'), split[2]];
-  }
+  if (split[0] === `[${type}`) return [split.slice(0, 2).join(':'), split[2]];
 
   return split;
 }
@@ -119,9 +117,13 @@ export function parseColor(
 
   if (h.numberWithUnit(bracketOrMain)) return;
 
+  if (
+    bracketOrMain === 'transparent' ||
+    bracketOrMain === 'inherit' ||
+    bracketOrMain === 'unset'
+  )
+    color = bracketOrMain;
   if (bracketOrMain.match(/^#[\da-fA-F]+/g)) color = bracketOrMain;
-  else if (bracketOrMain.match(/^hex-[\da-fA-F]+/g))
-    color = `#${bracketOrMain.slice(4)}`;
   else if (main.startsWith('$')) color = h.cssvar(main);
 
   color = color ?? bracket;

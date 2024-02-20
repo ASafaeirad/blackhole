@@ -8,5 +8,5 @@ export const preflightBase = {
   ...boxShadowsBase,
   ...ringBase,
   ...colorVars,
-  'font-family': fontFamily.sans,
+  'font-family': fontFamily.mono,
 } satisfies Theme['preflightBase'];

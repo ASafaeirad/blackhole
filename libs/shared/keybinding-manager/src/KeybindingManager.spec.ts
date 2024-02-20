@@ -1,10 +1,11 @@
 import { KeybindingManager } from './KeybindingManager';
+import { Mode } from './keyMapper';
 
 describe('KeybindingManager', () => {
   it('should register keybindings', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: 'ctrl+shift+alt+a',
+      GoToNormalMode: { key: 'ctrl+shift+alt+a', mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -25,12 +26,44 @@ describe('KeybindingManager', () => {
   it('should register keybindings case-insensitive', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: 'escape',
+      GoToNormalMode: { key: 'escape', mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
 
     const event = new KeyboardEvent('keydown', { key: 'Escape' });
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledOnce();
+  });
+
+  it('should register keybindings in normal mode', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: 'i', mode: Mode.Normal },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    const event = new KeyboardEvent('keydown', { key: 'i' });
+    document.dispatchEvent(event);
+    manager.mode = Mode.Insert;
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledOnce();
+  });
+
+  it('should register keybindings in insert mode', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: 'i', mode: Mode.Insert },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    const event = new KeyboardEvent('keydown', { key: 'i' });
+    document.dispatchEvent(event);
+    manager.mode = Mode.Insert;
     document.dispatchEvent(event);
 
     expect(handle).toHaveBeenCalledOnce();

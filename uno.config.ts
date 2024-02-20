@@ -4,10 +4,11 @@ import { presetBlackhole } from './libs/shared/uno-preset/src'; // eslint-disabl
 
 export default defineConfig({
   shortcuts: {
-    fc: 'flex flex-col',
-    fr: 'flex flex-row',
-    f1: 'flex-1',
-    center: 'justify-center items-center',
+    'absolute-center': 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+    'fc': 'flex flex-col',
+    'fr': 'flex flex-row',
+    'f1': 'flex-1',
+    'center': 'justify-center items-center',
   },
   presets: [
     presetBlackhole(),
@@ -17,6 +18,11 @@ export default defineConfig({
         sans: {
           name: 'Inter',
           weights: [400, 500, 800],
+          provider: 'google',
+        },
+        mono: {
+          name: 'Kode Mono',
+          weights: [400, 500, 600],
           provider: 'google',
         },
       },

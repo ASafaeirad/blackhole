@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
 
 pnpm nx affected --base=origin/dev -t lint --parallel=3
 pnpm nx affected --base=origin/dev -t spell --parallel=3

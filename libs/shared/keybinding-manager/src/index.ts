@@ -1,2 +1,7 @@
 export type { Keybinding } from './Keybinding';
-export { KeyBindingProvider, useSubscribeAction } from './KeybindingProvider';
+export {
+  KeyBindingProvider,
+  useSetMode,
+  useSubscribeAction,
+} from './KeybindingProvider';
+export * from './keyMapper';

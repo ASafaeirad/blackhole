@@ -133,19 +133,20 @@ export type KeyboardEventKey =
 
 type Meta = 'alt' | 'ctrl' | 'shift' | 'super';
 type SingleMeta = `${Meta}+${KeyboardEventKey}`;
-type ThreeMetaCombo = Exclude<Meta, 'super'> extends infer O
-  ? O extends Meta
-    ? Exclude<Meta, O> extends infer P
-      ? P extends Meta
-        ? Exclude<Meta, O | P> extends infer Q
-          ? Q extends Meta
-            ? `${O}+${P}+${Q}`
+type ThreeMetaCombo =
+  Exclude<Meta, 'super'> extends infer O
+    ? O extends Meta
+      ? Exclude<Meta, O> extends infer P
+        ? P extends Meta
+          ? Exclude<Meta, O | P> extends infer Q
+            ? Q extends Meta
+              ? `${O}+${P}+${Q}`
+              : never
             : never
           : never
         : never
       : never
-    : never
-  : never;
+    : never;
 type TwoMeta<T = Meta> = T extends Meta
   ? `${T}+${Exclude<Meta, T>}+${KeyboardEventKey}`
   : never;
