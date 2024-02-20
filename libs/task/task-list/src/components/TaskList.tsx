@@ -18,7 +18,7 @@ export const TaskList = ({
   onToggle,
 }: Props) => {
   return (
-    <div className={'fc gap-2'}>
+    <div className="fc gap-2">
       {tasks.map((task, i) => (
         <Task
           key={task.id}

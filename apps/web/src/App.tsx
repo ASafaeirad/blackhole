@@ -4,7 +4,7 @@ import { StoreProvider } from '@blackhole/store';
 
 import { Routes } from './Routes';
 
-function App() {
+const App = () => {
   return (
     <StoreProvider>
       <KeyBindingProvider keyMaps={keyMaps}>
@@ -12,6 +12,6 @@ function App() {
       </KeyBindingProvider>
     </StoreProvider>
   );
-}
+};
 
 export default App;

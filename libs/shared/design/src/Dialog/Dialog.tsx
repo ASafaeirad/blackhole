@@ -24,7 +24,7 @@ const Content = (
     <RxDialog.Content
       {...props}
       className={cn(content({ position: props.position }), props.className)}
-    ></RxDialog.Content>
+    />
   </RxDialog.Portal>
 );
 

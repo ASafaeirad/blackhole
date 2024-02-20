@@ -56,6 +56,7 @@ export const DashboardPage = () => {
           </div>
         ) : (
           <input
+            key={block.id}
             ref={ref}
             value={block.text}
             onChange={e => {
@@ -63,7 +64,7 @@ export const DashboardPage = () => {
               newBlocks[i] = { ...newBlocks[i], text: e.target.value };
               setBlocks(newBlocks);
             }}
-          ></input>
+          />
         ),
       )}
     </div>

@@ -4,11 +4,8 @@ const moduleBoundaries = require('./configs/eslint/module-boundaries.cjs');
 module.exports = init({
   root: true,
   modules: {
-    auto: false,
+    auto: true,
     prettier: true,
-    test: true,
-    storybook: true,
-    import: true,
     typescript: {
       resolverProject: 'tsconfig.base.json',
       parserProject: ['./libs/**/tsconfig.json', './tsconfig.base.json'],

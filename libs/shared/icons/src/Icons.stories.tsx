@@ -11,7 +11,10 @@ export default {
     return (
       <div className="fr px-4 py-3 gap-4">
         {names.map(name => (
-          <div className="fc center border border-idle rounded border-dotted gap-3 h-[70px] w-[70px] cursor-pointer hover:bg-elevated">
+          <div
+            key={name}
+            className="fc center border border-idle rounded border-dotted gap-3 h-[70px] w-[70px] cursor-pointer hover:bg-elevated"
+          >
             <Icon {...args} icon={name} />
             <span className="text-small color-muted">{name}</span>
           </div>
