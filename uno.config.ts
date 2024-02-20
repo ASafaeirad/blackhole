@@ -20,6 +20,11 @@ export default defineConfig({
           weights: [400, 500, 800],
           provider: 'google',
         },
+        mono: {
+          name: 'Kode Mono',
+          weights: [400, 500, 600],
+          provider: 'google',
+        },
       },
     }),
   ],

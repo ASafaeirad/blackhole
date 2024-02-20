@@ -6,3 +6,4 @@ Parseable
 Smoothings
 whitespaces
 nesw
+Kode

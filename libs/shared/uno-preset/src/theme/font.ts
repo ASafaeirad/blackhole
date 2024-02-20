@@ -19,7 +19,7 @@ export const fontFamily = {
     ...emoji,
   ]),
   serif: toFont(['ui-serif', 'serif']),
-  mono: toFont(['ui-monospace', 'monospace']),
+  mono: toFont(['Kode Mono', 'ui-monospace', 'monospace']),
 } satisfies Theme['fontFamily'];
 
 const fontWeight = {

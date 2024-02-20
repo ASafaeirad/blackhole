@@ -10,6 +10,6 @@
     "@unocss/extractor-arbitrary-variants": "0.58.5",
     "@unocss/rule-utils": "0.58.5",
     "vite-plugin-dts": "3.7.2",
-    "vite": "5.1.1"
+    "vite": "5.1.3"
   }
 }
