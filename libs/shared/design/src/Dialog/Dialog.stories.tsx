@@ -20,7 +20,7 @@ export const Default: Story = {
         <Dialog.Content>
           <Dialog.Title className="text-title">Edit profile</Dialog.Title>
           <Dialog.Description className="color-muted">
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. Click save.
           </Dialog.Description>
           <div className="flex justify-end">
             <Dialog.Close asChild>

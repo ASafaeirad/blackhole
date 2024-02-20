@@ -17,9 +17,9 @@ export const KeyBindingProvider = <T extends string>({
   children,
   keyMaps,
 }: KeyBindProviderProps<T>) => {
-  const manager = useMemo(() => new KeybindingManager(keyMaps), []);
+  const manager = useMemo(() => new KeybindingManager(keyMaps), [keyMaps]);
 
-  useEffect(() => manager.register(document), []);
+  useEffect(() => manager.register(document), [manager]);
 
   return (
     <KeyBindingContext.Provider value={manager}>
@@ -46,7 +46,11 @@ export const useSubscribeAction = <T extends string>(
 ) => {
   const manager = useKeybindingManager();
 
-  useEffect(() => manager.subscribe(action, callback), deps);
+  useEffect(
+    () => manager.subscribe(action, callback),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [action, manager, ...deps],
+  );
 };
 
 export const useSetMode = () => {
