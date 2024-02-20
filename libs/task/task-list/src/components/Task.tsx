@@ -30,6 +30,7 @@ export const Task = ({
   onToggle,
 }: Props) => {
   const [name, setName] = useState('');
+
   useSubscribeAction(
     Actions.SaveTask,
     async () => {
@@ -52,11 +53,11 @@ export const Task = ({
   });
 
   return (
-    <div className="fr gap-2 items-center">
+    <div className="fr text-body gap-3 items-center">
       <div>{task.status === 'done' ? '[x]' : '[ ]'}</div>
       {!isEdit ? (
         <div
-          className={cn('text-body', {
+          className={cn({
             'color-primary': focus,
             'color-muted': !focus,
           })}
@@ -71,7 +72,6 @@ export const Task = ({
           autoComplete="off"
           name="name"
           value={name}
-          className="text-body"
         />
       )}
     </div>

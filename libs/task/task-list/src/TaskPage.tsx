@@ -7,43 +7,9 @@ import {
 import { callAll, clamp, isEmpty, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task } from './components/Task';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-
-export const useTask = () => {
-  const [tasks, setTask] = useState<Task[]>([
-    { id: '1', name: 'Task 1', status: 'done' },
-    { id: '2', name: 'Task 2', status: 'pending' },
-    { id: '3', name: 'Task 3', status: 'pending' },
-  ]);
-
-  const createTask = (task: Task) => {
-    setTask(ps => [...ps, task]);
-  };
-
-  const editTask = (task: Task) => {
-    setTask(ps => {
-      const newTasks = [...ps];
-      const index = newTasks.find(t => t.id === task.id);
-      if (index) index.name = task.name;
-
-      return newTasks;
-    });
-  };
-
-  const changeStatus = (id: string, status: Task['status']) => {
-    setTask(ps => {
-      const newTasks = [...ps];
-      const index = newTasks.find(t => t.id === id);
-      if (index) index.status = status;
-
-      return newTasks;
-    });
-  };
-
-  return { tasks, createTask, editTask, changeStatus } as const;
-};
+import { useTask } from './components/useTask';
 
 export const TaskPage = () => {
   const { tasks, createTask, editTask, changeStatus } = useTask();
@@ -85,7 +51,7 @@ export const TaskPage = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="fc p-8 gap-4">
       <h1 className="text-title">Tasks</h1>
       {isEmpty(tasks) ? (
         <TaskEmptyState />

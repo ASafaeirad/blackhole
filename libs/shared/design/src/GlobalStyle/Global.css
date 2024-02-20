@@ -10,3 +10,10 @@ hr {
 * {
   box-sizing: border-box;
 }
+
+input,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
