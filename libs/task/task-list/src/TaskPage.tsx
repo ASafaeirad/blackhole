@@ -7,12 +7,13 @@ import {
 import { callAll, clamp, isEmpty, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
+import type { Task } from './components/Task';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
 import { useTask } from './components/useTask';
 
 export const TaskPage = () => {
-  const { tasks, createTask, editTask, changeStatus } = useTask();
+  const { tasks, createTask, editTask, changeStatus, deleteTask } = useTask();
   const [index, setIndex] = useState(0);
   const [editIndex, setEditIndex] = useState(-1);
   const setMode = useSetMode();
@@ -32,6 +33,10 @@ export const TaskPage = () => {
   const close = () => {
     setEditIndex(-1);
     setMode(Mode.Normal);
+  };
+
+  const revert = (task: Task) => {
+    if (!task.name) deleteTask(task.id);
   };
 
   useSubscribeAction(
@@ -59,7 +64,7 @@ export const TaskPage = () => {
         <TaskList
           onToggle={(i, status) => changeStatus(tasks[i].id, status)}
           onSubmit={callAll(editTask, close)}
-          onCancel={close}
+          onCancel={callAll(revert, close)}
           editIndex={editIndex}
           activeIndex={index}
           tasks={tasks}

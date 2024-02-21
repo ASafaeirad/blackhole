@@ -4,7 +4,7 @@ interface Props {
   tasks: Task[];
   activeIndex: number;
   onSubmit: (task: Task) => void;
-  onCancel: VoidFunction;
+  onCancel: (task: Task) => void;
   editIndex: number;
   onToggle: (index: number, status: Task['status']) => void;
 }
@@ -24,7 +24,7 @@ export const TaskList = ({
           key={task.id}
           edit={i === editIndex}
           focus={i === activeIndex}
-          onCancel={onCancel}
+          onCancel={() => onCancel(task)}
           task={task}
           onSubmit={name => onSubmit({ ...task, name })}
           onToggle={status => onToggle(i, status)}

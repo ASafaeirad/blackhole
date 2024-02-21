@@ -29,5 +29,9 @@ export const useTask = () => {
     });
   };
 
-  return { tasks, createTask, editTask, changeStatus } as const;
+  const deleteTask = (id: string) => {
+    setTask(ps => ps.filter(t => t.id !== id));
+  };
+
+  return { tasks, createTask, editTask, changeStatus, deleteTask } as const;
 };
