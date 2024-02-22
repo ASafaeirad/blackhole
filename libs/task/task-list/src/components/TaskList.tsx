@@ -1,3 +1,6 @@
+import { Transition } from '@blackhole/design';
+import { AnimatePresence } from 'framer-motion';
+
 import type { Task, TaskStatus } from '../Task';
 import { Task as TaskComponent } from './Task';
 
@@ -20,17 +23,20 @@ export const TaskList = ({
 }: Props) => {
   return (
     <div className="fc gap-3">
-      {tasks.map((task, i) => (
-        <TaskComponent
-          key={task.id}
-          edit={i === editIndex}
-          focus={i === activeIndex}
-          onCancel={() => onCancel(task)}
-          task={task}
-          onSubmit={name => onSubmit({ ...task, name })}
-          onToggle={status => onToggle(i, status)}
-        />
-      ))}
+      <AnimatePresence>
+        {tasks.map((task, i) => (
+          <Transition key={task.id}>
+            <TaskComponent
+              edit={i === editIndex}
+              focus={i === activeIndex}
+              onCancel={() => onCancel(task)}
+              task={task}
+              onSubmit={name => onSubmit({ ...task, name })}
+              onToggle={status => onToggle(i, status)}
+            />
+          </Transition>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };

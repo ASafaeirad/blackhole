@@ -53,7 +53,7 @@ export const Task = ({
       <div>{task.status === 'done' ? '[x]' : '[ ]'}</div>
       {!isEdit ? (
         <div
-          className={cn({
+          className={cn('transition', {
             'color-primary': focus,
             'color-muted': !focus,
           })}

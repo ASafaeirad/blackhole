@@ -6,3 +6,4 @@ export * from './Key';
 export * from './Logo';
 export * from './NavLink';
 export * from './Separator';
+export * from './Transition';
