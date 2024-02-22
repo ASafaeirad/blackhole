@@ -15,9 +15,10 @@ describe('KeybindingManager', () => {
       shiftKey: true,
       altKey: true,
       key: 'a',
+      code: 'KeyA',
     });
     document.dispatchEvent(event);
-    const event2 = new KeyboardEvent('keydown', { key: 'a' });
+    const event2 = new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' });
     document.dispatchEvent(event2);
 
     expect(handle).toHaveBeenCalledOnce();
@@ -31,7 +32,10 @@ describe('KeybindingManager', () => {
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
 
-    const event = new KeyboardEvent('keydown', { key: 'Escape' });
+    const event = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+    });
     document.dispatchEvent(event);
 
     expect(handle).toHaveBeenCalledOnce();
@@ -45,7 +49,7 @@ describe('KeybindingManager', () => {
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
 
-    const event = new KeyboardEvent('keydown', { key: 'i' });
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
     document.dispatchEvent(event);
     manager.mode = Mode.Insert;
     document.dispatchEvent(event);
@@ -61,7 +65,7 @@ describe('KeybindingManager', () => {
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
 
-    const event = new KeyboardEvent('keydown', { key: 'i' });
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
     document.dispatchEvent(event);
     manager.mode = Mode.Insert;
     document.dispatchEvent(event);
