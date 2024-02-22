@@ -30,7 +30,7 @@ export const Task = ({
   useSubscribeAction(
     Actions.SaveTask,
     async () => {
-      if (isNullOrEmptyString(name)) return;
+      if (isNullOrEmptyString(name.trim())) return;
       await onSubmit(name);
     },
     [name],
@@ -53,7 +53,7 @@ export const Task = ({
       <div>{task.status === 'done' ? '[x]' : '[ ]'}</div>
       {!isEdit ? (
         <div
-          className={cn('transition', {
+          className={cn({
             'color-primary': focus,
             'color-muted': !focus,
           })}
