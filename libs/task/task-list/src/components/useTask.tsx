@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { Task } from './Task';
+import type { Task, TaskStatus } from '../Task';
 
 export const useTask = () => {
   const [tasks, setTask] = useState<Task[]>([]);
@@ -19,7 +19,7 @@ export const useTask = () => {
     });
   };
 
-  const changeStatus = (id: string, status: Task['status']) => {
+  const changeStatus = (id: string, status: TaskStatus) => {
     setTask(ps => {
       const newTasks = [...ps];
       const index = newTasks.find(t => t.id === id);

@@ -7,10 +7,10 @@ import {
 import { callAll, clamp, isEmpty, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task } from './components/Task';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
 import { useTask } from './components/useTask';
+import type { Task } from './Task';
 
 export const TaskPage = () => {
   const { tasks, createTask, editTask, changeStatus, deleteTask } = useTask();

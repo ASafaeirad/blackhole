@@ -6,19 +6,15 @@ import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-export interface Task {
-  id: string;
-  name: string;
-  status: 'done' | 'pending';
-}
+import type { Task as TaskType, TaskStatus } from '../Task';
 
 interface Props {
   focus: boolean;
-  task: Task;
+  task: TaskType;
   edit: boolean;
   onCancel: VoidFunction;
   onSubmit: (name: string) => MaybePromise<void>;
-  onToggle: (status: Task['status']) => void;
+  onToggle: (status: TaskStatus) => void;
 }
 
 export const Task = ({
