@@ -4,18 +4,18 @@ import {
   useSetMode,
   useSubscribeAction,
 } from '@blackhole/keybinding-manager';
-import { callAll, isEmpty, randomInt } from '@fullstacksjs/toolbox';
-import { useState } from 'react';
+import { callAll, isEmpty } from '@fullstacksjs/toolbox';
+import { useAtom } from 'jotai';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import { useActiveIndex, useTask } from './data/useTask';
-import type { Task } from './Task';
+import { editIndexAtom, useActiveIndex, useTask } from './data/useTask';
 
 export const TaskPage = () => {
-  const { tasks, createTask, editTask, changeStatus, deleteTask } = useTask();
+  const { tasks, createTask, editTask, changeStatus, deleteTask, revert } =
+    useTask();
   const { activeIndex, focusNext, focusPrev } = useActiveIndex();
-  const [editIndex, setEditIndex] = useState(-1);
+  const [editIndex, setEditIndex] = useAtom(editIndexAtom);
   const setMode = useSetMode();
 
   const close = () => {
@@ -23,27 +23,15 @@ export const TaskPage = () => {
     setMode(Mode.Normal);
   };
 
-  const revert = (task: Task) => {
-    if (!task.name) deleteTask(task.id);
-  };
-
   useSubscribeAction(
     Actions.CreateTask,
     () => {
-      const id = randomInt().toString();
-      createTask({ id, name: '', status: 'pending' });
-      setEditIndex(tasks.length);
+      createTask();
       setMode(Mode.Insert);
     },
     [tasks],
   );
-
-  useSubscribeAction(
-    Actions.DeleteTask,
-    () => deleteTask(tasks[activeIndex].id),
-    [activeIndex, tasks],
-  );
-
+  useSubscribeAction(Actions.DeleteTask, deleteTask, [activeIndex, tasks]);
   useSubscribeAction(Actions.MoveNextBlock, focusNext, [tasks.length]);
   useSubscribeAction(Actions.MovePrevBlock, focusPrev, [tasks.length]);
 

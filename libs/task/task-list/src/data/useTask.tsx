@@ -1,19 +1,24 @@
-import { clamp } from '@fullstacksjs/toolbox';
-import { useAtom, useSetAtom } from 'jotai';
+import { clamp, randomInt } from '@fullstacksjs/toolbox';
+import { atom, useAtom, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
 import type { Task, TaskStatus } from '../Task';
 
 export const tasksAtom = atomWithStorage<Task[]>('tasks', []);
-export const focusedTaskAtom = atomWithStorage<number>('focusedTask', 0);
+export const focusedTaskAtom = atomWithStorage('focusedTask', 0);
+export const editIndexAtom = atom(-1);
 
 export const useTask = () => {
   const [tasks, setTask] = useAtom(tasksAtom);
-  const setFocusedTask = useSetAtom(focusedTaskAtom);
+  const [focusedIndex, setFocusedTask] = useAtom(focusedTaskAtom);
+  const setEditIndex = useSetAtom(editIndexAtom);
 
-  const createTask = (task: Task) => {
+  const createTask = () => {
+    const id = randomInt().toString();
+    const task: Task = { id, name: '', status: 'pending' };
     setTask(ps => [...ps, task]);
     setFocusedTask(tasks.length);
+    setEditIndex(tasks.length);
   };
 
   const editTask = (task: Task) => {
@@ -36,12 +41,25 @@ export const useTask = () => {
     });
   };
 
-  const deleteTask = (id: string) => {
+  const deleteTask = () => {
+    const id = tasks[focusedIndex].id;
     setTask(ps => ps.filter(t => t.id !== id));
     setFocusedTask(i => clamp(i, 0, tasks.length - 2));
   };
 
-  return { tasks, createTask, editTask, changeStatus, deleteTask } as const;
+  const revert = () => {
+    const task = tasks[focusedIndex];
+    if (!task.name) deleteTask();
+  };
+
+  return {
+    tasks,
+    createTask,
+    editTask,
+    changeStatus,
+    deleteTask,
+    revert,
+  } as const;
 };
 
 export const useActiveIndex = () => {
