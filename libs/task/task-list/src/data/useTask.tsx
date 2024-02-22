@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { atom, useAtom } from 'jotai';
 
 import type { Task, TaskStatus } from '../Task';
 
+export const tasksAtom = atom<Task[]>([]);
+
 export const useTask = () => {
-  const [tasks, setTask] = useState<Task[]>([]);
+  const [tasks, setTask] = useAtom(tasksAtom);
 
   const createTask = (task: Task) => {
     setTask(ps => [...ps, task]);

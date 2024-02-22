@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import { useTask } from './components/useTask';
+import { useTask } from './data/useTask';
 import type { Task } from './Task';
 
 export const TaskPage = () => {
