@@ -30,7 +30,7 @@ export const Task = ({
   useSubscribeAction(
     Actions.SaveTask,
     async () => {
-      if (isNullOrEmptyString(name)) return;
+      if (isNullOrEmptyString(name.trim())) return;
       await onSubmit(name);
     },
     [name],

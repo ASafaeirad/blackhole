@@ -5,18 +5,18 @@ export enum Mode {
   Insert = 0b10,
 }
 
-export const nMap = (key: string): WithMode<Keybinding> => ({
-  key: key as Keybinding,
+export const nMap = (key: Keybinding): WithMode<Keybinding> => ({
+  key,
   mode: Mode.Normal,
 });
 
-export const iMap = (key: string): WithMode<Keybinding> => ({
-  key: key as Keybinding,
+export const iMap = (key: Keybinding): WithMode<Keybinding> => ({
+  key,
   mode: Mode.Insert,
 });
 
-export const map = (key: string): WithMode<Keybinding> => ({
-  key: key as Keybinding,
+export const map = (key: Keybinding): WithMode<Keybinding> => ({
+  key,
   mode: Mode.Insert | Mode.Normal,
 });
 
