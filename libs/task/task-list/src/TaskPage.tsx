@@ -4,40 +4,19 @@ import {
   useSetMode,
   useSubscribeAction,
 } from '@blackhole/keybinding-manager';
-import { callAll, clamp, isEmpty, randomInt } from '@fullstacksjs/toolbox';
+import { callAll, isEmpty, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import { useTask } from './data/useTask';
+import { useActiveIndex, useTask } from './data/useTask';
 import type { Task } from './Task';
 
 export const TaskPage = () => {
   const { tasks, createTask, editTask, changeStatus, deleteTask } = useTask();
-  const [index, setIndex] = useState(0);
+  const { activeIndex, focusNext, focusPrev } = useActiveIndex();
   const [editIndex, setEditIndex] = useState(-1);
   const setMode = useSetMode();
-
-  useSubscribeAction(
-    Actions.CreateTask,
-    () => {
-      const id = randomInt().toString();
-      createTask({ id, name: '', status: 'pending' });
-      setIndex(tasks.length);
-      setEditIndex(tasks.length);
-      setMode(Mode.Insert);
-    },
-    [tasks],
-  );
-
-  useSubscribeAction(
-    Actions.DeleteTask,
-    () => {
-      deleteTask(tasks[index].id);
-      setIndex(i => clamp(i, 0, tasks.length - 2));
-    },
-    [index, tasks],
-  );
 
   const close = () => {
     setEditIndex(-1);
@@ -49,20 +28,24 @@ export const TaskPage = () => {
   };
 
   useSubscribeAction(
-    Actions.MoveNextBlock,
+    Actions.CreateTask,
     () => {
-      setIndex(i => clamp(i + 1, 0, tasks.length - 1));
+      const id = randomInt().toString();
+      createTask({ id, name: '', status: 'pending' });
+      setEditIndex(tasks.length);
+      setMode(Mode.Insert);
     },
-    [tasks.length],
+    [tasks],
   );
 
   useSubscribeAction(
-    Actions.MovePrevBlock,
-    () => {
-      setIndex(i => clamp(i - 1, 0, tasks.length - 1));
-    },
-    [tasks.length],
+    Actions.DeleteTask,
+    () => deleteTask(tasks[activeIndex].id),
+    [activeIndex, tasks],
   );
+
+  useSubscribeAction(Actions.MoveNextBlock, focusNext, [tasks.length]);
+  useSubscribeAction(Actions.MovePrevBlock, focusPrev, [tasks.length]);
 
   return (
     <div className="fc p-8 gap-4">
@@ -75,7 +58,7 @@ export const TaskPage = () => {
           onSubmit={callAll(editTask, close)}
           onCancel={callAll(revert, close)}
           editIndex={editIndex}
-          activeIndex={index}
+          activeIndex={activeIndex}
           tasks={tasks}
         />
       )}
