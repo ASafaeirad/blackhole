@@ -1,4 +1,5 @@
-import { Task } from './Task';
+import type { Task, TaskStatus } from '../Task';
+import { Task as TaskComponent } from './Task';
 
 interface Props {
   tasks: Task[];
@@ -6,7 +7,7 @@ interface Props {
   onSubmit: (task: Task) => void;
   onCancel: (task: Task) => void;
   editIndex: number;
-  onToggle: (index: number, status: Task['status']) => void;
+  onToggle: (index: number, status: TaskStatus) => void;
 }
 
 export const TaskList = ({
@@ -20,7 +21,7 @@ export const TaskList = ({
   return (
     <div className="fc gap-3">
       {tasks.map((task, i) => (
-        <Task
+        <TaskComponent
           key={task.id}
           edit={i === editIndex}
           focus={i === activeIndex}

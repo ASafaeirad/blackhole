@@ -37,3 +37,4 @@ iconify
 blocksuite
 keybinds
 usehooks
+jotai
