@@ -39,7 +39,8 @@ export class KeybindingManager<TAction extends string> {
   }
 
   public subscribe(name: TAction, command: VoidFunction) {
-    const action = this.#actions.get(name)!;
+    const action = this.#actions.get(name);
+    if (!action) throw new Error(`Action "${name}" not found`);
 
     action.subscribers.push(command);
 

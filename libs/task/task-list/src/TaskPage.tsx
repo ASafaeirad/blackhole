@@ -30,6 +30,15 @@ export const TaskPage = () => {
     [tasks],
   );
 
+  useSubscribeAction(
+    Actions.DeleteTask,
+    () => {
+      deleteTask(tasks[index].id);
+      setIndex(i => clamp(i, 0, tasks.length - 2));
+    },
+    [index, tasks],
+  );
+
   const close = () => {
     setEditIndex(-1);
     setMode(Mode.Normal);
