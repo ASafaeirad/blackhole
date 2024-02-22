@@ -1,18 +1,32 @@
+import type { KeyboardEventCode, KeyboardEventKey } from './Keybinding';
+
+const codeMap: Partial<Record<KeyboardEventKey, KeyboardEventCode>> = {
+  ' ': 'Space',
+  'escape': 'Escape',
+  'enter': 'Enter',
+};
+
 export class Chord {
   private ctrl: boolean;
   private shift: boolean;
   private alt: boolean;
   private meta: boolean;
-  private key: string;
+  private code: string;
 
   static fromKeyboardEvent(event: KeyboardEvent) {
     return new Chord({
       alt: event.altKey,
       ctrl: event.ctrlKey,
-      key: event.key.toLocaleLowerCase(),
+      code: event.code,
       meta: event.metaKey,
       shift: event.shiftKey,
     });
+  }
+
+  private static charToCode(char: KeyboardEventKey): string {
+    if (codeMap[char]) return codeMap[char]!;
+    if (char > 'a' && char < 'z') return `Key${char.toUpperCase()}`;
+    throw Error(`Unknown key: ${char}`);
   }
 
   static fromString(str: string) {
@@ -21,7 +35,7 @@ export class Chord {
       ctrl: str.includes('ctrl'),
       meta: str.includes('meta'),
       shift: str.includes('shift'),
-      key: str.split('+').pop()!,
+      code: this.charToCode(str.split('+').pop() as KeyboardEventKey),
     });
   }
 
@@ -35,7 +49,7 @@ export class Chord {
   }
 
   get hash() {
-    return `${this.metaHash}+${this.key}`;
+    return `${this.metaHash}+${this.code}`;
   }
 
   constructor(options: {
@@ -43,12 +57,12 @@ export class Chord {
     shift: boolean;
     alt: boolean;
     meta: boolean;
-    key: string;
+    code: string;
   }) {
     this.ctrl = options.ctrl;
     this.shift = options.shift;
     this.alt = options.alt;
     this.meta = options.meta;
-    this.key = options.key;
+    this.code = options.code;
   }
 }

@@ -10,6 +10,8 @@ export enum Actions {
   DeleteTask = 'DeleteTask',
   CloseModal = 'CloseModal',
   Toggle = 'Toggle',
+  MoveDown = 'MoveDown',
+  MoveUp = 'MoveUp',
 }
 
 export const keyMaps = {
@@ -22,4 +24,6 @@ export const keyMaps = {
   [Actions.CloseModal]: iMap('escape'),
   [Actions.Toggle]: nMap(' '),
   [Actions.DeleteTask]: nMap('d'),
+  [Actions.MoveUp]: nMap('alt+k'),
+  [Actions.MoveDown]: nMap('alt+j'),
 } as const;

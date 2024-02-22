@@ -52,6 +52,32 @@ export const useTask = () => {
     if (!task.name) deleteTask();
   };
 
+  const moveUp = () => {
+    const task = tasks[focusedIndex];
+    if (focusedIndex === 0) return;
+    setTask(ps => {
+      const newTasks = [...ps];
+      newTasks[focusedIndex] = newTasks[focusedIndex - 1];
+      newTasks[focusedIndex - 1] = task;
+
+      return newTasks;
+    });
+    setFocusedTask(focusedIndex - 1);
+  };
+
+  const moveDown = () => {
+    const task = tasks[focusedIndex];
+    if (focusedIndex === tasks.length - 1) return;
+    setTask(ps => {
+      const newTasks = [...ps];
+      newTasks[focusedIndex] = newTasks[focusedIndex + 1];
+      newTasks[focusedIndex + 1] = task;
+
+      return newTasks;
+    });
+    setFocusedTask(focusedIndex + 1);
+  };
+
   return {
     tasks,
     createTask,
@@ -59,6 +85,8 @@ export const useTask = () => {
     changeStatus,
     deleteTask,
     revert,
+    moveDown,
+    moveUp,
   } as const;
 };
 

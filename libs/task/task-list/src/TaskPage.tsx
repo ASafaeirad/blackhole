@@ -12,8 +12,16 @@ import { TaskList } from './components/TaskList';
 import { editIndexAtom, useActiveIndex, useTask } from './data/useTask';
 
 export const TaskPage = () => {
-  const { tasks, createTask, editTask, changeStatus, deleteTask, revert } =
-    useTask();
+  const {
+    tasks,
+    createTask,
+    editTask,
+    changeStatus,
+    deleteTask,
+    revert,
+    moveDown,
+    moveUp,
+  } = useTask();
   const { activeIndex, focusNext, focusPrev } = useActiveIndex();
   const [editIndex, setEditIndex] = useAtom(editIndexAtom);
   const setMode = useSetMode();
@@ -34,6 +42,8 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.DeleteTask, deleteTask, [activeIndex, tasks]);
   useSubscribeAction(Actions.MoveNextBlock, focusNext, [tasks.length]);
   useSubscribeAction(Actions.MovePrevBlock, focusPrev, [tasks.length]);
+  useSubscribeAction(Actions.MoveDown, moveDown, [tasks, activeIndex]);
+  useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeIndex]);
 
   return (
     <div className="fc p-8 gap-4">
