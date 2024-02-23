@@ -1,5 +1,0 @@
-export interface Props {}
-
-export const <%= className %> = (props: Props) => {
-  return <div>Hello from <%= className %></div>;
-}

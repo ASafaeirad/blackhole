@@ -42,6 +42,7 @@
           { "value": "task", "label": "Task and Project" },
           { "value": "focus", "label": "Focus" },
           { "value": "analytics", "label": "Analytics" },
+          { "value": "shortcut", "label": "Shortcut" },
           { "value": "notification", "label": "Notification" }
         ]
       }

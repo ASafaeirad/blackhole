@@ -64,8 +64,12 @@
     "sharedGlobals": []
   },
   "plugins": [
-    { "plugin": "@nx/vite/plugin" },
-    { "plugin": "@nx/eslint/plugin" }
+    {
+      "plugin": "@nx/vite/plugin"
+    },
+    {
+      "plugin": "@nx/eslint/plugin"
+    }
   ],
   "defaultProject": "web"
 }
