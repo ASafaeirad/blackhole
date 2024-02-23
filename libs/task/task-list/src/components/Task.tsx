@@ -6,25 +6,16 @@ import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task as TaskType, TaskStatus } from '../Task';
+import type { Task as TaskType } from '../Task';
 
 interface Props {
   focus: boolean;
   task: TaskType;
   edit: boolean;
-  onCancel: VoidFunction;
   onSubmit: (name: string) => MaybePromise<void>;
-  onToggle: (status: TaskStatus) => void;
 }
 
-export const Task = ({
-  focus,
-  task,
-  edit: isEdit,
-  onSubmit,
-  onCancel,
-  onToggle,
-}: Props) => {
+export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
   const [name, setName] = useState('');
 
   useSubscribeAction(
@@ -35,18 +26,6 @@ export const Task = ({
     },
     [name],
   );
-
-  useSubscribeAction(
-    Actions.Toggle,
-    () => {
-      if (focus) onToggle(task.status === 'done' ? 'pending' : 'done');
-    },
-    [task.status, focus],
-  );
-
-  useSubscribeAction(Actions.CloseModal, () => {
-    onCancel();
-  });
 
   return (
     <div className="fr text-body gap-3 items-center">

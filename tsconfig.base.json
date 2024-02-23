@@ -39,6 +39,7 @@
       ],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/shortcut/help": ["libs/shortcut/help/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
       "@blackhole/uno-preset": ["libs/tools/uno-preset/src/index.ts"]

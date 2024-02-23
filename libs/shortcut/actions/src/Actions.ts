@@ -12,6 +12,7 @@ export enum Actions {
   Toggle = 'Toggle',
   MoveDown = 'MoveDown',
   MoveUp = 'MoveUp',
+  ShowHelp = 'ShowHelp',
 }
 
 export const keyMaps = {
@@ -21,9 +22,10 @@ export const keyMaps = {
   [Actions.GoToNormalMode]: iMap('escape'),
   [Actions.CreateTask]: nMap('c'),
   [Actions.SaveTask]: iMap('enter'),
-  [Actions.CloseModal]: iMap('escape'),
+  [Actions.CloseModal]: nMap('escape'),
   [Actions.Toggle]: nMap(' '),
   [Actions.DeleteTask]: nMap('d'),
   [Actions.MoveUp]: nMap('alt+k'),
   [Actions.MoveDown]: nMap('alt+j'),
+  [Actions.ShowHelp]: nMap('h'),
 } as const;

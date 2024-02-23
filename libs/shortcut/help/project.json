@@ -1,0 +1,11 @@
+{
+  "name": "help",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shortcut/help/src",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:shortcut"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

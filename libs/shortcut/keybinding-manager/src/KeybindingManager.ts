@@ -61,9 +61,9 @@ export class KeybindingManager<TAction extends string> {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
       const actionName = this.#chords[this.#mode].get(chord);
-      debug.trace('KeybindingManager', { chord, actionName });
 
       if (!actionName) return;
+      debug.trace('KeybindingManager', { mode: this.#mode, chord, actionName });
       const action = this.#actions.get(actionName);
       if (!action) return;
       event.preventDefault();
