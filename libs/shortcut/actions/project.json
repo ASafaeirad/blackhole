@@ -1,7 +1,7 @@
 {
   "name": "actions",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/actions/src",
+  "sourceRoot": "libs/shortcut/actions/src",
   "projectType": "library",
   "tags": ["type:config", "scope:shared"],
   "targets": {
@@ -11,7 +11,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/shared/actions"
+        "reportsDirectory": "../../../coverage/libs/shortcut/actions"
       }
     },
     "tsc": {}

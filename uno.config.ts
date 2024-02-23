@@ -1,6 +1,6 @@
 import { defineConfig, presetIcons, presetWebFonts } from 'unocss';
 
-import { presetBlackhole } from './libs/shared/uno-preset/src'; // eslint-disable-line @nx/enforce-module-boundaries, import/no-relative-packages
+import { presetBlackhole } from './libs/tools/uno-preset/src'; // eslint-disable-line @nx/enforce-module-boundaries, import/no-relative-packages
 
 export default defineConfig({
   shortcuts: {

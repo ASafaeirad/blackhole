@@ -24,7 +24,7 @@
     "baseUrl": ".",
     "types": ["vite/client"],
     "paths": {
-      "@blackhole/actions": ["libs/shared/actions/src/index.ts"],
+      "@blackhole/actions": ["libs/shortcut/actions/src/index.ts"],
       "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
       "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
@@ -35,7 +35,7 @@
       ],
       "@blackhole/icons": ["libs/shared/icons/src/index.ts"],
       "@blackhole/keybinding-manager": [
-        "libs/shared/keybinding-manager/src/index.ts"
+        "libs/shortcut/keybinding-manager/src/index.ts"
       ],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
