@@ -1,7 +1,7 @@
 {
   "name": "uno-preset",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/uno-preset/src",
+  "sourceRoot": "libs/tools/uno-preset/src",
   "projectType": "library",
   "tags": ["type:ui", "scope:shared"],
   "targets": {

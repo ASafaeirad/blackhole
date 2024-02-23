@@ -42,7 +42,7 @@
       "@blackhole/store": ["libs/shared/store/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
-      "@blackhole/uno-preset": ["libs/shared/uno-preset/src/index.ts"]
+      "@blackhole/uno-preset": ["libs/tools/uno-preset/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
