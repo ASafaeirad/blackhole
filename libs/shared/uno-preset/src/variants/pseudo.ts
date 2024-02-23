@@ -184,19 +184,13 @@ function taggedPseudoClassMatcher(
           `(?:${ctx.generator.config.separators.join('|')})`,
         );
         pseudoRE = new RegExp(
-          `^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesStr}))(?:(/\\w+))?(?:${ctx.generator.config.separators.join(
-            '|',
-          )})`,
+          `^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesStr}))(?:(/\\w+))?(?:${ctx.generator.config.separators.join('|')})`,
         );
         pseudoColonRE = new RegExp(
-          `^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesColonStr}))(?:(/\\w+))?(?:${ctx.generator.config.separators
-            .filter(x => x !== '-')
-            .join('|')})`,
+          `^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesColonStr}))(?:(/\\w+))?(?:${ctx.generator.config.separators.filter(x => x !== '-').join('|')})`,
         );
         pseudoVarRE = new RegExp(
-          `^${tag}-(?:(${PseudoClassFunctionsStr})-)?\\[(.+)\\](?:(/\\w+))?(?:${ctx.generator.config.separators
-            .filter(x => x !== '-')
-            .join('|')})`,
+          `^${tag}-(?:(${PseudoClassFunctionsStr})-)?\\[(.+)\\](?:(/\\w+))?(?:${ctx.generator.config.separators.filter(x => x !== '-').join('|')})`,
         );
       }
 
@@ -258,16 +252,12 @@ export function variantPseudoClassesAndElements(): VariantObject<Theme> {
   return {
     name: 'pseudo',
     match(input, ctx) {
-      if (!(PseudoClassesAndElementsRE && PseudoClassesAndElementsRE)) {
+      if (!(PseudoClassesAndElementsColonRE && PseudoClassesAndElementsRE)) {
         PseudoClassesAndElementsRE = new RegExp(
-          `^(${PseudoClassesAndElementsStr})(?:${ctx.generator.config.separators.join(
-            '|',
-          )})`,
+          `^(${PseudoClassesAndElementsStr})(?:${ctx.generator.config.separators.join('|')})`,
         );
         PseudoClassesAndElementsColonRE = new RegExp(
-          `^(${PseudoClassesAndElementsColonStr})(?:${ctx.generator.config.separators
-            .filter(x => x !== '-')
-            .join('|')})`,
+          `^(${PseudoClassesAndElementsColonStr})(?:${ctx.generator.config.separators.filter(x => x !== '-').join('|')})`,
         );
       }
 
@@ -291,12 +281,8 @@ export function variantPseudoClassesAndElements(): VariantObject<Theme> {
           handle: (input, next) => {
             const selectors =
               pseudo.startsWith('::') && !excludedPseudo.includes(pseudo)
-                ? {
-                    pseudo: `${input.pseudo}${pseudo}`,
-                  }
-                : {
-                    selector: `${input.selector}${pseudo}`,
-                  };
+                ? { pseudo: `${input.pseudo}${pseudo}` }
+                : { selector: `${input.selector}${pseudo}` };
 
             return next({
               ...input,
@@ -321,19 +307,13 @@ export function variantPseudoClassFunctions(): VariantObject<Theme> {
     match(input, ctx) {
       if (!(PseudoClassFunctionsRE && PseudoClassColonFunctionsRE)) {
         PseudoClassFunctionsRE = new RegExp(
-          `^(${PseudoClassFunctionsStr})-(${PseudoClassesStr})(?:${ctx.generator.config.separators.join(
-            '|',
-          )})`,
+          `^(${PseudoClassFunctionsStr})-(${PseudoClassesStr})(?:${ctx.generator.config.separators.join('|')})`,
         );
         PseudoClassColonFunctionsRE = new RegExp(
-          `^(${PseudoClassFunctionsStr})-(${PseudoClassesColonStr})(?:${ctx.generator.config.separators
-            .filter(x => x !== '-')
-            .join('|')})`,
+          `^(${PseudoClassFunctionsStr})-(${PseudoClassesColonStr})(?:${ctx.generator.config.separators.filter(x => x !== '-').join('|')})`,
         );
         PseudoClassVarFunctionRE = new RegExp(
-          `^(${PseudoClassFunctionsStr})-(\\[.+\\])(?:${ctx.generator.config.separators
-            .filter(x => x !== '-')
-            .join('|')})`,
+          `^(${PseudoClassFunctionsStr})-(\\[.+\\])(?:${ctx.generator.config.separators.filter(x => x !== '-').join('|')})`,
         );
       }
 

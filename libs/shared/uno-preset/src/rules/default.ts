@@ -4,7 +4,7 @@ import type { Theme } from '../theme';
 import { textAligns, verticalAligns } from './align';
 import { appearance, outline, willChange } from './behaviors';
 import { borders } from './border';
-import { bgColors, colorScheme, opacity, textColors } from './color';
+import { bgColors, bgImage, colorScheme, opacity, textColors } from './color';
 import { containerParent } from './container';
 import { textDecorations } from './decoration';
 import { flex } from './flex';
@@ -108,6 +108,7 @@ export const rules: Rule<Theme>[] = [
   containerParent,
   contains,
   textWraps,
+  bgImage,
 
   // should be the last
   questionMark,

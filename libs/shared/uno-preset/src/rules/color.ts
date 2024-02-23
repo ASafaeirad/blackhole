@@ -31,6 +31,27 @@ export const bgColors: Rule<Theme>[] = [
   ],
 ];
 
+export const bgImage: Rule<Theme>[] = [
+  [
+    /^bv$/,
+    () => {
+      return {
+        'background': `url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDMgMTMiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yIDFMMiAxMkwxIDEyTDEgMUwyIDFaIiBmaWxsPSIjQ0NDQ0NDIi8+Cjwvc3ZnPgo=") repeat-y 0 0`,
+        'background-size': '3px 16px',
+      };
+    },
+  ],
+  [
+    /^bh$/,
+    () => {
+      return {
+        'background': `url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEzIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xIDJIMTJWM0gxVjJaIiBmaWxsPSIjQ0NDQ0NDIi8+Cjwvc3ZnPgo=") repeat-x 0 0`,
+        'background-size': '16px 5px',
+      };
+    },
+  ],
+];
+
 export const colorScheme: Rule<Theme>[] = [
   [/^color-scheme-(\w+)$/, ([, v]) => ({ 'color-scheme': v })],
 ];
