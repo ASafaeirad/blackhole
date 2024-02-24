@@ -16,9 +16,7 @@ export const Default: Story = {
         <Dialog.Trigger>Edit profile</Dialog.Trigger>
         <Dialog.Content>
           <Dialog.Title className="text-title">Edit profile</Dialog.Title>
-          <Dialog.Description className="color-muted">
-            Make changes to your profile here. Click save.
-          </Dialog.Description>
+          <div>Make changes to your profile here. Click save.</div>
           <div className="flex justify-end">
             <Dialog.Close>Save changes</Dialog.Close>
           </div>

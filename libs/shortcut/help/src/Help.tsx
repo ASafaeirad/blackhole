@@ -27,7 +27,7 @@ export const Help = () => {
   return (
     <Dialog open={isOpen}>
       <Dialog.Content position="fixed" className="w-sm">
-        <Dialog.Title className="text-title">Help</Dialog.Title>
+        <Dialog.Title>Help</Dialog.Title>
         <div className="fc gap-5">
           <HelpGroup title="Movement">
             <HelpGroup.Command keybinding="k">Go up</HelpGroup.Command>

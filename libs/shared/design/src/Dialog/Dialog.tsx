@@ -75,8 +75,11 @@ export const Close = (props: ButtonProps) => {
   );
 };
 
+const Title = (props: RxDialog.DialogTitleProps) => (
+  <RxDialog.Title {...props} className={cn('text-title', props.className)} />
+);
+
 Dialog.Content = Content;
 Dialog.Trigger = Trigger;
-Dialog.Title = RxDialog.Title;
-Dialog.Description = RxDialog.Description;
+Dialog.Title = Title;
 Dialog.Close = Close;
