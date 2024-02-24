@@ -1,7 +1,9 @@
 import { Actions } from '@blackhole/actions';
-import { Command, Dialog } from '@blackhole/design';
+import { Dialog } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import { useState } from 'react';
+
+import { HelpGroup } from './HelpGroup';
 
 export const Help = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,11 +18,31 @@ export const Help = () => {
 
   return (
     <Dialog open={isOpen}>
-      <Dialog.Content position="fixed">
-        <Dialog.Title>Help</Dialog.Title>
-        <Dialog.Description className="fc">
-          <Command keybinding="h">Show help</Command>
-          <Command keybinding="c">Create task</Command>
+      <Dialog.Content position="fixed" className="w-sm">
+        <Dialog.Title className="text-title">Help</Dialog.Title>
+        <Dialog.Description className="fc gap-5">
+          <HelpGroup title="Movement">
+            <HelpGroup.Command keybinding="k">Go up</HelpGroup.Command>
+            <HelpGroup.Command keybinding="j">Go down</HelpGroup.Command>
+            <HelpGroup.Command keybinding="alt+k">
+              Move item up
+            </HelpGroup.Command>
+            <HelpGroup.Command keybinding="alt+j">
+              Move item down
+            </HelpGroup.Command>
+          </HelpGroup>
+
+          <HelpGroup title="Task">
+            <HelpGroup.Command keybinding="c">Create task</HelpGroup.Command>
+            <HelpGroup.Command keybinding="space">
+              Toggle done
+            </HelpGroup.Command>
+            <HelpGroup.Command keybinding="d">Delete item</HelpGroup.Command>
+          </HelpGroup>
+
+          <HelpGroup title="Global">
+            <HelpGroup.Command keybinding="h">Show help</HelpGroup.Command>
+          </HelpGroup>
         </Dialog.Description>
       </Dialog.Content>
     </Dialog>

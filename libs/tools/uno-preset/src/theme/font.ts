@@ -44,11 +44,6 @@ export const textStyle = {
     'font-weight': fontWeight.semiBold,
     'line-height': 'normal',
   },
-  logo: {
-    'font-size': pxToRem(32),
-    'font-weight': fontWeight.extraBold,
-    'line-height': 'normal',
-  },
   small: {
     'font-size': pxToRem(14),
     'font-weight': fontWeight.regular,
