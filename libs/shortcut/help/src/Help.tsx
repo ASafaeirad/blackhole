@@ -1,26 +1,33 @@
 import { Actions } from '@blackhole/actions';
 import { Dialog } from '@blackhole/design';
-import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import {
+  Mode,
+  useSetMode,
+  useSubscribeAction,
+} from '@blackhole/keybinding-manager';
 import { useState } from 'react';
 
 import { HelpGroup } from './HelpGroup';
 
 export const Help = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const setMode = useSetMode();
 
   useSubscribeAction(Actions.ShowHelp, () => {
     setIsOpen(true);
+    setMode(Mode.Overlay);
   });
 
   useSubscribeAction(Actions.CloseModal, () => {
     setIsOpen(false);
+    setMode(Mode.Normal);
   });
 
   return (
     <Dialog open={isOpen}>
       <Dialog.Content position="fixed" className="w-sm">
         <Dialog.Title className="text-title">Help</Dialog.Title>
-        <Dialog.Description className="fc gap-5">
+        <div className="fc gap-5">
           <HelpGroup title="Movement">
             <HelpGroup.Command keybinding="k">Go up</HelpGroup.Command>
             <HelpGroup.Command keybinding="j">Go down</HelpGroup.Command>
@@ -43,7 +50,7 @@ export const Help = () => {
           <HelpGroup title="Global">
             <HelpGroup.Command keybinding="h">Show help</HelpGroup.Command>
           </HelpGroup>
-        </Dialog.Description>
+        </div>
       </Dialog.Content>
     </Dialog>
   );

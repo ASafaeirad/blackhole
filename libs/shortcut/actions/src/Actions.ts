@@ -1,4 +1,4 @@
-import { iMap, nMap } from '@blackhole/keybinding-manager';
+import { iMap, map, nMap } from '@blackhole/keybinding-manager';
 
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',
@@ -22,7 +22,7 @@ export const keyMaps = {
   [Actions.GoToNormalMode]: iMap('escape'),
   [Actions.CreateTask]: nMap('c'),
   [Actions.SaveTask]: iMap('enter'),
-  [Actions.CloseModal]: nMap('escape'),
+  [Actions.CloseModal]: map('escape'),
   [Actions.Toggle]: nMap(' '),
   [Actions.DeleteTask]: nMap('d'),
   [Actions.MoveUp]: nMap('alt+k'),

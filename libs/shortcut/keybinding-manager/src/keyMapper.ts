@@ -3,6 +3,7 @@ import type { Keybinding } from './Keybinding';
 export enum Mode {
   Normal = 0b01,
   Insert = 0b10,
+  Overlay = 0b100,
 }
 
 export const nMap = (key: Keybinding): WithMode<Keybinding> => ({
@@ -15,9 +16,14 @@ export const iMap = (key: Keybinding): WithMode<Keybinding> => ({
   mode: Mode.Insert,
 });
 
+export const oMap = (key: Keybinding): WithMode<Keybinding> => ({
+  key,
+  mode: Mode.Overlay,
+});
+
 export const map = (key: Keybinding): WithMode<Keybinding> => ({
   key,
-  mode: Mode.Insert | Mode.Normal,
+  mode: Mode.Insert | Mode.Normal | Mode.Overlay,
 });
 
 export interface WithMode<T extends string> {

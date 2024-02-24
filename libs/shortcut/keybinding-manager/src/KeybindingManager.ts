@@ -6,16 +6,16 @@ import type { WithMode } from './keyMapper';
 import { Mode } from './keyMapper';
 
 interface Action {
-  chord?: string;
+  binding: {
+    chord: string;
+    mode: Mode;
+  };
   subscribers: VoidFunction[];
 }
 
 export class KeybindingManager<TAction extends string> {
   #actions = new Map<TAction, Action>();
-  #chords = {
-    [Mode.Normal]: new Map<string, TAction>(),
-    [Mode.Insert]: new Map<string, TAction>(),
-  };
+  #chords = new Map<string, TAction>();
 
   #mode: Mode = Mode.Normal;
 
@@ -33,8 +33,8 @@ export class KeybindingManager<TAction extends string> {
       const { key, mode } = actions[k];
       const chord = Chord.fromString(key).hash;
 
-      this.#chords[mode].set(chord, k);
-      this.#actions.set(k, { subscribers: [], chord });
+      this.#chords.set(chord, k);
+      this.#actions.set(k, { subscribers: [], binding: { chord, mode } });
     });
   }
 
@@ -53,19 +53,24 @@ export class KeybindingManager<TAction extends string> {
   public bind(name: TAction, { key, mode }: WithMode<Keybinding>) {
     const chord = Chord.fromString(key).hash;
     const action = this.#actions.get(name)!;
-    this.#chords[mode].set(chord, name);
-    action.chord = chord;
+    this.#chords.set(chord, name);
+    action.binding.chord = chord;
+    action.binding.mode = mode;
   }
 
   public register(document: Document) {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
-      const actionName = this.#chords[this.#mode].get(chord);
+      const actionName = this.#chords.get(chord);
 
       if (!actionName) return;
       debug.trace('KeybindingManager', { mode: this.#mode, chord, actionName });
       const action = this.#actions.get(actionName);
       if (!action) return;
+
+      const isInMode = action.binding.mode & this.#mode;
+      if (!isInMode) return;
+
       event.preventDefault();
       action.subscribers.forEach(subscriber => subscriber());
     };

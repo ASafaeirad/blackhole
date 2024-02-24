@@ -72,4 +72,24 @@ describe('KeybindingManager', () => {
 
     expect(handle).toHaveBeenCalledOnce();
   });
+
+  it('should register keybindings in composed mode', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: 'a', mode: Mode.Normal | Mode.Insert },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    manager.mode = Mode.Normal;
+    const event = new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' });
+    document.dispatchEvent(event);
+    manager.mode = Mode.Insert;
+    document.dispatchEvent(event);
+
+    manager.mode = Mode.Overlay;
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledTimes(2);
+  });
 });

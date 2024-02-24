@@ -9,7 +9,7 @@ interface Props {
 export const HelpGroup = ({ title, children }: Props) => {
   return (
     <div className="fc gap-3">
-      <p>{title}</p>
+      <span>{title}</span>
       <div className="fc gap-2">{children}</div>
     </div>
   );
