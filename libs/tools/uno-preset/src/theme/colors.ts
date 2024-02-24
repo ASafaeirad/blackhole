@@ -42,7 +42,7 @@ export const colors = {
     'primary': palette.gray[900],
     'elevated': palette.gray[800],
     'alternative': palette.gray[100],
-    'subtle': palette.tint[30],
+    'subtle': palette.tint[10],
     'cta': palette.gray[700],
     'cta-subtle': palette.sky[100],
     'danger': palette.flare[600],

@@ -4,7 +4,7 @@ export interface KeyProps {
 
 export const Key = ({ children }: KeyProps) => {
   return (
-    <kbd className="p-2 bg-elevated rounded case-lower color-muted">
+    <kbd className="p-2 bg-subtle rounded case-lower color-muted">
       {children}
     </kbd>
   );

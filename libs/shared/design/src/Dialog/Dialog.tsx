@@ -17,7 +17,7 @@ const SetDialogContext = createContext<
 
 const content = cva(
   [
-    'relative bg-cta fc px-7 py-6 rounded-md gap-5 bh outline-none',
+    'relative bg-elevated fc px-7 py-6 rounded-md gap-5 outline-none',
     'after:content-empty after:h-full after:absolute after:w-[3px] after:bv after:left-0 after:top-0',
     'before:content-empty before:h-full before:absolute before:w-[3px] before:bv before:left-full before:top-0',
   ],
@@ -41,6 +41,7 @@ const Content = (props: DialogContentProps) => (
       {...props}
       className={cn(content({ position: props.position }), props.className)}
     >
+      <div className="absolute h-[3px] w-full left-0 top-0 bh" />
       {props.children}
       <div className="absolute h-[3px] w-full bottom-0 left-0 bh" />
     </RxDialog.Content>
