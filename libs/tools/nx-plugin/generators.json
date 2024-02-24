@@ -5,16 +5,6 @@
       "schema": "./src/generators/library/schema.json",
       "description": "Blackhole TypeScript lib generator"
     },
-    "solid-lib": {
-      "factory": "./src/generators/solid-library/generator",
-      "schema": "./src/generators/solid-library/schema.json",
-      "description": "Blackhole Solid lib generator"
-    },
-    "vue-lib": {
-      "factory": "./src/generators/vue-library/generator",
-      "schema": "./src/generators/vue-library/schema.json",
-      "description": "Blackhole Vue lib generator"
-    },
     "react-lib": {
       "factory": "./src/generators/react-library/generator",
       "schema": "./src/generators/react-library/schema.json",

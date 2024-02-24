@@ -1,0 +1,11 @@
+{
+  "name": "keybinding-manager",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shortcut/keybinding-manager/src",
+  "projectType": "library",
+  "tags": ["type:util", "scope:shared"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

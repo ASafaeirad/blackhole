@@ -6,7 +6,6 @@ import { addLinting } from '../shared/addLinting';
 import { addProject } from '../shared/addProject';
 import { addSpell } from '../shared/addSpell';
 import { addTSC } from '../shared/addTSC';
-import { addVitest } from '../shared/addVitest';
 import { normalizeOptions } from '../shared/normalizeOptions';
 import type { ReactLibrarySchema } from './schema';
 import { createFiles } from './utils/createFiles';
@@ -23,7 +22,6 @@ export async function reactLibraryGenerator(
   addLinting(tree, options);
   addSpell(tree, options);
   addTSC(tree, options);
-  addVitest(tree, options);
   addImportPath(tree, options);
 
   return formatFiles(tree);

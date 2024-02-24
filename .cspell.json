@@ -19,7 +19,7 @@
     "node_modules/",
     "pnpm-lock.yaml",
     "libs/shared/supabase/supabase/config.toml",
-    "libs/shared/uno-preset/src/*",
+    "libs/tools/uno-preset/src/*",
     "*.sql"
   ]
 }

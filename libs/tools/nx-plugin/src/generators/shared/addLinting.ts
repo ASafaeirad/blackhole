@@ -11,10 +11,6 @@ import type { NormalizedProjectSchema } from './schema';
 export function addLinting(tree: Tree, schema: NormalizedProjectSchema) {
   addTargetDefaults(tree);
   const projectConfig = readProjectConfiguration(tree, schema.name);
-
-  projectConfig.targets ??= {};
-  projectConfig.targets['lint'] = {};
-
   updateProjectConfiguration(tree, schema.name, projectConfig);
 }
 
@@ -34,11 +30,6 @@ function addTargetDefaults(tree: Tree) {
   nxJson.targetDefaults['lint'] ??= {
     cache: true,
   };
-  nxJson.targetDefaults['lint'].inputs ??= [
-    'default',
-    `{workspaceRoot}/.eslintrc.cjs`,
-    `{workspaceRoot}/.eslintignore`,
-  ];
 
   updateNxJson(tree, nxJson);
 }

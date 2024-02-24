@@ -43,6 +43,7 @@
           { "value": "focus", "label": "Focus" },
           { "value": "analytics", "label": "Analytics" },
           { "value": "notification", "label": "Notification" },
+          { "value": "shortcut", "label": "Shortcut" },
           { "value": "tools", "label": "Tools" }
         ]
       }
