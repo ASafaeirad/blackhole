@@ -5,12 +5,13 @@ import {
   useSetMode,
   useSubscribeAction,
 } from '@blackhole/keybinding-manager';
-import { useState } from 'react';
+import { useAtom } from 'jotai';
 
-import { HelpGroup } from './HelpGroup';
+import { HelpGroup } from './components/HelpGroup';
+import { helpAtom } from './data/helpAtom';
 
 export const Help = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useAtom(helpAtom);
   const setMode = useSetMode();
 
   useSubscribeAction(Actions.ShowHelp, () => {
@@ -45,6 +46,12 @@ export const Help = () => {
               Toggle done
             </HelpGroup.Command>
             <HelpGroup.Command keybinding="d">Delete item</HelpGroup.Command>
+          </HelpGroup>
+
+          <HelpGroup title="Modal">
+            <HelpGroup.Command keybinding="escape">
+              Close modal
+            </HelpGroup.Command>
           </HelpGroup>
 
           <HelpGroup title="Global">

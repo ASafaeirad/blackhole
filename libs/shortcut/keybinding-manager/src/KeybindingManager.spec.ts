@@ -92,4 +92,44 @@ describe('KeybindingManager', () => {
 
     expect(handle).toHaveBeenCalledTimes(2);
   });
+
+  it('should not register keybindings in wrong mode', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: 'i', mode: Mode.Normal },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    manager.mode = Mode.Insert;
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
+    document.dispatchEvent(event);
+
+    expect(handle).not.toHaveBeenCalled();
+  });
+
+  it('should subscribe multiple times with a same key', () => {
+    const handle1 = vi.fn();
+    const handle2 = vi.fn();
+    const manager = new KeybindingManager({
+      Action1: { key: 'i', mode: Mode.Overlay },
+      Action2: { key: 'i', mode: Mode.Normal },
+    });
+    manager.subscribe('Action1', handle1);
+    manager.subscribe('Action2', handle2);
+    manager.register(document);
+
+    manager.mode = Mode.Normal;
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
+    document.dispatchEvent(event);
+
+    manager.mode = Mode.Overlay;
+    document.dispatchEvent(event);
+
+    manager.mode = Mode.Insert;
+    document.dispatchEvent(event);
+
+    expect(handle1).toHaveBeenCalledOnce();
+    expect(handle2).toHaveBeenCalledOnce();
+  });
 });

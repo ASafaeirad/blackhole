@@ -1,4 +1,5 @@
 import { debug } from '@blackhole/debug';
+import { isEmpty } from '@fullstacksjs/toolbox';
 
 import { Chord } from './Chord';
 import type { Keybinding } from './Keybinding';
@@ -6,16 +7,14 @@ import type { WithMode } from './keyMapper';
 import { Mode } from './keyMapper';
 
 interface Action {
-  binding: {
-    chord: string;
-    mode: Mode;
-  };
+  chord: string;
+  mode: Mode;
   subscribers: VoidFunction[];
 }
 
 export class KeybindingManager<TAction extends string> {
   #actions = new Map<TAction, Action>();
-  #chords = new Map<string, TAction>();
+  #chords = new Map<string, Record<number, TAction>>();
 
   #mode: Mode = Mode.Normal;
 
@@ -33,9 +32,13 @@ export class KeybindingManager<TAction extends string> {
       const { key, mode } = actions[k];
       const chord = Chord.fromString(key).hash;
 
-      this.#chords.set(chord, k);
-      this.#actions.set(k, { subscribers: [], binding: { chord, mode } });
+      this.#actions.set(k, { chord, mode, subscribers: [] });
+
+      const currentChord = this.#chords.get(chord);
+      if (!currentChord) this.#chords.set(chord, { [mode]: k });
+      else currentChord[mode] = k;
     });
+    console.log(this.#chords);
   }
 
   public subscribe(name: TAction, command: VoidFunction) {
@@ -50,29 +53,33 @@ export class KeybindingManager<TAction extends string> {
     };
   }
 
-  public bind(name: TAction, { key, mode }: WithMode<Keybinding>) {
-    const chord = Chord.fromString(key).hash;
-    const action = this.#actions.get(name)!;
-    this.#chords.set(chord, name);
-    action.binding.chord = chord;
-    action.binding.mode = mode;
-  }
-
   public register(document: Document) {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
-      const actionName = this.#chords.get(chord);
+      const actionDict = this.#chords.get(chord);
 
-      if (!actionName) return;
-      debug.trace('KeybindingManager', { mode: this.#mode, chord, actionName });
-      const action = this.#actions.get(actionName);
-      if (!action) return;
+      if (!actionDict) return;
+      const actions = Object.keys(actionDict)
+        .filter(k => Number(k) & this.#mode)
+        .map(k => ({
+          mode: k,
+          action: this.#actions.get(actionDict[k as unknown as number]),
+        }));
+      console.log(this.#actions);
 
-      const isInMode = action.binding.mode & this.#mode;
-      if (!isInMode) return;
+      debug.trace('KeybindingManager', {
+        mode: this.#mode,
+        chord,
+        actionDict,
+        actions,
+      });
+
+      if (isEmpty(actions)) return;
 
       event.preventDefault();
-      action.subscribers.forEach(subscriber => subscriber());
+      actions.forEach(subscriber =>
+        subscriber.action?.subscribers.forEach(s => s()),
+      );
     };
 
     document.addEventListener('keydown', handleEvent);

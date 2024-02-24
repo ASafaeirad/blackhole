@@ -17,7 +17,7 @@ const SetDialogContext = createContext<
 
 const content = cva(
   [
-    'relative fc px-7 py-6 rounded-md gap-5 bh outline-none',
+    'relative bg-cta fc px-7 py-6 rounded-md gap-5 bh outline-none',
     'after:content-empty after:h-full after:absolute after:w-[3px] after:bv after:left-0 after:top-0',
     'before:content-empty before:h-full before:absolute before:w-[3px] before:bv before:left-full before:top-0',
   ],

@@ -70,7 +70,7 @@ export const TaskPage = () => {
   );
 
   return (
-    <div className="fc p-8 gap-4">
+    <div className="fc gap-4">
       <h1 className="text-title">Tasks</h1>
       {isEmpty(tasks) ? (
         <TaskEmptyState />

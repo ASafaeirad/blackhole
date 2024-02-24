@@ -1,3 +1,4 @@
+import { HelpButton } from '@blackhole/shortcut/help';
 import { TaskPage } from '@blackhole/task/task-list';
 import {
   createRootRoute,
@@ -9,8 +10,13 @@ import {
 } from '@tanstack/react-router';
 
 const Layout = () => (
-  <div className="relative h-screen">
-    <Outlet />
+  <div className="fc p-8 relative h-screen">
+    <div className="f1">
+      <Outlet />
+    </div>
+    <footer className="fr justify-end">
+      <HelpButton />
+    </footer>
   </div>
 );
 
