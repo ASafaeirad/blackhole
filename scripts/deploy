@@ -33,7 +33,7 @@ if (values['dry-run']) process.exit(0);
 
 try {
   await $`npm version ${newVersion} --no-git-tag-version`;
-  await $`git commit -am "chore: Bump version to ${newVersion}"`;
+  await $`git commit -am "chore: bump version to ${newVersion}"`;
   await $`git push`;
   await updateVercelVersion(newVersion);
   await $`git switch main`;
