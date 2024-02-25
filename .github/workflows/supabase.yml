@@ -1,8 +1,6 @@
 name: Deploy Supabase
 
 on:
-  push:
-    branches: [dev, main]
   workflow_dispatch:
 
 jobs:
