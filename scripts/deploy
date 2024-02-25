@@ -26,7 +26,7 @@ await assertWorkingDirectory();
 const releaseType = await getReleaseType();
 if (releaseType === 'chore') exitNoUpdate();
 
-const newVersion = semver.inc(version, releaseType);
+const newVersion = semver.inc(version, releaseType)!;
 console.log(`[${releaseType}]: Deploying ${version} -> ${newVersion}`);
 
 if (values['dry-run']) process.exit(0);
@@ -34,6 +34,7 @@ if (values['dry-run']) process.exit(0);
 await $`npm version ${newVersion} --no-git-tag-version`;
 await $`git commit -am "chore: Bump version to ${newVersion}"`;
 await $`git push`;
+await updateVercelVersion(newVersion);
 await $`git switch main`;
 await $`git merge dev --no-ff -m v${newVersion}`;
 await $`git tag -a v${newVersion} -m "v${newVersion}"`;
@@ -95,4 +96,25 @@ function printHelp() {
 function printVersion() {
   console.log(`TheBlackhole-v${version}`);
   process.exit(0);
+}
+
+function updateVercelVersion(version: string) {
+  const projectId = Bun.env.VERCEL_PROJECT_ID!;
+  const token = Bun.env.VERCEL_TOKEN!;
+
+  return fetch(
+    `https://api.vercel.com/v10/projects/${projectId}/env?upsert=true`,
+    {
+      body: JSON.stringify({
+        key: 'VERSION',
+        target: ['production', 'development'],
+        type: 'plain',
+        value: version,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'post',
+    },
+  );
 }

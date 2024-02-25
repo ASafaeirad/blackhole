@@ -40,3 +40,4 @@ usehooks
 jotai
 positionals
 commitlint
+vercel
