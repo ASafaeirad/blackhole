@@ -1,0 +1,94 @@
+#!/usr/bin/env bun
+
+import { $ } from 'bun';
+import pkg from '../package.json' assert { type: 'json' };
+import semver from 'semver';
+import { parseArgs } from 'util';
+
+type ReleaseType = semver.ReleaseType | 'chore';
+
+const version = pkg.version;
+const { values } = parseArgs({
+  args: Bun.argv,
+  options: {
+    'version': { type: 'boolean', short: 'v' },
+    'help': { type: 'boolean', short: 'h' },
+    'dry-run': { type: 'boolean', short: 'd' },
+  },
+  allowPositionals: true,
+});
+
+if (values.help) printHelp();
+if (values.version) printVersion();
+
+await assertBranch();
+await assertWorkingDirectory();
+const releaseType = await getReleaseType();
+if (releaseType === 'chore') exitNoUpdate();
+
+const newVersion = semver.inc(version, releaseType);
+console.log(`[${releaseType}]: Deploying ${version} -> ${newVersion}`);
+
+if (values['dry-run']) process.exit(0);
+
+await $`npm version ${newVersion}`;
+await $`git commit -am "[CHORE]: Bump version to ${newVersion}"`;
+await $`git checkout main`;
+await $`git merge dev --no-ff`;
+console.log(`git tag -a v${newVersion} -m "v${newVersion}"`);
+
+/* ------------------------------------- */
+/* ------------ INTERNALS -------------- */
+/* ------------------------------------- */
+
+async function getReleaseType(): Promise<ReleaseType> {
+  const commits = await $`git log --pretty=format:%s main..dev`
+    .text()
+    .then(t => t.trim().split('\n'))
+    .then(t => t.map(m => m.trim().toLocaleLowerCase()));
+
+  const types = commits.map<ReleaseType>(c => {
+    if (c.startsWith('[feat]')) return 'minor';
+    if (c.startsWith('[fix]')) return 'patch';
+    if (c.startsWith('[chore]')) return 'chore';
+    throw Error('Unknown commit type');
+  });
+
+  if (types.includes('minor')) return 'minor';
+  if (types.includes('patch')) return 'patch';
+  return 'chore';
+}
+
+function exitNoUpdate(): never {
+  console.log('No new features or fixes to deploy');
+  process.exit(0);
+}
+
+async function assertWorkingDirectory() {
+  const status = await $`git status --porcelain`.text();
+  if (status) {
+    console.error('Working directory is not clean');
+    process.exit(1);
+  }
+}
+
+async function assertBranch() {
+  const branch = await $`git branch --show-current`.text().then(t => t.trim());
+  if (branch !== 'dev') {
+    console.error('Please make sure you are in the "dev" branch');
+    process.exit(1);
+  }
+}
+
+function printHelp() {
+  console.log('Usage: deploy [options]');
+  console.log('Options:');
+  console.log('  --version  Bump the version');
+  console.log('  --help     Show this message');
+  process.exit(0);
+}
+
+function printVersion() {
+  console.log(`TheBlackhole-v${version}`);
+  process.exit(0);
+}
