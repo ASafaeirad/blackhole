@@ -32,7 +32,7 @@ console.log(`[${releaseType}]: Deploying ${version} -> ${newVersion}`);
 if (values['dry-run']) process.exit(0);
 
 await $`npm version ${newVersion} --no-git-tag-version`;
-await $`git commit -am "[CHORE]: Bump version to ${newVersion}"`;
+await $`git commit -am "chore: Bump version to ${newVersion}"`;
 await $`git push`;
 await $`git switch main`;
 await $`git merge dev --no-ff -m v${newVersion}`;
@@ -52,9 +52,9 @@ async function getReleaseType(): Promise<ReleaseType> {
     .then(t => t.map(m => m.trim().toLocaleLowerCase()));
 
   const types = commits.map<ReleaseType>(c => {
-    if (c.startsWith('[feat]')) return 'minor';
-    if (c.startsWith('[fix]')) return 'patch';
-    if (c.startsWith('[chore]')) return 'chore';
+    if (c.startsWith('feat')) return 'minor';
+    if (c.startsWith('fix')) return 'patch';
+    if (c.startsWith('chore')) return 'chore';
     throw Error('Unknown commit type');
   });
 

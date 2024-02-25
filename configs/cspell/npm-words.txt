@@ -39,3 +39,4 @@ keybinds
 usehooks
 jotai
 positionals
+commitlint
