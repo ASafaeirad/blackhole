@@ -34,11 +34,11 @@ if (values['dry-run']) process.exit(0);
 await $`npm version ${newVersion} --no-git-tag-version`;
 await $`git commit -am "[CHORE]: Bump version to ${newVersion}"`;
 await $`git push`;
-await $`git checkout main`;
+await $`git switch main`;
 await $`git merge dev --no-ff -m v${newVersion}`;
 await $`git tag -a v${newVersion} -m "v${newVersion}"`;
 await $`git push origin main --tags`;
-await $`git checkout dev`;
+await $`git switch dev`;
 await $`git rebase main`;
 
 /* ------------------------------------- */
