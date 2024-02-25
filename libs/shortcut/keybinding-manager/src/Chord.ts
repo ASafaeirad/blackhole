@@ -1,10 +1,16 @@
 import type { KeyboardEventCode, KeyboardEventKey } from './Keybinding';
 
+// cspell:disable
 const codeMap: Partial<Record<KeyboardEventKey, KeyboardEventCode>> = {
   ' ': 'Space',
   'escape': 'Escape',
   'enter': 'Enter',
+  'arrowdown': 'ArrowDown',
+  'arrowup': 'ArrowUp',
+  'arrowleft': 'ArrowLeft',
+  'arrowright': 'ArrowRight',
 };
+// cspell:enable
 
 export class Chord {
   private ctrl: boolean;
@@ -25,7 +31,8 @@ export class Chord {
 
   private static charToCode(char: KeyboardEventKey): string {
     if (codeMap[char]) return codeMap[char]!;
-    if (char >= 'a' && char <= 'z') return `Key${char.toUpperCase()}`;
+    if (char.length === 1 && char >= 'a' && char <= 'z')
+      return `Key${char.toUpperCase()}`;
     throw Error(`Unknown key: ${char}`);
   }
 
@@ -49,7 +56,7 @@ export class Chord {
   }
 
   get hash() {
-    return `${this.metaHash}+${this.code}`;
+    return `${this.metaHash}+${this.code.toLowerCase()}`;
   }
 
   constructor(options: {

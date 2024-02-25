@@ -6,27 +6,27 @@ export enum Mode {
   Overlay = 0b100,
 }
 
-export const nMap = (key: Keybinding): WithMode<Keybinding> => ({
+export const nMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
   key,
   mode: Mode.Normal,
 });
 
-export const iMap = (key: Keybinding): WithMode<Keybinding> => ({
+export const iMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
   key,
   mode: Mode.Insert,
 });
 
-export const oMap = (key: Keybinding): WithMode<Keybinding> => ({
+export const oMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
   key,
   mode: Mode.Overlay,
 });
 
-export const map = (key: Keybinding): WithMode<Keybinding> => ({
+export const map = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
   key,
   mode: Mode.Insert | Mode.Normal | Mode.Overlay,
 });
 
-export interface WithMode<T extends string> {
+export interface WithMode<T extends string[] | string> {
   key: T;
   mode: Mode;
 }
