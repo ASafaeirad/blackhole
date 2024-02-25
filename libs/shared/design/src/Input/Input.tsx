@@ -11,7 +11,7 @@ export const Input = (props: InputProps) => {
     <input
       {...props}
       className={cn(
-        'bg-transparent color-primary border-none outline-none',
+        'bg-transparent color-primary border-none outline-none w-full',
         props.className,
       )}
     />
