@@ -15,9 +15,10 @@ export enum Actions {
   ShowHelp = 'ShowHelp',
 }
 
+// cspell:disable
 export const keyMaps = {
-  [Actions.MoveNextBlock]: nMap('j'),
-  [Actions.MovePrevBlock]: nMap('k'),
+  [Actions.MoveNextBlock]: nMap('j', 'arrowdown'),
+  [Actions.MovePrevBlock]: nMap('k', 'arrowup'),
   [Actions.GoToEditMode]: nMap('i'),
   [Actions.GoToNormalMode]: iMap('escape'),
   [Actions.CreateTask]: nMap('c'),
@@ -29,3 +30,4 @@ export const keyMaps = {
   [Actions.MoveDown]: nMap('alt+j'),
   [Actions.ShowHelp]: nMap('h'),
 } as const;
+// cspell:enable

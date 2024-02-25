@@ -7,7 +7,6 @@ import type { WithMode } from './keyMapper';
 import { Mode } from './keyMapper';
 
 interface Action {
-  chord: string;
   mode: Mode;
   subscribers: VoidFunction[];
 }
@@ -26,19 +25,20 @@ export class KeybindingManager<TAction extends string> {
     this.#mode = value;
   }
 
-  constructor(actions: Record<TAction, WithMode<Keybinding>>) {
+  constructor(actions: Record<TAction, WithMode<Keybinding[]>>) {
     // @ts-expect-error - TS doesn't understand that Object.keys
     Object.keys(actions).forEach((k: TAction) => {
-      const { key, mode } = actions[k];
-      const chord = Chord.fromString(key).hash;
+      const { key: keys, mode } = actions[k];
+      const chords = keys.map(key => Chord.fromString(key).hash);
 
-      this.#actions.set(k, { chord, mode, subscribers: [] });
+      this.#actions.set(k, { mode, subscribers: [] });
 
-      const currentChord = this.#chords.get(chord);
-      if (!currentChord) this.#chords.set(chord, { [mode]: k });
-      else currentChord[mode] = k;
+      chords.forEach(chord => {
+        const currentChord = this.#chords.get(chord);
+        if (!currentChord) this.#chords.set(chord, { [mode]: k });
+        else currentChord[mode] = k;
+      });
     });
-    console.log(this.#chords);
   }
 
   public subscribe(name: TAction, command: VoidFunction) {
@@ -65,7 +65,6 @@ export class KeybindingManager<TAction extends string> {
           mode: k,
           action: this.#actions.get(actionDict[k as unknown as number]),
         }));
-      console.log(this.#actions);
 
       debug.trace('KeybindingManager', {
         mode: this.#mode,

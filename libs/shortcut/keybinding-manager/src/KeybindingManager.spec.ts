@@ -5,7 +5,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'ctrl+shift+alt+a', mode: Mode.Normal },
+      GoToNormalMode: { key: ['ctrl+shift+alt+a'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -27,7 +27,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings case-insensitive', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'escape', mode: Mode.Normal },
+      GoToNormalMode: { key: ['escape'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -44,7 +44,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings in normal mode', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'i', mode: Mode.Normal },
+      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -60,7 +60,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings in insert mode', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'i', mode: Mode.Insert },
+      GoToNormalMode: { key: ['i'], mode: Mode.Insert },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -76,7 +76,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings in composed mode', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'a', mode: Mode.Normal | Mode.Insert },
+      GoToNormalMode: { key: ['a'], mode: Mode.Normal | Mode.Insert },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -96,7 +96,7 @@ describe('KeybindingManager', () => {
   it('should not register keybindings in wrong mode', () => {
     const handle = vi.fn();
     const manager = new KeybindingManager({
-      GoToNormalMode: { key: 'i', mode: Mode.Normal },
+      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -112,8 +112,8 @@ describe('KeybindingManager', () => {
     const handle1 = vi.fn();
     const handle2 = vi.fn();
     const manager = new KeybindingManager({
-      Action1: { key: 'i', mode: Mode.Overlay },
-      Action2: { key: 'i', mode: Mode.Normal },
+      Action1: { key: ['i'], mode: Mode.Overlay },
+      Action2: { key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('Action1', handle1);
     manager.subscribe('Action2', handle2);
@@ -131,5 +131,40 @@ describe('KeybindingManager', () => {
 
     expect(handle1).toHaveBeenCalledOnce();
     expect(handle2).toHaveBeenCalledOnce();
+  });
+
+  it('should unsubscribe', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
+    });
+    const unsubscribe = manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
+    document.dispatchEvent(event);
+    unsubscribe();
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledOnce();
+  });
+
+  it('should be able to bind multiple keys to the same action', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: ['i', 'escape'], mode: Mode.Normal },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    const event = new KeyboardEvent('keydown', { key: 'i', code: 'KeyI' });
+    document.dispatchEvent(event);
+    const event2 = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+    });
+    document.dispatchEvent(event2);
+
+    expect(handle).toHaveBeenCalledTimes(2);
   });
 });

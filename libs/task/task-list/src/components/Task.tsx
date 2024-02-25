@@ -29,7 +29,9 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
 
   return (
     <div className="fr text-body gap-3 items-center">
-      <div>{task.status === 'done' ? '[x]' : '[ ]'}</div>
+      <div className="flex-shrink-0">
+        {task.status === 'done' ? '[x]' : '[ ]'}
+      </div>
       {!isEdit ? (
         <div
           className={cn({
