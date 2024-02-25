@@ -5,3 +5,4 @@ omit_comments() {
 }
 
 cat $1 | omit_comments | pnpm cspell stdin
+pnpm commitlint --edit $1

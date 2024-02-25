@@ -39,3 +39,5 @@ keybinds
 usehooks
 jotai
 positionals
+commitlint
+vercel

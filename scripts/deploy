@@ -26,16 +26,26 @@ await assertWorkingDirectory();
 const releaseType = await getReleaseType();
 if (releaseType === 'chore') exitNoUpdate();
 
-const newVersion = semver.inc(version, releaseType);
+const newVersion = semver.inc(version, releaseType)!;
 console.log(`[${releaseType}]: Deploying ${version} -> ${newVersion}`);
 
 if (values['dry-run']) process.exit(0);
 
-await $`npm version ${newVersion} --no-git-tag-version`;
-await $`git commit -am "[CHORE]: Bump version to ${newVersion}"`;
-await $`git checkout main`;
-await $`git merge dev --no-ff -m v${newVersion}`;
-await $`git tag -a v${newVersion} -m "v${newVersion}"`;
+try {
+  await $`npm version ${newVersion} --no-git-tag-version`;
+  await $`git commit -am "chore: bump version to ${newVersion}"`;
+  await $`git push`;
+  await updateVercelVersion(newVersion);
+  await $`git switch main`;
+  await $`git merge dev --no-ff -m v${newVersion}`;
+  await $`git tag -a v${newVersion} -m "v${newVersion}"`;
+  await $`git push origin main --tags`;
+  await $`git switch dev`;
+  await $`git rebase main`;
+} catch (e) {
+  console.error(e);
+  process.exit(1);
+}
 
 /* ------------------------------------- */
 /* ------------ INTERNALS -------------- */
@@ -48,9 +58,9 @@ async function getReleaseType(): Promise<ReleaseType> {
     .then(t => t.map(m => m.trim().toLocaleLowerCase()));
 
   const types = commits.map<ReleaseType>(c => {
-    if (c.startsWith('[feat]')) return 'minor';
-    if (c.startsWith('[fix]')) return 'patch';
-    if (c.startsWith('[chore]')) return 'chore';
+    if (c.startsWith('feat')) return 'minor';
+    if (c.startsWith('fix')) return 'patch';
+    if (c.startsWith('chore')) return 'chore';
     throw Error('Unknown commit type');
   });
 
@@ -91,4 +101,25 @@ function printHelp() {
 function printVersion() {
   console.log(`TheBlackhole-v${version}`);
   process.exit(0);
+}
+
+function updateVercelVersion(version: string) {
+  const projectId = Bun.env.VERCEL_PROJECT_ID!;
+  const token = Bun.env.VERCEL_TOKEN!;
+
+  return fetch(
+    `https://api.vercel.com/v10/projects/${projectId}/env?upsert=true`,
+    {
+      body: JSON.stringify({
+        key: 'VERSION',
+        target: ['production', 'development'],
+        type: 'plain',
+        value: version,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'post',
+    },
+  );
 }
