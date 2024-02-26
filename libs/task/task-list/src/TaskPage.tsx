@@ -1,32 +1,19 @@
 import { Actions } from '@blackhole/actions';
 import { Heading } from '@blackhole/design';
-import {
-  Mode,
-  useSetMode,
-  useSubscribeAction,
-} from '@blackhole/keybinding-manager';
-import { callAll, isEmpty } from '@fullstacksjs/toolbox';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import { isEmpty } from '@fullstacksjs/toolbox';
+import { AnimatePresence } from 'framer-motion';
+import { useAtom } from 'jotai';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
-import { TaskList } from './components/TaskList';
-import { editIndexAtom, useActiveIndex, useTask } from './data/useTask';
-
-const TaskGroups = ({ activeIndex }: { activeIndex: number }) => {
-  const { tasks, editTask, close } = useTask();
-  const [editIndex] = useAtom(editIndexAtom);
-
-  return (
-    <div className="flex-1">
-      <TaskList
-        onSubmit={callAll(editTask, close)}
-        editIndex={editIndex}
-        activeIndex={activeIndex}
-        tasks={tasks}
-      />
-    </div>
-  );
-};
+import { TaskGroups } from './components/TaskGroups';
+import {
+  doneTasksAtom,
+  focusTasksAtom,
+  pendingTasksAtom,
+  useActiveIndex,
+  useTask,
+} from './data/useTask';
 
 export const TaskPage = () => {
   const {
@@ -41,6 +28,9 @@ export const TaskPage = () => {
     edit,
   } = useTask();
   const { activeIndex, focusNext, focusPrev } = useActiveIndex();
+  const [doneTasks] = useAtom(doneTasksAtom);
+  const [pendingTaskAtom] = useAtom(pendingTasksAtom);
+  const [focusTasks] = useAtom(focusTasksAtom);
 
   useSubscribeAction(Actions.CreateTask, createTask, [tasks]);
   useSubscribeAction(Actions.GoToEditMode, edit, [activeIndex, tasks]);
@@ -55,11 +45,17 @@ export const TaskPage = () => {
 
   return (
     <div className="fc gap-4 h-full">
-      <Heading>Tasks</Heading>
+      <Heading className="text-large">Tasks</Heading>
       {isEmpty(tasks) ? (
         <TaskEmptyState />
       ) : (
-        <TaskGroups activeIndex={activeIndex} />
+        <div className="fc gap-3">
+          <AnimatePresence>
+            <TaskGroups tasks={focusTasks} />
+            <TaskGroups tasks={pendingTaskAtom} />
+            <TaskGroups tasks={doneTasks} />
+          </AnimatePresence>
+        </div>
       )}
     </div>
   );

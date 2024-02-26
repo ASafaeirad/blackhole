@@ -1,36 +1,28 @@
 import { Transition } from '@blackhole/design';
 import { AnimatePresence } from 'framer-motion';
+import { useAtom } from 'jotai';
 
 import type { Task } from '../data/Task';
+import { activeTaskAtom, editTaskAtom } from '../data/useTask';
 import { Task as TaskComponent } from './Task';
 
 interface Props {
   tasks: Task[];
-  activeIndex: number;
   onSubmit: (task: Task) => void;
-  editIndex: number;
 }
 
-export const TaskList = ({
-  tasks,
-  onSubmit,
-  activeIndex,
-  editIndex,
-}: Props) => {
-  return (
-    <div className="fc gap-3">
-      <AnimatePresence>
-        {tasks.map((task, i) => (
-          <Transition key={task.id}>
-            <TaskComponent
-              edit={i === editIndex}
-              focus={i === activeIndex}
-              task={task}
-              onSubmit={name => onSubmit({ ...task, name })}
-            />
-          </Transition>
-        ))}
-      </AnimatePresence>
-    </div>
-  );
+export const TaskList = ({ tasks, onSubmit }: Props) => {
+  const [activeTask] = useAtom(activeTaskAtom);
+  const [editedTask] = useAtom(editTaskAtom);
+
+  return tasks.map(task => (
+    <Transition key={task.id}>
+      <TaskComponent
+        edit={task.id === editedTask?.id}
+        focus={task.id === activeTask?.id}
+        task={task}
+        onSubmit={name => onSubmit({ ...task, name })}
+      />
+    </Transition>
+  ));
 };

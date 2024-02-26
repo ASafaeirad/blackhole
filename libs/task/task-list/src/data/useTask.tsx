@@ -8,6 +8,17 @@ import type { Task, TaskStatus } from './Task';
 export const tasksAtom = atomWithStorage<Task[]>('tasks', []);
 export const focusedTaskAtom = atomWithStorage('focusedTask', 0);
 export const editIndexAtom = atom(-1);
+export const activeTaskAtom = atom(get => get(tasksAtom)[get(focusedTaskAtom)]);
+export const doneTasksAtom = atom(get =>
+  get(tasksAtom).filter(t => t.status === 'done'),
+);
+export const pendingTasksAtom = atom(get =>
+  get(tasksAtom).filter(t => t.status === 'pending'),
+);
+export const focusTasksAtom = atom(get =>
+  get(tasksAtom).filter(t => t.status === 'focus'),
+);
+export const editTaskAtom = atom(get => get(tasksAtom)[get(editIndexAtom)]);
 
 export const useTask = () => {
   const [tasks, setTask] = useAtom(tasksAtom);
@@ -49,7 +60,16 @@ export const useTask = () => {
       const newTasks = [...ps];
       const index = newTasks.find(t => t.id === id);
       if (index) index.status = status;
+      newTasks.sort((a, b) => {
+        if (a.status === 'focus') return -1;
+        if (b.status === 'focus') return 1;
+        if (a.status === 'done') return 1;
+        if (b.status === 'done') return -1;
+        return 0;
+      });
 
+      const nextIndex = newTasks.findIndex(t => t.id === id);
+      setFocusedTask(nextIndex);
       return newTasks;
     });
   };
