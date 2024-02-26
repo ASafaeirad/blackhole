@@ -1,3 +1,4 @@
+import { Mode, useSetMode } from '@blackhole/keybinding-manager';
 import { clamp, randomInt } from '@fullstacksjs/toolbox';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
@@ -12,6 +13,12 @@ export const useTask = () => {
   const [tasks, setTask] = useAtom(tasksAtom);
   const [focusedIndex, setFocusedTask] = useAtom(focusedTaskAtom);
   const setEditIndex = useSetAtom(editIndexAtom);
+  const setMode = useSetMode();
+
+  const close = () => {
+    setEditIndex(-1);
+    setMode(Mode.Normal);
+  };
 
   const createTask = () => {
     const id = randomInt().toString();
@@ -19,6 +26,12 @@ export const useTask = () => {
     setTask(ps => [...ps, task]);
     setFocusedTask(tasks.length);
     setEditIndex(tasks.length);
+    setMode(Mode.Insert);
+  };
+
+  const edit = () => {
+    setEditIndex(focusedIndex);
+    setMode(Mode.Insert);
   };
 
   const editTask = (task: Task) => {
@@ -51,6 +64,7 @@ export const useTask = () => {
   const revert = () => {
     const task = tasks[focusedIndex];
     if (!task?.name) deleteTask();
+    close();
   };
 
   const moveUp = () => {
@@ -110,6 +124,8 @@ export const useTask = () => {
     moveUp,
     focus,
     toggle,
+    close,
+    edit,
   } as const;
 };
 

@@ -4,7 +4,7 @@ import { Input } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Task as TaskType } from '../data/Task';
 
@@ -17,6 +17,10 @@ interface Props {
 
 export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
   const [name, setName] = useState('');
+
+  useEffect(() => {
+    if (isEdit) setName(task.name);
+  }, [isEdit, task.name]);
 
   useSubscribeAction(
     Actions.SaveTask,
