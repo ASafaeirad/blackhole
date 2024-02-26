@@ -1,6 +1,7 @@
 export * from './Button';
 export * from './Command';
 export * from './Dialog';
+export * from './Heading';
 export * from './Input';
 export * from './Key';
 export * from './Logo';
