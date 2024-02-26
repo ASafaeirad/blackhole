@@ -1,4 +1,5 @@
 import { Actions } from '@blackhole/actions';
+import { Heading } from '@blackhole/design';
 import {
   Mode,
   useSetMode,
@@ -48,7 +49,6 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeIndex]);
   useSubscribeAction(Actions.Toggle, toggle, [activeTask?.id]);
   useSubscribeAction(Actions.Focus, focus, [activeTask?.id]);
-
   useSubscribeAction(
     Actions.GoToNormalMode,
     () => {
@@ -60,7 +60,9 @@ export const TaskPage = () => {
 
   return (
     <div className="fc gap-4 h-full">
-      <h1 className="text-title">Tasks</h1>
+      <Heading is="h1" className="text-title">
+        Tasks
+      </Heading>
       {isEmpty(tasks) ? (
         <TaskEmptyState />
       ) : (
