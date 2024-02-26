@@ -10,7 +10,8 @@
     "fp/no-loops": "off",
     "@typescript-eslint/prefer-for-of": "off",
     "default-case": "off",
-    "@typescript-eslint/switch-exhaustiveness-check": "off"
+    "@typescript-eslint/switch-exhaustiveness-check": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off"
   },
   "overrides": [
     {

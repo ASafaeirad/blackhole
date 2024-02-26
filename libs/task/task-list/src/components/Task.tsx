@@ -6,7 +6,7 @@ import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task as TaskType } from '../Task';
+import type { Task as TaskType } from '../data/Task';
 
 interface Props {
   focus: boolean;
@@ -28,20 +28,16 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
   );
 
   return (
-    <div className="fr text-body gap-3 items-center">
-      <div className="flex-shrink-0">
-        {task.status === 'done' ? '[x]' : '[ ]'}
-      </div>
+    <div
+      className={cn('fr text-body gap-3 items-center', {
+        'color-primary': task.status !== 'focus' && focus,
+        'color-muted': task.status !== 'focus' && !focus,
+        'color-cta': task.status === 'focus',
+      })}
+    >
+      <div className="flex-shrink-0">{getCheck(task)}</div>
       {!isEdit ? (
-        <div
-          className={cn({
-            'color-primary': focus,
-            'color-muted': !focus,
-          })}
-          key={task.id}
-        >
-          {task.name}
-        </div>
+        <div key={task.id}>{task.name}</div>
       ) : (
         <Input
           onChange={e => setName(e.target.value)}
@@ -54,3 +50,9 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
     </div>
   );
 };
+
+function getCheck(task: TaskType) {
+  if (task.status === 'done') return '[x]';
+  if (task.status === 'focus') return '[-]';
+  return '[ ]';
+}

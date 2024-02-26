@@ -32,18 +32,18 @@ console.log(`[${releaseType}]: Deploying ${version} -> ${newVersion}`);
 if (values['dry-run']) process.exit(0);
 
 try {
-  await $`npm version ${newVersion} --no-git-tag-version`;
-  await $`git commit -am "chore: bump version to ${newVersion}"`;
-  await $`git push`;
+  await $`./scripts/verify`.throws(true);
+  await $`npm version ${newVersion} --no-git-tag-version`.throws(true);
+  await $`git commit -am "chore: bump version to ${newVersion}"`.throws(true);
+  await $`git push --no-verify`.throws(true);
   await updateVercelVersion(newVersion);
-  await $`git switch main`;
-  await $`git merge dev --no-ff -m v${newVersion}`;
-  await $`git tag -a v${newVersion} -m "v${newVersion}"`;
-  await $`git push origin main --tags`;
-  await $`git switch dev`;
-  await $`git rebase main`;
+  await $`git switch main`.throws(true);
+  await $`git merge dev --no-ff -m v${newVersion}`.throws(true);
+  await $`git tag -a v${newVersion} -m "v${newVersion}"`.throws(true);
+  await $`git push origin main --tags --no-verify --follow-tags`.throws(true);
+  await $`git switch dev`.throws(true);
+  await $`git rebase main`.throws(true);
 } catch (e) {
-  console.error(e);
   process.exit(1);
 }
 

@@ -5,7 +5,7 @@ import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString, randomInt } from '@fullstacksjs/toolbox';
 import { useState } from 'react';
 
-import type { Task } from '../Task';
+import type { Task } from '../data/Task';
 
 interface Props {
   onCancel: VoidFunction;

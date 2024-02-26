@@ -63,7 +63,7 @@ export class KeybindingManager<TAction extends string> {
         .filter(k => Number(k) & this.#mode)
         .map(k => ({
           mode: k,
-          action: this.#actions.get(actionDict[k as unknown as number]),
+          action: this.#actions.get(actionDict[k as unknown as number]!),
         }));
 
       debug.trace('KeybindingManager', {

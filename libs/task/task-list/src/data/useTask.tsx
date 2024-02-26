@@ -2,7 +2,7 @@ import { clamp, randomInt } from '@fullstacksjs/toolbox';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import type { Task, TaskStatus } from '../Task';
+import type { Task, TaskStatus } from './Task';
 
 export const tasksAtom = atomWithStorage<Task[]>('tasks', []);
 export const focusedTaskAtom = atomWithStorage('focusedTask', 0);
@@ -42,14 +42,15 @@ export const useTask = () => {
   };
 
   const deleteTask = () => {
-    const id = tasks[focusedIndex].id;
+    const id = tasks[focusedIndex]?.id;
+    if (!id) return;
     setTask(ps => ps.filter(t => t.id !== id));
     setFocusedTask(i => clamp(i, 0, tasks.length - 2));
   };
 
   const revert = () => {
     const task = tasks[focusedIndex];
-    if (!task.name) deleteTask();
+    if (!task?.name) deleteTask();
   };
 
   const moveUp = () => {
@@ -57,8 +58,8 @@ export const useTask = () => {
     if (focusedIndex === 0) return;
     setTask(ps => {
       const newTasks = [...ps];
-      newTasks[focusedIndex] = newTasks[focusedIndex - 1];
-      newTasks[focusedIndex - 1] = task;
+      newTasks[focusedIndex] = newTasks[focusedIndex - 1]!;
+      newTasks[focusedIndex - 1] = task!;
 
       return newTasks;
     });
@@ -70,12 +71,32 @@ export const useTask = () => {
     if (focusedIndex === tasks.length - 1) return;
     setTask(ps => {
       const newTasks = [...ps];
-      newTasks[focusedIndex] = newTasks[focusedIndex + 1];
-      newTasks[focusedIndex + 1] = task;
+      newTasks[focusedIndex] = newTasks[focusedIndex + 1]!;
+      newTasks[focusedIndex + 1] = task!;
 
       return newTasks;
     });
     setFocusedTask(focusedIndex + 1);
+  };
+
+  const focus = () => {
+    const activeTask = tasks[focusedIndex];
+    if (!activeTask) return;
+
+    tasks.forEach(task => {
+      if (task.status === 'focus') changeStatus(task.id, 'pending');
+      else if (activeTask.id === task.id) changeStatus(task.id, 'focus');
+    });
+  };
+
+  const toggle = () => {
+    const activeTask = tasks[focusedIndex];
+    if (!activeTask) return;
+
+    changeStatus(
+      activeTask.id,
+      activeTask.status === 'done' ? 'pending' : 'done',
+    );
   };
 
   return {
@@ -87,6 +108,8 @@ export const useTask = () => {
     revert,
     moveDown,
     moveUp,
+    focus,
+    toggle,
   } as const;
 };
 
