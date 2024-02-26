@@ -1,7 +1,7 @@
 import { Transition } from '@blackhole/design';
 import { AnimatePresence } from 'framer-motion';
 
-import type { Task } from '../Task';
+import type { Task } from '../data/Task';
 import { Task as TaskComponent } from './Task';
 
 interface Props {

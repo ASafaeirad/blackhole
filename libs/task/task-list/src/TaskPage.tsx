@@ -10,23 +10,23 @@ import { useAtom } from 'jotai';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
 import { editIndexAtom, useActiveIndex, useTask } from './data/useTask';
-import type { Task } from './Task';
 
 export const TaskPage = () => {
   const {
     tasks,
     createTask,
     editTask,
-    changeStatus,
     deleteTask,
     revert,
     moveDown,
     moveUp,
+    focus,
+    toggle,
   } = useTask();
   const { activeIndex, focusNext, focusPrev } = useActiveIndex();
   const [editIndex, setEditIndex] = useAtom(editIndexAtom);
   const setMode = useSetMode();
-  const activeTask: Task | undefined = tasks[activeIndex];
+  const activeTask = tasks[activeIndex];
 
   const close = () => {
     setEditIndex(-1);
@@ -46,18 +46,8 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.MovePrevBlock, focusPrev, [tasks.length]);
   useSubscribeAction(Actions.MoveDown, moveDown, [tasks, activeIndex]);
   useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeIndex]);
-
-  useSubscribeAction(
-    Actions.Toggle,
-    () => {
-      changeStatus(
-        activeTask.id,
-        activeTask.status === 'done' ? 'pending' : 'done',
-      );
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    [activeTask?.id],
-  );
+  useSubscribeAction(Actions.Toggle, toggle, [activeTask?.id]);
+  useSubscribeAction(Actions.Focus, focus, [activeTask?.id]);
 
   useSubscribeAction(
     Actions.GoToNormalMode,
@@ -65,7 +55,6 @@ export const TaskPage = () => {
       revert();
       close();
     },
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     [activeTask?.id],
   );
 

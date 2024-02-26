@@ -10,6 +10,7 @@ export enum Actions {
   DeleteTask = 'DeleteTask',
   CloseModal = 'CloseModal',
   Toggle = 'Toggle',
+  Focus = 'Focus',
   MoveDown = 'MoveDown',
   MoveUp = 'MoveUp',
   ShowHelp = 'ShowHelp',
@@ -29,5 +30,6 @@ export const keyMaps = {
   [Actions.MoveUp]: nMap('alt+k'),
   [Actions.MoveDown]: nMap('alt+j'),
   [Actions.ShowHelp]: nMap('h'),
+  [Actions.Focus]: nMap('f'),
 } as const;
 // cspell:enable

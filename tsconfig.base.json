@@ -20,6 +20,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "baseUrl": ".",
     "types": ["vite/client"],
