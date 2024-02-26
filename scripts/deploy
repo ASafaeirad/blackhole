@@ -111,7 +111,7 @@ function updateVercelVersion(version: string) {
     `https://api.vercel.com/v10/projects/${projectId}/env?upsert=true`,
     {
       body: JSON.stringify({
-        key: 'VERSION',
+        key: 'VITE_VERSION',
         target: ['production', 'development'],
         type: 'plain',
         value: version,

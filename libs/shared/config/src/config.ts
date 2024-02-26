@@ -5,5 +5,5 @@ export const config = new Config({
 });
 
 config.parse({
-  version: import.meta.env['VERSION'] ?? 'dev',
+  version: import.meta.env['VITE_VERSION'] ?? 'dev',
 });
