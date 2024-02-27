@@ -232,6 +232,9 @@ devDependencies:
   jsonc-parser:
     specifier: 3.2.1
     version: 3.2.1
+  keep-a-changelog:
+    specifier: 2.5.3
+    version: 2.5.3
   nx:
     specifier: 18.0.4
     version: 18.0.4(@swc-node/register@1.8.0)(@swc/core@1.4.2)
@@ -2193,6 +2196,17 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+    dev: true
+
+  /@deno/shim-deno-test@0.4.0:
+    resolution: {integrity: sha512-oYWcD7CpERZy/TXMTM9Tgh1HD/POHlbY9WpzmAk+5H8DohcxG415Qws8yLGlim3EaKBT2v3lJv01x4G0BosnaQ==}
+    dev: true
+
+  /@deno/shim-deno@0.16.1:
+    resolution: {integrity: sha512-s9v0kzF5bm/o9TgdwvsraHx6QNllYrXXmKzgOG2lh4LFXnVMr2gpjK/c/ve6EflQn1MqImcWmVD8HAv5ahuuZQ==}
+    dependencies:
+      '@deno/shim-deno-test': 0.4.0
+      which: 2.0.2
     dev: true
 
   /@discoveryjs/json-ext@0.5.7:
@@ -14733,6 +14747,13 @@ packages:
       array.prototype.flat: 1.3.2
       object.assign: 4.1.5
       object.values: 1.1.7
+    dev: true
+
+  /keep-a-changelog@2.5.3:
+    resolution: {integrity: sha512-ChMOZLbqdvxhdUIlKkA/UqU1PclcyR57bifjwkV/9/diYFUeHQeTaFkF3GWbXL1WYG/aZ5bJWg5pDLmC2NTycw==}
+    hasBin: true
+    dependencies:
+      '@deno/shim-deno': 0.16.1
     dev: true
 
   /keyv@4.5.4:
