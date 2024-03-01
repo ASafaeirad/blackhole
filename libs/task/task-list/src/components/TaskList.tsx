@@ -1,5 +1,4 @@
 import { Transition } from '@blackhole/design';
-import { AnimatePresence } from 'framer-motion';
 import { useAtom } from 'jotai';
 
 import type { Task } from '../data/Task';

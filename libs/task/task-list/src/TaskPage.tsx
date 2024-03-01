@@ -51,9 +51,9 @@ export const TaskPage = () => {
       ) : (
         <div className="fc gap-3">
           <AnimatePresence>
-            <TaskGroups tasks={focusTasks} />
-            <TaskGroups tasks={pendingTaskAtom} />
-            <TaskGroups tasks={doneTasks} />
+            <TaskGroups key={1} tasks={focusTasks} />
+            <TaskGroups key={2} tasks={pendingTaskAtom} />
+            <TaskGroups key={3} tasks={doneTasks} />
           </AnimatePresence>
         </div>
       )}
