@@ -114,6 +114,7 @@ export type KeyboardEventKey =
   // Control keys
   | 'enter'
   | 'escape'
+  | 'capslock'
   | 'backspace'
   | 'tab'
   | ' '

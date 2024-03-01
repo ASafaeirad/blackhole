@@ -7,3 +7,4 @@ Smoothings
 whitespaces
 nesw
 Kode
+capslock
