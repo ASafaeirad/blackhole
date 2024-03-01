@@ -13,7 +13,7 @@
     "importHelpers": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
+    "lib": ["ES2023", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true,

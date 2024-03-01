@@ -33,10 +33,17 @@ export const useTask = () => {
 
   const createTask = () => {
     const id = randomInt().toString();
-    const task: Task = { id, name: '', status: 'pending' };
-    setTask(ps => [...ps, task]);
-    setFocusedTask(tasks.length);
-    setEditIndex(tasks.length);
+    const task: Task = { id, name: '', status: 'pending', repeat: 'once' };
+    const lastPendingTaskIndex = tasks.findLastIndex(
+      t => t.status === 'pending',
+    );
+    setTask(ps => [
+      ...ps.slice(0, lastPendingTaskIndex + 1),
+      task,
+      ...ps.slice(lastPendingTaskIndex + 1),
+    ]);
+    setFocusedTask(lastPendingTaskIndex + 1);
+    setEditIndex(lastPendingTaskIndex + 1);
     setMode(Mode.Insert);
   };
 
@@ -90,6 +97,8 @@ export const useTask = () => {
   const moveUp = () => {
     const task = tasks[focusedIndex];
     if (focusedIndex === 0) return;
+    if (task?.status !== tasks[focusedIndex - 1]?.status) return;
+
     setTask(ps => {
       const newTasks = [...ps];
       newTasks[focusedIndex] = newTasks[focusedIndex - 1]!;
@@ -103,6 +112,7 @@ export const useTask = () => {
   const moveDown = () => {
     const task = tasks[focusedIndex];
     if (focusedIndex === tasks.length - 1) return;
+    if (task?.status !== tasks[focusedIndex + 1]?.status) return;
     setTask(ps => {
       const newTasks = [...ps];
       newTasks[focusedIndex] = newTasks[focusedIndex + 1]!;

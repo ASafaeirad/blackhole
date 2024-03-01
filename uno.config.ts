@@ -21,7 +21,7 @@ export default defineConfig({
           provider: 'google',
         },
         mono: {
-          name: 'Kode Mono',
+          name: 'IBM Plex Mono',
           weights: [400, 500, 600],
           provider: 'google',
         },
