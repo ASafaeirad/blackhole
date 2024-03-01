@@ -57,11 +57,11 @@ async function getReleaseType(): Promise<ReleaseType> {
     .then(t => t.trim().split('\n'))
     .then(t => t.map(m => m.trim().toLocaleLowerCase()));
 
-  const types = commits.map<ReleaseType>(c => {
+  const types = commits.filter(Boolean).map<ReleaseType>(c => {
     if (c.startsWith('feat')) return 'minor';
     if (c.startsWith('fix')) return 'patch';
     if (c.startsWith('chore')) return 'chore';
-    throw Error('Unknown commit type');
+    throw Error(`Unknown commit type for commit "${c}"`);
   });
 
   if (types.includes('minor')) return 'minor';
