@@ -33,7 +33,7 @@ export const useTask = () => {
 
   const createTask = () => {
     const id = randomInt().toString();
-    const task: Task = { id, name: '', status: 'pending' };
+    const task: Task = { id, name: '', status: 'pending', repeat: 'once' };
     const lastPendingTaskIndex = tasks.findLastIndex(
       t => t.status === 'pending',
     );

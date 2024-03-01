@@ -19,7 +19,7 @@ export const fontFamily = {
     ...emoji,
   ]),
   serif: toFont(['ui-serif', 'serif']),
-  mono: toFont(['Kode Mono', 'ui-monospace', 'monospace']),
+  mono: toFont(['IBM Plex Mono', 'ui-monospace', 'monospace']),
 } satisfies Theme['fontFamily'];
 
 const fontWeight = {
@@ -30,7 +30,7 @@ const fontWeight = {
 
 export const textStyle = {
   body: {
-    'font-size': '16px',
+    'font-size': '20px',
     'font-weight': fontWeight.regular,
     'line-height': 'normal',
   },

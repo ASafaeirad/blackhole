@@ -39,6 +39,7 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
         'color-cta': task.status === 'focus',
       })}
     >
+      <span className="text-small">&lt;{getSign(task)}&gt;</span>
       <div className="flex-shrink-0">{getCheck(task)}</div>
       {!isEdit ? (
         <div key={task.id}>{task.name}</div>
@@ -59,4 +60,9 @@ function getCheck(task: TaskType) {
   if (task.status === 'done') return '[x]';
   if (task.status === 'focus') return '[-]';
   return '[ ]';
+}
+
+function getSign(task: TaskType) {
+  if (task.repeat === 'daily') return 'λ';
+  return 'ƒ';
 }

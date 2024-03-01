@@ -44,12 +44,12 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.GoToNormalMode, revert, [tasks, activeIndex]);
 
   return (
-    <div className="fc gap-4 h-full">
+    <div className="fc gap-8 h-full">
       <Heading className="text-large">Tasks</Heading>
       {isEmpty(tasks) ? (
         <TaskEmptyState />
       ) : (
-        <div className="fc gap-3">
+        <div className="fc gap-6">
           <AnimatePresence>
             <TaskGroups key={1} tasks={focusTasks} />
             <TaskGroups key={2} tasks={pendingTaskAtom} />
