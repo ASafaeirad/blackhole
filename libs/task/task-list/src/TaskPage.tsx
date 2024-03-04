@@ -27,7 +27,8 @@ export const TaskPage = () => {
     toggle,
     edit,
   } = useTask();
-  const { activeIndex, focusNext, focusPrev } = useActiveIndex();
+  const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
+    useActiveIndex();
   const [doneTasks] = useAtom(doneTasksAtom);
   const [pendingTaskAtom] = useAtom(pendingTasksAtom);
   const [focusTasks] = useAtom(focusTasksAtom);
@@ -37,6 +38,8 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.DeleteTask, deleteTask, [activeIndex, tasks]);
   useSubscribeAction(Actions.MoveNextBlock, focusNext, [tasks.length]);
   useSubscribeAction(Actions.MovePrevBlock, focusPrev, [tasks.length]);
+  useSubscribeAction(Actions.MoveToLastBlock, focusLast, [tasks.length]);
+  useSubscribeAction(Actions.MoveToFirstBlock, focusFirst, [tasks.length]);
   useSubscribeAction(Actions.MoveDown, moveDown, [tasks, activeIndex]);
   useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeIndex]);
   useSubscribeAction(Actions.Toggle, toggle, [tasks, activeIndex]);

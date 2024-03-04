@@ -3,6 +3,8 @@ import { iMap, map, nMap } from '@blackhole/keybinding-manager';
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',
   MovePrevBlock = 'MovePrevBlock',
+  MoveToLastBlock = 'MoveToLastBlock',
+  MoveToFirstBlock = 'MoveToFirstBlock',
   GoToEditMode = 'GoToEditMode',
   GoToNormalMode = 'GoToNormalMode',
   CreateTask = 'CreateTask',
@@ -20,6 +22,8 @@ export enum Actions {
 export const keyMaps = {
   [Actions.MoveNextBlock]: nMap('j', 'arrowdown'),
   [Actions.MovePrevBlock]: nMap('k', 'arrowup'),
+  [Actions.MoveToLastBlock]: nMap('shift+g'),
+  [Actions.MoveToFirstBlock]: nMap('g,g'),
   [Actions.GoToEditMode]: nMap('i'),
   [Actions.GoToNormalMode]: iMap('capslock', 'escape'),
   [Actions.CreateTask]: nMap('c'),

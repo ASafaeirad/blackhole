@@ -164,6 +164,15 @@ export const useActiveIndex = () => {
   const [tasks] = useAtom(tasksAtom);
   const focusNext = () => setIndex(i => clamp(i + 1, 0, tasks.length - 1));
   const focusPrev = () => setIndex(i => clamp(i - 1, 0, tasks.length - 1));
+  const focusLast = () => setIndex(tasks.length - 1);
+  const focusFirst = () => setIndex(0);
 
-  return { activeIndex, setIndex, focusNext, focusPrev } as const;
+  return {
+    activeIndex,
+    setIndex,
+    focusNext,
+    focusPrev,
+    focusLast,
+    focusFirst,
+  } as const;
 };

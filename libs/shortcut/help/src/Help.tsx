@@ -32,6 +32,12 @@ export const Help = () => {
           <HelpGroup title="Movement">
             <HelpGroup.Command keybinding="k">Go up</HelpGroup.Command>
             <HelpGroup.Command keybinding="j">Go down</HelpGroup.Command>
+            <HelpGroup.Command keybinding="gg">
+              Go to first item
+            </HelpGroup.Command>
+            <HelpGroup.Command keybinding="G">
+              Go to last item
+            </HelpGroup.Command>
             <HelpGroup.Command keybinding="alt+k">
               Move item up
             </HelpGroup.Command>
