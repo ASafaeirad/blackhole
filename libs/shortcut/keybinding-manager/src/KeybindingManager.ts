@@ -12,6 +12,7 @@ interface Action {
 }
 
 export class KeybindingManager<TAction extends string> {
+  #prevKey: string = '';
   #actions = new Map<TAction, Action>();
   #chords = new Map<string, Record<number, TAction>>();
 
@@ -27,16 +28,20 @@ export class KeybindingManager<TAction extends string> {
 
   constructor(actions: Record<TAction, WithMode<Keybinding[]>>) {
     // @ts-expect-error - TS doesn't understand that Object.keys
-    Object.keys(actions).forEach((k: TAction) => {
-      const { key: keys, mode } = actions[k];
-      const chords = keys.map(key => Chord.fromString(key).hash);
+    Object.keys(actions).forEach((action: TAction) => {
+      const { key: keys, mode } = actions[action];
 
-      this.#actions.set(k, { mode, subscribers: [] });
+      this.#actions.set(action, { mode, subscribers: [] });
 
-      chords.forEach(chord => {
+      keys.forEach(key => {
+        const chord = key
+          .split(',')
+          .map(k => Chord.fromString(k).hash)
+          .reduce((a, b) => `${a},${b}`);
+
         const currentChord = this.#chords.get(chord);
-        if (!currentChord) this.#chords.set(chord, { [mode]: k });
-        else currentChord[mode] = k;
+        if (!currentChord) this.#chords.set(chord, { [mode]: action });
+        else currentChord[mode] = action;
       });
     });
   }
@@ -56,9 +61,15 @@ export class KeybindingManager<TAction extends string> {
   public register(document: Document) {
     const handleEvent = (event: KeyboardEvent) => {
       const chord = Chord.fromKeyboardEvent(event).hash;
-      const actionDict = this.#chords.get(chord);
+      const actionDict =
+        this.#chords.get(`${this.#prevKey},${chord}`) ??
+        this.#chords.get(chord);
 
-      if (!actionDict) return;
+      if (!actionDict) {
+        this.#prevKey = chord;
+        return;
+      }
+
       const actions = Object.keys(actionDict)
         .filter(k => Number(k) & this.#mode)
         .map(k => ({
@@ -73,8 +84,12 @@ export class KeybindingManager<TAction extends string> {
         actions,
       });
 
-      if (isEmpty(actions)) return;
+      if (isEmpty(actions)) {
+        this.#prevKey = chord;
+        return;
+      }
 
+      this.#prevKey = '';
       event.preventDefault();
       actions.forEach(subscriber =>
         subscriber.action?.subscribers.forEach(s => s()),

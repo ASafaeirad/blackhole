@@ -167,4 +167,22 @@ describe('KeybindingManager', () => {
 
     expect(handle).toHaveBeenCalledTimes(2);
   });
+
+  it('should be accept key sequence', () => {
+    const handle = vi.fn();
+    const manager = new KeybindingManager({
+      GoToNormalMode: { key: ['g,g'], mode: Mode.Normal },
+    });
+    manager.subscribe('GoToNormalMode', handle);
+    manager.register(document);
+
+    const event = new KeyboardEvent('keydown', { key: 'g', code: 'KeyG' });
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledTimes(0);
+
+    document.dispatchEvent(event);
+
+    expect(handle).toHaveBeenCalledTimes(1);
+  });
 });

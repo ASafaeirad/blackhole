@@ -261,4 +261,9 @@ type TwoMeta<T = Meta> = T extends Meta
   ? `${T}+${Exclude<Meta, T>}+${KeyboardEventKey}`
   : never;
 type ThreeMeta = `${ThreeMetaCombo}+${KeyboardEventKey}`;
-export type Keybinding = KeyboardEventKey | SingleMeta | ThreeMeta | TwoMeta;
+export type Keybinding =
+  | KeyboardEventKey
+  | SingleMeta
+  | ThreeMeta
+  | TwoMeta
+  | `${KeyboardEventKey},${KeyboardEventKey}`;
