@@ -7,6 +7,9 @@ import { parseArgs } from 'util';
 
 type ReleaseType = semver.ReleaseType | 'chore';
 
+const vercelProjectId = Bun.env.VERCEL_PROJECT_ID;
+const vercelToken = Bun.env.VERCEL_TOKEN!;
+
 const version = pkg.version;
 const { values } = parseArgs({
   args: Bun.argv,
@@ -21,6 +24,7 @@ const { values } = parseArgs({
 if (values.help) printHelp();
 if (values.version) printVersion();
 
+assertConfiguration();
 await assertBranch();
 await assertWorkingDirectory();
 const releaseType = await getReleaseType();
@@ -82,6 +86,11 @@ async function assertWorkingDirectory() {
   }
 }
 
+async function assertConfiguration() {
+  if (!vercelProjectId) throw Error('Missing VERCEL_PROJECT_ID');
+  if (!vercelToken) throw Error('Missing VERCEL_TOKEN');
+}
+
 async function assertBranch() {
   const branch = await $`git branch --show-current`.text().then(t => t.trim());
   if (branch !== 'dev') {
@@ -103,12 +112,9 @@ function printVersion() {
   process.exit(0);
 }
 
-function updateVercelVersion(version: string) {
-  const projectId = Bun.env.VERCEL_PROJECT_ID!;
-  const token = Bun.env.VERCEL_TOKEN!;
-
-  return fetch(
-    `https://api.vercel.com/v10/projects/${projectId}/env?upsert=true`,
+async function updateVercelVersion(version: string) {
+  const res = await fetch(
+    `https://api.vercel.com/v10/projects/${vercelProjectId}/env?upsert=true`,
     {
       body: JSON.stringify({
         key: 'VITE_VERSION',
@@ -117,9 +123,13 @@ function updateVercelVersion(version: string) {
         value: version,
       }),
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${vercelToken}`,
       },
       method: 'post',
     },
   );
+
+  if (!res.ok) throw Error('Failed to update Vercel version');
+
+  return res;
 }
