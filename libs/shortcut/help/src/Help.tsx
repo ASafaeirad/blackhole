@@ -49,7 +49,10 @@ export const Help = () => {
           <HelpGroup title="Task">
             <HelpGroup.Command keybinding="c">Create task</HelpGroup.Command>
             <HelpGroup.Command keybinding="i">Edit task</HelpGroup.Command>
-            <HelpGroup.Command keybinding="f">Toggle Focus</HelpGroup.Command>
+            <HelpGroup.Command keybinding="f">Toggle focus</HelpGroup.Command>
+            <HelpGroup.Command keybinding=".">
+              Toggle done visibility
+            </HelpGroup.Command>
             <HelpGroup.Command keybinding="space">
               Toggle done
             </HelpGroup.Command>

@@ -3,6 +3,7 @@ import type { KeyboardEventCode, KeyboardEventKey } from './Keybinding';
 // cspell:disable
 const codeMap: Partial<Record<KeyboardEventKey, KeyboardEventCode>> = {
   ' ': 'Space',
+  '.': 'Period',
   'escape': 'Escape',
   'capslock': 'CapsLock',
   'enter': 'Enter',
