@@ -7,6 +7,9 @@ import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
 import { useEffect, useState } from 'react';
 
 import type { Task as TaskType } from '../data/Task';
+import { TaskCheck } from './TaskCheck';
+import { TaskName } from './TaskName';
+import { TaskSign } from './TaskSign';
 
 interface Props {
   focus: boolean;
@@ -39,10 +42,10 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
         'color-cta': task.status === 'focus',
       })}
     >
-      <span className="text-small">&lt;{getSign(task)}&gt;</span>
-      <div className="flex-shrink-0">{getCheck(task)}</div>
+      <TaskSign task={task} />
+      <TaskCheck task={task} />
       {!isEdit ? (
-        <div key={task.id}>{task.name}</div>
+        <TaskName name={task.name} focus={focus} />
       ) : (
         <Input
           onChange={e => setName(e.target.value)}
@@ -55,14 +58,3 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
     </div>
   );
 };
-
-function getCheck(task: TaskType) {
-  if (task.status === 'done') return '[x]';
-  if (task.status === 'focus') return '[-]';
-  return '[ ]';
-}
-
-function getSign(task: TaskType) {
-  if (task.repeat === 'daily') return 'λ';
-  return 'ƒ';
-}

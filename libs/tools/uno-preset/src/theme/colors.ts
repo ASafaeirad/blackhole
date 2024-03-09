@@ -33,10 +33,11 @@ export const colors = {
     'primary': palette.gray[100],
     'alternative': palette.gray[900],
     'muted': palette.tint[50],
+    'secondary': palette.tint[80],
     'on-cta': palette.gray[900],
     'cta': palette.green[600],
     'success': palette.green[600],
-    'danger': palette.green[600],
+    'danger': palette.flare[600],
   },
   bg: {
     'primary': palette.gray[900],

@@ -45,7 +45,7 @@ export const textStyle = {
     'line-height': 'normal',
   },
   small: {
-    'font-size': pxToRem(14),
+    'font-size': pxToRem(16),
     'font-weight': fontWeight.regular,
     'line-height': 'normal',
   },
