@@ -9,8 +9,8 @@ export const tasksAtom = atomWithStorage<Task[]>('tasks', []);
 export const focusedTaskAtom = atomWithStorage('focusedTask', 0);
 export const editIndexAtom = atom(-1);
 export const activeTaskAtom = atom(get => get(tasksAtom)[get(focusedTaskAtom)]);
-export const doneTasksAtom = atom(get =>
-  get(tasksAtom).filter(t => t.status === 'done'),
+export const remainingTasksAtom = atom(get =>
+  get(tasksAtom).filter(t => t.status !== 'done'),
 );
 export const pendingTasksAtom = atom(get =>
   get(tasksAtom).filter(t => t.status === 'pending'),
@@ -19,10 +19,16 @@ export const focusTasksAtom = atom(get =>
   get(tasksAtom).filter(t => t.status === 'focus'),
 );
 export const editTaskAtom = atom(get => get(tasksAtom)[get(editIndexAtom)]);
+export const doneTasksVisibilityAtom = atom(false);
 
 export const useTask = () => {
-  const [tasks, setTask] = useAtom(tasksAtom);
+  const [allTasks, setTask] = useAtom(tasksAtom);
   const [focusedIndex, setFocusedTask] = useAtom(focusedTaskAtom);
+  const [remainingTask] = useAtom(remainingTasksAtom);
+  const [doneTasksVisibility, setDoneTasksVisibility] = useAtom(
+    doneTasksVisibilityAtom,
+  );
+  const tasks = doneTasksVisibility ? remainingTask : allTasks;
   const setEditIndex = useSetAtom(editIndexAtom);
   const setMode = useSetMode();
 
@@ -34,7 +40,7 @@ export const useTask = () => {
   const createTask = () => {
     const id = randomInt().toString();
     const task: Task = { id, name: '', status: 'pending', repeat: 'once' };
-    const lastPendingTaskIndex = tasks.findLastIndex(
+    const lastPendingTaskIndex = allTasks.findLastIndex(
       t => t.status === 'pending',
     );
     setTask(ps => [
@@ -82,22 +88,22 @@ export const useTask = () => {
   };
 
   const deleteTask = () => {
-    const id = tasks[focusedIndex]?.id;
+    const id = allTasks[focusedIndex]?.id;
     if (!id) return;
     setTask(ps => ps.filter(t => t.id !== id));
-    setFocusedTask(i => clamp(i, 0, tasks.length - 2));
+    setFocusedTask(i => clamp(i, 0, allTasks.length - 2));
   };
 
   const revert = () => {
-    const task = tasks[focusedIndex];
+    const task = allTasks[focusedIndex];
     if (!task?.name) deleteTask();
     close();
   };
 
   const moveUp = () => {
-    const task = tasks[focusedIndex];
+    const task = allTasks[focusedIndex];
     if (focusedIndex === 0) return;
-    if (task?.status !== tasks[focusedIndex - 1]?.status) return;
+    if (task?.status !== allTasks[focusedIndex - 1]?.status) return;
 
     setTask(ps => {
       const newTasks = [...ps];
@@ -110,9 +116,9 @@ export const useTask = () => {
   };
 
   const moveDown = () => {
-    const task = tasks[focusedIndex];
-    if (focusedIndex === tasks.length - 1) return;
-    if (task?.status !== tasks[focusedIndex + 1]?.status) return;
+    const task = allTasks[focusedIndex];
+    if (focusedIndex === allTasks.length - 1) return;
+    if (task?.status !== allTasks[focusedIndex + 1]?.status) return;
     setTask(ps => {
       const newTasks = [...ps];
       newTasks[focusedIndex] = newTasks[focusedIndex + 1]!;
@@ -124,17 +130,17 @@ export const useTask = () => {
   };
 
   const focus = () => {
-    const activeTask = tasks[focusedIndex];
+    const activeTask = allTasks[focusedIndex];
     if (!activeTask) return;
 
-    tasks.forEach(task => {
+    allTasks.forEach(task => {
       if (task.status === 'focus') changeStatus(task.id, 'pending');
       else if (activeTask.id === task.id) changeStatus(task.id, 'focus');
     });
   };
 
   const toggle = () => {
-    const activeTask = tasks[focusedIndex];
+    const activeTask = allTasks[focusedIndex];
     if (!activeTask) return;
 
     changeStatus(
@@ -143,8 +149,15 @@ export const useTask = () => {
     );
   };
 
+  const toggleDoneVisibility = () => {
+    console.log('Here');
+
+    setDoneTasksVisibility(v => !v);
+  };
+
   return {
     tasks,
+    toggleDoneVisibility,
     createTask,
     editTask,
     changeStatus,

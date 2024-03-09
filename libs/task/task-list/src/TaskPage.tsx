@@ -1,19 +1,11 @@
 import { Actions } from '@blackhole/actions';
 import { Heading } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
-import { isEmpty } from '@fullstacksjs/toolbox';
-import { AnimatePresence } from 'framer-motion';
-import { useAtom } from 'jotai';
+import { callAll, isEmpty } from '@fullstacksjs/toolbox';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
-import { TaskGroups } from './components/TaskGroups';
-import {
-  doneTasksAtom,
-  focusTasksAtom,
-  pendingTasksAtom,
-  useActiveIndex,
-  useTask,
-} from './data/useTask';
+import { TaskList } from './components/TaskList';
+import { useActiveIndex, useTask } from './data/useTask';
 
 export const TaskPage = () => {
   const {
@@ -26,12 +18,12 @@ export const TaskPage = () => {
     focus,
     toggle,
     edit,
+    editTask,
+    close,
+    toggleDoneVisibility,
   } = useTask();
   const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
     useActiveIndex();
-  const [doneTasks] = useAtom(doneTasksAtom);
-  const [pendingTaskAtom] = useAtom(pendingTasksAtom);
-  const [focusTasks] = useAtom(focusTasksAtom);
 
   useSubscribeAction(Actions.CreateTask, createTask, [tasks]);
   useSubscribeAction(Actions.GoToEditMode, edit, [activeIndex, tasks]);
@@ -45,6 +37,7 @@ export const TaskPage = () => {
   useSubscribeAction(Actions.Toggle, toggle, [tasks, activeIndex]);
   useSubscribeAction(Actions.Focus, focus, [tasks, activeIndex]);
   useSubscribeAction(Actions.GoToNormalMode, revert, [tasks, activeIndex]);
+  useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
 
   return (
     <div className="fc gap-8 h-full">
@@ -52,13 +45,7 @@ export const TaskPage = () => {
       {isEmpty(tasks) ? (
         <TaskEmptyState />
       ) : (
-        <div className="fc gap-6">
-          <AnimatePresence>
-            <TaskGroups key={1} tasks={focusTasks} />
-            <TaskGroups key={2} tasks={pendingTaskAtom} />
-            <TaskGroups key={3} tasks={doneTasks} />
-          </AnimatePresence>
-        </div>
+        <TaskList onSubmit={callAll(editTask, close)} key={1} tasks={tasks} />
       )}
     </div>
   );

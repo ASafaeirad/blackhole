@@ -118,6 +118,7 @@ export type KeyboardEventKey =
   | 'backspace'
   | 'tab'
   | ' '
+  | '.'
   | 'delete'
   | 'end'
   | 'home'
