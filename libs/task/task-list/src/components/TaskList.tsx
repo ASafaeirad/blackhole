@@ -8,7 +8,8 @@ import {
   focusedTaskAtom,
   isCreatingAtom,
 } from '../data/taskAtom';
-import { useTaskDispatch, useTasks } from '../data/useTask';
+import { useAllTasks, useTaskDispatch, useTasks } from '../data/useTask';
+import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
 
 const newTask: Task = {
@@ -21,12 +22,14 @@ const newTask: Task = {
 export const TaskList = () => {
   const { createTask, editTask } = useTaskDispatch();
   const tasks = useTasks();
+  const allTasks = useAllTasks();
   const [activeTask] = useAtom(focusedTaskAtom);
   const [editedTask] = useAtom(editedTaskAtom);
   const [isCreating] = useAtom(isCreatingAtom);
+  const hasHiddenTask = allTasks.length !== tasks.length;
 
   return (
-    <div className="fc gap-6">
+    <div className="fc scrollbar flex-1 gap-6 overflow-x-auto">
       <AnimatePresence>
         {tasks.map(task => (
           <Transition key={task.id}>
@@ -38,10 +41,11 @@ export const TaskList = () => {
             />
           </Transition>
         ))}
-        {isCreating ? (
-          <TaskComponent edit focus task={newTask} onSubmit={createTask} />
-        ) : null}
       </AnimatePresence>
+      {isCreating ? (
+        <TaskComponent edit focus task={newTask} onSubmit={createTask} />
+      ) : null}
+      {hasHiddenTask ? <HiddenTaskMessage /> : null}
     </div>
   );
 };

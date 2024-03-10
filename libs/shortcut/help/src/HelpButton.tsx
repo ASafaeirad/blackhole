@@ -1,10 +1,10 @@
-import type { ButtonProps } from '@blackhole/design';
-import { Button, Key } from '@blackhole/design';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Key } from '@blackhole/design';
 import { useSetAtom } from 'jotai';
 
 import { helpAtom } from './data/helpAtom';
 
-export const HelpButton = (props: ButtonProps) => {
+export const HelpButton = () => {
   const setOpen = useSetAtom(helpAtom);
 
   const openHelp = () => {
@@ -12,8 +12,8 @@ export const HelpButton = (props: ButtonProps) => {
   };
 
   return (
-    <Button onPress={openHelp} {...props}>
-      Show Help <Key>h</Key>
-    </Button>
+    <span className="color-muted" onClick={openHelp}>
+      [ Show Help <Key>h</Key> ]
+    </span>
   );
 };
