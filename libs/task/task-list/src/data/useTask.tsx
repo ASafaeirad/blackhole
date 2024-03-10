@@ -14,6 +14,7 @@ import {
   moveDownAtom,
   moveUpAtom,
   revertAtom,
+  tasksAtom,
   toggleAtom,
   toggleDoneVisibilityAtom,
   undoAtom,
@@ -22,6 +23,11 @@ import {
 
 export const useTasks = () => {
   const [tasks] = useAtom(visibleTasks);
+  return tasks;
+};
+
+export const useAllTasks = () => {
+  const [tasks] = useAtom(tasksAtom);
   return tasks;
 };
 

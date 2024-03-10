@@ -36,7 +36,9 @@ export const TaskName = ({ name, focus }: TaskNameProps) => {
             )}
           </Fragment>
         ) : (
-          <span key={index}>{item}</span>
+          <span className="flex-shrink-0" key={index}>
+            {item}
+          </span>
         ),
       )}
     </div>

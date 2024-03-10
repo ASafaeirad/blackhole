@@ -1,4 +1,5 @@
 import { defineConfig, presetIcons, presetWebFonts } from 'unocss';
+import { presetScrollbar } from 'unocss-preset-scrollbar';
 
 import { presetBlackhole } from './libs/tools/uno-preset/src'; // eslint-disable-line @nx/enforce-module-boundaries, import/no-relative-packages
 
@@ -13,6 +14,14 @@ export default defineConfig({
   presets: [
     presetBlackhole(),
     presetIcons(),
+    presetScrollbar({
+      scrollbarWidth: '4px',
+      scrollbarHeight: '4px',
+      scrollbarTrackRadius: '2px',
+      scrollbarThumbRadius: '2px',
+      scrollbarThumbColor: 'rgba(255, 255, 255, 0.1)',
+      scrollbarTrackColor: 'rgba(0, 0, 0, 0.2)',
+    }),
     presetWebFonts({
       fonts: {
         sans: {
