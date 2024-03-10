@@ -67,6 +67,7 @@ export const Help = () => {
 
           <HelpGroup title="Global">
             <HelpGroup.Command keybinding="h">Show help</HelpGroup.Command>
+            <HelpGroup.Command keybinding="u">Undo</HelpGroup.Command>
           </HelpGroup>
         </div>
       </Dialog.Content>

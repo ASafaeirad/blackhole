@@ -1,165 +1,49 @@
-import { Mode, useSetMode } from '@blackhole/keybinding-manager';
-import { clamp, randomInt } from '@fullstacksjs/toolbox';
-import { atom, useAtom, useSetAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
+import { clamp } from '@fullstacksjs/toolbox';
+import { useAtom, useSetAtom } from 'jotai';
 
-import type { Task, TaskStatus } from './Task';
+import {
+  changeStatusAtom,
+  closeAtom,
+  createTaskAtom,
+  deleteTaskAtom,
+  editTaskAtom,
+  focusAtom,
+  focusedIndexAtom,
+  goToEditModeAtom,
+  initiateTaskAtom,
+  moveDownAtom,
+  moveUpAtom,
+  revertAtom,
+  toggleAtom,
+  toggleDoneVisibilityAtom,
+  undoAtom,
+  visibleTasks,
+} from './taskAtom';
 
-export const tasksAtom = atomWithStorage<Task[]>('tasks', []);
-export const focusedTaskAtom = atomWithStorage('focusedTask', 0);
-export const editIndexAtom = atom(-1);
-export const activeTaskAtom = atom(get => get(tasksAtom)[get(focusedTaskAtom)]);
-export const remainingTasksAtom = atom(get =>
-  get(tasksAtom).filter(t => t.status !== 'done'),
-);
-export const pendingTasksAtom = atom(get =>
-  get(tasksAtom).filter(t => t.status === 'pending'),
-);
-export const focusTasksAtom = atom(get =>
-  get(tasksAtom).filter(t => t.status === 'focus'),
-);
-export const editTaskAtom = atom(get => get(tasksAtom)[get(editIndexAtom)]);
-export const doneTasksVisibilityAtom = atom(false);
-export const visibleTasks = atom(get =>
-  get(doneTasksVisibilityAtom) ? get(tasksAtom) : get(remainingTasksAtom),
-);
-
-const toggleDoneVisibilityAtom = atom(null, (get, set) => {
-  set(doneTasksVisibilityAtom, v => !v);
-
-  if (get(focusedTaskAtom) >= get(visibleTasks).length) {
-    set(focusedTaskAtom, get(visibleTasks).length - 1);
-  }
-});
-
-export const useTask = () => {
-  const [allTasks, setTask] = useAtom(tasksAtom);
-  const [focusedIndex, setFocusedTask] = useAtom(focusedTaskAtom);
+export const useTasks = () => {
   const [tasks] = useAtom(visibleTasks);
-  const setEditIndex = useSetAtom(editIndexAtom);
-  const setMode = useSetMode();
+  return tasks;
+};
+
+export const useTaskDispatch = () => {
   const toggleDoneVisibility = useSetAtom(toggleDoneVisibilityAtom);
-
-  const close = () => {
-    setEditIndex(-1);
-    setMode(Mode.Normal);
-  };
-
-  const createTask = () => {
-    const id = randomInt().toString();
-    const task: Task = { id, name: '', status: 'pending', repeat: 'once' };
-    const lastPendingTaskIndex = allTasks.findLastIndex(
-      t => t.status === 'pending',
-    );
-    setTask(ps => [
-      ...ps.slice(0, lastPendingTaskIndex + 1),
-      task,
-      ...ps.slice(lastPendingTaskIndex + 1),
-    ]);
-    setFocusedTask(lastPendingTaskIndex + 1);
-    setEditIndex(lastPendingTaskIndex + 1);
-    setMode(Mode.Insert);
-  };
-
-  const edit = () => {
-    setEditIndex(focusedIndex);
-    setMode(Mode.Insert);
-  };
-
-  const editTask = (task: Task) => {
-    setTask(ps => {
-      const newTasks = [...ps];
-      const index = newTasks.find(t => t.id === task.id);
-      if (index) index.name = task.name;
-
-      return newTasks;
-    });
-  };
-
-  const changeStatus = (id: string, status: TaskStatus) => {
-    setTask(ps => {
-      const newTasks = [...ps];
-      const index = newTasks.find(t => t.id === id);
-      if (index) index.status = status;
-      newTasks.sort((a, b) => {
-        if (a.status === 'focus') return -1;
-        if (b.status === 'focus') return 1;
-        if (a.status === 'done') return 1;
-        if (b.status === 'done') return -1;
-        return 0;
-      });
-
-      const nextIndex = newTasks.findIndex(t => t.id === id);
-      setFocusedTask(nextIndex);
-      return newTasks;
-    });
-  };
-
-  const deleteTask = () => {
-    const id = allTasks[focusedIndex]?.id;
-    if (!id) return;
-    setTask(ps => ps.filter(t => t.id !== id));
-    setFocusedTask(i => clamp(i, 0, tasks.length - 2));
-  };
-
-  const revert = () => {
-    const task = allTasks[focusedIndex];
-    if (!task?.name) deleteTask();
-    close();
-  };
-
-  const moveUp = () => {
-    const task = allTasks[focusedIndex];
-    if (focusedIndex === 0) return;
-    if (task?.status !== allTasks[focusedIndex - 1]?.status) return;
-
-    setTask(ps => {
-      const newTasks = [...ps];
-      newTasks[focusedIndex] = newTasks[focusedIndex - 1]!;
-      newTasks[focusedIndex - 1] = task!;
-
-      return newTasks;
-    });
-    setFocusedTask(focusedIndex - 1);
-  };
-
-  const moveDown = () => {
-    const task = allTasks[focusedIndex];
-    if (focusedIndex === allTasks.length - 1) return;
-    if (task?.status !== allTasks[focusedIndex + 1]?.status) return;
-    setTask(ps => {
-      const newTasks = [...ps];
-      newTasks[focusedIndex] = newTasks[focusedIndex + 1]!;
-      newTasks[focusedIndex + 1] = task!;
-
-      return newTasks;
-    });
-    setFocusedTask(focusedIndex + 1);
-  };
-
-  const focus = () => {
-    const activeTask = allTasks[focusedIndex];
-    if (!activeTask) return;
-
-    allTasks.forEach(task => {
-      if (task.status === 'focus') changeStatus(task.id, 'pending');
-      else if (activeTask.id === task.id) changeStatus(task.id, 'focus');
-    });
-  };
-
-  const toggle = () => {
-    const activeTask = allTasks[focusedIndex];
-    if (!activeTask) return;
-
-    changeStatus(
-      activeTask.id,
-      activeTask.status === 'done' ? 'pending' : 'done',
-    );
-  };
+  const undo = useSetAtom(undoAtom);
+  const moveUp = useSetAtom(moveUpAtom);
+  const moveDown = useSetAtom(moveDownAtom);
+  const createTask = useSetAtom(createTaskAtom);
+  const close = useSetAtom(closeAtom);
+  const deleteTask = useSetAtom(deleteTaskAtom);
+  const revert = useSetAtom(revertAtom);
+  const changeStatus = useSetAtom(changeStatusAtom);
+  const focus = useSetAtom(focusAtom);
+  const toggle = useSetAtom(toggleAtom);
+  const initiateTask = useSetAtom(initiateTaskAtom);
+  const editTask = useSetAtom(editTaskAtom);
+  const goToEditMode = useSetAtom(goToEditModeAtom);
 
   return {
-    tasks,
     toggleDoneVisibility,
+    initiateTask,
     createTask,
     editTask,
     changeStatus,
@@ -170,12 +54,13 @@ export const useTask = () => {
     focus,
     toggle,
     close,
-    edit,
+    goToEditMode,
+    undo,
   } as const;
 };
 
 export const useActiveIndex = () => {
-  const [activeIndex, setIndex] = useAtom(focusedTaskAtom);
+  const [activeIndex, setIndex] = useAtom(focusedIndexAtom);
   const [tasks] = useAtom(visibleTasks);
 
   const focusNext = () => setIndex(i => clamp(i + 1, 0, tasks.length - 1));

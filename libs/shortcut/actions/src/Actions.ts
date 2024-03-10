@@ -17,6 +17,7 @@ export enum Actions {
   MoveUp = 'MoveUp',
   ShowHelp = 'ShowHelp',
   ToggleDoneVisibility = 'ToggleDoneVisibility',
+  Undo = 'Undo',
 }
 
 // cspell:disable
@@ -37,5 +38,6 @@ export const keyMaps = {
   [Actions.ShowHelp]: nMap('h'),
   [Actions.Focus]: nMap('f'),
   [Actions.ToggleDoneVisibility]: nMap('.'),
+  [Actions.Undo]: nMap('u'),
 } as const;
 // cspell:enable
