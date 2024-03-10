@@ -9,7 +9,7 @@ interface TaskNameProps {
 }
 
 export const TaskName = ({ name, focus }: TaskNameProps) => {
-  const items = name.split('/').filter(Boolean);
+  const items = name.split('//').filter(Boolean);
 
   return (
     <div className="fr gap-3 items-center">
