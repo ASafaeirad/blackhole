@@ -20,17 +20,25 @@ export const focusTasksAtom = atom(get =>
 );
 export const editTaskAtom = atom(get => get(tasksAtom)[get(editIndexAtom)]);
 export const doneTasksVisibilityAtom = atom(false);
+export const visibleTasks = atom(get =>
+  get(doneTasksVisibilityAtom) ? get(tasksAtom) : get(remainingTasksAtom),
+);
+
+const toggleDoneVisibilityAtom = atom(null, (get, set) => {
+  set(doneTasksVisibilityAtom, v => !v);
+
+  if (get(focusedTaskAtom) >= get(visibleTasks).length) {
+    set(focusedTaskAtom, get(visibleTasks).length - 1);
+  }
+});
 
 export const useTask = () => {
   const [allTasks, setTask] = useAtom(tasksAtom);
   const [focusedIndex, setFocusedTask] = useAtom(focusedTaskAtom);
-  const [remainingTask] = useAtom(remainingTasksAtom);
-  const [doneTasksVisibility, setDoneTasksVisibility] = useAtom(
-    doneTasksVisibilityAtom,
-  );
-  const tasks = doneTasksVisibility ? remainingTask : allTasks;
+  const [tasks] = useAtom(visibleTasks);
   const setEditIndex = useSetAtom(editIndexAtom);
   const setMode = useSetMode();
+  const toggleDoneVisibility = useSetAtom(toggleDoneVisibilityAtom);
 
   const close = () => {
     setEditIndex(-1);
@@ -91,7 +99,7 @@ export const useTask = () => {
     const id = allTasks[focusedIndex]?.id;
     if (!id) return;
     setTask(ps => ps.filter(t => t.id !== id));
-    setFocusedTask(i => clamp(i, 0, allTasks.length - 2));
+    setFocusedTask(i => clamp(i, 0, tasks.length - 2));
   };
 
   const revert = () => {
@@ -149,12 +157,6 @@ export const useTask = () => {
     );
   };
 
-  const toggleDoneVisibility = () => {
-    console.log('Here');
-
-    setDoneTasksVisibility(v => !v);
-  };
-
   return {
     tasks,
     toggleDoneVisibility,
@@ -174,7 +176,8 @@ export const useTask = () => {
 
 export const useActiveIndex = () => {
   const [activeIndex, setIndex] = useAtom(focusedTaskAtom);
-  const [tasks] = useAtom(tasksAtom);
+  const [tasks] = useAtom(visibleTasks);
+
   const focusNext = () => setIndex(i => clamp(i + 1, 0, tasks.length - 1));
   const focusPrev = () => setIndex(i => clamp(i - 1, 0, tasks.length - 1));
   const focusLast = () => setIndex(tasks.length - 1);
