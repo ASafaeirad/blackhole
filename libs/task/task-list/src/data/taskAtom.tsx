@@ -35,7 +35,7 @@ export const tasksAtom = atom(
 
 export const focusedIndexAtom = atomWithStorage('focusedTask', 0);
 
-export const doneTasksVisibilityAtom = atom(true);
+export const doneTasksVisibilityAtom = atomWithStorage('visibility', true);
 
 export const remainingTasksAtom = atom(get =>
   get(tasksAtom).filter(t => t.status !== 'done'),
