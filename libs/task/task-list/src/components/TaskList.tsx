@@ -3,17 +3,28 @@ import { AnimatePresence } from 'framer-motion';
 import { useAtom } from 'jotai';
 
 import type { Task } from '../data/Task';
-import { activeTaskAtom, editTaskAtom } from '../data/useTask';
+import {
+  editedTaskAtom,
+  focusedTaskAtom,
+  isCreatingAtom,
+} from '../data/taskAtom';
+import { useTaskDispatch, useTasks } from '../data/useTask';
 import { Task as TaskComponent } from './Task';
 
-interface Props {
-  tasks: Task[];
-  onSubmit: (task: Task) => void;
-}
+const newTask: Task = {
+  id: 'new',
+  name: '',
+  status: 'pending',
+  repeat: 'once',
+};
 
-export const TaskList = ({ tasks, onSubmit }: Props) => {
-  const [activeTask] = useAtom(activeTaskAtom);
-  const [editedTask] = useAtom(editTaskAtom);
+export const TaskList = () => {
+  const { createTask, editTask } = useTaskDispatch();
+  const tasks = useTasks();
+  const [activeTask] = useAtom(focusedTaskAtom);
+  const [editedTask] = useAtom(editedTaskAtom);
+  const [isCreating] = useAtom(isCreatingAtom);
+
   return (
     <div className="fc gap-6">
       <AnimatePresence>
@@ -23,10 +34,13 @@ export const TaskList = ({ tasks, onSubmit }: Props) => {
               edit={task.id === editedTask?.id}
               focus={task.id === activeTask?.id}
               task={task}
-              onSubmit={name => onSubmit({ ...task, name })}
+              onSubmit={name => editTask({ ...task, name })}
             />
           </Transition>
         ))}
+        {isCreating ? (
+          <TaskComponent edit focus task={newTask} onSubmit={createTask} />
+        ) : null}
       </AnimatePresence>
     </div>
   );

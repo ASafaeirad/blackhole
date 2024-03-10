@@ -23,7 +23,11 @@ export default defineConfig({
     host: 'localhost',
   },
   plugins: [
-    react(),
+    react({
+      babel: {
+        presets: ['jotai/babel/preset'],
+      },
+    }),
     nxViteTsPaths(),
     UnoCSS({ configFile: '../../uno.config.ts' }),
   ],

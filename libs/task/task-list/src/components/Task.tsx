@@ -18,7 +18,12 @@ interface Props {
   onSubmit: (name: string) => MaybePromise<void>;
 }
 
-export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
+export const Task = ({
+  focus: isFocused,
+  task,
+  edit: isEdit,
+  onSubmit,
+}: Props) => {
   const [name, setName] = useState('');
 
   useEffect(() => {
@@ -28,24 +33,25 @@ export const Task = ({ focus, task, edit: isEdit, onSubmit }: Props) => {
   useSubscribeAction(
     Actions.SaveTask,
     async () => {
+      if (!isEdit) return;
       if (isNullOrEmptyString(name.trim())) return;
       await onSubmit(name);
     },
-    [name],
+    [name, isEdit, onSubmit],
   );
 
   return (
     <div
       className={cn('fr text-body gap-3 items-center', {
-        'color-primary': task.status !== 'focus' && focus,
-        'color-muted': task.status !== 'focus' && !focus,
+        'color-primary': task.status !== 'focus' && isFocused,
+        'color-muted': task.status !== 'focus' && !isFocused,
         'color-cta': task.status === 'focus',
       })}
     >
       <TaskSign task={task} />
       <TaskCheck task={task} />
       {!isEdit ? (
-        <TaskName name={task.name} focus={focus} />
+        <TaskName name={task.name} focus={isFocused} />
       ) : (
         <Input
           onChange={e => setName(e.target.value)}

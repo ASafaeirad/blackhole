@@ -1,3 +1,4 @@
+import { atom, useSetAtom } from 'jotai';
 import { createContext, useContext, useEffect, useMemo } from 'react';
 
 import type { Keybinding } from './Keybinding';
@@ -13,13 +14,24 @@ const KeyBindingContext = createContext<KeybindingManager<any> | undefined>(
   undefined,
 );
 
+const managerAtom = atom<KeybindingManager<any> | null>(null);
+export const setModeAtom = atom(null, (get, set, update: Mode) => {
+  const manager = get(managerAtom);
+  if (manager) manager.mode = update;
+});
+
 export const KeyBindingProvider = <T extends string>({
   children,
   keyMaps,
 }: KeyBindProviderProps<T>) => {
+  const setManager = useSetAtom(managerAtom);
   const manager = useMemo(() => new KeybindingManager(keyMaps), [keyMaps]);
 
   useEffect(() => manager.register(document), [manager]);
+
+  useEffect(() => {
+    setManager(manager);
+  }, [manager, setManager]);
 
   return (
     <KeyBindingContext.Provider value={manager}>
