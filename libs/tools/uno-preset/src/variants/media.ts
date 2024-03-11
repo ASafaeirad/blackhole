@@ -30,9 +30,7 @@ export const variantCustomMedia: VariantObject<Theme> = {
           handle: (input, next) =>
             next({
               ...input,
-              parent: `${
-                input.parent ? `${input.parent} $$ ` : ''
-              }@media ${media}`,
+              parent: `${input.parent ? `${input.parent} $$ ` : ''}@media ${media}`,
             }),
         };
       }

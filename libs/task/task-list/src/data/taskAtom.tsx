@@ -20,6 +20,8 @@ const historyTaskAtom = atomWithDefault<TaskAtomValue[]>(get => [
   get(internalTasksAtom),
 ]);
 
+const lastFocusedIndexAtom = atom(0);
+
 const saveHistoryAtom = atom(null, (get, set) => {
   const tasks = get(internalTasksAtom);
   set(historyTaskAtom, hs => [clone(tasks), ...hs]);
@@ -156,8 +158,11 @@ export const focusAtom = atom(null, (get, set) => {
 
 export const isCreatingAtom = atom(false);
 
-export const initiateTaskAtom = atom(null, (_, set) => {
+export const initiateTaskAtom = atom(null, (get, set) => {
+  const focusedIndex = get(focusedIndexAtom);
   set(isCreatingAtom, true);
+  set(focusedIndexAtom, -1);
+  set(lastFocusedIndexAtom, focusedIndex);
   set(setModeAtom, Mode.Insert);
 });
 
@@ -188,8 +193,7 @@ export const deleteTaskAtom = atom(null, (get, set) => {
 });
 
 export const revertAtom = atom(null, (get, set) => {
-  const focusedTask = get(focusedTaskAtom);
-  if (focusedTask?.name === '') set(deleteTaskAtom);
+  set(focusedIndexAtom, get(lastFocusedIndexAtom));
   set(closeAtom);
 });
 
@@ -211,7 +215,8 @@ export const createTaskAtom = atom(null, (get, set, update: string) => {
 });
 
 export const goToEditModeAtom = atom(null, (get, set) => {
-  set(editIndexAtom, get(focusedIndexAtom));
+  const focusedIndex = get(focusedIndexAtom);
+  set(editIndexAtom, focusedIndex);
   set(setModeAtom, Mode.Insert);
 });
 

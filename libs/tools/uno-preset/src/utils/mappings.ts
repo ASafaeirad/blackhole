@@ -116,4 +116,4 @@ export const globalKeywords = [
   'unset',
 ];
 
-export const cssMathFnRE = /^(?:calc|clamp|min|max)\s*\(.*\)/;
+export const cssMathFnRE = /^(calc|clamp|min|max)\s*\((.+)\)(.*)/;

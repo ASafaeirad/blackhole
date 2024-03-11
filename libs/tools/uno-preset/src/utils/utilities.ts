@@ -11,12 +11,14 @@ import { toArray } from '@unocss/core';
 import {
   colorOpacityToString,
   colorToString,
+  getStringComponent,
   getStringComponents,
   parseCssColor,
 } from '@unocss/rule-utils';
 
 import type { Theme } from '../theme';
 import { h } from './handlers';
+import { bracketTypeRe, numberWithUnitRE } from './handlers/regex';
 import { cssMathFnRE, directionMap, globalKeywords } from './mappings';
 
 export const CONTROL_MINI_NO_NEGATIVE = '$$mini-no-negative';
@@ -76,11 +78,13 @@ function getThemeColor(theme: Theme, colors: string[], scope: ColorScope) {
  * Split utility shorthand delimited by / or :
  */
 export function splitShorthand(body: string, type: string) {
-  const split = body.split(/(?:\/|:)/);
+  const [front, rest] = getStringComponent(body, '[', ']', ['/', ':']) ?? [];
 
-  if (split[0] === `[${type}`) return [split.slice(0, 2).join(':'), split[2]];
+  if (front != null) {
+    const match = (front.match(bracketTypeRe) ?? [])[1];
 
-  return split;
+    if (match == null || match === type) return [front, rest];
+  }
 }
 
 type ColorScope = 'bg' | 'border' | 'icon' | 'shadow' | 'text';
@@ -104,8 +108,10 @@ export function parseColor(
   theme: Theme,
   scope: ColorScope,
 ): ParsedColorValue | undefined {
-  const [main, opacity] = splitShorthand(body, 'color');
+  const split = splitShorthand(body, 'color');
+  if (!split) return;
 
+  const [main, opacity] = split;
   const colors = main.replace(/([a-z])([0-9])/g, '$1-$2').split(/-/g);
   const [name] = colors;
 
@@ -123,7 +129,7 @@ export function parseColor(
     bracketOrMain === 'unset'
   )
     color = bracketOrMain;
-  if (bracketOrMain.match(/^#[\da-fA-F]+/g)) color = bracketOrMain;
+  if (/^#[\da-fA-F]+/.test(bracketOrMain)) color = bracketOrMain;
   else if (main.startsWith('$')) color = h.cssvar(main);
 
   color = color ?? bracket;
@@ -139,7 +145,7 @@ export function parseColor(
     let colorData;
     const [scale] = colors.slice(-1);
 
-    if (/^\d+$/.exec(scale)) {
+    if (/^\d+$/.test(scale)) {
       no = scale;
       colorData = getThemeColor(theme, colors.slice(0, -1), scope);
       if (!colorData || typeof colorData === 'string') color = undefined;
@@ -189,6 +195,7 @@ export function parseColor(
  *
  * @param property - Property for the css value to be created.
  * @param varName - Base name for the opacity variable.
+ * @param [scope] - Theme key to select the color from.
  * @param [shouldPass] - Function to decide whether to pass the css.
  * @return object.
  */
@@ -214,11 +221,21 @@ export function colorResolver(
       if (alpha != null) {
         css[property] = colorToString(cssColor, alpha);
       } else {
-        css[`--bh-${varName}-opacity`] = colorOpacityToString(cssColor);
-        css[property] = colorToString(cssColor, `var(--bh-${varName}-opacity)`);
+        const opacityVar = `--bh-${varName}-opacity`;
+        const result = colorToString(cssColor, `var(${opacityVar})`);
+        if (result.includes(opacityVar))
+          css[opacityVar] = colorOpacityToString(cssColor);
+        css[property] = result;
       }
     } else if (color) {
-      css[property] = colorToString(color, alpha);
+      if (alpha != null) {
+        css[property] = colorToString(color, alpha);
+      } else {
+        const opacityVar = `--bh-${varName}-opacity`;
+        const result = colorToString(color, `var(${opacityVar})`);
+        if (result.includes(opacityVar)) css[opacityVar] = 1;
+        css[property] = result;
+      }
     }
 
     if (shouldPass?.(css) !== false) return css;
@@ -233,11 +250,17 @@ export function colorableShadows(shadows: string[] | string, colorVar: string) {
     // shadow values are between 3 to 6 terms including color
     const components = getStringComponents(shadows[i], ' ', 6);
     if (!components || components.length < 3) return shadows;
-    const color = parseCssColor(components.pop());
-    if (color == null) return shadows;
-    colored.push(
-      `${components.join(' ')} var(${colorVar}, ${colorToString(color)})`,
-    );
+
+    if (parseCssColor(components.at(0))) return shadows;
+
+    let colorVarValue = '';
+
+    if (parseCssColor(components.at(-1))) {
+      const color = parseCssColor(components.pop());
+      if (color) colorVarValue = `, ${colorToString(color)}`;
+    }
+
+    colored.push(`${components.join(' ')} var(${colorVar}${colorVarValue})`);
   }
 
   return colored;
@@ -288,6 +311,11 @@ export function makeGlobalStaticRules(
   ]);
 }
 
-export function isCSSMathFn(value: string) {
-  return cssMathFnRE.test(value);
+export function isCSSMathFn(value: string | undefined) {
+  return value != null && cssMathFnRE.test(value);
+}
+
+export function isSize(str: string) {
+  if (str.startsWith('[') && str.endsWith(']')) str = str.slice(1, -1);
+  return cssMathFnRE.test(str) || numberWithUnitRE.test(str);
 }
