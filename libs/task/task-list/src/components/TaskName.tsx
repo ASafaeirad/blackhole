@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { cn } from '@blackhole/cn';
 import { isLastIndex } from '@fullstacksjs/toolbox';
-import { Fragment } from 'react';
 
 interface Props {
   name: string;
@@ -12,7 +11,7 @@ export const TaskName = ({ name, focus }: Props) => {
   const items = name.split('//').filter(Boolean);
 
   return (
-    <div className="fr f1 flex-shrink-1 gap-3 items-center">
+    <div className="fr f1 flex-shrink-1 gap-3 items-start">
       {items.map((item, index) =>
         !isLastIndex(items, index) ? (
           <span
@@ -23,7 +22,9 @@ export const TaskName = ({ name, focus }: Props) => {
             key={index}
           >
             <span
-              className={cn('text-small py-1 px-3 rounded bg-current-subtle')}
+              className={cn(
+                'text-small mt-1 py-1 px-3 rounded bg-current-subtle',
+              )}
             >
               {item}
             </span>
