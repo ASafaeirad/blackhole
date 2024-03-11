@@ -200,7 +200,13 @@ export const revertAtom = atom(null, (get, set) => {
 export const createTaskAtom = atom(null, (get, set, update: string) => {
   const tasks = get(tasksAtom);
   const id = randomInt().toString();
-  const task: Task = { id, name: update, status: 'pending', repeat: 'once' };
+  const task: Task = {
+    id,
+    name: update,
+    status: 'pending',
+    repeat: 'once',
+    createdAt: Date.now(),
+  };
 
   const lastPendingTaskIndex = tasks.findLastIndex(t => t.status === 'pending');
 
@@ -216,6 +222,7 @@ export const createTaskAtom = atom(null, (get, set, update: string) => {
 
 export const goToEditModeAtom = atom(null, (get, set) => {
   const focusedIndex = get(focusedIndexAtom);
+  set(lastFocusedIndexAtom, focusedIndex);
   set(editIndexAtom, focusedIndex);
   set(setModeAtom, Mode.Insert);
 });

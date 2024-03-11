@@ -17,6 +17,7 @@ const newTask: Task = {
   name: '',
   status: 'pending',
   repeat: 'once',
+  createdAt: Date.now(),
 };
 
 export const TaskList = () => {

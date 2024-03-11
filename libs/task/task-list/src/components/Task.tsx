@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 import type { Task as TaskType } from '../data/Task';
 import { TaskCheck } from './TaskCheck';
+import { TaskDate } from './TaskDate';
 import { TaskName } from './TaskName';
 import { TaskSign } from './TaskSign';
 
@@ -42,7 +43,7 @@ export const Task = ({
 
   return (
     <div
-      className={cn('fr text-body gap-3 items-center', {
+      className={cn('fr text-body gap-3 items-start', {
         'color-primary': task.status !== 'focus' && isFocused,
         'color-muted': task.status !== 'focus' && !isFocused,
         'color-cta': task.status === 'focus',
@@ -51,7 +52,10 @@ export const Task = ({
       <TaskSign task={task} />
       <TaskCheck task={task} />
       {!isEdit ? (
-        <TaskName name={task.name} focus={isFocused} />
+        <>
+          <TaskName name={task.name} focus={isFocused} />
+          <TaskDate date={task.createdAt} />
+        </>
       ) : (
         <Input
           onChange={e => setName(e.target.value)}
