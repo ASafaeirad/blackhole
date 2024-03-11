@@ -10,5 +10,5 @@ function getSign(task: Task) {
 }
 
 export const TaskSign = ({ task }: Props) => {
-  return <span className="text-small">&lt;{getSign(task)}&gt;</span>;
+  return <span className="mt-2 text-small">&lt;{getSign(task)}&gt;</span>;
 };

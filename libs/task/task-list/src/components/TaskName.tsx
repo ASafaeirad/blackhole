@@ -3,16 +3,16 @@ import { cn } from '@blackhole/cn';
 import { isLastIndex } from '@fullstacksjs/toolbox';
 import { Fragment } from 'react';
 
-interface TaskNameProps {
+interface Props {
   name: string;
   focus: boolean;
 }
 
-export const TaskName = ({ name, focus }: TaskNameProps) => {
+export const TaskName = ({ name, focus }: Props) => {
   const items = name.split('//').filter(Boolean);
 
   return (
-    <div className="fr gap-3 items-center">
+    <div className="fr f1 flex-shrink-1 gap-3 items-center">
       {items.map((item, index) =>
         !isLastIndex(items, index) ? (
           <Fragment key={index}>
@@ -24,21 +24,12 @@ export const TaskName = ({ name, focus }: TaskNameProps) => {
             >
               {item}
             </span>
-            {!isLastIndex(items, index) && (
-              <span
-                className={cn({
-                  'op-60': !focus,
-                  'op-90': focus,
-                })}
-              >
-                &gt;
-              </span>
-            )}
+            <span className={cn({ 'op-70': !focus, 'op-90': focus })}>
+              &gt;
+            </span>
           </Fragment>
         ) : (
-          <span className="flex-shrink-0" key={index}>
-            {item}
-          </span>
+          <span key={index}>{item}</span>
         ),
       )}
     </div>

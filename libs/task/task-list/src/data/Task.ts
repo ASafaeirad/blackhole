@@ -6,4 +6,5 @@ export interface Task {
   repeat: TaskRepeatType;
   name: string;
   status: TaskStatus;
+  createdAt: number | undefined;
 }
