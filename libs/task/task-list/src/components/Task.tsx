@@ -3,8 +3,8 @@ import { cn } from '@blackhole/cn';
 import { Input } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
-import { isNullOrEmptyString } from '@fullstacksjs/toolbox';
-import { useEffect, useState } from 'react';
+import { isNullOrEmptyString, not } from '@fullstacksjs/toolbox';
+import { useEffect, useRef, useState } from 'react';
 
 import type { Task as TaskType } from '../data/Task';
 import { TaskCheck } from './TaskCheck';
@@ -26,10 +26,20 @@ export const Task = ({
   onSubmit,
 }: Props) => {
   const [name, setName] = useState('');
+  const ref = useRef<HTMLInputElement>(null);
+  const [insert, setInsert] = useState(false);
 
   useEffect(() => {
     if (isEdit) setName(task.name);
   }, [isEdit, task.name]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      ref.current?.setSelectionRange(0, 0);
+    }, 0);
+  }, [insert]);
+
+  useSubscribeAction(Actions.Insert, () => setInsert(not), []);
 
   useSubscribeAction(
     Actions.SaveTask,
@@ -58,6 +68,7 @@ export const Task = ({
         </>
       ) : (
         <Input
+          ref={ref}
           onChange={e => setName(e.target.value)}
           autoFocus
           autoComplete="off"

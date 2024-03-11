@@ -2,12 +2,11 @@ import { Actions } from '@blackhole/actions';
 import { Heading } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import { isEmpty } from '@fullstacksjs/toolbox';
-import { useAtom, useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import { isCreatingAtom, tasksAtom } from './data/taskAtom';
+import { isCreatingAtom } from './data/taskAtom';
 import { useActiveIndex, useTaskDispatch, useTasks } from './data/useTask';
 
 export const TaskPage = () => {
@@ -29,6 +28,7 @@ export const TaskPage = () => {
     useActiveIndex();
 
   useSubscribeAction(Actions.CreateTask, initiateTask, [tasks]);
+  useSubscribeAction(Actions.Insert, goToEditMode, [tasks, activeIndex]);
   useSubscribeAction(Actions.GoToEditMode, goToEditMode, [activeIndex, tasks]);
   useSubscribeAction(Actions.DeleteTask, deleteTask, [activeIndex, tasks]);
   useSubscribeAction(Actions.MoveNextBlock, focusNext, [tasks.length]);

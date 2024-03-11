@@ -6,6 +6,7 @@ export enum Actions {
   MoveToLastBlock = 'MoveToLastBlock',
   MoveToFirstBlock = 'MoveToFirstBlock',
   GoToEditMode = 'GoToEditMode',
+  Insert = 'Insert',
   GoToNormalMode = 'GoToNormalMode',
   CreateTask = 'CreateTask',
   SaveTask = 'SaveTask',
@@ -26,7 +27,7 @@ export const keyMaps = {
   [Actions.MovePrevBlock]: nMap('k', 'arrowup'),
   [Actions.MoveToLastBlock]: nMap('shift+g'),
   [Actions.MoveToFirstBlock]: nMap('g,g'),
-  [Actions.GoToEditMode]: nMap('i'),
+  [Actions.GoToEditMode]: nMap('a'),
   [Actions.GoToNormalMode]: iMap('capslock', 'escape'),
   [Actions.CreateTask]: nMap('c'),
   [Actions.SaveTask]: iMap('enter'),
@@ -39,5 +40,6 @@ export const keyMaps = {
   [Actions.Focus]: nMap('f'),
   [Actions.ToggleDoneVisibility]: nMap('.'),
   [Actions.Undo]: nMap('u'),
+  [Actions.Insert]: nMap('i'),
 } as const;
 // cspell:enable
