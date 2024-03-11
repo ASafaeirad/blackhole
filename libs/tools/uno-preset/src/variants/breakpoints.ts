@@ -27,9 +27,7 @@ export function variantBreakpoints(): VariantObject<Theme> {
       for (const [point, size, idx] of variantEntries) {
         if (!regexCache[point])
           regexCache[point] = new RegExp(
-            `^((?:([al]t-|[<~]|max-))?${point}(?:${context.generator.config.separators.join(
-              '|',
-            )}))`,
+            `^((?:([al]t-|[<~]|max-))?${point}(?:${context.generator.config.separators.join('|')}))`,
           );
 
         const match = regexCache[point].exec(matcher);
@@ -49,7 +47,7 @@ export function variantBreakpoints(): VariantObject<Theme> {
           pre.startsWith('max-');
         const isAtPrefix = pre.startsWith('at-') || pre.startsWith('~');
 
-        let order = 1000; // parseInt(size)
+        let order = 3000; // parseInt(size)
 
         if (isLtPrefix) {
           order -= idx + 1;
@@ -58,9 +56,7 @@ export function variantBreakpoints(): VariantObject<Theme> {
             handle: (input, next) =>
               next({
                 ...input,
-                parent: `${
-                  input.parent ? `${input.parent} $$ ` : ''
-                }@media (max-width: ${calcMaxWidthBySize(size)})`,
+                parent: `${input.parent ? `${input.parent} $$ ` : ''}@media (max-width: ${calcMaxWidthBySize(size)})`,
                 parentOrder: order,
               }),
           };
@@ -75,11 +71,7 @@ export function variantBreakpoints(): VariantObject<Theme> {
             handle: (input, next) =>
               next({
                 ...input,
-                parent: `${
-                  input.parent ? `${input.parent} $$ ` : ''
-                }@media (min-width: ${size}) and (max-width: ${calcMaxWidthBySize(
-                  variantEntries[idx + 1][1],
-                )})`,
+                parent: `${input.parent ? `${input.parent} $$ ` : ''}@media (min-width: ${size}) and (max-width: ${calcMaxWidthBySize(variantEntries[idx + 1][1])})`,
                 parentOrder: order,
               }),
           };
@@ -90,9 +82,7 @@ export function variantBreakpoints(): VariantObject<Theme> {
           handle: (input, next) =>
             next({
               ...input,
-              parent: `${
-                input.parent ? `${input.parent} $$ ` : ''
-              }@media (min-width: ${size})`,
+              parent: `${input.parent ? `${input.parent} $$ ` : ''}@media (min-width: ${size})`,
               parentOrder: order,
             }),
         };

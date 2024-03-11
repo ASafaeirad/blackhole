@@ -1,5 +1,6 @@
 import { defineConfig, presetIcons, presetWebFonts } from 'unocss';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
+import transformerVariantGroup from '@unocss/transformer-variant-group';
 
 import { presetBlackhole } from './libs/tools/uno-preset/src'; // eslint-disable-line @nx/enforce-module-boundaries, import/no-relative-packages
 
@@ -37,4 +38,5 @@ export default defineConfig({
       },
     }),
   ],
+  transformers: [transformerVariantGroup()],
 });
