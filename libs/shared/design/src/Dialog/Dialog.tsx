@@ -36,7 +36,7 @@ export interface DialogContentProps extends RDialogContentProps {
 }
 
 const Content = (props: DialogContentProps) => (
-  <RxDialog.Portal>
+  <RxDialog.Portal forceMount={props.forceMount}>
     <RxDialog.Content
       {...props}
       className={cn(content({ position: props.position }), props.className)}
@@ -55,7 +55,7 @@ export const Dialog = (props: RxDialog.DialogProps) => {
   return (
     <DialogContext.Provider value={open}>
       <SetDialogContext.Provider value={setOpen}>
-        <RxDialog.Root {...props} open={open} />
+        <RxDialog.Root modal {...props} open={open} />
       </SetDialogContext.Provider>
     </DialogContext.Provider>
   );

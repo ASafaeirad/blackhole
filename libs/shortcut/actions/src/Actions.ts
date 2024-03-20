@@ -1,4 +1,4 @@
-import { iMap, map, nMap } from '@blackhole/keybinding-manager';
+import { iMap, map, nMap, xIMap } from '@blackhole/keybinding-manager';
 
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',
@@ -17,16 +17,18 @@ export enum Actions {
   MoveDown = 'MoveDown',
   MoveUp = 'MoveUp',
   ShowHelp = 'ShowHelp',
+  ShowSelectProject = 'ShowSelectProject',
   ToggleDoneVisibility = 'ToggleDoneVisibility',
   Undo = 'Undo',
+  SelectProject = 'SelectProject',
 }
 
 // cspell:disable
 export const keyMaps = {
-  [Actions.MoveNextBlock]: nMap('j', 'arrowdown'),
-  [Actions.MovePrevBlock]: nMap('k', 'arrowup'),
-  [Actions.MoveToLastBlock]: nMap('shift+g'),
-  [Actions.MoveToFirstBlock]: nMap('g,g'),
+  [Actions.MoveNextBlock]: xIMap('j', 'arrowdown'),
+  [Actions.MovePrevBlock]: xIMap('k', 'arrowup'),
+  [Actions.MoveToLastBlock]: xIMap('shift+g'),
+  [Actions.MoveToFirstBlock]: xIMap('g,g'),
   [Actions.GoToEditMode]: nMap('a'),
   [Actions.GoToNormalMode]: iMap('capslock', 'escape'),
   [Actions.CreateTask]: nMap('c'),
@@ -41,5 +43,7 @@ export const keyMaps = {
   [Actions.ToggleDoneVisibility]: nMap('.'),
   [Actions.Undo]: nMap('u'),
   [Actions.Insert]: nMap('i'),
+  [Actions.ShowSelectProject]: nMap('p'),
+  [Actions.SelectProject]: xIMap('enter'),
 } as const;
 // cspell:enable

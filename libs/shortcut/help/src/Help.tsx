@@ -55,6 +55,7 @@ export const Help = () => {
               Edit task (caret end)
             </HelpGroup.Command>
             <HelpGroup.Command keybinding="f">Toggle focus</HelpGroup.Command>
+            <HelpGroup.Command keybinding="p">Select Project</HelpGroup.Command>
             <HelpGroup.Command keybinding=".">
               Toggle done visibility
             </HelpGroup.Command>

@@ -1,5 +1,12 @@
-import { atom, useSetAtom } from 'jotai';
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import { atom } from 'jotai';
+import { useHydrateAtoms } from 'jotai/utils';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from 'react';
 
 import type { Keybinding } from './Keybinding';
 import { KeybindingManager } from './KeybindingManager';
@@ -24,14 +31,15 @@ export const KeyBindingProvider = <T extends string>({
   children,
   keyMaps,
 }: KeyBindProviderProps<T>) => {
-  const setManager = useSetAtom(managerAtom);
   const manager = useMemo(() => new KeybindingManager(keyMaps), [keyMaps]);
+  useHydrateAtoms([[managerAtom, manager]]);
+
+  useSyncExternalStore(
+    notify => manager.subscribeOnModeChange(notify),
+    () => manager.mode,
+  );
 
   useEffect(() => manager.register(document), [manager]);
-
-  useEffect(() => {
-    setManager(manager);
-  }, [manager, setManager]);
 
   return (
     <KeyBindingContext.Provider value={manager}>
@@ -51,6 +59,11 @@ const useKeybindingManager = () => {
   return context;
 };
 
+export const useMode = () => {
+  const manager = useKeybindingManager();
+  return manager.mode;
+};
+
 export const useSubscribeAction = <T extends string>(
   action: T,
   callback: VoidFunction,
@@ -62,6 +75,24 @@ export const useSubscribeAction = <T extends string>(
     () => manager.subscribe(action, callback),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [action, manager, ...deps],
+  );
+};
+
+export const useSubscribeActionOnMode = <T extends string>(
+  action: T,
+  mode: Mode,
+  callback: VoidFunction,
+  deps: React.DependencyList = empty,
+) => {
+  const manager = useKeybindingManager();
+
+  useEffect(
+    () =>
+      manager.subscribe(action, ({ mode: current }) => {
+        if (current === mode) callback();
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [action, manager.mode, mode, ...deps],
   );
 };
 
