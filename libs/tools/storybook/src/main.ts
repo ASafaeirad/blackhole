@@ -14,7 +14,6 @@ const getSource = (node: ProjectGraphProjectNode) =>
   path.join(offset, node.data.sourceRoot ?? '');
 
 const config: StorybookConfig = {
-  /* @ts-expect-error storybook issue [https://github.com/storybookjs/storybook/issues/23624] */
   stories: async () => {
     const graph = await createProjectGraphAsync();
     const value = Object.values(graph.nodes)
