@@ -1,7 +1,8 @@
 export type { Keybinding } from './Keybinding';
 export {
-  KeyBindingProvider,
+  KeybindingProvider,
   setModeAtom,
+  useInitManager,
   useMode,
   useSetMode,
   useSubscribeAction,

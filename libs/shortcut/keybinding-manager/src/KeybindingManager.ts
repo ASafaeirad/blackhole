@@ -19,7 +19,7 @@ export class KeybindingManager<TAction extends string> {
   #chords = new Map<string, Record<number, TAction>>();
 
   #mode: Mode = Mode.Normal;
-  #modeSubscribers = new Set<() => void>();
+  #modeSubscribers = new Set<(mode: Mode) => void>();
 
   public get mode() {
     return this.#mode;
@@ -27,7 +27,7 @@ export class KeybindingManager<TAction extends string> {
 
   public set mode(value: Mode) {
     this.#mode = value;
-    this.#modeSubscribers.forEach(subscriber => subscriber());
+    this.#modeSubscribers.forEach(subscriber => subscriber(value));
   }
 
   constructor(actions: Record<TAction, WithMode<Keybinding[]>>) {
@@ -50,9 +50,9 @@ export class KeybindingManager<TAction extends string> {
     });
   }
 
-  public subscribeOnModeChange(callback: () => void) {
+  public subscribeOnModeChange(callback: (mode: Mode) => void) {
     this.#modeSubscribers.add(callback);
-    return () => this.#modeSubscribers.delete(callback);
+    return () => void this.#modeSubscribers.delete(callback);
   }
 
   public subscribe(name: TAction, command: Subscriber) {
