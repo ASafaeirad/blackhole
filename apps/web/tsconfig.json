@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.react.json",
-  "files": [],
+  "files": ["../../@types/index.d.ts"],
   "include": [],
   "references": [
     { "path": "./tsconfig.app.json" },
