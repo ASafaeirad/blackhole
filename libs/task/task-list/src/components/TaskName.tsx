@@ -15,7 +15,7 @@ export const TaskName = ({ name, focus }: Props) => {
       {items.map((item, index) =>
         !isLastIndex(items, index) ? (
           <span
-            className={cn('self-start fr gap-3', {
+            className={cn('self-start fr gap-3 flex-shrink-0', {
               'op-70': !focus,
               'op-90': focus,
             })}

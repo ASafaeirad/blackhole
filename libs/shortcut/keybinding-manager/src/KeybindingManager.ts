@@ -6,9 +6,11 @@ import type { Keybinding } from './Keybinding';
 import type { WithMode } from './keyMapper';
 import { Mode } from './keyMapper';
 
+type Subscriber = (x: { mode: Mode }) => void;
+
 interface Action {
   mode: Mode;
-  subscribers: VoidFunction[];
+  subscribers: Subscriber[];
 }
 
 export class KeybindingManager<TAction extends string> {
@@ -17,6 +19,7 @@ export class KeybindingManager<TAction extends string> {
   #chords = new Map<string, Record<number, TAction>>();
 
   #mode: Mode = Mode.Normal;
+  #modeSubscribers = new Set<(mode: Mode) => void>();
 
   public get mode() {
     return this.#mode;
@@ -24,6 +27,7 @@ export class KeybindingManager<TAction extends string> {
 
   public set mode(value: Mode) {
     this.#mode = value;
+    this.#modeSubscribers.forEach(subscriber => subscriber(value));
   }
 
   constructor(actions: Record<TAction, WithMode<Keybinding[]>>) {
@@ -46,7 +50,12 @@ export class KeybindingManager<TAction extends string> {
     });
   }
 
-  public subscribe(name: TAction, command: VoidFunction) {
+  public subscribeOnModeChange(callback: (mode: Mode) => void) {
+    this.#modeSubscribers.add(callback);
+    return () => void this.#modeSubscribers.delete(callback);
+  }
+
+  public subscribe(name: TAction, command: Subscriber) {
     const action = this.#actions.get(name);
     if (!action) throw new Error(`Action "${name}" not found`);
 
@@ -92,7 +101,7 @@ export class KeybindingManager<TAction extends string> {
       this.#prevKey = '';
       event.preventDefault();
       actions.forEach(subscriber =>
-        subscriber.action?.subscribers.forEach(s => s()),
+        subscriber.action?.subscribers.forEach(s => s({ mode: this.#mode })),
       );
     };
 

@@ -6,5 +6,6 @@ export * from './Input';
 export * from './Key';
 export * from './Logo';
 export * from './NavLink';
+export * from './Select';
 export * from './Separator';
 export * from './Transition';

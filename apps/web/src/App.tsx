@@ -1,15 +1,20 @@
 import { keyMaps } from '@blackhole/actions';
-import { KeyBindingProvider } from '@blackhole/keybinding-manager';
+import {
+  KeybindingProvider,
+  useInitManager,
+} from '@blackhole/keybinding-manager';
 import { Help } from '@blackhole/shortcut/help';
 
 import { Routes } from './Routes';
 
 const App = () => {
+  useInitManager(keyMaps);
+
   return (
-    <KeyBindingProvider keyMaps={keyMaps}>
+    <KeybindingProvider>
       <Help />
       <Routes />
-    </KeyBindingProvider>
+    </KeybindingProvider>
   );
 };
 

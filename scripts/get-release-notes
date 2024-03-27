@@ -1,0 +1,9 @@
+#!/usr/bin/env bun
+
+import { parser } from 'keep-a-changelog';
+
+const file = Bun.file('CHANGELOG.md');
+const text = await file.text();
+const changelog = parser(text);
+
+console.log(changelog.toString());

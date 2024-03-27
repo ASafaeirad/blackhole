@@ -6,6 +6,7 @@ import {
   isInRange,
   isLastIndex,
   randomInt,
+  uniq,
 } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 import { atomWithDefault, atomWithStorage } from 'jotai/utils';
@@ -236,4 +237,38 @@ export const editTaskAtom = atom(null, (_, set, task: Task) => {
     return newTasks;
   });
   set(closeAtom);
+});
+
+export const projectsAtom = atomWithDefault<string[]>(get =>
+  uniq(
+    get(tasksAtom)
+      .filter(t => /\/\//.exec(t.name))
+      .map(t => t.name.split('//')[0]?.trim())
+      .filter(Boolean),
+  ),
+);
+
+export const setProjectsAtom = atom(null, (get, set, project: string) => {
+  set(tasksAtom, ps => {
+    const newTasks = [...ps];
+    const focusedTask = get(focusedTaskAtom);
+    if (!focusedTask) return newTasks;
+
+    const name = focusedTask.name.split('//').pop();
+    focusedTask.name = `${project}//${name!}`;
+
+    return newTasks;
+  });
+});
+
+export const unSetProjectsAtom = atom(null, (get, set) => {
+  set(tasksAtom, ps => {
+    const newTasks = [...ps];
+    const focusedTask = get(focusedTaskAtom);
+    if (!focusedTask) return newTasks;
+
+    focusedTask.name = focusedTask.name.split('//').pop()!;
+
+    return newTasks;
+  });
 });

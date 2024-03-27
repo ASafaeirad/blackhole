@@ -6,6 +6,11 @@ export enum Mode {
   Overlay = 0b100,
 }
 
+export const xIMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
+  key,
+  mode: Mode.Normal | Mode.Overlay,
+});
+
 export const nMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
   key,
   mode: Mode.Normal,

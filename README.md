@@ -31,7 +31,25 @@ The type of a module refers to its technical aspect. It defines the primary func
 4. `util`: These modules provide utility functions or tools that can be used across different parts of the application.
 5. `data`: These modules handle data retrieval, and manipulation. They can interact with databases, APIs, or other data sources.
 
-![Type dependency rules](./assets/type-dependency.png)
+```mermaid
+graph TD
+  type:app --> type:feature
+  type:app --> type:ui
+  type:app --> type:util
+  type:app --> type:data
+
+  type:feature --> type:data
+  type:feature --> type:ui
+  type:feature --> type:feature
+
+  type:ui --> type:ui
+  type:ui --> type:util
+
+  type:data --> type:util
+  type:data --> type:data
+
+  type:util --> type:util
+```
 
 ### Scope:
 The scope of a module refers to its domain within the project. It defines the primary area or domain the module caters to. The different scopes are:
@@ -42,8 +60,6 @@ The scope of a module refers to its domain within the project. It defines the pr
 4. `focus`: Modules that are deals with keeping user concentrated on a task.
 5. `analytics`: Modules that deal with data analysis, reporting, and insights for the user.
 6. `notification`: Modules responsible for sending alerts, notifications, or updates to the users.
-
-![Scopes dependency rules](./assets/scope-dependency.png)
 
 ## Development
 

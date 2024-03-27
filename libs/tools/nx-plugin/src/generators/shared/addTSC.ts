@@ -22,7 +22,6 @@ function addTargetDefaults(tree: Tree) {
   const nxJson = readNxJson(tree)!;
 
   nxJson.targetDefaults ??= {};
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   nxJson.targetDefaults['tsc'] ??= {
     cache: true,
     executor: 'nx:run-commands',

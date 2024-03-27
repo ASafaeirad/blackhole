@@ -1,8 +1,11 @@
 export type { Keybinding } from './Keybinding';
 export {
-  KeyBindingProvider,
+  KeybindingProvider,
   setModeAtom,
+  useInitManager,
+  useMode,
   useSetMode,
   useSubscribeAction,
+  useSubscribeActionOnMode,
 } from './KeybindingProvider';
 export * from './keyMapper';
