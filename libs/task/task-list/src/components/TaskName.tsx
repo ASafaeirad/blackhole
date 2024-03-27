@@ -2,13 +2,15 @@
 import { cn } from '@blackhole/cn';
 import { isLastIndex } from '@fullstacksjs/toolbox';
 
+import { separator } from '../data/taskAtom';
+
 interface Props {
   name: string;
   focus: boolean;
 }
 
 export const TaskName = ({ name, focus }: Props) => {
-  const items = name.split('//').filter(Boolean);
+  const items = name.split(separator).filter(Boolean);
 
   return (
     <div className="fr f1 flex-shrink-1 gap-3 items-start">
