@@ -1,6 +1,8 @@
 import { clamp } from '@fullstacksjs/toolbox';
 import { useAtom, useSetAtom } from 'jotai';
+import { useMemo } from 'react';
 
+import { parseNodes } from './Node';
 import {
   changeStatusAtom,
   closeAtom,
@@ -23,7 +25,10 @@ import {
 
 export const useTasks = () => {
   const [tasks] = useAtom(visibleTasks);
-  return tasks;
+  return useMemo(
+    () => tasks.map(t => ({ ...t, nodes: parseNodes(t.name) })),
+    [tasks],
+  );
 };
 
 export const useAllTasks = () => {

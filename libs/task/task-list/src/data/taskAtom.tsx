@@ -207,6 +207,7 @@ export const createTaskAtom = atom(null, (get, set, update: string) => {
     name: update,
     status: 'pending',
     repeat: 'once',
+    nodes: [],
     createdAt: Date.now(),
   };
 

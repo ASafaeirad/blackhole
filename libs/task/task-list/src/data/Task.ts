@@ -1,3 +1,5 @@
+import type { Node } from './Node';
+
 export type TaskStatus = 'done' | 'focus' | 'pending';
 export type TaskRepeatType = 'daily' | 'once';
 
@@ -7,4 +9,5 @@ export interface Task {
   name: string;
   status: TaskStatus;
   createdAt: number | undefined;
+  nodes: Node[];
 }

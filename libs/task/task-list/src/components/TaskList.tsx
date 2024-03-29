@@ -18,6 +18,7 @@ const newTask: Task = {
   status: 'pending',
   repeat: 'once',
   createdAt: Date.now(),
+  nodes: [],
 };
 
 export const TaskList = () => {
