@@ -16,6 +16,7 @@ import type { Task, TaskStatus } from './Task';
 
 export type TaskAtomValue = Task[];
 
+export const separator = '>>';
 const internalTasksAtom = atomWithStorage<TaskAtomValue>('tasks', []);
 const historyTaskAtom = atomWithDefault<TaskAtomValue[]>(get => [
   get(internalTasksAtom),
@@ -206,6 +207,7 @@ export const createTaskAtom = atom(null, (get, set, update: string) => {
     name: update,
     status: 'pending',
     repeat: 'once',
+    nodes: [],
     createdAt: Date.now(),
   };
 
@@ -243,7 +245,7 @@ export const projectsAtom = atomWithDefault<string[]>(get =>
   uniq(
     get(tasksAtom)
       .filter(t => /\/\//.exec(t.name))
-      .map(t => t.name.split('//')[0]?.trim())
+      .map(t => t.name.split(separator)[0]?.trim())
       .filter(Boolean),
   ),
 );
@@ -254,7 +256,7 @@ export const setProjectsAtom = atom(null, (get, set, project: string) => {
     const focusedTask = get(focusedTaskAtom);
     if (!focusedTask) return newTasks;
 
-    const name = focusedTask.name.split('//').pop();
+    const name = focusedTask.name.split(separator).pop();
     focusedTask.name = `${project}//${name!}`;
 
     return newTasks;
@@ -267,7 +269,7 @@ export const unSetProjectsAtom = atom(null, (get, set) => {
     const focusedTask = get(focusedTaskAtom);
     if (!focusedTask) return newTasks;
 
-    focusedTask.name = focusedTask.name.split('//').pop()!;
+    focusedTask.name = focusedTask.name.split(separator).pop()!;
 
     return newTasks;
   });

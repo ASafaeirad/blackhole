@@ -19,6 +19,10 @@ button {
   border: none;
 }
 
+a {
+  color: inherit;
+}
+
 .bg-current-subtle {
   background-color: color-mix(in srgb, currentColor 10%, transparent);
 }

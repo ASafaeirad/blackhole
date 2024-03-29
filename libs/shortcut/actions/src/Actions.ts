@@ -21,6 +21,7 @@ export enum Actions {
   ToggleDoneVisibility = 'ToggleDoneVisibility',
   Undo = 'Undo',
   SelectProject = 'SelectProject',
+  Open = 'Open',
 }
 
 // cspell:disable
@@ -45,5 +46,6 @@ export const keyMaps = {
   [Actions.Insert]: nMap('i'),
   [Actions.ShowSelectProject]: nMap('p'),
   [Actions.SelectProject]: xIMap('enter'),
+  [Actions.Open]: nMap('o'),
 } as const;
 // cspell:enable

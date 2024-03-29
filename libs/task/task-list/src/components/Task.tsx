@@ -63,7 +63,7 @@ export const Task = ({
       <TaskCheck task={task} />
       {!isEdit ? (
         <>
-          <TaskName name={task.name} focus={isFocused} />
+          <TaskName nodes={task.nodes} />
           <TaskDate date={task.createdAt} />
         </>
       ) : (

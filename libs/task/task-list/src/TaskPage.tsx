@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { SelectProjectDialog } from './components/SelectProjectDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
+import type { LinkNode } from './data/Node';
 import { isCreatingAtom } from './data/taskAtom';
 import { useActiveIndex, useTaskDispatch, useTasks } from './data/useTask';
 
@@ -35,6 +36,15 @@ export const TaskPage = () => {
   const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
     useActiveIndex();
 
+  useSubscribeAction(
+    Actions.Open,
+    () => {
+      const links = (tasks[activeIndex]?.nodes.filter(n => n.type === 'link') ??
+        []) as LinkNode[];
+      links.forEach(link => window.open(link.href, '_blank'));
+    },
+    [tasks, activeIndex],
+  );
   useSubscribeAction(Actions.CreateTask, initiateTask, [tasks]);
   useSubscribeAction(Actions.Insert, goToEditMode, [tasks, activeIndex]);
   useSubscribeAction(Actions.GoToEditMode, goToEditMode, [activeIndex, tasks]);
