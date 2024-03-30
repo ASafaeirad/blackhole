@@ -244,7 +244,7 @@ export const editTaskAtom = atom(null, (_, set, task: Task) => {
 export const projectsAtom = atomWithDefault<string[]>(get =>
   uniq(
     get(tasksAtom)
-      .filter(t => /\/\//.exec(t.name))
+      .filter(t => new RegExp(separator).exec(t.name))
       .map(t => t.name.split(separator)[0]?.trim())
       .filter(Boolean),
   ),
