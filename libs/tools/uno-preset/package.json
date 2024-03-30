@@ -5,7 +5,7 @@
   "module": "./index.mjs",
   "typings": "./index.d.ts",
   "dependencies": {
-    "@nx/vite": "18.1.2",
+    "@nx/vite": "18.2.1",
     "@unocss/core": "0.58.6",
     "@unocss/extractor-arbitrary-variants": "0.58.6",
     "@unocss/rule-utils": "0.58.6",

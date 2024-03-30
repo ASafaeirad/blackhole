@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@blackhole/source",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "license": "MIT",
   "scripts": {
     "dev": "nx serve web",
@@ -19,16 +19,16 @@
     "@emotion/react": "11.11.4",
     "@fullstacksjs/eslint-config": "10.11.0",
     "@iconify-json/solar": "1.1.9",
-    "@nx/devkit": "18.1.2",
-    "@nx/eslint": "18.1.2",
-    "@nx/eslint-plugin": "18.1.2",
-    "@nx/js": "18.1.2",
-    "@nx/playwright": "18.1.2",
-    "@nx/plugin": "18.1.2",
-    "@nx/react": "18.1.2",
-    "@nx/storybook": "18.1.2",
-    "@nx/vite": "18.1.2",
-    "@nx/workspace": "18.1.2",
+    "@nx/devkit": "18.2.1",
+    "@nx/eslint": "18.2.1",
+    "@nx/eslint-plugin": "18.2.1",
+    "@nx/js": "18.2.1",
+    "@nx/playwright": "18.2.1",
+    "@nx/plugin": "18.2.1",
+    "@nx/react": "18.2.1",
+    "@nx/storybook": "18.2.1",
+    "@nx/vite": "18.2.1",
+    "@nx/workspace": "18.2.1",
     "@playwright/test": "1.42.1",
     "@storybook/addon-a11y": "8.0.2",
     "@storybook/addon-essentials": "8.0.2",
@@ -72,7 +72,7 @@
     "jsonc-eslint-parser": "2.4.0",
     "jsonc-parser": "3.2.1",
     "keep-a-changelog": "2.5.3",
-    "nx": "18.1.2",
+    "nx": "18.2.1",
     "prettier": "3.2.5",
     "semver": "7.6.0",
     "storybook": "^8.0.2",
@@ -107,7 +107,7 @@
     "use-debounce": "10.0.0"
   },
   "volta": {
-    "node": "20.10.0",
-    "pnpm": "8.15.3"
+    "node": "20.12.0",
+    "pnpm": "8.15.5"
   }
 }
