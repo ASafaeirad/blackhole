@@ -4,6 +4,7 @@
     "outDir": "<%= offsetFromRoot %>dist/out-tsc",
     "types": ["node", "vite/client"]
   },
+  "files": ["../../../@types/index.d.ts"],
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]
 }
