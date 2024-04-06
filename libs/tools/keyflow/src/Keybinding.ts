@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/sort-type-constituents */
 
+import type { WithMode } from './keyMapper';
+
 // cspell:disable
 export type KeyboardEventCode =
   | 'Backspace'
@@ -268,3 +270,5 @@ export type Keybinding =
   | ThreeMeta
   | TwoMeta
   | `${KeyboardEventKey},${KeyboardEventKey}`;
+
+export type KeyMap = Record<string, WithMode<Keybinding[]>>;

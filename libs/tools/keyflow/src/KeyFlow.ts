@@ -13,7 +13,7 @@ interface Action {
   subscribers: Subscriber[];
 }
 
-export class KeybindingManager<TAction extends string> {
+export class KeyFlow<TAction extends string> {
   #prevKey: string = '';
   #actions = new Map<TAction, Action>();
   #chords = new Map<string, Record<number, TAction>>();

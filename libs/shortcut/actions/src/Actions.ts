@@ -1,4 +1,4 @@
-import { iMap, map, nMap, xIMap } from '@blackhole/keybinding-manager';
+import { iMap, map, nMap, xIMap } from '@blackhole/keyflow';
 
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',

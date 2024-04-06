@@ -1,10 +1,10 @@
-import { KeybindingManager } from './KeybindingManager';
+import { KeyFlow } from './KeyFlow';
 import { Mode } from './keyMapper';
 
 describe('KeybindingManager', () => {
   it('should register keybindings', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['ctrl+shift+alt+a'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -26,7 +26,7 @@ describe('KeybindingManager', () => {
 
   it('should register keybindings case-insensitive', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['escape'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -43,7 +43,7 @@ describe('KeybindingManager', () => {
 
   it('should register keybindings in normal mode', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -59,7 +59,7 @@ describe('KeybindingManager', () => {
 
   it('should register keybindings in insert mode', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['i'], mode: Mode.Insert },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -75,7 +75,7 @@ describe('KeybindingManager', () => {
 
   it('should register keybindings in composed mode', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['a'], mode: Mode.Normal | Mode.Insert },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -95,7 +95,7 @@ describe('KeybindingManager', () => {
 
   it('should not register keybindings in wrong mode', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -111,7 +111,7 @@ describe('KeybindingManager', () => {
   it('should subscribe multiple times with a same key', () => {
     const handle1 = vi.fn();
     const handle2 = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       Action1: { key: ['i'], mode: Mode.Overlay },
       Action2: { key: ['i'], mode: Mode.Normal },
     });
@@ -135,7 +135,7 @@ describe('KeybindingManager', () => {
 
   it('should unsubscribe', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['i'], mode: Mode.Normal },
     });
     const unsubscribe = manager.subscribe('GoToNormalMode', handle);
@@ -151,7 +151,7 @@ describe('KeybindingManager', () => {
 
   it('should be able to bind multiple keys to the same action', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['i', 'escape'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
@@ -170,7 +170,7 @@ describe('KeybindingManager', () => {
 
   it('should be accept key sequence', () => {
     const handle = vi.fn();
-    const manager = new KeybindingManager({
+    const manager = new KeyFlow({
       GoToNormalMode: { key: ['g,g'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);

@@ -8,3 +8,4 @@ whitespaces
 nesw
 Kode
 capslock
+keyflow
