@@ -8,11 +8,14 @@ import {
   closeAtom,
   createTaskAtom,
   deleteTaskAtom,
+  editedTaskAtom,
   editTaskAtom,
   focusAtom,
   focusedIndexAtom,
+  focusedTaskAtom,
   goToEditModeAtom,
   initiateTaskAtom,
+  isCreatingAtom,
   moveDownAtom,
   moveUpAtom,
   revertAtom,
@@ -87,4 +90,12 @@ export const useActiveIndex = () => {
     focusLast,
     focusFirst,
   } as const;
+};
+
+export const useTaskListState = () => {
+  const [isCreating] = useAtom(isCreatingAtom);
+  const [editedTask] = useAtom(editedTaskAtom);
+  const [activeTask] = useAtom(focusedTaskAtom);
+
+  return { isCreating, editedTask, activeTask } as const;
 };

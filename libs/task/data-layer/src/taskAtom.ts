@@ -13,6 +13,7 @@ import { atomWithDefault, atomWithStorage } from 'jotai/utils';
 import type { SetStateAction } from 'react';
 
 import type { Task, TaskStatus } from './Task';
+import { taskCollection } from './taskCollection';
 
 export type TaskAtomValue = Task[];
 
@@ -199,7 +200,7 @@ export const revertAtom = atom(null, (get, set) => {
   set(closeAtom);
 });
 
-export const createTaskAtom = atom(null, (get, set, update: string) => {
+export const createTaskAtom = atom(null, async (get, set, update: string) => {
   const tasks = get(tasksAtom);
   const id = randomInt().toString();
   const task: Task = {
@@ -212,6 +213,7 @@ export const createTaskAtom = atom(null, (get, set, update: string) => {
   };
 
   const lastPendingTaskIndex = tasks.findLastIndex(t => t.status === 'pending');
+  await taskCollection.addTask(task);
 
   set(tasksAtom, ps => [
     ...ps.slice(0, lastPendingTaskIndex + 1),
@@ -263,7 +265,7 @@ export const setProjectsAtom = atom(null, (get, set, project: string) => {
   });
 });
 
-export const unSetProjectsAtom = atom(null, (get, set) => {
+export const unSetProjectAtom = atom(null, (get, set) => {
   set(tasksAtom, ps => {
     const newTasks = [...ps];
     const focusedTask = get(focusedTaskAtom);

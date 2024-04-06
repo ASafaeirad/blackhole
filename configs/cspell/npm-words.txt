@@ -41,3 +41,4 @@ jotai
 positionals
 commitlint
 vercel
+firestore

@@ -1,14 +1,13 @@
 import { Transition } from '@blackhole/design';
-import { AnimatePresence } from 'framer-motion';
-import { useAtom } from 'jotai';
-
-import type { Task } from '../data/Task';
+import type { Task } from '@blackhole/task/data-layer';
 import {
-  editedTaskAtom,
-  focusedTaskAtom,
-  isCreatingAtom,
-} from '../data/taskAtom';
-import { useAllTasks, useTaskDispatch, useTasks } from '../data/useTask';
+  useAllTasks,
+  useTaskDispatch,
+  useTaskListState,
+  useTasks,
+} from '@blackhole/task/data-layer';
+import { AnimatePresence } from 'framer-motion';
+
 import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
 
@@ -23,11 +22,9 @@ const newTask: Task = {
 
 export const TaskList = () => {
   const { createTask, editTask } = useTaskDispatch();
+  const { activeTask, editedTask, isCreating } = useTaskListState();
   const tasks = useTasks();
   const allTasks = useAllTasks();
-  const [activeTask] = useAtom(focusedTaskAtom);
-  const [editedTask] = useAtom(editedTaskAtom);
-  const [isCreating] = useAtom(isCreatingAtom);
   const hasHiddenTask = allTasks.length !== tasks.length;
 
   return (

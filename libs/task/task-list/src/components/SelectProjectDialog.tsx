@@ -6,26 +6,19 @@ import {
   useSubscribeAction,
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
+import { useProjects, useSetProjects } from '@blackhole/task/data-layer';
 import { clamp } from '@fullstacksjs/toolbox';
-import { useAtom, useSetAtom } from 'jotai';
 import { useMemo, useState } from 'react';
-
-import {
-  projectsAtom,
-  setProjectsAtom,
-  unSetProjectsAtom,
-} from '../data/taskAtom';
 
 interface Props {
   onClose: () => void;
 }
 
 export const SelectProjectDialog = ({ onClose }: Props) => {
-  const [projects] = useAtom(projectsAtom);
+  const projects = useProjects();
   const [selected, setSelected] = useState(0);
   const setMode = useSetMode();
-  const setProject = useSetAtom(setProjectsAtom);
-  const unSetProject = useSetAtom(unSetProjectsAtom);
+  const { setProject, unSetProject } = useSetProjects();
   const items = useMemo(() => ['None', ...projects], [projects]);
 
   useSubscribeAction(Actions.CloseModal, () => {

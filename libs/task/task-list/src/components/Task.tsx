@@ -2,11 +2,11 @@ import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
 import { Input } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import type { Task as TaskType } from '@blackhole/task/data-layer';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString, not } from '@fullstacksjs/toolbox';
 import { useEffect, useRef, useState } from 'react';
 
-import type { Task as TaskType } from '../data/Task';
 import { TaskCheck } from './TaskCheck';
 import { TaskDate } from './TaskDate';
 import { TaskName } from './TaskName';

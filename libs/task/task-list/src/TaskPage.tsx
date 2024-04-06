@@ -6,16 +6,19 @@ import {
   useSubscribeAction,
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
+import type { LinkNode } from '@blackhole/task/data-layer';
+import {
+  useActiveIndex,
+  useTaskDispatch,
+  useTaskListState,
+  useTasks,
+} from '@blackhole/task/data-layer';
 import { isEmpty } from '@fullstacksjs/toolbox';
-import { useAtom } from 'jotai';
 import { useState } from 'react';
 
 import { SelectProjectDialog } from './components/SelectProjectDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import type { LinkNode } from './data/Node';
-import { isCreatingAtom } from './data/taskAtom';
-import { useActiveIndex, useTaskDispatch, useTasks } from './data/useTask';
 
 export const TaskPage = () => {
   const {
@@ -31,7 +34,7 @@ export const TaskPage = () => {
     initiateTask,
   } = useTaskDispatch();
   const tasks = useTasks();
-  const [isCreating] = useAtom(isCreatingAtom);
+  const { isCreating } = useTaskListState();
   const setMode = useSetMode();
   const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
     useActiveIndex();

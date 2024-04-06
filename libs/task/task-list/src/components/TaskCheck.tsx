@@ -1,4 +1,4 @@
-import type { Task } from '../data/Task';
+import type { Task } from '@blackhole/task/data-layer';
 
 interface Props {
   task: Task;
