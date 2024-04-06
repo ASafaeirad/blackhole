@@ -1,0 +1,11 @@
+{
+  "name": "firebase",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/firebase/src",
+  "projectType": "library",
+  "tags": ["type:data", "scope:shared"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

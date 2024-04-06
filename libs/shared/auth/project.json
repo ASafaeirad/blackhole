@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/auth/src",
   "projectType": "library",
-  "tags": ["type:util", "scope:shared"],
+  "tags": ["type:data", "scope:shared"],
   "targets": {
     "lint": {},
     "spell": {},

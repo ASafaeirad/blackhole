@@ -1,4 +1,5 @@
 import { keyMaps } from '@blackhole/actions';
+import { useSubscribeAuthState } from '@blackhole/auth';
 import {
   KeybindingProvider,
   useInitManager,
@@ -9,6 +10,7 @@ import { Routes } from './Routes';
 
 const App = () => {
   useInitManager(keyMaps);
+  useSubscribeAuthState();
 
   return (
     <KeybindingProvider>
