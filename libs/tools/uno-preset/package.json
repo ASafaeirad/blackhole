@@ -5,11 +5,11 @@
   "module": "./index.mjs",
   "typings": "./index.d.ts",
   "dependencies": {
-    "@nx/vite": "18.2.1",
-    "@unocss/core": "0.58.6",
-    "@unocss/extractor-arbitrary-variants": "0.58.6",
-    "@unocss/rule-utils": "0.58.6",
-    "vite-plugin-dts": "3.7.3",
-    "vite": "5.2.2"
+    "@nx/vite": "18.2.3",
+    "@unocss/core": "0.59.0",
+    "@unocss/extractor-arbitrary-variants": "0.59.0",
+    "@unocss/rule-utils": "0.59.0",
+    "vite-plugin-dts": "3.8.1",
+    "vite": "5.2.8"
   }
 }
