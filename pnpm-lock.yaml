@@ -39,8 +39,8 @@ dependencies:
     specifier: 11.0.5
     version: 11.0.5(react-dom@18.2.0)(react@18.2.0)
   jotai:
-    specifier: 2.6.5
-    version: 2.6.5(@types/react@18.2.74)(react@18.2.0)
+    specifier: 2.7.2
+    version: 2.7.2(@types/react@18.2.74)(react@18.2.0)
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -75,7 +75,7 @@ devDependencies:
     version: 11.11.4(@types/react@18.2.74)(react@18.2.0)
   '@fullstacksjs/eslint-config':
     specifier: 10.11.0
-    version: 10.11.0(@babel/core@7.24.3)(@types/node@20.12.5)(eslint@8.57.0)(graphql@16.8.1)(jest@29.7.0)(prettier@3.2.5)(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.4.4)
+    version: 10.11.0(@babel/core@7.24.4)(@types/node@20.12.5)(eslint@8.57.0)(graphql@16.8.1)(jest@29.7.0)(prettier@3.2.5)(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.4.4)
   '@iconify-json/solar':
     specifier: 1.1.9
     version: 1.1.9
@@ -925,6 +925,16 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.24.3
+      '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-syntax-import-assertions@7.23.3(@babel/core@7.24.4):
+    resolution: {integrity: sha512-lPgDSU+SJLK3xmFDTV2ZRQAiM7UuUjGidwBywFavObCiZc1BeAAcMtHJKUya92hPHO+at63JJPLygilZard8jw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.24.4
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
@@ -3660,7 +3670,7 @@ packages:
     engines: {node: '>=16'}
     dev: false
 
-  /@fullstacksjs/eslint-config@10.11.0(@babel/core@7.24.3)(@types/node@20.12.5)(eslint@8.57.0)(graphql@16.8.1)(jest@29.7.0)(prettier@3.2.5)(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.4.4):
+  /@fullstacksjs/eslint-config@10.11.0(@babel/core@7.24.4)(@types/node@20.12.5)(eslint@8.57.0)(graphql@16.8.1)(jest@29.7.0)(prettier@3.2.5)(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.4.4):
     resolution: {integrity: sha512-kjNknRn4Ww4CedyA45TDQm3V4gG3UuPjSvNGFxvdhkpeaFL9NfhKajDnl4lZMvB1ruenAN3aboRRcgPEAIgx9Q==}
     peerDependencies:
       cypress: '>=8'
@@ -3682,7 +3692,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@graphql-eslint/eslint-plugin': 3.20.1(@babel/core@7.24.3)(@types/node@20.12.5)(graphql@16.8.1)
+      '@graphql-eslint/eslint-plugin': 3.20.1(@babel/core@7.24.4)(@types/node@20.12.5)(graphql@16.8.1)
       '@typescript-eslint/eslint-plugin': 7.1.0(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.4.4)
       '@typescript-eslint/parser': 7.1.0(eslint@8.57.0)(typescript@5.4.4)
       deepmerge: 4.3.1
@@ -3729,15 +3739,15 @@ packages:
     engines: {node: '>=16'}
     dev: false
 
-  /@graphql-eslint/eslint-plugin@3.20.1(@babel/core@7.24.3)(@types/node@20.12.5)(graphql@16.8.1):
+  /@graphql-eslint/eslint-plugin@3.20.1(@babel/core@7.24.4)(@types/node@20.12.5)(graphql@16.8.1):
     resolution: {integrity: sha512-RbwVlz1gcYG62sECR1u0XqMh8w5e5XMCCZoMvPQ3nJzEBCTfXLGX727GBoRmSvY1x4gJmqNZ1lsOX7lZY14RIw==}
     engines: {node: '>=12'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@graphql-tools/code-file-loader': 7.3.23(@babel/core@7.24.3)(graphql@16.8.1)
-      '@graphql-tools/graphql-tag-pluck': 7.5.2(@babel/core@7.24.3)(graphql@16.8.1)
+      '@graphql-tools/code-file-loader': 7.3.23(@babel/core@7.24.4)(graphql@16.8.1)
+      '@graphql-tools/graphql-tag-pluck': 7.5.2(@babel/core@7.24.4)(graphql@16.8.1)
       '@graphql-tools/utils': 9.2.1(graphql@16.8.1)
       chalk: 4.1.2
       debug: 4.3.4
@@ -3769,12 +3779,12 @@ packages:
       value-or-promise: 1.0.12
     dev: true
 
-  /@graphql-tools/code-file-loader@7.3.23(@babel/core@7.24.3)(graphql@16.8.1):
+  /@graphql-tools/code-file-loader@7.3.23(@babel/core@7.24.4)(graphql@16.8.1):
     resolution: {integrity: sha512-8Wt1rTtyTEs0p47uzsPJ1vAtfAx0jmxPifiNdmo9EOCuUPyQGEbMaik/YkqZ7QUFIEYEQu+Vgfo8tElwOPtx5Q==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/graphql-tag-pluck': 7.5.2(@babel/core@7.24.3)(graphql@16.8.1)
+      '@graphql-tools/graphql-tag-pluck': 7.5.2(@babel/core@7.24.4)(graphql@16.8.1)
       '@graphql-tools/utils': 9.2.1(graphql@16.8.1)
       globby: 11.1.0
       graphql: 16.8.1
@@ -3878,13 +3888,13 @@ packages:
       unixify: 1.0.0
     dev: true
 
-  /@graphql-tools/graphql-tag-pluck@7.5.2(@babel/core@7.24.3)(graphql@16.8.1):
+  /@graphql-tools/graphql-tag-pluck@7.5.2(@babel/core@7.24.4)(graphql@16.8.1):
     resolution: {integrity: sha512-RW+H8FqOOLQw0BPXaahYepVSRjuOHw+7IL8Opaa5G5uYGOBxoXR7DceyQ7BcpMgktAOOmpDNQ2WtcboChOJSRA==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       '@babel/parser': 7.23.9
-      '@babel/plugin-syntax-import-assertions': 7.23.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-import-assertions': 7.23.3(@babel/core@7.24.4)
       '@babel/traverse': 7.23.9
       '@babel/types': 7.23.9
       '@graphql-tools/utils': 9.2.1(graphql@16.8.1)
@@ -15089,8 +15099,8 @@ packages:
       - redux
     dev: true
 
-  /jotai@2.6.5(@types/react@18.2.74)(react@18.2.0):
-    resolution: {integrity: sha512-T+yvY42GXKomvJYqs+NeTH0da9Z1tQ3Qk3zppPHIWnvmOBKpN6Qd4j8h/oo9dwxs3w/Z5r6Kk0I8h6z5orQ/HQ==}
+  /jotai@2.7.2(@types/react@18.2.74)(react@18.2.0):
+    resolution: {integrity: sha512-6Ft5kpNu8p93Ssf1Faoza3hYQZRIYp7rioK8MwTTFnbQKwUyZElwquPwl1h6U0uo9hC0jr+ghO3gcSjc6P35/Q==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'

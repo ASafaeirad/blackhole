@@ -5,20 +5,19 @@ import {
   isEmpty,
   isInRange,
   isLastIndex,
-  randomInt,
   uniq,
 } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 import { atomWithDefault, atomWithStorage } from 'jotai/utils';
 import type { SetStateAction } from 'react';
 
+import { separator } from './config';
 import type { Task, TaskStatus } from './Task';
 import { taskCollection } from './taskCollection';
 
 export type TaskAtomValue = Task[];
 
-export const separator = '>>';
-const internalTasksAtom = atomWithStorage<TaskAtomValue>('tasks', []);
+const internalTasksAtom = atom<TaskAtomValue>([]);
 const historyTaskAtom = atomWithDefault<TaskAtomValue[]>(get => [
   get(internalTasksAtom),
 ]);
@@ -45,13 +44,13 @@ export const doneTasksVisibilityAtom = atomWithStorage('visibility', true);
 export const remainingTasksAtom = atom(get =>
   get(tasksAtom).filter(t => t.status !== 'done'),
 );
-export const visibleTasks = atom(get =>
+export const visibleTasksAtom = atom(get =>
   get(doneTasksVisibilityAtom) ? get(tasksAtom) : get(remainingTasksAtom),
 );
 
 export const fixIndexAtom = atom(null, (get, set) => {
   const focusedIndex = get(focusedIndexAtom);
-  const tasks = get(visibleTasks);
+  const tasks = get(visibleTasksAtom);
 
   if (isInRange(focusedIndex, 0, tasks.length - 1)) return;
   set(focusedIndexAtom, clamp(focusedIndex, 0, tasks.length - 1));
@@ -119,8 +118,8 @@ export const moveDownAtom = atom(null, (get, set) => {
 export const toggleDoneVisibilityAtom = atom(null, (get, set) => {
   set(doneTasksVisibilityAtom, v => !v);
 
-  if (get(focusedIndexAtom) >= get(visibleTasks).length) {
-    set(focusedIndexAtom, get(visibleTasks).length - 1);
+  if (get(focusedIndexAtom) >= get(visibleTasksAtom).length) {
+    set(focusedIndexAtom, get(visibleTasksAtom).length - 1);
   }
 });
 
@@ -185,14 +184,13 @@ export const toggleAtom = atom(null, (get, set) => {
   });
 });
 
-export const deleteTaskAtom = atom(null, (get, set) => {
-  const tasks = get(tasksAtom);
+export const deleteTaskAtom = atom(null, async (get, set) => {
+  const visibleTasks = get(visibleTasksAtom);
   const focusedIndex = get(focusedIndexAtom);
   const activeTask = get(focusedTaskAtom);
   if (!activeTask) return;
-  const newTasks = tasks.filter(task => task !== activeTask);
-  set(tasksAtom, newTasks);
-  set(focusedIndexAtom, clamp(focusedIndex, 0, newTasks.length - 1));
+  await taskCollection.delete(activeTask.id);
+  set(focusedIndexAtom, clamp(focusedIndex, 0, visibleTasks.length - 2));
 });
 
 export const revertAtom = atom(null, (get, set) => {
@@ -202,24 +200,10 @@ export const revertAtom = atom(null, (get, set) => {
 
 export const createTaskAtom = atom(null, async (get, set, update: string) => {
   const tasks = get(tasksAtom);
-  const id = randomInt().toString();
-  const task: Task = {
-    id,
-    name: update,
-    status: 'pending',
-    repeat: 'once',
-    nodes: [],
-    createdAt: Date.now(),
-  };
 
   const lastPendingTaskIndex = tasks.findLastIndex(t => t.status === 'pending');
-  await taskCollection.addTask(task);
+  await taskCollection.add({ name: update, repeat: 'once', status: 'pending' });
 
-  set(tasksAtom, ps => [
-    ...ps.slice(0, lastPendingTaskIndex + 1),
-    task,
-    ...ps.slice(lastPendingTaskIndex + 1),
-  ]);
   set(focusedIndexAtom, lastPendingTaskIndex + 1);
   set(editIndexAtom, lastPendingTaskIndex + 1);
   set(closeAtom);

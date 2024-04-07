@@ -9,6 +9,7 @@ import {
 import type { LinkNode } from '@blackhole/task/data-layer';
 import {
   useActiveIndex,
+  useSubscribeTasks,
   useTaskDispatch,
   useTaskListState,
   useTasks,
@@ -39,6 +40,7 @@ export const TaskPage = () => {
   const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
     useActiveIndex();
 
+  useSubscribeTasks();
   useSubscribeAction(
     Actions.Open,
     () => {

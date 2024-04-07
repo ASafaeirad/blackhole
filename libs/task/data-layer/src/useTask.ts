@@ -1,8 +1,8 @@
+import { useCurrentUser } from '@blackhole/auth';
 import { clamp } from '@fullstacksjs/toolbox';
 import { useAtom, useSetAtom } from 'jotai';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 
-import { parseNodes } from './Node';
 import {
   changeStatusAtom,
   closeAtom,
@@ -23,15 +23,13 @@ import {
   toggleAtom,
   toggleDoneVisibilityAtom,
   undoAtom,
-  visibleTasks,
+  visibleTasksAtom,
 } from './taskAtom';
+import { taskCollection } from './taskCollection';
 
 export const useTasks = () => {
-  const [tasks] = useAtom(visibleTasks);
-  return useMemo(
-    () => tasks.map(t => ({ ...t, nodes: parseNodes(t.name) })),
-    [tasks],
-  );
+  const [tasks] = useAtom(visibleTasksAtom);
+  return tasks;
 };
 
 export const useAllTasks = () => {
@@ -75,7 +73,7 @@ export const useTaskDispatch = () => {
 
 export const useActiveIndex = () => {
   const [activeIndex, setIndex] = useAtom(focusedIndexAtom);
-  const [tasks] = useAtom(visibleTasks);
+  const [tasks] = useAtom(visibleTasksAtom);
 
   const focusNext = () => setIndex(i => clamp(i + 1, 0, tasks.length - 1));
   const focusPrev = () => setIndex(i => clamp(i - 1, 0, tasks.length - 1));
@@ -98,4 +96,16 @@ export const useTaskListState = () => {
   const [activeTask] = useAtom(focusedTaskAtom);
 
   return { isCreating, editedTask, activeTask } as const;
+};
+
+export const useSubscribeTasks = () => {
+  const user = useCurrentUser();
+  const setTasks = useSetAtom(tasksAtom);
+
+  useEffect(() => {
+    if (!user) return;
+    return taskCollection.subscribe(tasks => {
+      setTasks(tasks);
+    });
+  }, [setTasks, user]);
 };

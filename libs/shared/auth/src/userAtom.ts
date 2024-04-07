@@ -23,3 +23,7 @@ export function useCurrentUser() {
   const [user] = useAtom(userAtom);
   return user;
 }
+
+export const getCurrentUser = () => {
+  return bind(authClient.currentUser, toUser);
+};
