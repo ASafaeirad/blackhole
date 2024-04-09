@@ -26,7 +26,7 @@
     "types": ["vite/client"],
     "paths": {
       "@blackhole/actions": ["libs/shortcut/actions/src/index.ts"],
-      "@blackhole/auth": ["libs/shared/auth/src/index.ts"],
+      "@blackhole/auth": ["libs/user/auth/src/index.ts"],
       "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
       "@blackhole/debug": ["libs/shared/debug/src/index.ts"],
@@ -39,14 +39,15 @@
       "@blackhole/keybinding-manager": [
         "libs/shortcut/keybinding-manager/src/index.ts"
       ],
+      "@blackhole/keyflow": ["libs/tools/keyflow/src/index.ts"],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
       "@blackhole/shortcut/help": ["libs/shortcut/help/src/index.ts"],
       "@blackhole/supabase": ["libs/shared/supabase/src/index.ts"],
       "@blackhole/task/data-layer": ["libs/task/data-layer/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
-      "@blackhole/keyflow": ["libs/tools/keyflow/src/index.ts"],
-      "@blackhole/uno-preset": ["libs/tools/uno-preset/src/index.ts"]
+      "@blackhole/uno-preset": ["libs/tools/uno-preset/src/index.ts"],
+      "@blackhole/user/auth-guard": ["libs/user/auth-guard/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

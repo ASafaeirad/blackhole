@@ -1,0 +1,11 @@
+{
+  "name": "auth-guard",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/user/auth-guard/src",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:user"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

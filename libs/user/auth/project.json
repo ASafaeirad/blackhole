@@ -1,7 +1,7 @@
 {
   "name": "auth",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/auth/src",
+  "sourceRoot": "libs/user/auth/src",
   "projectType": "library",
   "tags": ["type:data", "scope:shared"],
   "targets": {
@@ -11,7 +11,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/shared/auth"
+        "reportsDirectory": "../../../coverage/libs/user/auth"
       }
     },
     "tsc": {}
