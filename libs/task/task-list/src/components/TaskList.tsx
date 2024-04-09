@@ -17,6 +17,7 @@ const newTask: Task = {
   status: 'pending',
   repeat: 'once',
   createdAt: Date.now(),
+  order: 0,
   nodes: [],
 };
 

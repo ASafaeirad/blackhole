@@ -5,6 +5,7 @@ export type TaskRepeatType = 'daily' | 'once';
 
 export interface Task {
   id: string;
+  order: number;
   repeat: TaskRepeatType;
   name: string;
   status: TaskStatus;

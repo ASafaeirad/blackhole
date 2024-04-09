@@ -1,6 +1,6 @@
 import { isLastIndex } from '@fullstacksjs/toolbox';
 
-import { separator } from './config';
+import { separator } from '../config/config';
 
 export interface TextNode {
   type: 'text';

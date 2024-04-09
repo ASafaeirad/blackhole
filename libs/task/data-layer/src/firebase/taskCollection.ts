@@ -9,24 +9,35 @@ import {
   onSnapshot,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
-import { parseNodes } from './Node';
-import type { Task, TaskRepeatType, TaskStatus } from './Task';
+import { parseNodes } from '../models/Node';
+import type { Task, TaskRepeatType, TaskStatus } from '../models/Task';
 
 const collectionName = 'tasks';
 const collection = getCollection(firestore, collectionName);
 
+const statusWeight: Record<TaskStatus, number> = {
+  focus: -10,
+  pending: 10,
+  done: 10000,
+};
+
 export interface TaskDto {
   repeat: TaskRepeatType;
+  order: number;
   name: string;
   status: TaskStatus;
   createdAt: FieldValue;
   userId: string;
 }
 
-export type CreateTaskDto = Pick<TaskDto, 'name' | 'repeat' | 'status'>;
+export type CreateTaskDto = Pick<
+  TaskDto,
+  'name' | 'order' | 'repeat' | 'status'
+>;
 
 const toTaskDto = (task: CreateTaskDto): TaskDto => {
   const user = getCurrentUser();
@@ -34,6 +45,7 @@ const toTaskDto = (task: CreateTaskDto): TaskDto => {
 
   return {
     name: task.name,
+    order: task.order,
     repeat: task.repeat,
     status: task.status,
     userId: user.id,
@@ -52,6 +64,16 @@ export const taskCollection = {
 
   delete: (id: string) => {
     return deleteDoc(taskCollection.get(id));
+  },
+
+  swap: (a: Task, b: Task) => {
+    const aDoc = taskCollection.get(a.id);
+    const bDoc = taskCollection.get(b.id);
+
+    return Promise.all([
+      updateDoc(aDoc, { order: b.order }),
+      updateDoc(bDoc, { order: a.order }),
+    ]);
   },
 
   subscribe: (callback: (task: Task[]) => void) => {
@@ -74,9 +96,20 @@ export const taskCollection = {
           nodes: parseNodes(data.name),
         });
       });
+
+      tasks.sort((a, b) => {
+        return (
+          a.order * statusWeight[a.status] - b.order * statusWeight[b.status]
+        );
+      });
+
       callback(tasks);
     });
 
     return unsubscribe;
+  },
+
+  update(id: string, task: Partial<Task>) {
+    return updateDoc(taskCollection.get(id), task);
   },
 };
