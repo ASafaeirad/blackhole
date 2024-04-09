@@ -1,0 +1,19 @@
+{
+  "name": "auth",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/user/auth/src",
+  "projectType": "library",
+  "tags": ["type:data", "scope:shared"],
+  "targets": {
+    "lint": {},
+    "spell": {},
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/libs/user/auth"
+      }
+    },
+    "tsc": {}
+  }
+}

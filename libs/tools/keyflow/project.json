@@ -1,0 +1,11 @@
+{
+  "name": "keyflow",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/keyflow/src",
+  "projectType": "library",
+  "tags": ["type:util", "scope:tools"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

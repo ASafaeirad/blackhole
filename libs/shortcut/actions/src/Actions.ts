@@ -1,4 +1,4 @@
-import { iMap, map, nMap, xIMap } from '@blackhole/keybinding-manager';
+import { iMap, map, nMap, xIMap } from '@blackhole/keyflow';
 
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',
@@ -22,6 +22,7 @@ export enum Actions {
   Undo = 'Undo',
   SelectProject = 'SelectProject',
   Open = 'Open',
+  SignIn = 'SignIn',
 }
 
 // cspell:disable
@@ -47,5 +48,6 @@ export const keyMaps = {
   [Actions.ShowSelectProject]: nMap('p'),
   [Actions.SelectProject]: xIMap('enter'),
   [Actions.Open]: nMap('o'),
+  [Actions.SignIn]: nMap('ctrl+shift+l'),
 } as const;
 // cspell:enable

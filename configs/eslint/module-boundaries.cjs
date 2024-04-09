@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       sourceTag: 'type:data',
-      onlyDependOnLibsWithTags: ['type:util', 'type:config'],
+      onlyDependOnLibsWithTags: ['type:util', 'type:config', 'type:data'],
     },
     {
       sourceTag: 'type:app',

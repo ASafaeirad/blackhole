@@ -1,0 +1,11 @@
+{
+  "name": "task-data-layer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/task/data-layer/src",
+  "projectType": "library",
+  "tags": ["type:data", "scope:task"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

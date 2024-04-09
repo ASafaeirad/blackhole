@@ -6,16 +6,20 @@ import {
   useSubscribeAction,
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
+import type { LinkNode } from '@blackhole/task/data-layer';
+import {
+  useActiveIndex,
+  useSubscribeTasks,
+  useTaskDispatch,
+  useTaskListState,
+  useTasks,
+} from '@blackhole/task/data-layer';
 import { isEmpty } from '@fullstacksjs/toolbox';
-import { useAtom } from 'jotai';
 import { useState } from 'react';
 
 import { SelectProjectDialog } from './components/SelectProjectDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import type { LinkNode } from './data/Node';
-import { isCreatingAtom } from './data/taskAtom';
-import { useActiveIndex, useTaskDispatch, useTasks } from './data/useTask';
 
 export const TaskPage = () => {
   const {
@@ -31,24 +35,25 @@ export const TaskPage = () => {
     initiateTask,
   } = useTaskDispatch();
   const tasks = useTasks();
-  const [isCreating] = useAtom(isCreatingAtom);
+  const { isCreating, activeTask } = useTaskListState();
   const setMode = useSetMode();
-  const { activeIndex, focusNext, focusPrev, focusFirst, focusLast } =
+  const { focusNext, focusPrev, focusFirst, focusLast, activeId } =
     useActiveIndex();
 
+  useSubscribeTasks();
   useSubscribeAction(
     Actions.Open,
     () => {
-      const links = (tasks[activeIndex]?.nodes.filter(n => n.type === 'link') ??
+      const links = (activeTask?.nodes.filter(n => n.type === 'link') ??
         []) as LinkNode[];
       links.forEach(link => window.open(link.href, '_blank'));
     },
-    [tasks, activeIndex],
+    [tasks, activeId],
   );
   useSubscribeAction(Actions.CreateTask, initiateTask, [tasks]);
-  useSubscribeAction(Actions.Insert, goToEditMode, [tasks, activeIndex]);
-  useSubscribeAction(Actions.GoToEditMode, goToEditMode, [activeIndex, tasks]);
-  useSubscribeAction(Actions.DeleteTask, deleteTask, [activeIndex, tasks]);
+  useSubscribeAction(Actions.Insert, goToEditMode, [tasks, activeId]);
+  useSubscribeAction(Actions.GoToEditMode, goToEditMode, [activeId, tasks]);
+  useSubscribeAction(Actions.DeleteTask, deleteTask, [activeId, tasks]);
   useSubscribeActionOnMode(Actions.MoveNextBlock, Mode.Normal, focusNext, [
     tasks.length,
   ]);
@@ -61,11 +66,11 @@ export const TaskPage = () => {
   useSubscribeActionOnMode(Actions.MoveToFirstBlock, Mode.Normal, focusFirst, [
     tasks.length,
   ]);
-  useSubscribeAction(Actions.MoveDown, moveDown, [tasks, activeIndex]);
-  useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeIndex]);
-  useSubscribeAction(Actions.Toggle, toggle, [tasks, activeIndex]);
-  useSubscribeAction(Actions.Focus, focus, [tasks, activeIndex]);
-  useSubscribeAction(Actions.GoToNormalMode, revert, [tasks, activeIndex]);
+  useSubscribeAction(Actions.MoveDown, moveDown, [tasks, activeId]);
+  useSubscribeAction(Actions.MoveUp, moveUp, [tasks, activeId]);
+  useSubscribeAction(Actions.Toggle, toggle, [tasks, activeId]);
+  useSubscribeAction(Actions.Focus, focus, [tasks, activeId]);
+  useSubscribeAction(Actions.GoToNormalMode, revert, [tasks, activeId]);
   useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
   useSubscribeAction(Actions.Undo, undo, []);
 
@@ -76,17 +81,15 @@ export const TaskPage = () => {
     setMode(Mode.Overlay);
   });
 
+  const close = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="fc gap-8 h-full">
       <Heading className="text-large">Tasks</Heading>
       {isEmpty(tasks) && !isCreating ? <TaskEmptyState /> : <TaskList />}
-      {open ? (
-        <SelectProjectDialog
-          onClose={() => {
-            setOpen(false);
-          }}
-        />
-      ) : null}
+      {open ? <SelectProjectDialog onClose={close} /> : null}
     </div>
   );
 };

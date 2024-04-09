@@ -5,7 +5,6 @@ import type { ProjectGraphProjectNode } from '@nx/devkit';
 import { createProjectGraphAsync } from '@nx/devkit';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import type { StorybookConfig } from '@storybook/react-vite';
-import UnoCSS from 'unocss/vite';
 import { mergeConfig } from 'vite';
 
 const unoConfig = path.resolve(process.cwd(), 'uno.config.ts');
@@ -43,11 +42,14 @@ const config: StorybookConfig = {
     options: {},
   },
 
-  viteFinal: viteConfig =>
-    mergeConfig(viteConfig, {
+  viteFinal: async viteConfig => {
+    const { default: UnoCSS } = await import('unocss/vite');
+
+    return mergeConfig(viteConfig, {
       assetsInclude: ['/sb-preview/runtime.js'],
       plugins: [nxViteTsPaths(), UnoCSS({ configFile: unoConfig })],
-    }),
+    });
+  },
 };
 
 export default config;

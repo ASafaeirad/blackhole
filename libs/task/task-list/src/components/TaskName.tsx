@@ -1,7 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import { cn } from '@blackhole/cn';
-
-import type { GroupNode, LinkNode, Node, TextNode } from '../data/Node';
+import type {
+  GroupNode,
+  LinkNode,
+  Node,
+  TextNode,
+} from '@blackhole/task/data-layer';
 
 interface Props {
   nodes: Node[];
