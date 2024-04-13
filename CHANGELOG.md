@@ -5,6 +5,127 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.17.0] - 2024-04-09
+
+### Added
+
+Added authentication
+Added auth guard
+Added sync for edit and task order
+Added sync for create and delete tasks
+
+## [v0.16.1] - 2024-03-30
+
+### Fixed
+
+Fixed wrong separator in project atom
+
+## [v0.16.0] - 2024-03-29
+
+### Added
+
+- Added link support
+- Changed separator to `>>`
+
+## [v0.15.1] - 2024-03-27
+
+### Fixed
+
+- Fixed build error
+
+## [v0.15.0] - 2024-03-27
+
+### Added
+
+- Added project selection
+- Added append and insert commands
+
+### Fixed
+
+- Fixed keybinding issue
+- Fixed parent layout
+
+## [v0.14.2] - 2024-03-11
+
+### Fixed
+
+- Fixed task name align
+
+## [v0.14.1] - 2024-03-11
+
+### Fixed
+
+- Fixed overflow task name layout
+
+## [v0.14.0] - 2024-03-11
+
+### Added
+
+- Added created at date
+
+## [v0.13.0] - 2024-03-11
+
+### Added
+
+- Kept focus index after revert
+- Improved mobile layout
+
+## [v0.12.0] - 2024-03-10
+
+### Added
+
+- Added hidden task message
+- Made done task visibility persist
+
+## [v0.11.0] - 2024-03-10
+
+### Added
+
+- Added undo feature
+
+## [v0.10.2] - 2024-03-10
+
+### Fixed
+
+- Fixed selected atom after changing visibility
+
+## [v0.10.1] - 2024-03-10
+
+### Fixed
+
+- Changed backslash to double backslashes
+- Ignored empty parent
+
+## [v0.10.0] - 2024-03-09
+
+### Added
+
+- Added task hierarchy
+
+## [v0.9.0] - 2024-03-09
+
+### Added
+
+- Added toggle done task visibility
+- Added subtask
+
+## [v0.8.0] - 2024-03-04
+
+### Added
+
+Added go to first and last item
+
+## [v0.7.0] - 2024-03-01
+
+### Added
+
+- Added task repeat type
+- Added capslock key as escape
+
+### Fixed
+
+- Fix task order with different with different status
+
 ## [0.6.0] - 2024-02-27
 
 ### Added

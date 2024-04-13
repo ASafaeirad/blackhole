@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@blackhole/auth';
+import { getCurrentUser } from '@blackhole/auth/data-layer';
 import { firestore } from '@blackhole/firebase';
 import type { FieldValue } from 'firebase/firestore';
 import {

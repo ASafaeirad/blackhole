@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import type { ButtonProps } from './Button';
 import { Button } from './Button';
+import { PointerButton } from './PointerButton';
 
 export default {
   component: Button,
@@ -13,3 +14,8 @@ export default {
 type Story = StoryObj<ButtonProps>;
 
 export const Default: Story = {};
+export const PointerOnly: Story = {
+  render() {
+    return <PointerButton>Edit profile</PointerButton>;
+  },
+};

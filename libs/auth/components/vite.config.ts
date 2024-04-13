@@ -3,7 +3,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  cacheDir: '../../../node_modules/.vite/auth-guard',
+  cacheDir: '../../../node_modules/.vite/components',
   plugins: [nxViteTsPaths()],
   test: {
     reporters: ['default'],
