@@ -17,6 +17,9 @@ button {
   font-size: inherit;
   color: inherit;
   border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 16px;
 }
 
 a {
