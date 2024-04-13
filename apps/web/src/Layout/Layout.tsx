@@ -1,10 +1,10 @@
 import { Actions } from '@blackhole/actions';
-import { signIn, useCurrentUser } from '@blackhole/auth';
-import { config } from '@blackhole/config';
+import { AuthGuard } from '@blackhole/auth/components';
+import { signIn, useCurrentUser } from '@blackhole/auth/data-layer';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
-import { HelpButton } from '@blackhole/shortcut/help';
-import { AuthGuard } from '@blackhole/user/auth-guard';
 import { Outlet } from '@tanstack/react-router';
+
+import { Footer } from './Footer';
 
 export const Layout = () => {
   useSubscribeAction(Actions.SignIn, signIn);
@@ -16,11 +16,7 @@ export const Layout = () => {
       <AuthGuard fallback={<div>Loading</div>}>
         <Outlet />
       </AuthGuard>
-      <footer className="fr py-5 justify-between items-center">
-        <div className="color-muted">v{config.get('version')}</div>
-        <div>{user?.name}</div>
-        <HelpButton />
-      </footer>
+      <Footer user={user} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useCurrentUser } from '@blackhole/auth';
+import { useCurrentUser } from '@blackhole/auth/data-layer';
 import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 

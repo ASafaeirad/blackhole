@@ -38,7 +38,7 @@
         "type": "list",
         "items": [
           { "value": "shared", "label": "Shared" },
-          { "value": "user", "label": "User" },
+          { "value": "auth", "label": "Auth" },
           { "value": "task", "label": "Task and Project" },
           { "value": "focus", "label": "Focus" },
           { "value": "analytics", "label": "Analytics" },

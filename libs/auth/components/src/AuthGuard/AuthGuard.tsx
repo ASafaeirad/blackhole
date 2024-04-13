@@ -1,5 +1,9 @@
-import { useAuthState, useCurrentUser } from '@blackhole/auth';
-import { Key } from '@blackhole/design';
+import {
+  signIn,
+  useAuthState,
+  useCurrentUser,
+} from '@blackhole/auth/data-layer';
+import { Key, PointerButton } from '@blackhole/design';
 
 interface Props {
   children: React.ReactNode;
@@ -14,7 +18,9 @@ export const AuthGuard = ({ children, fallback }: Props) => {
   if (!user)
     return (
       <div className="fr center gap-4 h-full">
-        Login please <Key>ctrl+shift+l</Key>
+        <PointerButton onClick={signIn}>
+          Login <Key>ctrl+shift+l</Key>
+        </PointerButton>
       </div>
     );
 

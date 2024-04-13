@@ -1,5 +1,5 @@
 import { keyMaps } from '@blackhole/actions';
-import { useSubscribeAuthState } from '@blackhole/auth';
+import { useSubscribeAuthState } from '@blackhole/auth/data-layer';
 import {
   KeybindingProvider,
   useInitManager,
