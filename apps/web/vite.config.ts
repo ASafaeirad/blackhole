@@ -16,11 +16,9 @@ export default defineConfig({
   cacheDir: '../../node_modules/.vite/apps/web',
   server: {
     port: 3000,
-    host: 'localhost',
   },
   preview: {
     port: 4200,
-    host: 'localhost',
   },
   plugins: [
     react({

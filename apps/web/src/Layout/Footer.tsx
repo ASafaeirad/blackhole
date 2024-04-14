@@ -14,7 +14,7 @@ export const Footer = ({ user }: Props) => {
   return (
     <footer className="fr py-5 justify-between items-center">
       <div className="fr gap-4">
-        <Logo className="color-muted w-[32px]" />
+        <Logo className="color-muted w-7" />
         <div className="color-muted">v{config.get('version')}</div>
       </div>
       <div className="fr gap-6">

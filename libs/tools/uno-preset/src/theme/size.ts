@@ -18,25 +18,25 @@ export const baseSize = {
 export const width = {
   auto: 'auto',
   ...baseSize,
-  screen: '100vw',
+  screen: '100dvw',
 } satisfies Theme['width'];
 
 export const maxWidth = {
   none: 'none',
   ...baseSize,
-  screen: '100vw',
+  screen: '100dvw',
 } satisfies Theme['maxWidth'];
 
 export const height = {
   auto: 'auto',
   ...baseSize,
-  screen: '100vh',
+  screen: '100dvh',
 } satisfies Theme['height'];
 
 export const maxHeight = {
   none: 'none',
   ...baseSize,
-  screen: '100vh',
+  screen: '100dvh',
 } satisfies Theme['maxHeight'];
 
 export const containers = Object.fromEntries(
