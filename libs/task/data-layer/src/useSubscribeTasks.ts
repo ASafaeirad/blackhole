@@ -4,15 +4,18 @@ import { useEffect } from 'react';
 
 import { tasksAtom } from './atoms/taskAtom';
 import { taskCollection } from './firebase/taskCollection';
+import { newTaskStateAtom } from './useTaskListState';
 
 export const useSubscribeTasks = () => {
   const user = useCurrentUser();
   const setTasks = useSetAtom(tasksAtom);
+  const setTaskState = useSetAtom(newTaskStateAtom);
 
   useEffect(() => {
     if (!user) return;
     return taskCollection.subscribe(tasks => {
+      setTaskState(undefined);
       setTasks(tasks);
     });
-  }, [setTasks, user]);
+  }, [setTaskState, setTasks, user]);
 };

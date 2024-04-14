@@ -15,7 +15,7 @@ import { TaskSign } from './TaskSign';
 interface Props {
   focus: boolean;
   task: TaskType;
-  edit: boolean;
+  edit?: boolean;
   onSubmit: (name: string) => MaybePromise<void>;
 }
 
@@ -59,8 +59,8 @@ export const Task = ({
         'color-cta': task.status === 'focus',
       })}
     >
-      <TaskSign task={task} />
-      <TaskCheck task={task} />
+      <TaskSign repeat={task.repeat} />
+      <TaskCheck status={task.status} />
       {!isEdit ? (
         <>
           <TaskName nodes={task.nodes} />

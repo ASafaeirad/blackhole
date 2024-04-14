@@ -5,9 +5,11 @@ import { atomWithStorage } from 'jotai/utils';
 import { visibleTasksAtom } from './atoms/filterAtom';
 import { tasksAtom } from './atoms/taskAtom';
 import { taskCollection } from './firebase/taskCollection';
+import type { Task } from './models/Task';
 
 export const focusedIdAtom = atomWithStorage('focusedTask', '');
 export const lastFocusedIdAtom = atom('');
+export const lastFocusedIndexAtom = atom(0);
 
 export const focusNextAtom = atom(null, (get, set) => {
   const activeTaskId = get(focusedIdAtom);
@@ -47,6 +49,10 @@ export const focusedIndexAtom = atom(get =>
   get(tasksAtom).findIndex(t => t.id === get(focusedIdAtom)),
 );
 
+export const saveTaskIndex = atom(null, (get, set) =>
+  set(lastFocusedIndexAtom, get(focusedIndexAtom)),
+);
+
 export const moveUpAtom = atom(null, async get => {
   const task = get(focusedTaskAtom);
   const tasks = get(tasksAtom);
@@ -79,14 +85,18 @@ export const editIdAtom = atom('');
 export const editedTaskAtom = atom(get =>
   get(tasksAtom).find(t => t.id === get(editIdAtom)),
 );
-export const isCreatingAtom = atom(false);
+export const newTaskStateAtom = atom<
+  | { mode: 'creating'; task: Pick<Task, 'name' | 'repeat'> }
+  | { mode: 'draft' }
+  | undefined
+>(undefined);
 
 export const useTaskListState = () => {
-  const [isCreating] = useAtom(isCreatingAtom);
+  const [newTaskState] = useAtom(newTaskStateAtom);
   const [editedTask] = useAtom(editedTaskAtom);
   const [activeTask] = useAtom(focusedTaskAtom);
 
-  return { isCreating, editedTask, activeTask } as const;
+  return { newTaskState, editedTask, activeTask } as const;
 };
 
 export const useActiveIndex = () => {

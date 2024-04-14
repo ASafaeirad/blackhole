@@ -14,13 +14,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         ref={ref}
         className={cn(
-          'outline-none bg-transparent color-muted focus-within:color-primary fr gap-2 center',
+          'outline-none bg-transparent color-muted focus-within:color-primary',
           props.className,
         )}
       >
-        <span>[</span>
-        {props.children}
-        <span>]</span>
+        [ {props.children} ]
       </BaseButton>
     );
   },

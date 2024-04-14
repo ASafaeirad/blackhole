@@ -62,11 +62,3 @@ The scope of a module refers to its domain within the project. It defines the pr
 6. `notification`: Modules responsible for sending alerts, notifications, or updates to the users.
 
 ## Development
-
-### Supabase
-
-To start the local supabase service, you need to have the environment variable set up and then run the `supabase:start` target.
-
-The `supabase:gen` generates the database types you can import from `@blackhole/supabase`.
-
-To stop the supabase service just run the `supabase:stop` target.

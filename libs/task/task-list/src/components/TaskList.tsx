@@ -10,6 +10,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
+import { TaskLoading } from './TaskLoading';
 
 const newTask: Task = {
   id: 'new',
@@ -23,7 +24,7 @@ const newTask: Task = {
 
 export const TaskList = () => {
   const { createTask, editTask } = useTaskDispatch();
-  const { activeTask, editedTask, isCreating } = useTaskListState();
+  const { activeTask, editedTask, newTaskState } = useTaskListState();
   const tasks = useTasks();
   const allTasks = useAllTasks();
   const hasHiddenTask = allTasks.length !== tasks.length;
@@ -42,8 +43,13 @@ export const TaskList = () => {
           </Transition>
         ))}
       </AnimatePresence>
-      {isCreating ? (
+      {newTaskState?.mode === 'draft' ? (
         <TaskComponent edit focus task={newTask} onSubmit={createTask} />
+      ) : newTaskState?.mode === 'creating' ? (
+        <TaskLoading
+          name={newTaskState.task.name}
+          repeat={newTaskState.task.repeat}
+        />
       ) : null}
       {hasHiddenTask ? <HiddenTaskMessage /> : null}
     </div>

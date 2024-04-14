@@ -1,15 +1,15 @@
-import type { Task } from '@blackhole/task/data-layer';
+import type { TaskStatus } from '@blackhole/task/data-layer';
 
 interface Props {
-  task: Task;
+  status: TaskStatus;
 }
 
-export const TaskCheck = ({ task }: Props) => {
-  return <div className="flex-shrink-0">{getCheck(task)}</div>;
+export const TaskCheck = ({ status }: Props) => {
+  return <div className="flex-shrink-0">{getCheck(status)}</div>;
 };
 
-function getCheck(task: Task) {
-  if (task.status === 'done') return '[x]';
-  if (task.status === 'focus') return '[-]';
+function getCheck(status: TaskStatus) {
+  if (status === 'done') return '[x]';
+  if (status === 'focus') return '[-]';
   return '[ ]';
 }
