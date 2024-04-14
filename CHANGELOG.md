@@ -5,20 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.19.0] - 2024-04-13
+
+### Added
+
+- Added loading screen
+- After deleting a task, the focus will automatically move to the next task at the same index
+
+### Fixed
+
+- Fixed UI inconsistencies
+- Fixed task creation glitch
+
+## [v0.18.0] - 2024-04-13
+
+### Added
+
+- Added favicon
+- Improved button accessibility
+- Added sign out
+
 ## [v0.17.0] - 2024-04-09
 
 ### Added
 
-Added authentication
-Added auth guard
-Added sync for edit and task order
-Added sync for create and delete tasks
+- Added authentication
+- Added auth guard
+- Added sync for edit and task order
+- Added sync for create and delete tasks
 
 ## [v0.16.1] - 2024-03-30
 
 ### Fixed
 
-Fixed wrong separator in project atom
+- Fixed wrong separator in project atom
 
 ## [v0.16.0] - 2024-03-29
 
