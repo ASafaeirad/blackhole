@@ -35,7 +35,7 @@ export const TaskPage = () => {
     initiateTask,
   } = useTaskDispatch();
   const tasks = useTasks();
-  const { isCreating, activeTask } = useTaskListState();
+  const { newTaskState, activeTask } = useTaskListState();
   const setMode = useSetMode();
   const { focusNext, focusPrev, focusFirst, focusLast, activeId } =
     useActiveIndex();
@@ -88,7 +88,7 @@ export const TaskPage = () => {
   return (
     <div className="fc gap-8 h-full">
       <Heading className="text-large">Tasks</Heading>
-      {isEmpty(tasks) && !isCreating ? <TaskEmptyState /> : <TaskList />}
+      {isEmpty(tasks) && !newTaskState ? <TaskEmptyState /> : <TaskList />}
       {open ? <SelectProjectDialog onClose={close} /> : null}
     </div>
   );
