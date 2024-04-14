@@ -1,5 +1,5 @@
 import { Actions } from '@blackhole/actions';
-import { Dialog } from '@blackhole/design';
+import { Button, Dialog } from '@blackhole/design';
 import {
   Mode,
   useSetMode,
@@ -75,6 +75,8 @@ export const Help = () => {
             <HelpGroup.Command keybinding="h">Show help</HelpGroup.Command>
             <HelpGroup.Command keybinding="u">Undo</HelpGroup.Command>
           </HelpGroup>
+
+          <Button onPress={() => setIsOpen(false)}>Close</Button>
         </div>
       </Dialog.Content>
     </Dialog>
