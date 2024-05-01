@@ -3,6 +3,7 @@ export type {
   LinkNode,
   Node,
   RepeatNode,
+  TagNode,
   TextNode,
 } from './models/Node';
 export type { Task, TaskRepeatType, TaskStatus } from './models/Task';

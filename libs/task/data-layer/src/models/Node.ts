@@ -1,4 +1,6 @@
 import { isLastIndex } from '@fullstacksjs/toolbox';
+import type { Lexer, Rule } from 'moo';
+import Moo from 'moo';
 
 import { separator } from '../config/config';
 
@@ -23,22 +25,59 @@ export interface RepeatNode {
   label: string;
 }
 
-export type Node = GroupNode | LinkNode | RepeatNode | TextNode;
+export interface TagNode {
+  type: 'tag';
+  label: string;
+}
 
-const parseUrlsInText = (text: string): Node[] => {
-  const regex = /(\[[^\]]+\]\([^)]+\)|@everyday)/g;
-  if (!regex.test(text)) return [{ type: 'text', label: text }];
-  const parts = text.split(regex).filter(part => part.trim() !== '');
+export type Node = GroupNode | LinkNode | RepeatNode | TagNode | TextNode;
 
-  return parts.map<Node>(part => {
-    const matches = /(\[([^\]]+)\]\(([^)]+)\)|(@everyday))/g.exec(part);
+const tokenFactory = {
+  link: token => {
+    const matches = /\[([^\]]+)\]\(([^)]+)\)/.exec(token.value);
+    const label = matches?.[1];
+    const href = matches?.[2];
+    return { type: 'link', label: label!, href: href! } as LinkNode;
+  },
+  repeat: token => {
+    return { type: 'repeat', label: token.value } as RepeatNode;
+  },
+  group: token => {
+    return { type: 'group', label: token.value } as GroupNode;
+  },
+  tag: token => {
+    return { type: 'tag', label: token.value } as TagNode;
+  },
+  text: token => {
+    return { type: 'text', label: token.value.trim() } as TextNode;
+  },
+} satisfies Record<Node['type'], (token: Moo.Token) => Node>;
 
-    if (!matches) return { type: 'text', label: part };
-    if (matches.find(m => m === '@everyday'))
-      return { type: 'repeat', label: 'everyday' };
-    return { type: 'link', label: matches[1]!, href: matches[2]! };
-  });
-};
+function parseTokens(lexer: Lexer, nodes: Node[] = []): Node[] {
+  const token = lexer.next();
+
+  const type = token?.type;
+  if (!type) return nodes;
+  if (type === 'WS') return parseTokens(lexer, nodes);
+  // @ts-expect-error - it's a runtime check
+  const factory = tokenFactory[type];
+  if (!factory) throw new Error(`Token type "${type}" not supported`);
+
+  return parseTokens(lexer, nodes.concat(factory(token)));
+}
+
+const lexer = Moo.compile({
+  WS: /[ \t]+/,
+  link: /\[[^\]]+\]\([^)]+\)/,
+  repeat: /@\w+/,
+  tag: /#\w+/,
+  text: { match: /[^@[#\]+]+/, lineBreaks: true },
+} satisfies Record<Exclude<Node['type'] | 'WS', 'group'>, RegExp | Rule>);
+
+function parseUrlsInText(input: string): Node[] {
+  lexer.reset(input);
+  return parseTokens(lexer);
+}
 
 export const parseNodes = (text: string): Node[] => {
   const groups = text.split(separator).filter(Boolean);
