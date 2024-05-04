@@ -1,4 +1,10 @@
-export type { GroupNode, LinkNode, Node, TextNode } from './models/Node';
+export type {
+  GroupNode,
+  LinkNode,
+  Node,
+  RepeatNode,
+  TextNode,
+} from './models/Node';
 export type { Task, TaskRepeatType, TaskStatus } from './models/Task';
 export { useProjects, useSetProjects } from './useProjects';
 export { useSubscribeTasks } from './useSubscribeTasks';

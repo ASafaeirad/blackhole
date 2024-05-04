@@ -18,18 +18,25 @@ export interface LinkNode {
   href: string;
 }
 
-export type Node = GroupNode | LinkNode | TextNode;
+export interface RepeatNode {
+  type: 'repeat';
+  label: string;
+}
+
+export type Node = GroupNode | LinkNode | RepeatNode | TextNode;
 
 const parseUrlsInText = (text: string): Node[] => {
-  const regex = /(\[[^\]]+\]\([^)]+\))/g;
+  const regex = /(\[[^\]]+\]\([^)]+\)|@everyday)/g;
   if (!regex.test(text)) return [{ type: 'text', label: text }];
   const parts = text.split(regex).filter(part => part.trim() !== '');
 
   return parts.map<Node>(part => {
-    const matches = /\[([^\]]+)\]\(([^)]+)\)/.exec(part);
+    const matches = /(\[([^\]]+)\]\(([^)]+)\)|(@everyday))/g.exec(part);
 
-    if (matches) return { type: 'link', label: matches[1]!, href: matches[2]! };
-    else return { type: 'text', label: part };
+    if (!matches) return { type: 'text', label: part };
+    if (matches.find(m => m === '@everyday'))
+      return { type: 'repeat', label: 'everyday' };
+    return { type: 'link', label: matches[1]!, href: matches[2]! };
   });
 };
 
@@ -38,7 +45,8 @@ export const parseNodes = (text: string): Node[] => {
   return groups.flatMap<Node>((group, index) => {
     const isTitle = isLastIndex(groups, index);
 
-    if (isTitle) return parseUrlsInText(group);
-    return { type: 'group', label: group.trim() };
+    if (!isTitle) return { type: 'group', label: group.trim() };
+
+    return parseUrlsInText(group);
   });
 };

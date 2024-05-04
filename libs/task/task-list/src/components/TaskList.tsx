@@ -10,7 +10,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
-import { TaskLoading } from './TaskLoading';
+import { TaskLoading } from './Task/TaskLoading';
 
 const newTask: Task = {
   id: 'new',
@@ -20,6 +20,7 @@ const newTask: Task = {
   createdAt: Date.now(),
   order: 0,
   nodes: [],
+  streak: 0,
 };
 
 export const TaskList = () => {

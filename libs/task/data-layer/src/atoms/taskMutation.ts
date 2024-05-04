@@ -60,18 +60,6 @@ export const fixIndexAtom = atom(null, (get, set) => {
   set(focusedIdAtom, taskToFocus?.id ?? '');
 });
 
-export const toggleAtom = atom(null, async (get, set) => {
-  const focusedTask = get(focusedTaskAtom);
-  if (!focusedTask) return;
-
-  await taskCollection.update(focusedTask.id, {
-    status: focusedTask.status === 'done' ? 'pending' : 'done',
-  });
-
-  const next = get(tasksAtom).find(t => t.id === focusedTask.id);
-  set(focusedIdAtom, next?.id ?? '');
-});
-
 export const deleteTaskAtom = atom(null, async (get, set) => {
   const activeTask = get(focusedTaskAtom);
   if (!activeTask) return;
@@ -79,28 +67,6 @@ export const deleteTaskAtom = atom(null, async (get, set) => {
 
   await taskCollection.delete(activeTask.id);
   set(fixIndexAtom);
-});
-
-export const createTaskAtom = atom(null, async (get, set, update: string) => {
-  const tasks = get(tasksAtom);
-
-  const lastPendingTaskIndex = tasks.findLastIndex(t => t.status === 'pending');
-
-  const lastOrder = tasks[lastPendingTaskIndex]?.order ?? 0;
-
-  set(newTaskStateAtom, {
-    mode: 'creating',
-    task: { name: update, repeat: 'once' },
-  });
-  const newTask = await taskCollection.add({
-    name: update,
-    repeat: 'once',
-    status: 'pending',
-    order: lastOrder + 1,
-  });
-
-  set(focusedIdAtom, newTask.id);
-  set(closeAtom);
 });
 
 export const goToEditModeAtom = atom(null, (get, set) => {

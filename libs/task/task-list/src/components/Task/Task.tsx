@@ -11,6 +11,7 @@ import { TaskCheck } from './TaskCheck';
 import { TaskDate } from './TaskDate';
 import { TaskName } from './TaskName';
 import { TaskSign } from './TaskSign';
+import { TaskStreak } from './TaskStreak';
 
 interface Props {
   focus: boolean;
@@ -65,6 +66,7 @@ export const Task = ({
         <>
           <TaskName nodes={task.nodes} />
           <TaskDate date={task.createdAt} />
+          <TaskStreak streak={task.streak} />
         </>
       ) : (
         <Input

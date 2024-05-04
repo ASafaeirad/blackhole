@@ -1,18 +1,18 @@
 import { useSetAtom } from 'jotai';
 
+import { createTaskAtom } from './atoms/createTaskAtom';
 import {
   closeAtom,
-  createTaskAtom,
   deleteTaskAtom,
   editTaskAtom,
   goToEditModeAtom,
   initiateTaskAtom,
   revertAtom,
-  toggleAtom,
   toggleDoneVisibilityAtom,
   toggleFocusAtom,
   undoAtom,
 } from './atoms/taskMutation';
+import { toggleDoneAtom } from './atoms/toggleDoneAtom';
 import { moveDownAtom, moveUpAtom } from './useTaskListState';
 
 export const useTaskDispatch = () => {
@@ -25,7 +25,7 @@ export const useTaskDispatch = () => {
   const deleteTask = useSetAtom(deleteTaskAtom);
   const revert = useSetAtom(revertAtom);
   const focus = useSetAtom(toggleFocusAtom);
-  const toggle = useSetAtom(toggleAtom);
+  const toggle = useSetAtom(toggleDoneAtom);
   const initiateTask = useSetAtom(initiateTaskAtom);
   const editTask = useSetAtom(editTaskAtom);
   const goToEditMode = useSetAtom(goToEditModeAtom);

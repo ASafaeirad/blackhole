@@ -32,6 +32,7 @@ export interface TaskDto {
   status: TaskStatus;
   createdAt: FieldValue;
   userId: string;
+  streak: number;
 }
 
 export type CreateTaskDto = Pick<
@@ -49,6 +50,7 @@ const toTaskDto = (task: CreateTaskDto): TaskDto => {
     repeat: task.repeat,
     status: task.status,
     userId: user.id,
+    streak: 0,
     createdAt: serverTimestamp(),
   };
 };

@@ -9,4 +9,5 @@ export * from './Logo';
 export * from './NavLink';
 export * from './Select';
 export * from './Separator';
+export * from './Tag';
 export * from './Transition';

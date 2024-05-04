@@ -1,9 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import { cn } from '@blackhole/cn';
+import { Tag } from '@blackhole/design';
 import type {
   GroupNode,
   LinkNode,
   Node,
+  RepeatNode,
   TextNode,
 } from '@blackhole/task/data-layer';
 
@@ -14,11 +16,7 @@ interface Props {
 const Group = ({ label }: GroupNode) => {
   return (
     <span className={cn('self-start fr gap-3 flex-shrink-0 op-80')}>
-      <span
-        className={cn('text-small mt-1 py-1 px-3 rounded bg-current-subtle')}
-      >
-        {label}
-      </span>
+      <Tag>{label}</Tag>
       <span>&gt;</span>
     </span>
   );
@@ -32,10 +30,15 @@ const Link = ({ label, href }: LinkNode) => {
   return <a href={href}>{label}</a>;
 };
 
+const Repeat = ({ label }: RepeatNode) => {
+  return <Tag className="color-cta">{label}</Tag>;
+};
+
 const nodeMap = {
   group: Group,
   text: Text,
   link: Link,
+  repeat: Repeat,
 } as const;
 
 export const TaskName = ({ nodes }: Props) => {
