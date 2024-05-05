@@ -38,9 +38,6 @@ export default defineConfig({
       provider: 'v8',
     },
     globals: true,
-    cache: {
-      dir: '../../../node_modules/.vitest',
-    },
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{ts,mts,cts,tsx}'],
   },
