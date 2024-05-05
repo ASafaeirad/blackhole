@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 
 import { tasksAtom } from './atoms/taskAtom';
 import { separator } from './config/config';
+import { taskCollection } from './firebase/taskCollection';
 import { focusedTaskAtom } from './useTaskListState';
 
 const projectsAtom = atomWithDefault<string[]>(get =>
@@ -16,29 +17,24 @@ const projectsAtom = atomWithDefault<string[]>(get =>
   ),
 );
 
-const setProjectsAtom = atom(null, (get, set, project: string) => {
-  set(tasksAtom, ps => {
-    const newTasks = [...ps];
-    const focusedTask = get(focusedTaskAtom);
-    if (!focusedTask) return newTasks;
+const setProjectsAtom = atom(null, async (get, _, project: string) => {
+  const task = get(focusedTaskAtom);
 
-    const name = focusedTask.name.split(separator).pop();
-    focusedTask.name = `${project}${separator}${name!}`;
+  if (!task) return;
 
-    return newTasks;
+  const name = task.name.split(separator).pop();
+  await taskCollection.update(task.id, {
+    name: `${project}${separator}${name!}`,
   });
 });
 
-const unSetProjectAtom = atom(null, (get, set) => {
-  set(tasksAtom, ps => {
-    const newTasks = [...ps];
-    const focusedTask = get(focusedTaskAtom);
-    if (!focusedTask) return newTasks;
+const unSetProjectAtom = atom(null, async get => {
+  const task = get(focusedTaskAtom);
 
-    focusedTask.name = focusedTask.name.split(separator).pop()!;
+  if (!task) return;
 
-    return newTasks;
-  });
+  const name = task.name.split(separator).pop();
+  await taskCollection.update(task.id, { name: name! });
 });
 
 export const useProjects = () => {

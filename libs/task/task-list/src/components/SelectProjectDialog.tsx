@@ -37,15 +37,14 @@ export const SelectProjectDialog = ({ onClose }: Props) => {
   useSubscribeActionOnMode(
     Actions.SelectProject,
     Mode.Overlay,
-    () => {
+    async () => {
       if (selected === 0) {
-        unSetProject();
+        await unSetProject();
       } else {
-        const project = items[selected];
-        setProject(project!);
-        onClose();
-        setMode(Mode.Normal);
+        await setProject(items[selected]!);
       }
+      setMode(Mode.Normal);
+      onClose();
     },
     [selected, items],
   );
