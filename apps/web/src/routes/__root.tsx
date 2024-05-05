@@ -5,19 +5,26 @@ import {
   useInitManager,
 } from '@blackhole/keybinding-manager';
 import { Help } from '@blackhole/shortcut/help';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
-import { Routes } from './Routes';
+import { Layout } from '../Layout';
 
-const App = () => {
+export const Route = createRootRoute({
+  component: Root,
+});
+
+function Root() {
   useInitManager(keyMaps);
   useSubscribeAuthState();
 
   return (
     <KeybindingProvider>
-      <Help />
-      <Routes />
+      <Layout>
+        <Help />
+        <Outlet />
+        <TanStackRouterDevtools />
+      </Layout>
     </KeybindingProvider>
   );
-};
-
-export default App;
+}

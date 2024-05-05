@@ -1,4 +1,7 @@
 {
   "extends": ["../../.eslintrc.cjs"],
-  "ignorePatterns": ["!**/*"]
+  "ignorePatterns": ["!**/*"],
+  "rules": {
+    "react/function-component-definition": "off"
+  }
 }
