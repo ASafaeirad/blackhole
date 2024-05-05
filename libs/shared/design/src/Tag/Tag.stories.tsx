@@ -5,6 +5,9 @@ import { Tag } from './Tag';
 
 export default {
   component: Tag,
+  args: {
+    children: 'Tag',
+  },
 } as Meta<TagProps>;
 
 type Story = StoryObj<TagProps>;

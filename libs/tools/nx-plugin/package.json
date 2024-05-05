@@ -2,8 +2,8 @@
   "name": "@blackhole/nx",
   "version": "0.0.1",
   "dependencies": {
-    "@nx/devkit": "18.2.4",
-    "@swc/helpers": "0.5.9"
+    "@nx/devkit": "18.3.4",
+    "@swc/helpers": "0.5.11"
   },
   "type": "commonjs",
   "main": "./src/index.js",
