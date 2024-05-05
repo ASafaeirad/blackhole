@@ -11,6 +11,7 @@ export default defineConfig({
     'fr': 'flex flex-row',
     'f1': 'flex-1',
     'center': 'justify-center items-center',
+    'layout': 'px-8 md:px-32',
   },
   presets: [
     presetBlackhole(),

@@ -31,7 +31,7 @@ export const TaskList = () => {
   const hasHiddenTask = allTasks.length !== tasks.length;
 
   return (
-    <div className="fc scrollbar flex-1 gap-6 overflow-x-auto">
+    <div className="layout fc scrollbar flex-1 gap-6 overflow-x-auto">
       <AnimatePresence>
         {tasks.map(task => (
           <Transition key={task.id}>

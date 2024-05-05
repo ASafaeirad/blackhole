@@ -11,7 +11,7 @@ export const Layout = ({ children }: React.PropsWithChildren) => {
   const user = useCurrentUser();
 
   return (
-    <div className="fc px-16 py-8 relative h-screen md:(px-32 py-12)">
+    <div className="fc py-8 relative h-screen overflow-auto md:py-12">
       <AuthGuard fallback={<FullscreenLoading />}>{children}</AuthGuard>
       <Footer user={user} />
     </div>

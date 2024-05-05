@@ -12,7 +12,7 @@ interface Props {
 
 export const Footer = ({ user }: Props) => {
   return (
-    <footer className="fr py-5 justify-between items-center">
+    <footer className="layout fr py-5 justify-between items-center">
       <div className="fr gap-4">
         <Logo className="color-muted w-7" />
         <div className="color-muted">v{config.get('version')}</div>
@@ -20,11 +20,11 @@ export const Footer = ({ user }: Props) => {
       <div className="fr gap-6">
         <HelpButton />
         {user ? (
-          <>
+          <div className="gap-6 hidden md:flex">
             <span className="color-muted">|</span>
             <Profile name={user.name} />
             <LogoutButton />
-          </>
+          </div>
         ) : null}
       </div>
     </footer>
