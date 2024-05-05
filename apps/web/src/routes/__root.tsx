@@ -6,7 +6,6 @@ import {
 } from '@blackhole/keybinding-manager';
 import { Help } from '@blackhole/shortcut/help';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 import { Layout } from '../Layout';
 
@@ -23,7 +22,6 @@ function Root() {
       <Layout>
         <Help />
         <Outlet />
-        <TanStackRouterDevtools />
       </Layout>
     </KeybindingProvider>
   );
