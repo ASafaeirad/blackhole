@@ -42,3 +42,4 @@ positionals
 commitlint
 vercel
 firestore
+nocheck

@@ -86,8 +86,8 @@ export const TaskPage = () => {
   };
 
   return (
-    <div className="fc gap-8 h-full">
-      <Heading className="text-large">Tasks</Heading>
+    <div className="fc gap-8 h-full overflow-auto">
+      <Heading className="layout text-large">Tasks</Heading>
       {isEmpty(tasks) && !newTaskState ? <TaskEmptyState /> : <TaskList />}
       {open ? <SelectProjectDialog onClose={close} /> : null}
     </div>

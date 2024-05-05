@@ -31,7 +31,7 @@ export const keyMaps = {
   [Actions.MovePrevBlock]: xIMap('k', 'arrowup'),
   [Actions.MoveToLastBlock]: xIMap('shift+g'),
   [Actions.MoveToFirstBlock]: xIMap('g,g'),
-  [Actions.GoToEditMode]: nMap('a'),
+  [Actions.GoToEditMode]: nMap('a', 'shift+a'),
   [Actions.GoToNormalMode]: iMap('capslock', 'escape'),
   [Actions.CreateTask]: nMap('c'),
   [Actions.SaveTask]: iMap('enter'),

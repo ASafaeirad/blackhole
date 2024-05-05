@@ -32,6 +32,7 @@ export interface TaskDto {
   status: TaskStatus;
   createdAt: FieldValue;
   userId: string;
+  streak: number;
 }
 
 export type CreateTaskDto = Pick<
@@ -49,6 +50,7 @@ const toTaskDto = (task: CreateTaskDto): TaskDto => {
     repeat: task.repeat,
     status: task.status,
     userId: user.id,
+    streak: 0,
     createdAt: serverTimestamp(),
   };
 };
@@ -66,13 +68,16 @@ export const taskCollection = {
     return deleteDoc(taskCollection.get(id));
   },
 
-  swap: (a: Task, b: Task) => {
+  swap: (a: Task, b: Task, onConflict: (aId: number) => number) => {
     const aDoc = taskCollection.get(a.id);
     const bDoc = taskCollection.get(b.id);
 
+    const nextAOrder = a.order === b.order ? onConflict(a.order) : b.order;
+    const nextBOrder = a.order;
+
     return Promise.all([
-      updateDoc(aDoc, { order: b.order }),
-      updateDoc(bDoc, { order: a.order }),
+      updateDoc(aDoc, { order: nextAOrder }),
+      updateDoc(bDoc, { order: nextBOrder }),
     ]);
   },
 

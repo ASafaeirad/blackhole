@@ -11,4 +11,10 @@ export interface Task {
   status: TaskStatus;
   createdAt: number | undefined;
   nodes: Node[];
+  streak: number;
 }
+
+export const getRepeat = (name: string) => {
+  if (name.includes('everyday')) return 'daily';
+  return 'once';
+};

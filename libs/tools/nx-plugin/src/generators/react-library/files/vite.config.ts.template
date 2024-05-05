@@ -9,7 +9,6 @@ export default defineConfig({
     reporters: ['default'],
     globals: true,
     passWithNoTests: true,
-    cache: { dir: '<%= offsetFromRoot %>node_modules/.vitest' },
     environment: 'jsdom',
     include: ['src/**/*.spec.{ts,tsx}'],
   },

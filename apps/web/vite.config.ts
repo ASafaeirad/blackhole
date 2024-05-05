@@ -1,4 +1,7 @@
+import path from 'node:path';
+
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 import react from '@vitejs/plugin-react';
 import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
@@ -25,6 +28,10 @@ export default defineConfig({
       babel: {
         presets: ['jotai/babel/preset'],
       },
+    }),
+    TanStackRouterVite({
+      routesDirectory: path.join(__dirname, 'src/routes'),
+      generatedRouteTree: path.join(__dirname, 'src/routeTree.gen.ts'),
     }),
     nxViteTsPaths(),
     UnoCSS({ configFile: '../../uno.config.ts' }),

@@ -10,7 +10,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
-import { TaskLoading } from './TaskLoading';
+import { TaskLoading } from './Task/TaskLoading';
 
 const newTask: Task = {
   id: 'new',
@@ -20,6 +20,7 @@ const newTask: Task = {
   createdAt: Date.now(),
   order: 0,
   nodes: [],
+  streak: 0,
 };
 
 export const TaskList = () => {
@@ -30,7 +31,7 @@ export const TaskList = () => {
   const hasHiddenTask = allTasks.length !== tasks.length;
 
   return (
-    <div className="fc scrollbar flex-1 gap-6 overflow-x-auto">
+    <div className="layout fc scrollbar flex-1 gap-6 overflow-x-auto">
       <AnimatePresence>
         {tasks.map(task => (
           <Transition key={task.id}>

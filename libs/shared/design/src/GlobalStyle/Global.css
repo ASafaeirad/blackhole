@@ -1,7 +1,7 @@
 html {
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  font-size: calc(10px + 0.4vw);
+  font-size: clamp(14px, calc(10px + 0.4vw), 16px);
 }
 
 hr {

@@ -64,7 +64,7 @@ export const moveUpAtom = atom(null, async get => {
   if (!task || !prevTask) return;
   if (task.status !== prevTask.status) return;
 
-  await taskCollection.swap(task, prevTask);
+  await taskCollection.swap(task, prevTask, order => order - 0.5);
 });
 
 export const moveDownAtom = atom(null, async get => {
@@ -78,7 +78,7 @@ export const moveDownAtom = atom(null, async get => {
   if (!task || !nextTask) return;
   if (task.status !== nextTask.status) return;
 
-  await taskCollection.swap(task, nextTask);
+  await taskCollection.swap(task, nextTask, order => order + 0.5);
 });
 
 export const editIdAtom = atom('');

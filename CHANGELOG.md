@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.21.0] - 2024-04-13
+
+### Added
+
+- Add routine
+- Add tag support
+- Add `A` keybinding
+
+### Fixed
+
+- Fixed tag layout
+- Fixed change project bug
+- Fix ordering issue
+
+## [v0.20.0] - 2024-04-13
+
+### Added
+
+- Improved Mobile UX
+
 ## [v0.19.0] - 2024-04-13
 
 ### Added
