@@ -1,8 +1,7 @@
-import { clamp } from '@fullstacksjs/toolbox';
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import type { SelectProps } from './Select';
+import type { SelectProps, SelectRef } from './Select';
 import { Select } from './Select';
 
 export default {
@@ -21,19 +20,22 @@ type Story = StoryObj<SelectProps>;
 export const Default: Story = {};
 export const WithItems: Story = {
   render: props => {
-    const [selected, setSelected] = useState(0);
+    const ref = useRef<SelectRef>(null);
+    const [selected, setSelected] = useState('');
 
     return (
-      <Select
-        onKeyDown={e => {
-          if (e.key === 'j')
-            setSelected(s => clamp(s + 1, 0, props.items.length - 1));
-          if (e.key === 'k')
-            setSelected(s => clamp(s - 1, 0, props.items.length - 1));
-        }}
-        {...props}
-        selected={selected}
-      />
+      <>
+        <div>Selected: {selected}</div>
+        <Select
+          onKeyDown={e => {
+            if (e.key === 'j' && e.altKey) ref.current?.selectNext();
+            if (e.key === 'k' && e.altKey) ref.current?.selectPrev();
+          }}
+          onSelect={item => setSelected(item)}
+          ref={ref}
+          {...props}
+        />
+      </>
     );
   },
   args: {

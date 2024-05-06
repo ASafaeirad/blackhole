@@ -1,4 +1,5 @@
 import { Actions } from '@blackhole/actions';
+import type { SelectRef } from '@blackhole/design';
 import { Select } from '@blackhole/design';
 import {
   Mode,
@@ -7,8 +8,7 @@ import {
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
 import { useProjects, useSetProjects } from '@blackhole/task/data-layer';
-import { clamp } from '@fullstacksjs/toolbox';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 
 interface Props {
   onClose: () => void;
@@ -16,7 +16,7 @@ interface Props {
 
 export const SelectProjectDialog = ({ onClose }: Props) => {
   const projects = useProjects();
-  const [selected, setSelected] = useState(0);
+  const selectRef = useRef<SelectRef>(null);
   const setMode = useSetMode();
   const { setProject, unSetProject } = useSetProjects();
   const items = useMemo(() => ['None', ...projects], [projects]);
@@ -26,27 +26,25 @@ export const SelectProjectDialog = ({ onClose }: Props) => {
     setMode(Mode.Normal);
   });
 
-  useSubscribeActionOnMode(Actions.MoveNextBlock, Mode.Overlay, () => {
-    setSelected(s => clamp(s + 1, 0, items.length - 1));
+  useSubscribeActionOnMode(Actions.MoveNextBlockInsert, Mode.Insert, () => {
+    selectRef.current?.selectNext();
   });
 
-  useSubscribeActionOnMode(Actions.MovePrevBlock, Mode.Overlay, () => {
-    setSelected(s => clamp(s - 1, 0, items.length - 1));
+  useSubscribeActionOnMode(Actions.MovePrevBlockInsert, Mode.Insert, () => {
+    selectRef.current?.selectPrev();
   });
 
-  useSubscribeActionOnMode(
-    Actions.SelectProject,
-    Mode.Overlay,
-    async () => {
-      if (selected === 0) {
-        await unSetProject();
+  const onSelect = useCallback(
+    (name: string): void => {
+      if (name === 'None') {
+        void unSetProject();
       } else {
-        await setProject(items[selected]!);
+        void setProject(name);
       }
       setMode(Mode.Normal);
       onClose();
     },
-    [selected, items],
+    [onClose, setMode, setProject, unSetProject],
   );
 
   return (
@@ -54,7 +52,8 @@ export const SelectProjectDialog = ({ onClose }: Props) => {
       forceMount
       emptyState="No Project"
       items={items}
-      selected={selected}
+      ref={selectRef}
+      onSelect={onSelect}
       title="Select Project"
     />
   );

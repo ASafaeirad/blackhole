@@ -3,6 +3,8 @@ import { iMap, map, nMap, xIMap } from '@blackhole/keyflow';
 export enum Actions {
   MoveNextBlock = 'MoveNextBlock',
   MovePrevBlock = 'MovePrevBlock',
+  MoveNextBlockInsert = 'MoveNextBlockInsert',
+  MovePrevBlockInsert = 'MovePrevBlockInsert',
   MoveToLastBlock = 'MoveToLastBlock',
   MoveToFirstBlock = 'MoveToFirstBlock',
   GoToEditMode = 'GoToEditMode',
@@ -29,6 +31,8 @@ export enum Actions {
 export const keyMaps = {
   [Actions.MoveNextBlock]: xIMap('j', 'arrowdown'),
   [Actions.MovePrevBlock]: xIMap('k', 'arrowup'),
+  [Actions.MoveNextBlockInsert]: iMap('alt+j', 'arrowdown'),
+  [Actions.MovePrevBlockInsert]: iMap('alt+k', 'arrowup'),
   [Actions.MoveToLastBlock]: xIMap('shift+g'),
   [Actions.MoveToFirstBlock]: xIMap('g,g'),
   [Actions.GoToEditMode]: nMap('a', 'shift+a'),
