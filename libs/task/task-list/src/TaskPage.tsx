@@ -78,7 +78,7 @@ export const TaskPage = () => {
 
   useSubscribeAction(Actions.ShowSelectProject, () => {
     setOpen(true);
-    setMode(Mode.Overlay);
+    setMode(Mode.Insert);
   });
 
   const close = () => {
