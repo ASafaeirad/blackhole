@@ -5,31 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.23.0] - 2024-05-26
+
+### Added
+
+- Added Routines
+
 ## [v0.22.0] - 2024-05-06
 
 ### Added
 
-- Add project filter
+- Added project filter
 
 ## [v0.21.1] - 2024-05-06
 
 ### Fixed
 
-- Remove tanstack router devtools
+- Removed tanstack router devtools
 
 ## [v0.21.0] - 2024-05-05
 
 ### Added
 
-- Add routine
-- Add tag support
-- Add `A` keybinding
+- Added routine
+- Added tag support
+- Added `A` keybinding
 
 ### Fixed
 
 - Fixed tag layout
 - Fixed change project bug
-- Fix ordering issue
+- Fixed ordering issue
 
 ## [v0.20.0] - 2024-04-13
 

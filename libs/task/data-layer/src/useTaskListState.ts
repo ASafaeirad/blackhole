@@ -2,101 +2,107 @@ import { isLastIndex } from '@fullstacksjs/toolbox';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { visibleTasksAtom } from './atoms/filterAtom';
-import { tasksAtom } from './atoms/taskAtom';
-import { taskCollection } from './firebase/taskCollection';
-import type { Task } from './models/Task';
+import { visibleActionItemsAtom } from './atoms/filterAtom';
+import { actionItemsAtom } from './atoms/taskAtom';
+import { ActionItemSDK } from './firebase/ActionItemSDK';
+import type { ActionItem } from './models/ActionItem';
 
-export const focusedIdAtom = atomWithStorage('focusedTask', '');
+export const focusedIdAtom = atomWithStorage('focusedActionItem', '');
 export const lastFocusedIdAtom = atom('');
 export const lastFocusedIndexAtom = atom(0);
 
 export const focusNextAtom = atom(null, (get, set) => {
-  const activeTaskId = get(focusedIdAtom);
-  const tasks = get(visibleTasksAtom);
-  const nextIndex = tasks.findIndex(t => t.id === activeTaskId) + 1;
-  const nextTask = tasks[nextIndex];
-  if (!nextTask?.status) return;
+  const activeActionItemId = get(focusedIdAtom);
+  const actionItems = get(visibleActionItemsAtom);
+  const nextIndex = actionItems.findIndex(t => t.id === activeActionItemId) + 1;
+  const newActionItem = actionItems[nextIndex];
+  if (!newActionItem?.status) return;
 
-  set(focusedIdAtom, nextTask.id);
+  set(focusedIdAtom, newActionItem.id);
 });
 
 export const focusPrevAtom = atom(null, (get, set) => {
-  const activeTaskId = get(focusedIdAtom);
-  const tasks = get(visibleTasksAtom);
-  const prevIndex = tasks.findIndex(t => t.id === activeTaskId) - 1;
-  const prevTask = tasks[prevIndex];
-  if (!prevTask) return;
+  const activeActionItemId = get(focusedIdAtom);
+  const actionItems = get(visibleActionItemsAtom);
+  const prevIndex = actionItems.findIndex(t => t.id === activeActionItemId) - 1;
+  const prevActionItem = actionItems[prevIndex];
+  if (!prevActionItem) return;
 
-  set(focusedIdAtom, prevTask.id);
+  set(focusedIdAtom, prevActionItem.id);
 });
 
 export const focusLastAtomAtom = atom(null, (get, set) => {
-  const tasks = get(visibleTasksAtom);
-  set(focusedIdAtom, tasks.at(-1)?.id ?? '');
+  const actionItems = get(visibleActionItemsAtom);
+  set(focusedIdAtom, actionItems.at(-1)?.id ?? '');
 });
 
 export const focusFirstAtom = atom(null, (get, set) => {
-  const tasks = get(visibleTasksAtom);
-  set(focusedIdAtom, tasks[0]?.id ?? '');
+  const actionItems = get(visibleActionItemsAtom);
+  set(focusedIdAtom, actionItems[0]?.id ?? '');
 });
 
-export const focusedTaskAtom = atom(get =>
-  get(tasksAtom).find(t => t.id === get(focusedIdAtom)),
+export const focusedActionItemAtom = atom(get =>
+  get(actionItemsAtom).find(t => t.id === get(focusedIdAtom)),
 );
 
 export const focusedIndexAtom = atom(get =>
-  get(tasksAtom).findIndex(t => t.id === get(focusedIdAtom)),
+  get(actionItemsAtom).findIndex(t => t.id === get(focusedIdAtom)),
 );
 
-export const saveTaskIndex = atom(null, (get, set) =>
+export const saveActionItemIndex = atom(null, (get, set) =>
   set(lastFocusedIndexAtom, get(focusedIndexAtom)),
 );
 
 export const moveUpAtom = atom(null, async get => {
-  const task = get(focusedTaskAtom);
-  const tasks = get(tasksAtom);
+  const actionItem = get(focusedActionItemAtom);
+  const actionItems = get(actionItemsAtom);
   const focusedIndex = get(focusedIndexAtom);
 
   if (focusedIndex === 0) return;
-  const prevTask = tasks[focusedIndex - 1];
+  const prevActionItem = actionItems[focusedIndex - 1];
 
-  if (!task || !prevTask) return;
-  if (task.status !== prevTask.status) return;
+  if (!actionItem || !prevActionItem) return;
+  if (actionItem.status !== prevActionItem.status) return;
+  const sdk = new ActionItemSDK();
 
-  await taskCollection.swap(task, prevTask, order => order - 0.5);
+  await sdk.swap(actionItem, prevActionItem, order => order - 0.5);
 });
 
 export const moveDownAtom = atom(null, async get => {
-  const task = get(focusedTaskAtom);
-  const tasks = get(tasksAtom);
+  const actionItem = get(focusedActionItemAtom);
+  const actionItems = get(actionItemsAtom);
   const focusedIndex = get(focusedIndexAtom);
 
-  if (isLastIndex(tasks, focusedIndex)) return;
-  const nextTask = tasks[focusedIndex + 1];
+  if (isLastIndex(actionItems, focusedIndex)) return;
+  const nextActionItem = actionItems[focusedIndex + 1];
 
-  if (!task || !nextTask) return;
-  if (task.status !== nextTask.status) return;
+  if (!actionItem || !nextActionItem) return;
+  if (actionItem.status !== nextActionItem.status) return;
+  const sdk = new ActionItemSDK();
 
-  await taskCollection.swap(task, nextTask, order => order + 0.5);
+  await sdk.swap(actionItem, nextActionItem, order => order + 0.5);
 });
 
 export const editIdAtom = atom('');
-export const editedTaskAtom = atom(get =>
-  get(tasksAtom).find(t => t.id === get(editIdAtom)),
+export const editedActionItemAtom = atom(get =>
+  get(actionItemsAtom).find(t => t.id === get(editIdAtom)),
 );
-export const newTaskStateAtom = atom<
-  | { mode: 'creating'; task: Pick<Task, 'name' | 'repeat'> }
+export const newActionItemStateAtom = atom<
+  | { mode: 'creating'; actionItem: Pick<ActionItem, 'name' | 'type'> }
   | { mode: 'draft' }
   | undefined
 >(undefined);
 
-export const useTaskListState = () => {
-  const [newTaskState] = useAtom(newTaskStateAtom);
-  const [editedTask] = useAtom(editedTaskAtom);
-  const [activeTask] = useAtom(focusedTaskAtom);
+export const useActionItemListState = () => {
+  const [newActionItemState] = useAtom(newActionItemStateAtom);
+  const [editedActionItem] = useAtom(editedActionItemAtom);
+  const [activeActionItem] = useAtom(focusedActionItemAtom);
 
-  return { newTaskState, editedTask, activeTask } as const;
+  return {
+    newActionItemState,
+    editedActionItem,
+    activeActionItem,
+  } as const;
 };
 
 export const useActiveIndex = () => {

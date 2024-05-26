@@ -66,6 +66,10 @@ export const Help = () => {
           </HelpGroup>
 
           <HelpGroup title="Modal">
+            <HelpGroup.Command keybinding="alt+j">Focus next</HelpGroup.Command>
+            <HelpGroup.Command keybinding="alt+k">
+              Focus Previous
+            </HelpGroup.Command>
             <HelpGroup.Command keybinding="escape">
               Close modal
             </HelpGroup.Command>

@@ -10,9 +10,11 @@ The project glossary is a collection of terms captured from models and shapes th
 
 ## Terms
 
-| Term    | Definition                                                                   |
-| ------- | ---------------------------------------------------------------------------- |
-| Task    | Individual units of work that can be associated with a project or standalone |
-| Project | A high-level organizational unit within the app that contains related tasks  |
-| Habit   | Recurring activities that users aim to perform regularly to form a habit     |
-| Streaks | A count of consecutive days a task or habit has been completed               |
+| Term        | Definition                                                                   |
+| ----------- | ---------------------------------------------------------------------------- |
+| Task        | Individual units of work that can be associated with a project or standalone |
+| Routine     | Individual units of work that is repeated                                    |
+| Action Item | Either Task or Routine                                                       |
+| Project     | A high-level organizational unit within the app that contains related tasks  |
+| Habit       | Recurring activities that users aim to perform regularly to form a habit     |
+| Streaks     | A count of consecutive days a task or habit has been completed               |

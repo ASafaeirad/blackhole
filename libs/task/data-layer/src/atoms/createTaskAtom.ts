@@ -1,33 +1,41 @@
 import { atom } from 'jotai';
 
-import type { CreateTaskDto } from '../firebase/taskCollection';
-import { taskCollection } from '../firebase/taskCollection';
-import { getRepeat } from '../models/Task';
-import { focusedIdAtom, newTaskStateAtom } from '../useTaskListState';
-import { tasksAtom } from './taskAtom';
+import type { CreateActionItemDto } from '../firebase/ActionItemSDK';
+import { ActionItemSDK } from '../firebase/ActionItemSDK';
+import { getRepeat } from '../models/ActionItem';
+import { focusedIdAtom, newActionItemStateAtom } from '../useTaskListState';
+import { actionItemsAtom } from './taskAtom';
 import { closeAtom } from './taskMutation';
 
-export const createTaskAtom = atom(null, async (get, set, update: string) => {
-  const tasks = get(tasksAtom);
+export const createActionItemAtom = atom(
+  null,
+  async (get, set, name: string) => {
+    const actionItems = get(actionItemsAtom);
 
-  const lastPendingTaskIndex = tasks.findLastIndex(t => t.status === 'pending');
+    const lastPendingActionItemIndex = actionItems.findLastIndex(
+      t => t.status === 'pending',
+    );
 
-  const lastOrder = tasks[lastPendingTaskIndex]?.order ?? 0;
+    const lastOrder = actionItems[lastPendingActionItemIndex]?.order ?? 0;
 
-  const taskToCreate: CreateTaskDto = {
-    name: update,
-    repeat: getRepeat(update),
-    status: 'pending',
-    order: lastOrder + 1,
-  };
+    const repeat = getRepeat(name);
+    const actionItem: CreateActionItemDto = {
+      type: repeat === 'once' ? 'task' : 'routine',
+      name,
+      repeat,
+      status: 'pending',
+      order: lastOrder + 1,
+    };
 
-  set(newTaskStateAtom, {
-    mode: 'creating',
-    task: taskToCreate,
-  });
+    set(newActionItemStateAtom, {
+      mode: 'creating',
+      actionItem,
+    });
 
-  const newTask = await taskCollection.add(taskToCreate);
+    const sdk = new ActionItemSDK();
+    const newActionItem = await sdk.add(actionItem);
 
-  set(focusedIdAtom, newTask.id);
-  set(closeAtom);
-});
+    set(focusedIdAtom, newActionItem.id);
+    set(closeAtom);
+  },
+);

@@ -1,4 +1,10 @@
 export type {
+  ActionItem,
+  ActionItemStatus,
+  ActionItemType,
+  RepeatType,
+} from './models/ActionItem';
+export type {
   GroupNode,
   LinkNode,
   Node,
@@ -6,9 +12,8 @@ export type {
   TagNode,
   TextNode,
 } from './models/Node';
-export type { Task, TaskRepeatType, TaskStatus } from './models/Task';
 export { useProjects, useSetProjects } from './useProjects';
-export { useSubscribeTasks } from './useSubscribeTasks';
-export { useTaskDispatch } from './useTaskDispatch';
-export { useActiveIndex, useTaskListState } from './useTaskListState';
-export { useAllTasks, useTasks } from './useTasks';
+export { useSubscribeActionItems } from './useSubscribeTasks';
+export { useActionItemDispatch } from './useTaskDispatch';
+export { useActionItemListState, useActiveIndex } from './useTaskListState';
+export { useActionItems, useAllActionItems } from './useTasks';

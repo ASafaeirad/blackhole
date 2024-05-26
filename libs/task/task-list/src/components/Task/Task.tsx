@@ -2,7 +2,7 @@ import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
 import { Input } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
-import type { Task as TaskType } from '@blackhole/task/data-layer';
+import type { ActionItem } from '@blackhole/task/data-layer';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
 import { isNullOrEmptyString, not } from '@fullstacksjs/toolbox';
 import { useEffect, useRef, useState } from 'react';
@@ -15,14 +15,14 @@ import { TaskStreak } from './TaskStreak';
 
 interface Props {
   focus: boolean;
-  task: TaskType;
+  actionItem: ActionItem;
   edit?: boolean;
   onSubmit: (name: string) => MaybePromise<void>;
 }
 
 export const Task = ({
   focus: isFocused,
-  task,
+  actionItem,
   edit: isEdit,
   onSubmit,
 }: Props) => {
@@ -31,8 +31,8 @@ export const Task = ({
   const [insert, setInsert] = useState(false);
 
   useEffect(() => {
-    if (isEdit) setName(task.name);
-  }, [isEdit, task.name]);
+    if (isEdit) setName(actionItem.name);
+  }, [isEdit, actionItem.name]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -55,18 +55,20 @@ export const Task = ({
   return (
     <div
       className={cn('fr text-body gap-3 items-start', {
-        'color-primary': task.status !== 'focus' && isFocused,
-        'color-muted': task.status !== 'focus' && !isFocused,
-        'color-cta': task.status === 'focus',
+        'color-primary': actionItem.status !== 'focus' && isFocused,
+        'color-muted': actionItem.status !== 'focus' && !isFocused,
+        'color-cta': actionItem.status === 'focus',
       })}
     >
-      <TaskSign repeat={task.repeat} />
-      <TaskCheck status={task.status} />
+      <TaskSign type={actionItem.type} />
+      <TaskCheck status={actionItem.status} />
       {!isEdit ? (
         <>
-          <TaskName nodes={task.nodes} />
-          <TaskDate date={task.createdAt} />
-          <TaskStreak streak={task.streak} />
+          <TaskName nodes={actionItem.nodes} />
+          <TaskDate date={actionItem.createdAt} />
+          {actionItem.type === 'routine' ? (
+            <TaskStreak streak={actionItem.streak} />
+          ) : null}
         </>
       ) : (
         <Input

@@ -1,14 +1,14 @@
-import type { TaskRepeatType } from '@blackhole/task/data-layer';
+import type { ActionItemType } from '@blackhole/task/data-layer';
 
 interface Props {
-  repeat: TaskRepeatType;
+  type: ActionItemType;
 }
 
-function getSign(repeat: TaskRepeatType) {
-  if (repeat === 'daily') return 'λ';
-  return 'ƒ';
-}
+const signMap = {
+  task: 'ƒ',
+  routine: 'λ',
+};
 
-export const TaskSign = ({ repeat }: Props) => {
-  return <span className="mt-2 text-small">&lt;{getSign(repeat)}&gt;</span>;
+export const TaskSign = ({ type }: Props) => {
+  return <span className="mt-2 text-small">&lt;{signMap[type]}&gt;</span>;
 };
