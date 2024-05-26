@@ -1,12 +1,13 @@
 import { useSetAtom } from 'jotai';
 
-import { createTaskAtom } from './atoms/createTaskAtom';
+import { createActionItemAtom } from './atoms/createTaskAtom';
+import { openLinksAtom } from './atoms/openLinksAtom';
 import {
   closeAtom,
-  deleteTaskAtom,
-  editTaskAtom,
+  deleteActionItemAtom,
+  editActionItemAtom,
   goToEditModeAtom,
-  initiateTaskAtom,
+  initiateActionItemAtom,
   revertAtom,
   toggleDoneVisibilityAtom,
   toggleFocusAtom,
@@ -15,27 +16,28 @@ import {
 import { toggleDoneAtom } from './atoms/toggleDoneAtom';
 import { moveDownAtom, moveUpAtom } from './useTaskListState';
 
-export const useTaskDispatch = () => {
+export const useActionItemDispatch = () => {
   const toggleDoneVisibility = useSetAtom(toggleDoneVisibilityAtom);
   const undo = useSetAtom(undoAtom);
   const moveUp = useSetAtom(moveUpAtom);
   const moveDown = useSetAtom(moveDownAtom);
-  const createTask = useSetAtom(createTaskAtom);
+  const createActionItem = useSetAtom(createActionItemAtom);
   const close = useSetAtom(closeAtom);
-  const deleteTask = useSetAtom(deleteTaskAtom);
+  const deleteActionItem = useSetAtom(deleteActionItemAtom);
   const revert = useSetAtom(revertAtom);
   const focus = useSetAtom(toggleFocusAtom);
   const toggle = useSetAtom(toggleDoneAtom);
-  const initiateTask = useSetAtom(initiateTaskAtom);
-  const editTask = useSetAtom(editTaskAtom);
+  const initiateActionItem = useSetAtom(initiateActionItemAtom);
+  const editActionItem = useSetAtom(editActionItemAtom);
   const goToEditMode = useSetAtom(goToEditModeAtom);
+  const openLinks = useSetAtom(openLinksAtom);
 
   return {
     toggleDoneVisibility,
-    initiateTask,
-    createTask,
-    editTask,
-    deleteTask,
+    initiateActionItem,
+    createActionItem,
+    editActionItem,
+    deleteActionItem,
     revert,
     moveDown,
     moveUp,
@@ -44,5 +46,6 @@ export const useTaskDispatch = () => {
     close,
     goToEditMode,
     undo,
+    openLinks,
   } as const;
 };

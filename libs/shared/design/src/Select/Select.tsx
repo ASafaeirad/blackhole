@@ -1,6 +1,12 @@
 import { cn } from '@blackhole/cn';
 import { clamp, isEmpty } from '@fullstacksjs/toolbox';
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 
 import { Dialog } from '../Dialog';
 import { Input } from '../Input';
@@ -50,16 +56,21 @@ export const Select = forwardRef<SelectRef, SelectProps>(
       },
     }));
 
+    const handleKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLDivElement>) => {
+        onKeyDown?.(e);
+        if (e.key !== 'Enter') return;
+        if (filtered.length === 0) onSelect?.(filter);
+        else onSelect?.(filtered[selected]!);
+      },
+      [filter, filtered, onKeyDown, onSelect, selected],
+    );
+
     return (
       <Dialog open={open}>
         <Dialog.Content
           forceMount={forceMount}
-          onKeyDown={e => {
-            onKeyDown?.(e);
-            if (e.key !== 'Enter') return;
-            if (filtered.length === 0) onSelect?.(filter);
-            else onSelect?.(filtered[selected]!);
-          }}
+          onKeyDown={handleKeyDown}
           position="fixed"
           className="w-sm"
         >

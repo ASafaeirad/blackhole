@@ -1,14 +1,14 @@
 import { useAtom } from 'jotai';
 
-import { visibleTasksAtom } from './atoms/filterAtom';
-import { tasksAtom } from './atoms/taskAtom';
+import { visibleActionItemsAtom } from './atoms/filterAtom';
+import { actionItemsAtom } from './atoms/taskAtom';
 
-export const useTasks = () => {
-  const [tasks] = useAtom(visibleTasksAtom);
-  return tasks;
+export const useActionItems = () => {
+  const [actionItems] = useAtom(visibleActionItemsAtom);
+  return actionItems;
 };
 
-export const useAllTasks = () => {
-  const [tasks] = useAtom(tasksAtom);
-  return tasks;
+export const useAllActionItems = () => {
+  const [actionItems] = useAtom(actionItemsAtom);
+  return actionItems;
 };

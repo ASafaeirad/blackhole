@@ -1,58 +1,48 @@
 import { Transition } from '@blackhole/design';
-import type { Task } from '@blackhole/task/data-layer';
 import {
-  useAllTasks,
-  useTaskDispatch,
-  useTaskListState,
-  useTasks,
+  useActionItemDispatch,
+  useActionItemListState,
+  useActionItems,
+  useAllActionItems,
 } from '@blackhole/task/data-layer';
 import { AnimatePresence } from 'framer-motion';
 
 import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
+import { NewTask } from './Task/NewTask';
 import { TaskLoading } from './Task/TaskLoading';
 
-const newTask: Task = {
-  id: 'new',
-  name: '',
-  status: 'pending',
-  repeat: 'once',
-  createdAt: Date.now(),
-  order: 0,
-  nodes: [],
-  streak: 0,
-};
-
 export const TaskList = () => {
-  const { createTask, editTask } = useTaskDispatch();
-  const { activeTask, editedTask, newTaskState } = useTaskListState();
-  const tasks = useTasks();
-  const allTasks = useAllTasks();
-  const hasHiddenTask = allTasks.length !== tasks.length;
+  const { createActionItem, editActionItem } = useActionItemDispatch();
+  const { activeActionItem, editedActionItem, newActionItemState } =
+    useActionItemListState();
+  const actionItems = useActionItems();
+  const allActionItems = useAllActionItems();
+  const hasHiddenItems = allActionItems.length !== actionItems.length;
 
   return (
     <div className="layout fc scrollbar flex-1 gap-6 overflow-x-auto">
       <AnimatePresence>
-        {tasks.map(task => (
-          <Transition key={task.id}>
+        {actionItems.map(item => (
+          <Transition key={item.id}>
             <TaskComponent
-              edit={task.id === editedTask?.id}
-              focus={task.id === activeTask?.id}
-              task={task}
-              onSubmit={name => editTask({ ...task, name })}
+              edit={item.id === editedActionItem?.id}
+              focus={item.id === activeActionItem?.id}
+              actionItem={item}
+              onSubmit={name => editActionItem({ ...item, name })}
             />
           </Transition>
         ))}
       </AnimatePresence>
-      {newTaskState?.mode === 'draft' ? (
-        <TaskComponent edit focus task={newTask} onSubmit={createTask} />
-      ) : newTaskState?.mode === 'creating' ? (
+      {newActionItemState?.mode === 'draft' ? (
+        <NewTask onSubmit={createActionItem} />
+      ) : newActionItemState?.mode === 'creating' ? (
         <TaskLoading
-          name={newTaskState.task.name}
-          repeat={newTaskState.task.repeat}
+          name={newActionItemState.actionItem.name}
+          type={newActionItemState.actionItem.type}
         />
       ) : null}
-      {hasHiddenTask ? <HiddenTaskMessage /> : null}
+      {hasHiddenItems ? <HiddenTaskMessage /> : null}
     </div>
   );
 };

@@ -1,14 +1,19 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { tasksAtom } from './taskAtom';
+import { actionItemsAtom } from './taskAtom';
 
-export const doneTasksVisibilityAtom = atomWithStorage('visibility', true);
-
-export const remainingTasksAtom = atom(get =>
-  get(tasksAtom).filter(t => t.status !== 'done'),
+export const doneActionItemsVisibilityAtom = atomWithStorage(
+  'visibility',
+  true,
 );
 
-export const visibleTasksAtom = atom(get =>
-  get(doneTasksVisibilityAtom) ? get(tasksAtom) : get(remainingTasksAtom),
+export const remainingActionItemsAtom = atom(get =>
+  get(actionItemsAtom).filter(t => t.status !== 'done'),
+);
+
+export const visibleActionItemsAtom = atom(get =>
+  get(doneActionItemsVisibilityAtom)
+    ? get(actionItemsAtom)
+    : get(remainingActionItemsAtom),
 );

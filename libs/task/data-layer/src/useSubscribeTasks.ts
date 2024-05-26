@@ -2,20 +2,21 @@ import { useCurrentUser } from '@blackhole/auth/data-layer';
 import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
-import { tasksAtom } from './atoms/taskAtom';
-import { taskCollection } from './firebase/taskCollection';
-import { newTaskStateAtom } from './useTaskListState';
+import { actionItemsAtom } from './atoms/taskAtom';
+import { ActionItemSDK } from './firebase/ActionItemSDK';
+import { newActionItemStateAtom } from './useTaskListState';
 
-export const useSubscribeTasks = () => {
+export function useSubscribeActionItems() {
   const user = useCurrentUser();
-  const setTasks = useSetAtom(tasksAtom);
-  const setTaskState = useSetAtom(newTaskStateAtom);
+  const setActionItems = useSetAtom(actionItemsAtom);
+  const setActionItemState = useSetAtom(newActionItemStateAtom);
 
   useEffect(() => {
     if (!user) return;
-    return taskCollection.subscribe(tasks => {
-      setTaskState(undefined);
-      setTasks(tasks);
+    const sdk = new ActionItemSDK();
+    return sdk.subscribe(items => {
+      setActionItemState(undefined);
+      setActionItems(items);
     });
-  }, [setTaskState, setTasks, user]);
-};
+  }, [setActionItemState, setActionItems, user]);
+}

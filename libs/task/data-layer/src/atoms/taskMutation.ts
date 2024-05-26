@@ -2,36 +2,48 @@ import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
 import { isEmpty } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
-import { taskCollection } from '../firebase/taskCollection';
-import type { Task } from '../models/Task';
+import { ActionItemSDK } from '../firebase/ActionItemSDK';
+import type { ActionItem } from '../models/ActionItem';
 import {
   editIdAtom,
+  focusedActionItemAtom,
   focusedIdAtom,
-  focusedTaskAtom,
   lastFocusedIdAtom,
   lastFocusedIndexAtom,
-  newTaskStateAtom,
-  saveTaskIndex,
+  newActionItemStateAtom,
+  saveActionItemIndex,
 } from '../useTaskListState';
-import { doneTasksVisibilityAtom, visibleTasksAtom } from './filterAtom';
-import { historyTaskAtom, internalTasksAtom, tasksAtom } from './taskAtom';
+import {
+  doneActionItemsVisibilityAtom,
+  visibleActionItemsAtom,
+} from './filterAtom';
+import {
+  actionItemsAtom,
+  historyActionItemAtom,
+  internalActionItemsAtom,
+} from './taskAtom';
 
 export const toggleFocusAtom = atom(null, async get => {
-  const focusedTask = get(focusedTaskAtom);
-  const tasks = get(tasksAtom);
-  if (!focusedTask) return;
-  const currentTask = tasks.find(t => t.status === 'focus');
+  const focusedActionItem = get(focusedActionItemAtom);
+  const actionItems = get(actionItemsAtom);
+  if (!focusedActionItem) return;
+  const currentActionItem = actionItems.find(t => t.status === 'focus');
+  const sdk = new ActionItemSDK();
 
-  if (currentTask)
-    await taskCollection.update(currentTask.id, { status: 'pending' });
+  if (currentActionItem)
+    await sdk.update(currentActionItem.id, {
+      status: 'pending',
+    });
 
-  if (currentTask !== focusedTask)
-    await taskCollection.update(focusedTask.id, { status: 'focus' });
+  if (currentActionItem !== focusedActionItem)
+    await sdk.update(focusedActionItem.id, {
+      status: 'focus',
+    });
 });
 
-export const initiateTaskAtom = atom(null, (get, set) => {
+export const initiateActionItemAtom = atom(null, (get, set) => {
   const focusedId = get(focusedIdAtom);
-  set(newTaskStateAtom, { mode: 'draft' });
+  set(newActionItemStateAtom, { mode: 'draft' });
   set(focusedIdAtom, '');
   set(lastFocusedIdAtom, focusedId);
   set(setModeAtom, Mode.Insert);
@@ -39,7 +51,7 @@ export const initiateTaskAtom = atom(null, (get, set) => {
 
 export const closeAtom = atom(null, (_, set) => {
   set(editIdAtom, '');
-  set(newTaskStateAtom, undefined);
+  set(newActionItemStateAtom, undefined);
   set(setModeAtom, Mode.Normal);
 });
 
@@ -52,20 +64,23 @@ export const fixIndexAtom = atom(null, (get, set) => {
   const focusedId = get(focusedIdAtom);
   const lastIndex = get(lastFocusedIndexAtom);
 
-  const tasks = get(tasksAtom);
-  const focusedTask = get(visibleTasksAtom).find(t => t.id === focusedId);
+  const actionItems = get(actionItemsAtom);
+  const focusedActionItem = get(visibleActionItemsAtom).find(
+    t => t.id === focusedId,
+  );
 
-  if (focusedTask) return;
-  const taskToFocus = tasks[lastIndex - 1] ?? tasks[0];
-  set(focusedIdAtom, taskToFocus?.id ?? '');
+  if (focusedActionItem) return;
+  const actionItemToFocus = actionItems[lastIndex - 1] ?? actionItems[0];
+  set(focusedIdAtom, actionItemToFocus?.id ?? '');
 });
 
-export const deleteTaskAtom = atom(null, async (get, set) => {
-  const activeTask = get(focusedTaskAtom);
-  if (!activeTask) return;
-  set(saveTaskIndex);
+export const deleteActionItemAtom = atom(null, async (get, set) => {
+  const sdk = new ActionItemSDK();
+  const activeActionItem = get(focusedActionItemAtom);
+  if (!activeActionItem) return;
+  set(saveActionItemIndex);
 
-  await taskCollection.delete(activeTask.id);
+  await sdk.delete(activeActionItem.id);
   set(fixIndexAtom);
 });
 
@@ -76,27 +91,31 @@ export const goToEditModeAtom = atom(null, (get, set) => {
   set(setModeAtom, Mode.Insert);
 });
 
-export const editTaskAtom = atom(null, async (_, set, task: Task) => {
-  await taskCollection.update(task.id, { name: task.name });
-  set(closeAtom);
-});
+export const editActionItemAtom = atom(
+  null,
+  async (_, set, actionItem: ActionItem) => {
+    const sdk = new ActionItemSDK();
+    await sdk.update(actionItem.id, { name: actionItem.name });
+    set(closeAtom);
+  },
+);
 
 export const undoAtom = atom(
-  get => !isEmpty(get(historyTaskAtom)),
+  get => !isEmpty(get(historyActionItemAtom)),
   (get, set) => {
-    const history = get(historyTaskAtom);
+    const history = get(historyActionItemAtom);
     if (isEmpty(history)) return;
 
     const [last, ...rest] = history;
     if (!last) return;
 
-    set(internalTasksAtom, last);
-    set(historyTaskAtom, rest);
+    set(internalActionItemsAtom, last);
+    set(historyActionItemAtom, rest);
     set(fixIndexAtom);
   },
 );
 
 export const toggleDoneVisibilityAtom = atom(null, (get, set) => {
-  set(doneTasksVisibilityAtom, v => !v);
+  set(doneActionItemsVisibilityAtom, v => !v);
   set(fixIndexAtom);
 });

@@ -1,5 +1,5 @@
 import { cn } from '@blackhole/cn';
-import type { TaskRepeatType } from '@blackhole/task/data-layer';
+import type { ActionItemType } from '@blackhole/task/data-layer';
 
 import { TaskCheck } from './TaskCheck';
 import { TaskDate } from './TaskDate';
@@ -8,13 +8,13 @@ import { TaskSign } from './TaskSign';
 
 interface Props {
   name: string;
-  repeat: TaskRepeatType;
+  type: ActionItemType;
 }
 
-export const TaskLoading = ({ name, repeat }: Props) => {
+export const TaskLoading = ({ name, type }: Props) => {
   return (
     <div className={cn('fr text-body gap-3 items-start color-cta')}>
-      <TaskSign repeat={repeat} />
+      <TaskSign type={type} />
       <TaskCheck status="pending" />
       <TaskName nodes={[{ type: 'text', label: name }]} />
       <TaskDate date={Date.now()} />
