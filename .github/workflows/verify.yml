@@ -16,11 +16,11 @@ jobs:
       actions: 'read'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
 
@@ -37,5 +37,7 @@ jobs:
 
       - run: pnpm nx affected --base=origin/dev -t lint --parallel=3
       - run: pnpm nx affected --base=origin/dev -t spell --parallel=3
-      - run: pnpm nx affected --base=origin/dev -t test --parallel=3 --configuration=ci
+      - run:
+          pnpm nx affected --base=origin/dev -t test --parallel=3
+          --configuration=ci
       - run: pnpm nx affected --base=origin/dev -t build --parallel=3

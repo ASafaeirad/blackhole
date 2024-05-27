@@ -9,8 +9,8 @@ dependencies:
     specifier: 1.1.0
     version: 1.1.0
   '@fullstacksjs/toolbox':
-    specifier: 4.14.0
-    version: 4.14.0
+    specifier: 4.14.1
+    version: 4.14.1
   '@radix-ui/react-dialog':
     specifier: 1.0.5
     version: 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -3149,8 +3149,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@fullstacksjs/toolbox@4.14.0:
-    resolution: {integrity: sha512-Nu83GF+yGnXipTHpsishRnkOET6+IRGz/PhsXiBoMBR524sOBB7numES869dpJNcMDbHoY0j//ihmD6821lOyg==}
+  /@fullstacksjs/toolbox@4.14.1:
+    resolution: {integrity: sha512-f3oIUEAM679ukp98N+NE98tcqrQxCLva8Z7rGZ9J6U0ZRYPbu1FKLk7vgVvYGV80+aqTKtgitBLNOe5or5jylA==}
     engines: {node: '>=16'}
     dev: false
 
