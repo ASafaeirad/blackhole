@@ -81,6 +81,8 @@ export const Select = forwardRef<SelectRef, SelectProps>(
           ) : (
             filtered.map((project, i) => (
               <div
+                role="option"
+                aria-selected={selected === i}
                 key={project}
                 className={cn({
                   'color-primary': selected === i,
