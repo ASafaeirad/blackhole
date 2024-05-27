@@ -7,7 +7,7 @@ export const Tag = (props: TagProps) => {
     <span
       {...props}
       className={cn(
-        'px-3 flex center rounded text-small bg-current-subtle',
+        'px-3 inline-flex grow-0 center rounded text-small bg-current-subtle',
         props.className,
       )}
     />

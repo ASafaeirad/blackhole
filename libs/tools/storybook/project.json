@@ -17,7 +17,7 @@
         }
       }
     },
-    "build-story": {
+    "build": {
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {
