@@ -28,6 +28,7 @@ export const Task = ({
 }: Props) => {
   const [name, setName] = useState('');
   const ref = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [insert, setInsert] = useState(false);
 
   useEffect(() => {
@@ -39,6 +40,11 @@ export const Task = ({
       ref.current?.setSelectionRange(0, 0);
     }, 0);
   }, [insert]);
+
+  useEffect(() => {
+    if (!isFocused) return;
+    containerRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [isFocused]);
 
   useSubscribeAction(Actions.Insert, () => setInsert(not), []);
 
@@ -54,6 +60,7 @@ export const Task = ({
 
   return (
     <div
+      ref={containerRef}
       className={cn('fr text-body gap-3 items-start', {
         'color-primary': actionItem.status !== 'focus' && isFocused,
         'color-muted': actionItem.status !== 'focus' && !isFocused,
