@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added PWA support
 
+### Fixed
+
+- Fixed wrong creation date
+
 ## [v0.23.1] - 2024-05-27
 
 ### Fixed

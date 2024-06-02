@@ -43,6 +43,7 @@
       "@blackhole/keyflow": ["libs/tools/keyflow/src/index.ts"],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
+      "@blackhole/date": ["libs/shared/date/src/index.ts"],
       "@blackhole/shortcut/help": ["libs/shortcut/help/src/index.ts"],
       "@blackhole/task/data-layer": ["libs/task/data-layer/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
