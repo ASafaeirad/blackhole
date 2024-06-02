@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nx serve web",
+    "build": "nx build web",
     "storybook": "nx serve storybook",
     "build-storybook": "nx build storybook",
     "all": "nx run-many --target",
@@ -88,6 +89,7 @@
     "unocss-preset-scrollbar": "0.3.1",
     "vite": "5.2.11",
     "vite-plugin-dts": "3.9.1",
+    "vite-plugin-pwa": "0.20.0",
     "vitest": "1.6.0"
   },
   "dependencies": {
