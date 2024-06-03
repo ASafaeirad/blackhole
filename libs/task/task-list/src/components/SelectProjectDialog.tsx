@@ -26,11 +26,11 @@ export const SelectProjectDialog = ({ onClose }: Props) => {
     setMode(Mode.Normal);
   });
 
-  useSubscribeActionOnMode(Actions.MoveNextBlockInsert, Mode.Insert, () => {
+  useSubscribeActionOnMode(Actions.FocusNextBlockInsert, Mode.Insert, () => {
     selectRef.current?.selectNext();
   });
 
-  useSubscribeActionOnMode(Actions.MovePrevBlockInsert, Mode.Insert, () => {
+  useSubscribeActionOnMode(Actions.FocusPrevBlockInsert, Mode.Insert, () => {
     selectRef.current?.selectPrev();
   });
 

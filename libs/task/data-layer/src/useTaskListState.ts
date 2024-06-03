@@ -68,6 +68,41 @@ export const moveUpAtom = atom(null, async get => {
   await sdk.swap(actionItem, prevActionItem, order => order - 0.5);
 });
 
+export const moveToFirstAtom = atom(null, async get => {
+  const actionItem = get(focusedActionItemAtom);
+  const actionItems = get(actionItemsAtom);
+
+  if (!actionItem) return;
+  const firstActionItem = actionItems.find(
+    item => item.status === actionItem.status,
+  );
+
+  if (firstActionItem === actionItem) return;
+  if (!firstActionItem) return;
+  if (actionItem.status !== firstActionItem.status) return;
+  const sdk = new ActionItemSDK();
+
+  await sdk.changeOrder(actionItem, firstActionItem.order - 0.1);
+});
+
+export const moveToLastAtom = atom(null, async get => {
+  const actionItem = get(focusedActionItemAtom);
+  const actionItems = get(actionItemsAtom);
+
+  if (!actionItem) return;
+  const lastActionItem = actionItems.findLast(
+    item => item.status === actionItem.status,
+  );
+
+  if (lastActionItem === actionItem) return;
+
+  if (!lastActionItem) return;
+  if (actionItem.status !== lastActionItem.status) return;
+  const sdk = new ActionItemSDK();
+
+  await sdk.changeOrder(actionItem, lastActionItem.order + 0.1);
+});
+
 export const moveDownAtom = atom(null, async get => {
   const actionItem = get(focusedActionItemAtom);
   const actionItems = get(actionItemsAtom);

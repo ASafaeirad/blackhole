@@ -32,7 +32,7 @@ export class Chord {
   }
 
   private static charToCode(char: KeyboardEventKey): string {
-    if (codeMap[char]) return codeMap[char]!;
+    if (codeMap[char]) return codeMap[char];
     if (char.length === 1 && char >= 'a' && char <= 'z')
       return `Key${char.toUpperCase()}`;
     throw Error(`Unknown key: ${char}`);

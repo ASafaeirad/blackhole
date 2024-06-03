@@ -84,7 +84,7 @@
     "storybook": "8.1.4",
     "ts-node": "10.9.2",
     "tslib": "2.6.2",
-    "typescript": "5.4.5",
+    "typescript": "5.5.0-beta",
     "unocss": "0.60.3",
     "unocss-preset-scrollbar": "0.3.1",
     "vite": "5.2.11",

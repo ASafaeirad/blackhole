@@ -1,4 +1,4 @@
-import { Actions } from '@blackhole/actions';
+import { Actions, keyMaps } from '@blackhole/actions';
 import { Button, Dialog } from '@blackhole/design';
 import {
   Mode,
@@ -9,6 +9,10 @@ import { useAtom } from 'jotai';
 
 import { HelpGroup } from './components/HelpGroup';
 import { helpAtom } from './data/helpAtom';
+
+const helpGroups = Object.entries(
+  Object.groupBy(Object.values(keyMaps), item => item.group),
+);
 
 export const Help = () => {
   const [isOpen, setIsOpen] = useAtom(helpAtom);
@@ -26,59 +30,12 @@ export const Help = () => {
 
   return (
     <Dialog open={isOpen}>
-      <Dialog.Content position="fixed" className="w-sm">
+      <Dialog.Content position="fixed" className="w-md">
         <Dialog.Title>Help</Dialog.Title>
         <div className="fc gap-5">
-          <HelpGroup title="Movement">
-            <HelpGroup.Command keybinding="k">Go up</HelpGroup.Command>
-            <HelpGroup.Command keybinding="j">Go down</HelpGroup.Command>
-            <HelpGroup.Command keybinding="gg">
-              Go to first item
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="G">
-              Go to last item
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="alt+k">
-              Move item up
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="alt+j">
-              Move item down
-            </HelpGroup.Command>
-          </HelpGroup>
-
-          <HelpGroup title="Task">
-            <HelpGroup.Command keybinding="c">Create task</HelpGroup.Command>
-            <HelpGroup.Command keybinding="i">
-              Edit task (caret start)
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="a">
-              Edit task (caret end)
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="f">Toggle focus</HelpGroup.Command>
-            <HelpGroup.Command keybinding="p">Select Project</HelpGroup.Command>
-            <HelpGroup.Command keybinding=".">
-              Toggle done visibility
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="space">
-              Toggle done
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="d">Delete item</HelpGroup.Command>
-          </HelpGroup>
-
-          <HelpGroup title="Modal">
-            <HelpGroup.Command keybinding="alt+j">Focus next</HelpGroup.Command>
-            <HelpGroup.Command keybinding="alt+k">
-              Focus Previous
-            </HelpGroup.Command>
-            <HelpGroup.Command keybinding="escape">
-              Close modal
-            </HelpGroup.Command>
-          </HelpGroup>
-
-          <HelpGroup title="Global">
-            <HelpGroup.Command keybinding="h">Show help</HelpGroup.Command>
-            <HelpGroup.Command keybinding="u">Undo</HelpGroup.Command>
-          </HelpGroup>
+          {helpGroups.map(([title, items]) => (
+            <HelpGroup title={title} items={items!} key={title} />
+          ))}
 
           <Button onPress={() => setIsOpen(false)}>Close</Button>
         </div>

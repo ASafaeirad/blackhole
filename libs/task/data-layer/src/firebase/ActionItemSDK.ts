@@ -110,6 +110,11 @@ export class ActionItemSDK {
     return this._collection;
   }
 
+  changeOrder(item: ActionItem, order: number) {
+    const itemRef = this.doc(item.id);
+    return updateDoc(itemRef, { order });
+  }
+
   swap(a: ActionItem, b: ActionItem, onConflict: (aId: number) => number) {
     const aDoc = this.doc(a.id);
     const bDoc = this.doc(b.id);

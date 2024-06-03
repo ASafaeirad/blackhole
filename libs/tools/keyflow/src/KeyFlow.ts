@@ -3,7 +3,6 @@ import { isEmpty } from '@fullstacksjs/toolbox';
 
 import { Chord } from './Chord';
 import type { Keybinding } from './Keybinding';
-import type { WithMode } from './keyMapper';
 import { Mode } from './keyMapper';
 
 type Subscriber = (x: { mode: Mode }) => void;
@@ -30,7 +29,7 @@ export class KeyFlow<TAction extends string> {
     this.#modeSubscribers.forEach(subscriber => subscriber(value));
   }
 
-  constructor(actions: Record<TAction, WithMode<Keybinding[]>>) {
+  constructor(actions: Record<TAction, Keybinding>) {
     // @ts-expect-error - TS doesn't understand that Object.keys
     Object.keys(actions).forEach((action: TAction) => {
       const { key: keys, mode } = actions[action];

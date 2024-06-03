@@ -5,7 +5,11 @@ describe('KeybindingManager', () => {
   it('should register keybindings', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['ctrl+shift+alt+a'], mode: Mode.Normal },
+      GoToNormalMode: {
+        group: '',
+        key: ['ctrl+shift+alt+a'],
+        mode: Mode.Normal,
+      },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -27,7 +31,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings case-insensitive', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['escape'], mode: Mode.Normal },
+      GoToNormalMode: { group: '', key: ['escape'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -44,7 +48,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings in normal mode', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
+      GoToNormalMode: { group: '', key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -60,7 +64,7 @@ describe('KeybindingManager', () => {
   it('should register keybindings in insert mode', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['i'], mode: Mode.Insert },
+      GoToNormalMode: { group: '', key: ['i'], mode: Mode.Insert },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -76,7 +80,11 @@ describe('KeybindingManager', () => {
   it('should register keybindings in composed mode', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['a'], mode: Mode.Normal | Mode.Insert },
+      GoToNormalMode: {
+        group: '',
+        key: ['a'],
+        mode: Mode.Normal | Mode.Insert,
+      },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -96,7 +104,12 @@ describe('KeybindingManager', () => {
   it('should not register keybindings in wrong mode', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
+      GoToNormalMode: {
+        group: '',
+        description: '',
+        key: ['i'],
+        mode: Mode.Normal,
+      },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -112,8 +125,8 @@ describe('KeybindingManager', () => {
     const handle1 = vi.fn();
     const handle2 = vi.fn();
     const manager = new KeyFlow({
-      Action1: { key: ['i'], mode: Mode.Overlay },
-      Action2: { key: ['i'], mode: Mode.Normal },
+      Action1: { group: '', key: ['i'], mode: Mode.Overlay },
+      Action2: { group: '', key: ['i'], mode: Mode.Normal },
     });
     manager.subscribe('Action1', handle1);
     manager.subscribe('Action2', handle2);
@@ -136,7 +149,7 @@ describe('KeybindingManager', () => {
   it('should unsubscribe', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['i'], mode: Mode.Normal },
+      GoToNormalMode: { group: '', key: ['i'], mode: Mode.Normal },
     });
     const unsubscribe = manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -152,7 +165,7 @@ describe('KeybindingManager', () => {
   it('should be able to bind multiple keys to the same action', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['i', 'escape'], mode: Mode.Normal },
+      GoToNormalMode: { group: '', key: ['i', 'escape'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);
@@ -171,7 +184,7 @@ describe('KeybindingManager', () => {
   it('should be accept key sequence', () => {
     const handle = vi.fn();
     const manager = new KeyFlow({
-      GoToNormalMode: { key: ['g,g'], mode: Mode.Normal },
+      GoToNormalMode: { group: '', key: ['g,g'], mode: Mode.Normal },
     });
     manager.subscribe('GoToNormalMode', handle);
     manager.register(document);

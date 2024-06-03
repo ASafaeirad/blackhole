@@ -6,7 +6,7 @@ export const HiddenTaskMessage = () => (
       Some tasks are hidden
     </span>
 
-    <Command className="flex-shrink-0" keybinding=".">
+    <Command className="flex-shrink-0" keybinding={['.']}>
       toggle visibility
     </Command>
   </span>
