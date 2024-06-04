@@ -24,6 +24,8 @@ export function useSubscribeTaskActions() {
     undo,
     initiateActionItem,
     openLinks,
+    moveToFirst,
+    moveToLast,
   } = useActionItemDispatch();
   const { focusNext, focusPrev, focusFirst, focusLast, activeId } =
     useActiveIndex();
@@ -41,22 +43,30 @@ export function useSubscribeTaskActions() {
   ]);
   useSubscribeAction(Actions.MoveDown, moveDown, [actionItems, activeId]);
   useSubscribeAction(Actions.MoveUp, moveUp, [actionItems, activeId]);
+  useSubscribeAction(Actions.MoveToFirstBlock, moveToFirst, [
+    actionItems,
+    activeId,
+  ]);
+  useSubscribeAction(Actions.MoveToLastBlock, moveToLast, [
+    actionItems,
+    activeId,
+  ]);
   useSubscribeAction(Actions.Toggle, toggle, [actionItems, activeId]);
   useSubscribeAction(Actions.Focus, focus, [actionItems, activeId]);
   useSubscribeAction(Actions.GoToNormalMode, revert, [actionItems, activeId]);
   useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
   useSubscribeAction(Actions.Undo, undo, []);
 
-  useSubscribeActionOnMode(Actions.MoveNextBlock, Mode.Normal, focusNext, [
+  useSubscribeActionOnMode(Actions.FocusNextBlock, Mode.Normal, focusNext, [
     actionItems.length,
   ]);
-  useSubscribeActionOnMode(Actions.MovePrevBlock, Mode.Normal, focusPrev, [
+  useSubscribeActionOnMode(Actions.FocusPrevBlock, Mode.Normal, focusPrev, [
     actionItems.length,
   ]);
-  useSubscribeActionOnMode(Actions.MoveToLastBlock, Mode.Normal, focusLast, [
+  useSubscribeActionOnMode(Actions.FocusLastBlock, Mode.Normal, focusLast, [
     actionItems.length,
   ]);
-  useSubscribeActionOnMode(Actions.MoveToFirstBlock, Mode.Normal, focusFirst, [
+  useSubscribeActionOnMode(Actions.FocusFirstBlock, Mode.Normal, focusFirst, [
     actionItems.length,
   ]);
 }

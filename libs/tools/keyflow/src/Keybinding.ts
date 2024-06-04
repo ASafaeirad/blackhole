@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/sort-type-constituents */
 
-import type { WithMode } from './keyMapper';
+import type { Mode } from './keyMapper';
 
 // cspell:disable
 export type KeyboardEventCode =
@@ -220,6 +220,7 @@ export type KeyboardEventKey =
   | '|'
   | '['
   | ']'
+  | '/'
 
   // numeric keypad keys
   | 'numpad0'
@@ -264,11 +265,17 @@ type TwoMeta<T = Meta> = T extends Meta
   ? `${T}+${Exclude<Meta, T>}+${KeyboardEventKey}`
   : never;
 type ThreeMeta = `${ThreeMetaCombo}+${KeyboardEventKey}`;
-export type Keybinding =
+export type Shortcut =
   | KeyboardEventKey
   | SingleMeta
   | ThreeMeta
   | TwoMeta
-  | `${KeyboardEventKey},${KeyboardEventKey}`;
+  | `${KeyboardEventKey},${KeyboardEventKey}`
+  | `alt+${KeyboardEventKey},alt+${KeyboardEventKey}`;
 
-export type KeyMap = Record<string, WithMode<Keybinding[]>>;
+export interface Keybinding {
+  key: Shortcut[];
+  mode: Mode;
+  group: string;
+  description: string;
+}

@@ -1,7 +1,7 @@
 module.exports = {
   enforceBuildableLibDependency: true,
   banTransitiveDependencies: true,
-  allow: [],
+  allow: ['virtual:*'],
   depConstraints: [
     {
       sourceTag: 'type:util',

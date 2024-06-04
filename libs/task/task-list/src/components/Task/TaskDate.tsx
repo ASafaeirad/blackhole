@@ -1,3 +1,5 @@
+import { formatDate } from '@blackhole/date';
+
 interface Props {
   date: number | undefined;
 }
@@ -7,7 +9,7 @@ export const TaskDate = ({ date }: Props) => {
 
   return (
     <span className="fr center mt-2 op-70 text-small">
-      [{createAt.toLocaleDateString()}]
+      [{formatDate(createAt)}]
     </span>
   );
 };

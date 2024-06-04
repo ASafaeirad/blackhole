@@ -23,7 +23,7 @@ export const useSubscribeAction = <T extends string>(
 export const useSubscribeActionOnMode = <T extends string>(
   action: T,
   mode: Mode,
-  callback: VoidFunction,
+  callback: (mode: Mode) => void,
   deps: React.DependencyList = empty,
 ) => {
   const [manager] = useAtom(managerAtom);
@@ -31,7 +31,7 @@ export const useSubscribeActionOnMode = <T extends string>(
   useEffect(
     () =>
       manager?.subscribe(action, ({ mode: current }) => {
-        if (current === mode) callback();
+        if (current & mode) callback(current);
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [action, manager?.mode, mode, ...deps],

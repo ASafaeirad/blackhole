@@ -34,7 +34,7 @@ export interface TaskDto {
   order: number;
   name: string;
   status: ActionItemStatus;
-  createdAt: FieldValue;
+  createdAt: number;
   lastCompletedDate?: FieldValue;
   userId: string;
 }
@@ -45,7 +45,7 @@ export interface RoutineDto {
   order: number;
   name: string;
   status: ActionItemStatus;
-  createdAt: FieldValue;
+  createdAt: number;
   userId: string;
   streak?: number;
   lastCompletedDate?: FieldValue;
@@ -67,7 +67,7 @@ const toRoutineDto = (
     ...routine,
     type: 'routine',
     userId,
-    createdAt: serverTimestamp(),
+    createdAt: Number(serverTimestamp()) * 1000,
     streak: 0,
     maxStreak: 0,
   };
@@ -78,7 +78,7 @@ const toTaskDto = (task: CreateActionItemDto, userId: string): TaskDto => {
     ...task,
     type: 'task',
     userId,
-    createdAt: serverTimestamp(),
+    createdAt: Number(serverTimestamp()) * 1000,
   };
 };
 
@@ -108,6 +108,11 @@ export class ActionItemSDK {
 
   get collection() {
     return this._collection;
+  }
+
+  changeOrder(item: ActionItem, order: number) {
+    const itemRef = this.doc(item.id);
+    return updateDoc(itemRef, { order });
   }
 
   swap(a: ActionItem, b: ActionItem, onConflict: (aId: number) => number) {

@@ -1,37 +1,41 @@
-import type { Keybinding } from './Keybinding';
+import type { Keybinding, Shortcut } from './Keybinding';
 
 export enum Mode {
   Normal = 0b01,
   Insert = 0b10,
   Overlay = 0b100,
+  Command = 0b1000,
 }
 
-export const xIMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
-  key,
-  mode: Mode.Normal | Mode.Overlay,
+interface MapArgs {
+  group: string;
+  key: Shortcut[];
+  description: string;
+}
+
+export const cMap = (args: MapArgs): Keybinding => ({
+  mode: Mode.Command,
+  ...args,
 });
 
-export const nMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
-  key,
+export const nMap = (args: MapArgs): Keybinding => ({
   mode: Mode.Normal,
+  ...args,
 });
 
-export const iMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
-  key,
+export const iMap = (args: MapArgs): Keybinding => ({
   mode: Mode.Insert,
+  ...args,
 });
 
-export const oMap = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
-  key,
+export const oMap = (args: MapArgs): Keybinding => ({
   mode: Mode.Overlay,
+  ...args,
 });
 
-export const map = (...key: Keybinding[]): WithMode<Keybinding[]> => ({
-  key,
+export const map = (args: MapArgs & { mode?: Mode }): Keybinding => ({
   mode: Mode.Insert | Mode.Normal | Mode.Overlay,
+  ...args,
 });
 
-export interface WithMode<T extends string[] | string> {
-  key: T;
-  mode: Mode;
-}
+export type KeyMap = Record<string, Keybinding>;

@@ -5,6 +5,7 @@ import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 import react from '@vitejs/plugin-react';
 import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   root: __dirname,
@@ -35,6 +36,35 @@ export default defineConfig({
     }),
     nxViteTsPaths(),
     UnoCSS({ configFile: '../../uno.config.ts' }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'TheBlackhole',
+        short_name: 'TheBlackhole',
+        background_color: 'lch(11.76% 0 0)',
+        description: 'All in one focus app',
+        display: 'standalone',
+        theme_color: 'lch(11.76% 0 0)',
+        orientation: 'portrait',
+        screenshots: [
+          {
+            src: '/screenshots/screenshot-01.png',
+            sizes: '1280x720',
+            form_factor: 'wide',
+            type: 'image/png',
+          },
+          {
+            src: '/screenshots/screenshot-02.png',
+            sizes: '400x720',
+            type: 'image/png',
+          },
+        ],
+        icons: [
+          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+        ],
+      },
+    }),
   ],
   test: {
     reporters: ['default'],
