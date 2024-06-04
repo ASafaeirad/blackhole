@@ -220,6 +220,7 @@ export type KeyboardEventKey =
   | '|'
   | '['
   | ']'
+  | '/'
 
   // numeric keypad keys
   | 'numpad0'

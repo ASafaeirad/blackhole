@@ -1,4 +1,4 @@
-import { iMap, map, nMap, xIMap } from '@blackhole/keyflow';
+import { cMap, iMap, map, Mode, nMap } from '@blackhole/keyflow';
 
 export enum Actions {
   FocusNextBlock = 'FocusNextBlock',
@@ -27,6 +27,9 @@ export enum Actions {
   SelectProject = 'SelectProject',
   Open = 'Open',
   SignIn = 'SignIn',
+  Search = 'Search',
+  CancelSearch = 'CancelSearch',
+  ClearSearch = 'ClearSearch',
 }
 
 export enum ActionGroup {
@@ -38,15 +41,17 @@ export enum ActionGroup {
 
 // cspell:disable
 export const keyMaps = {
-  [Actions.FocusNextBlock]: xIMap({
+  [Actions.FocusNextBlock]: map({
     group: ActionGroup.Movement,
     key: ['j', 'arrowdown'],
     description: 'Go down',
+    mode: Mode.Normal | Mode.Overlay,
   }),
-  [Actions.FocusPrevBlock]: xIMap({
+  [Actions.FocusPrevBlock]: map({
     group: ActionGroup.Movement,
     key: ['k', 'arrowup'],
     description: 'Go up',
+    mode: Mode.Normal | Mode.Overlay,
   }),
   [Actions.FocusNextBlockInsert]: iMap({
     group: ActionGroup.Movement,
@@ -58,15 +63,17 @@ export const keyMaps = {
     key: ['alt+k', 'arrowup'],
     description: 'Go up',
   }),
-  [Actions.FocusLastBlock]: xIMap({
+  [Actions.FocusLastBlock]: map({
     group: ActionGroup.Movement,
     key: ['shift+g'],
     description: 'Go to last item',
+    mode: Mode.Normal | Mode.Overlay,
   }),
-  [Actions.FocusFirstBlock]: xIMap({
+  [Actions.FocusFirstBlock]: map({
     group: ActionGroup.Movement,
     key: ['g,g'],
     description: 'Go to first item',
+    mode: Mode.Normal | Mode.Overlay,
   }),
   [Actions.GoToEditMode]: nMap({
     group: ActionGroup.Movement,
@@ -160,16 +167,35 @@ export const keyMaps = {
     key: ['p'],
     description: 'Select Project',
   }),
-  [Actions.SelectProject]: xIMap({
+  [Actions.SelectProject]: map({
     group: ActionGroup.Task,
     key: ['enter'],
     description: 'Select Project',
+    mode: Mode.Normal | Mode.Overlay,
   }),
 
   [Actions.CloseModal]: map({
     group: ActionGroup.Modal,
     key: ['capslock', 'escape'],
     description: 'Close modal',
+  }),
+
+  [Actions.Search]: nMap({
+    group: ActionGroup.Global,
+    description: 'Search',
+    key: ['/'],
+  }),
+
+  [Actions.CancelSearch]: cMap({
+    group: ActionGroup.Global,
+    description: 'Cancel search',
+    key: ['capslock', 'escape'],
+  }),
+
+  [Actions.ClearSearch]: nMap({
+    group: ActionGroup.Global,
+    description: 'Clear search',
+    key: ['capslock', 'escape'],
   }),
 } as const;
 // cspell:enable

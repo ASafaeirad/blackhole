@@ -4,6 +4,7 @@ export enum Mode {
   Normal = 0b01,
   Insert = 0b10,
   Overlay = 0b100,
+  Command = 0b1000,
 }
 
 interface MapArgs {
@@ -12,8 +13,8 @@ interface MapArgs {
   description: string;
 }
 
-export const xIMap = (args: MapArgs): Keybinding => ({
-  mode: Mode.Normal | Mode.Overlay,
+export const cMap = (args: MapArgs): Keybinding => ({
+  mode: Mode.Command,
   ...args,
 });
 
@@ -32,7 +33,7 @@ export const oMap = (args: MapArgs): Keybinding => ({
   ...args,
 });
 
-export const map = (args: MapArgs): Keybinding => ({
+export const map = (args: MapArgs & { mode?: Mode }): Keybinding => ({
   mode: Mode.Insert | Mode.Normal | Mode.Overlay,
   ...args,
 });

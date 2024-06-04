@@ -4,6 +4,7 @@ import type { KeyboardEventCode, KeyboardEventKey } from './Keybinding';
 const codeMap: Partial<Record<KeyboardEventKey, KeyboardEventCode>> = {
   ' ': 'Space',
   '.': 'Period',
+  '/': 'Slash',
   'escape': 'Escape',
   'capslock': 'CapsLock',
   'enter': 'Enter',

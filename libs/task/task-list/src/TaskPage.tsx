@@ -6,6 +6,7 @@ import {
 } from '@blackhole/task/data-layer';
 import { isEmpty } from '@fullstacksjs/toolbox';
 
+import { FilterInput } from './components/FilterInput';
 import { SelectProjectDialog } from './components/SelectProjectDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
@@ -29,6 +30,7 @@ export const TaskPage = () => {
         <TaskList />
       )}
       {isOpen ? <SelectProjectDialog onClose={close} /> : null}
+      <FilterInput />
     </div>
   );
 };

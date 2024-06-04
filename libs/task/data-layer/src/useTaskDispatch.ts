@@ -1,6 +1,7 @@
 import { useSetAtom } from 'jotai';
 
 import { createActionItemAtom } from './atoms/createTaskAtom';
+import { filterAtom, filterModeAtom } from './atoms/filterAtom';
 import { openLinksAtom } from './atoms/openLinksAtom';
 import {
   closeAtom,
@@ -38,6 +39,8 @@ export const useActionItemDispatch = () => {
   const editActionItem = useSetAtom(editActionItemAtom);
   const goToEditMode = useSetAtom(goToEditModeAtom);
   const openLinks = useSetAtom(openLinksAtom);
+  const setFilter = useSetAtom(filterAtom);
+  const setFilterMode = useSetAtom(filterModeAtom);
 
   return {
     toggleDoneVisibility,
@@ -56,5 +59,7 @@ export const useActionItemDispatch = () => {
     goToEditMode,
     undo,
     openLinks,
+    setFilter,
+    setFilterMode,
   } as const;
 };

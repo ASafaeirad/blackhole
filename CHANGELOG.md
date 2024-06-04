@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added PWA support
 - Added "Move to first" keybinding
 - Added "Move to last" keybinding
+- Added filter support
 
 ### Fixed
 
