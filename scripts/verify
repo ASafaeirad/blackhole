@@ -6,4 +6,4 @@ pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t lint
 pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t tsc
 pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t spell
 pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t build
-pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t test --configuration=ci
+pnpm nx affected --base=origin/dev --output-style=dynamic --nxBail=true -t test --configuration=ci --watch false
