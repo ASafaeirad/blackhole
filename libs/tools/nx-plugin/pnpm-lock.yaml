@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@nx/devkit':
-    specifier: 19.1.0
-    version: 19.1.0(nx@17.0.2)
+    specifier: 19.1.2
+    version: 19.1.2(nx@17.0.2)
   '@swc/helpers':
     specifier: 0.5.11
     version: 0.5.11
@@ -21,10 +21,10 @@ packages:
       '@sinclair/typebox': 0.27.8
     dev: false
 
-  /@nrwl/devkit@19.1.0(nx@17.0.2):
-    resolution: {integrity: sha512-n4YxtAMSdlXAmwcSKcLEX48kpcPGI/sX7lCfDeoSnTKud8Y1tlNeD8rf0YZV3ae+srE6j4lxfoJrRCpWweMcEQ==}
+  /@nrwl/devkit@19.1.2(nx@17.0.2):
+    resolution: {integrity: sha512-vWI+OrTICE9Yw6C/jIwxybnvavI9dnQJ7tpzFbLcSVfFAGdFtYJGCLVe40IkWcvUfELoVmzpXtKP/sPy0D7J9w==}
     dependencies:
-      '@nx/devkit': 19.1.0(nx@17.0.2)
+      '@nx/devkit': 19.1.2(nx@17.0.2)
     transitivePeerDependencies:
       - nx
     dev: false
@@ -41,12 +41,12 @@ packages:
       - debug
     dev: false
 
-  /@nx/devkit@19.1.0(nx@17.0.2):
-    resolution: {integrity: sha512-jn8uNgavpRhYZ1u63YFNWc2lEoAr3YA7bvPK9yaBmV++tFj+Ig+eFKkQxRou4tvOUnIyVPrs/fmi/TBLVQcpQg==}
+  /@nx/devkit@19.1.2(nx@17.0.2):
+    resolution: {integrity: sha512-oHYZzfmvogPh7z8pf1RjW7eJaS05VZ1Ts/axlWerzQauWT7aoeyCaxa0D9q3ThnUuDt1PqKjwJi5jmCihBT2Sw==}
     peerDependencies:
       nx: '>= 17 <= 20'
     dependencies:
-      '@nrwl/devkit': 19.1.0(nx@17.0.2)
+      '@nrwl/devkit': 19.1.2(nx@17.0.2)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4

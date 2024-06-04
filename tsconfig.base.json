@@ -30,6 +30,7 @@
       "@blackhole/auth/data-layer": ["libs/auth/data-layer/src/index.ts"],
       "@blackhole/cn": ["libs/shared/cn/src/index.ts"],
       "@blackhole/config": ["libs/shared/config/src/index.ts"],
+      "@blackhole/date": ["libs/shared/date/src/index.ts"],
       "@blackhole/debug": ["libs/shared/debug/src/index.ts"],
       "@blackhole/design": ["libs/shared/design/src/index.ts"],
       "@blackhole/design/styles": [
@@ -43,7 +44,6 @@
       "@blackhole/keyflow": ["libs/tools/keyflow/src/index.ts"],
       "@blackhole/navigation": ["libs/shared/navigation/src/index.ts"],
       "@blackhole/nx": ["libs/tools/nx-plugin/src/index.ts"],
-      "@blackhole/date": ["libs/shared/date/src/index.ts"],
       "@blackhole/shortcut/help": ["libs/shortcut/help/src/index.ts"],
       "@blackhole/task/data-layer": ["libs/task/data-layer/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
