@@ -1,7 +1,7 @@
-import type { Task } from '../models/ActionItem';
-import { ActionItemSDK } from './ActionItemSDK';
+import type { Task } from '../models';
+import { ActionItemSdk } from './ActionItemSdk';
 
-export class TaskSDK extends ActionItemSDK {
+export class TaskSdk extends ActionItemSdk {
   public override toggle(item: Task) {
     return this.update(item.id, {
       status: item.status === 'done' ? 'pending' : 'done',

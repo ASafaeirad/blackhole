@@ -1,22 +1,13 @@
 import { firestore } from '@blackhole/firebase';
 import { deleteField, doc, runTransaction } from 'firebase/firestore';
 
-import type { Routine } from '../models/ActionItem';
-import { hasStreak } from '../models/ActionItem';
-import { ActionItemSDK } from './ActionItemSDK';
-import { LogSDK } from './LogSDK';
+import type { Routine } from '../models';
+import { hasStreak } from '../models';
+import { ActionItemSdk } from './ActionItemSdk';
+import type { CreateLogDto } from './LogDto';
+import { LogSDK } from './LogSdk';
 
-export interface LogDto {
-  id: string;
-  routineId: string;
-  date: number;
-  streak: number;
-  maxStreak: number;
-}
-
-export type CreateLogDto = Omit<LogDto, 'id'>;
-
-export class RoutineSDK extends ActionItemSDK {
+export class RoutineSdk extends ActionItemSdk {
   public override toggle(routine: Routine) {
     return routine.status === 'done'
       ? this.revert(routine)

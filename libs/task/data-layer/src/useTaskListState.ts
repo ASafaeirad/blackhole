@@ -4,7 +4,7 @@ import { atomWithStorage } from 'jotai/utils';
 
 import { visibleActionItemsAtom } from './atoms/filterAtom';
 import { actionItemsAtom } from './atoms/taskAtom';
-import { ActionItemSDK } from './firebase/ActionItemSDK';
+import { ActionItemSdk } from './firebase/ActionItemSdk';
 import type { ActionItem } from './models/ActionItem';
 
 export const focusedIdAtom = atomWithStorage('focusedActionItem', '');
@@ -63,7 +63,7 @@ export const moveUpAtom = atom(null, async get => {
 
   if (!actionItem || !prevActionItem) return;
   if (actionItem.status !== prevActionItem.status) return;
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
 
   await sdk.swap(actionItem, prevActionItem, order => order - 0.5);
 });
@@ -80,7 +80,7 @@ export const moveToFirstAtom = atom(null, async get => {
   if (firstActionItem === actionItem) return;
   if (!firstActionItem) return;
   if (actionItem.status !== firstActionItem.status) return;
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
 
   await sdk.changeOrder(actionItem, firstActionItem.order - 0.1);
 });
@@ -98,7 +98,7 @@ export const moveToLastAtom = atom(null, async get => {
 
   if (!lastActionItem) return;
   if (actionItem.status !== lastActionItem.status) return;
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
 
   await sdk.changeOrder(actionItem, lastActionItem.order + 0.1);
 });
@@ -113,7 +113,7 @@ export const moveDownAtom = atom(null, async get => {
 
   if (!actionItem || !nextActionItem) return;
   if (actionItem.status !== nextActionItem.status) return;
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
 
   await sdk.swap(actionItem, nextActionItem, order => order + 0.5);
 });

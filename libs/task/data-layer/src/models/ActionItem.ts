@@ -1,30 +1,19 @@
-import { differenceInDays } from 'date-fns';
-
 import type { Node } from './Node';
+import type { Routine } from './Routine';
+import type { Task } from './Task';
 
 export type ActionItemStatus = 'done' | 'focus' | 'pending';
 export type RepeatType = 'daily' | 'once';
 
-interface BaseActionItem {
+export interface BaseActionItem {
   id: string;
   order: number;
   name: string;
   status: ActionItemStatus;
   createdAt: number | undefined;
   lastCompletedDate: number | undefined;
+  repeat: RepeatType;
   nodes: Node[];
-}
-
-export interface Task extends BaseActionItem {
-  type: 'task';
-  repeat: RepeatType;
-}
-
-export interface Routine extends BaseActionItem {
-  type: 'routine';
-  repeat: RepeatType;
-  streak: number;
-  maxStreak: number;
 }
 
 export type ActionItem = Routine | Task;
@@ -36,7 +25,15 @@ export const getRepeat = (name: string) => {
   return 'once';
 };
 
-export function hasStreak(routine: Routine) {
-  if (!routine.lastCompletedDate) return false;
-  return differenceInDays(Date.now(), routine.lastCompletedDate) < 2;
+const statusWeight: Record<ActionItemStatus, number> = {
+  focus: -10,
+  pending: 10,
+  done: 10000,
+};
+
+export function sortActionItems(items: ActionItem[]) {
+  items.sort(
+    (a, b) =>
+      a.order * statusWeight[a.status] - b.order * statusWeight[b.status],
+  );
 }

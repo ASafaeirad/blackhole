@@ -2,7 +2,7 @@ import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
 import { isEmpty } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
-import { ActionItemSDK } from '../firebase/ActionItemSDK';
+import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import type { ActionItem } from '../models/ActionItem';
 import {
   editIdAtom,
@@ -28,7 +28,7 @@ export const toggleFocusAtom = atom(null, async get => {
   const actionItems = get(actionItemsAtom);
   if (!focusedActionItem) return;
   const currentActionItem = actionItems.find(t => t.status === 'focus');
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
 
   if (currentActionItem)
     await sdk.update(currentActionItem.id, {
@@ -75,7 +75,7 @@ export const fixIndexAtom = atom(null, (get, set) => {
 });
 
 export const deleteActionItemAtom = atom(null, async (get, set) => {
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
   const activeActionItem = get(focusedActionItemAtom);
   if (!activeActionItem) return;
   set(saveActionItemIndex);
@@ -94,7 +94,7 @@ export const goToEditModeAtom = atom(null, (get, set) => {
 export const editActionItemAtom = atom(
   null,
   async (_, set, actionItem: ActionItem) => {
-    const sdk = new ActionItemSDK();
+    const sdk = new ActionItemSdk();
     await sdk.update(actionItem.id, { name: actionItem.name });
     set(closeAtom);
   },
