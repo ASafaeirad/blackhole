@@ -36,6 +36,7 @@ export const toRoutineDto = (
 export function toRoutine(id: string, data: RoutineDto): Routine {
   const lastCompletedDate = Number(data.lastCompletedDate);
   const createdAt = Number(data.createdAt);
+  const isDone = isToday(lastCompletedDate);
 
   return {
     type: 'routine',
@@ -43,7 +44,7 @@ export function toRoutine(id: string, data: RoutineDto): Routine {
     name: data.name,
     order: data.order,
     repeat: data.repeat,
-    status: isToday(lastCompletedDate) ? 'done' : 'pending',
+    status: isDone ? 'done' : data.status,
     lastCompletedDate,
     createdAt,
     maxStreak: data.maxStreak ?? 0,

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [next]
 
+### Fixed
+
+- Fixed routine focus bug
+
+## [v0.24.0] - 2024-06-03
+
 ### Added
 
 - Added PWA support
