@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
-import type { CreateActionItemDto } from '../firebase/ActionItemSDK';
-import { ActionItemSDK } from '../firebase/ActionItemSDK';
+import type { CreateActionItemDto } from '../firebase/ActionItemDto';
+import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import { getRepeat } from '../models/ActionItem';
 import { focusedIdAtom, newActionItemStateAtom } from '../useTaskListState';
 import { actionItemsAtom } from './taskAtom';
@@ -32,7 +32,7 @@ export const createActionItemAtom = atom(
       actionItem,
     });
 
-    const sdk = new ActionItemSDK();
+    const sdk = new ActionItemSdk();
     const newActionItem = await sdk.add(actionItem);
 
     set(focusedIdAtom, newActionItem.id);

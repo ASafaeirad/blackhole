@@ -10,17 +10,8 @@ import {
   query,
 } from 'firebase/firestore';
 
-import type { Log } from '../models/Log';
-
-export interface LogDto {
-  id: string;
-  routineId: string;
-  date: number;
-  streak: number;
-  maxStreak: number;
-}
-
-export type CreateLogDto = Omit<LogDto, 'id'>;
+import type { Log } from '../models';
+import type { LogDto } from './LogDto';
 
 export class LogSDK {
   private _collection: CollectionReference<LogDto>;

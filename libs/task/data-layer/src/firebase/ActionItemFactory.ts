@@ -1,11 +1,11 @@
 import type { ActionItem, ActionItemType } from '../models/ActionItem';
-import type { ActionItemSDK } from './ActionItemSDK';
-import { RoutineSDK } from './RoutineSDK';
-import { TaskSDK } from './TaskSDK';
+import type { ActionItemSdk } from './ActionItemSdk';
+import { RoutineSdk } from './RoutineSdk';
+import { TaskSdk } from './TaskSDK';
 
-const actionItemMap: Record<ActionItemType, new () => ActionItemSDK> = {
-  routine: RoutineSDK,
-  task: TaskSDK,
+const actionItemMap: Record<ActionItemType, new () => ActionItemSdk> = {
+  routine: RoutineSdk,
+  task: TaskSdk,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class

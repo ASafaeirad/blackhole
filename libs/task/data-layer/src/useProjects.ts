@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 import { actionItemsAtom } from './atoms/taskAtom';
 import { separator } from './config/config';
-import { ActionItemSDK } from './firebase/ActionItemSDK';
+import { ActionItemSdk } from './firebase/ActionItemSdk';
 import { focusedActionItemAtom } from './useTaskListState';
 
 const projectsAtom = atomWithDefault<string[]>(get =>
@@ -23,7 +23,7 @@ const setProjectsAtom = atom(null, async (get, _, project: string) => {
   if (!actionItem) return;
 
   const name = actionItem.name.split(separator).pop();
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
   await sdk.update(actionItem.id, {
     name: `${project}${separator}${name!}`,
   });
@@ -35,7 +35,7 @@ const unSetProjectAtom = atom(null, async get => {
   if (!actionItem) return;
 
   const name = actionItem.name.split(separator).pop();
-  const sdk = new ActionItemSDK();
+  const sdk = new ActionItemSdk();
   await sdk.update(actionItem.id, { name: name! });
 });
 

@@ -12,9 +12,31 @@ export default defineConfig({
 
   build: {
     outDir: '../../dist/apps/web',
+    emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: function manualChunks(id) {
+          if (id.includes('date-fns')) return 'date-fns';
+          if (
+            id.includes('/react-dom@') ||
+            id.includes('/react@') ||
+            id.includes('use-sync-external-store')
+          )
+            return 'react';
+          if (id.includes('react-aria') || id.includes('radix-ui'))
+            return 'design-system';
+          if (id.includes('jotai')) return 'jotai';
+          if (id.includes('@tanstack')) return 'tanstack';
+          if (id.includes('framer-motion')) return 'framer-motion';
+          if (id.includes('@firebase')) return 'firebase';
+          if (id.includes('node_modules')) return 'vendor';
+          return 'main';
+        },
+      },
     },
   },
   cacheDir: '../../node_modules/.vite/apps/web',

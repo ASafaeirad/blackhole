@@ -3,7 +3,7 @@ import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { actionItemsAtom } from './atoms/taskAtom';
-import { ActionItemSDK } from './firebase/ActionItemSDK';
+import { ActionItemSdk } from './firebase/ActionItemSdk';
 import { newActionItemStateAtom } from './useTaskListState';
 
 export function useSubscribeActionItems() {
@@ -13,7 +13,7 @@ export function useSubscribeActionItems() {
 
   useEffect(() => {
     if (!user) return;
-    const sdk = new ActionItemSDK();
+    const sdk = new ActionItemSdk();
     return sdk.subscribe(items => {
       setActionItemState(undefined);
       setActionItems(items);
