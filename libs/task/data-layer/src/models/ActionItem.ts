@@ -13,6 +13,7 @@ export interface BaseActionItem {
   createdAt: number | undefined;
   lastCompletedDate: number | undefined;
   repeat: RepeatType;
+  experience: number;
   nodes: Node[];
 }
 

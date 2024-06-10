@@ -22,7 +22,7 @@ export const Footer = ({ user }: Props) => {
         {user ? (
           <div className="gap-6 hidden md:flex">
             <span className="color-muted">|</span>
-            <Profile name={user.name} />
+            <Profile name={user.name} experience={user.experience} />
             <LogoutButton />
           </div>
         ) : null}

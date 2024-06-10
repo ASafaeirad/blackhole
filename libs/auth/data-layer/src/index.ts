@@ -1,10 +1,11 @@
-export type { AuthState } from './AuthState';
-export { signIn } from './signIn';
-export { signOut } from './signOut';
-export type { User } from './User';
 export {
   getCurrentUser,
+  getCurrentUserId,
   useAuthState,
   useCurrentUser,
   useSubscribeAuthState,
-} from './userAtom';
+} from './atoms/userAtom';
+export { UserSdk } from './firebase/UserSdk';
+export * from './models';
+export { signIn } from './signIn';
+export { signOut } from './signOut';

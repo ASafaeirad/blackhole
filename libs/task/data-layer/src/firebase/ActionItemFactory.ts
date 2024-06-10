@@ -1,7 +1,7 @@
 import type { ActionItem, ActionItemType } from '../models/ActionItem';
 import type { ActionItemSdk } from './ActionItemSdk';
 import { RoutineSdk } from './RoutineSdk';
-import { TaskSdk } from './TaskSDK';
+import { TaskSdk } from './TaskSdk';
 
 const actionItemMap: Record<ActionItemType, new () => ActionItemSdk> = {
   routine: RoutineSdk,
