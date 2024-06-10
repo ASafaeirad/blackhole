@@ -35,10 +35,10 @@ export function useSubscribeAuthState() {
   }, [setUser]);
 
   useEffect(() => {
-    if (isNull(user)) return;
+    if (isNull(user?.id)) return;
     const userSdk = UserSdk.fromAuthClient();
     return userSdk.subscribe(setUser);
-  }, [setUser, user]);
+  }, [setUser, user?.id]);
 }
 
 export function useCurrentUser() {
