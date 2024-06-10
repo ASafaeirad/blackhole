@@ -1,4 +1,5 @@
 import type { Nullable } from '@fullstacksjs/toolbox';
+import { isNull } from '@fullstacksjs/toolbox';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
@@ -34,6 +35,7 @@ export function useSubscribeAuthState() {
   }, [setUser]);
 
   useEffect(() => {
+    if (isNull(user)) return;
     const userSdk = UserSdk.fromAuthClient();
     return userSdk.subscribe(setUser);
   }, [setUser, user]);
