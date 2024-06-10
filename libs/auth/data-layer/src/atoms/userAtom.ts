@@ -1,18 +1,17 @@
 import type { Nullable } from '@fullstacksjs/toolbox';
-import { bind } from '@fullstacksjs/toolbox';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
-import { authClient } from './authClient';
-import type { AuthState } from './AuthState';
-import type { User } from './User';
-import { toUser } from './User';
+import { authClient } from '../firebase/authClient';
+import { UserSdk } from '../firebase/UserSdk';
+import type { AuthState } from '../models/AuthState';
+import type { User } from '../models/User';
 
 export const userAtom = atom<Nullable<User>>(undefined);
 export const authStateAtom = atom<AuthState>('loading');
 
 export function useSubscribeAuthState() {
-  const setUser = useSetAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const setAuthState = useSetAtom(authStateAtom);
 
   useEffect(() => {
@@ -22,10 +21,22 @@ export function useSubscribeAuthState() {
   }, [setAuthState]);
 
   useEffect(() => {
-    return authClient.onAuthStateChanged(user => {
-      setUser(bind(user, toUser));
+    return authClient.onAuthStateChanged(async authUser => {
+      if (!authUser) {
+        setUser(null);
+        return;
+      }
+
+      const sdk = new UserSdk(authUser);
+      const newUser = await sdk.getUser();
+      setUser(newUser);
     });
   }, [setUser]);
+
+  useEffect(() => {
+    const userSdk = UserSdk.fromAuthClient();
+    return userSdk.subscribe(setUser);
+  }, [setUser, user]);
 }
 
 export function useCurrentUser() {
@@ -34,7 +45,13 @@ export function useCurrentUser() {
 }
 
 export const getCurrentUser = () => {
-  return bind(authClient.currentUser, toUser);
+  if (!authClient.currentUser) return undefined;
+  const sdk = UserSdk.fromAuthClient();
+  return sdk.getUser();
+};
+
+export const getCurrentUserId = () => {
+  return authClient.currentUser?.uid;
 };
 
 export const useAuthState = () => {

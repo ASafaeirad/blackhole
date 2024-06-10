@@ -1,3 +1,4 @@
+import { UserSdk } from '@blackhole/auth/data-layer';
 import { firestore } from '@blackhole/firebase';
 import { deleteField, doc, runTransaction } from 'firebase/firestore';
 
@@ -14,9 +15,11 @@ export class RoutineSdk extends ActionItemSdk {
       : this.markDone(routine);
   }
 
-  private markDone(routine: Routine) {
+  private async markDone(routine: Routine) {
     const item = this.doc(routine.id);
     const logSdk = new LogSDK(routine.id);
+    const userSdk = UserSdk.fromAuthClient();
+    const user = await userSdk.getUser();
 
     return runTransaction(firestore, transaction => {
       const lastCompletedDate = Date.now();
@@ -31,14 +34,20 @@ export class RoutineSdk extends ActionItemSdk {
         streak,
       };
 
+      transaction.update(userSdk.doc(), {
+        experience: user.experience + routine.experience,
+      });
+
       transaction.set(doc(logSdk.collection), log);
       return Promise.resolve();
     });
   }
 
-  private revert(routine: Routine) {
+  private async revert(routine: Routine) {
     const item = this.doc(routine.id);
     const logSdk = new LogSDK(routine.id);
+    const userSdk = UserSdk.fromAuthClient();
+    const user = await userSdk.getUser();
 
     return runTransaction(firestore, async transaction => {
       const [current, prev] = await logSdk.getLogs({ limit: 2 });
@@ -53,6 +62,9 @@ export class RoutineSdk extends ActionItemSdk {
         : { lastCompletedDate: deleteField(), streak: 0, maxStreak: 0 };
 
       transaction.update(item, body);
+      transaction.update(userSdk.doc(), {
+        experience: Math.min(user.experience - routine.experience, 0),
+      });
       transaction.delete(logSdk.get(current.id));
       return Promise.resolve();
     });

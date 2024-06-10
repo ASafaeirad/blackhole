@@ -1,26 +1,44 @@
-import { getCurrentUser } from '@blackhole/auth/data-layer';
+import { getCurrentUserId } from '@blackhole/auth/data-layer';
+import type { RequiredBy } from '@fullstacksjs/toolbox';
+import type { FieldValue } from 'firebase/firestore';
 
+import type { ActionItemStatus, RepeatType } from '../models';
 import type { RoutineDto } from './RoutineDto';
 import { toRoutine, toRoutineDto } from './RoutineDto';
 import type { TaskDto } from './TaskDto';
 import { toTask, toTaskDto } from './TaskDto';
 
+export interface BaseActionItemDto {
+  type: 'routine' | 'task';
+  order: number;
+  name: string;
+  status: ActionItemStatus;
+  createdAt: number;
+  lastCompletedDate?: FieldValue;
+  repeat: RepeatType;
+  userId: string;
+  experience?: number;
+}
+
 export const toActionItemDto = (
   actionItem: CreateActionItemDto,
 ): ActionItemDto => {
-  const user = getCurrentUser();
-  if (!user) throw new Error('User not authenticated');
+  const userId = getCurrentUserId();
+  if (!userId) throw new Error('User not authenticated');
 
   return actionItem.type === 'task'
-    ? toTaskDto(actionItem, user.id)
-    : toRoutineDto(actionItem, user.id);
+    ? toTaskDto(actionItem, userId)
+    : toRoutineDto(actionItem, userId);
 };
 
 export type ActionItemDto = RoutineDto | TaskDto;
 
-export type CreateActionItemDto = Pick<
-  ActionItemDto,
-  'name' | 'order' | 'repeat' | 'status' | 'type'
+export type CreateActionItemDto = RequiredBy<
+  Pick<
+    BaseActionItemDto,
+    'experience' | 'name' | 'order' | 'repeat' | 'status' | 'type'
+  >,
+  'experience'
 >;
 
 export function toActionItem(id: string, data: ActionItemDto) {

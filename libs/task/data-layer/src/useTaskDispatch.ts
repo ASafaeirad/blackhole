@@ -1,6 +1,6 @@
 import { useSetAtom } from 'jotai';
 
-import { createActionItemAtom } from './atoms/createTaskAtom';
+import { createActionItemAtom } from './atoms/createActionItemAtom';
 import { filterAtom, filterModeAtom } from './atoms/filterAtom';
 import { openLinksAtom } from './atoms/openLinksAtom';
 import {

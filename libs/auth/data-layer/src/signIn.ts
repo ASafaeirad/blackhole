@@ -1,11 +1,12 @@
 import { signInWithPopup } from 'firebase/auth';
 
-import { authClient, githubAuthProvider } from './authClient';
-import { toUser } from './User';
+import { authClient, githubAuthProvider } from './firebase/authClient';
+import { UserSdk } from './firebase/UserSdk';
 
 export async function signIn() {
-  if (authClient.currentUser) return toUser(authClient.currentUser);
+  if (authClient.currentUser)
+    return new UserSdk(authClient.currentUser).getUser();
 
   const credentials = await signInWithPopup(authClient, githubAuthProvider);
-  return toUser(credentials.user);
+  return new UserSdk(credentials.user).getUser();
 }

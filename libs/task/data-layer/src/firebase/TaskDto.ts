@@ -1,19 +1,13 @@
 import type { FieldValue } from 'firebase/firestore';
 import { serverTimestamp } from 'firebase/firestore';
 
-import type { ActionItemStatus, RepeatType, Task } from '../models';
+import type { Task } from '../models';
 import { parseNodes } from '../models';
-import type { CreateActionItemDto } from './ActionItemDto';
+import type { BaseActionItemDto, CreateActionItemDto } from './ActionItemDto';
 
-export interface TaskDto {
+export interface TaskDto extends BaseActionItemDto {
   type: 'task';
-  repeat: RepeatType;
-  order: number;
-  name: string;
-  status: ActionItemStatus;
-  createdAt: number;
   lastCompletedDate?: FieldValue;
-  userId: string;
 }
 
 export const toTaskDto = (
@@ -42,5 +36,6 @@ export function toTask(id: string, data: TaskDto): Task {
     lastCompletedDate,
     createdAt,
     nodes: parseNodes(data.name),
+    experience: data.experience ?? 1,
   };
 }

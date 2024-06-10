@@ -25,6 +25,7 @@ export const createActionItemAtom = atom(
       repeat,
       status: 'pending',
       order: lastOrder + 1,
+      experience: 1,
     };
 
     set(newActionItemStateAtom, {

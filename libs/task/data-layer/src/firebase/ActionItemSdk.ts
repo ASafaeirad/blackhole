@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@blackhole/auth/data-layer';
+import { getCurrentUserId } from '@blackhole/auth/data-layer';
 import { firestore } from '@blackhole/firebase';
 import type { CollectionReference } from 'firebase/firestore';
 import {
@@ -20,13 +20,13 @@ export class ActionItemSdk {
   private _collection: CollectionReference<ActionItemDto>;
 
   constructor() {
-    const user = getCurrentUser();
-    if (!user) throw new Error('User not authenticated');
+    const userId = getCurrentUserId();
+    if (!userId) throw new Error('User not authenticated');
 
     this._collection = collection(
       firestore,
       'users',
-      user.id,
+      userId,
       'tasks',
     ) as CollectionReference<ActionItemDto>;
   }

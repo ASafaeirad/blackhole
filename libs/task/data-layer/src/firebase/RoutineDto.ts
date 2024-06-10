@@ -1,21 +1,13 @@
 import { isToday } from 'date-fns';
-import type { FieldValue } from 'firebase/firestore';
 import { serverTimestamp } from 'firebase/firestore';
 
-import type { ActionItemStatus, BaseActionItem, RepeatType } from '../models';
+import type { BaseActionItem } from '../models';
 import { parseNodes } from '../models';
-import type { CreateActionItemDto } from './ActionItemDto';
+import type { BaseActionItemDto, CreateActionItemDto } from './ActionItemDto';
 
-export interface RoutineDto {
+export interface RoutineDto extends BaseActionItemDto {
   type: 'routine';
-  repeat: RepeatType;
-  order: number;
-  name: string;
-  status: ActionItemStatus;
-  createdAt: number;
-  userId: string;
   streak?: number;
-  lastCompletedDate?: FieldValue;
   maxStreak?: number;
 }
 
@@ -50,6 +42,7 @@ export function toRoutine(id: string, data: RoutineDto): Routine {
     maxStreak: data.maxStreak ?? 0,
     streak: data.streak ?? 0,
     nodes: parseNodes(data.name),
+    experience: data.experience ?? 1,
   };
 }
 
