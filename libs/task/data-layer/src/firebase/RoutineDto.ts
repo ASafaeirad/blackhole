@@ -1,13 +1,13 @@
-import { isToday } from 'date-fns';
-import { serverTimestamp } from 'firebase/firestore';
+import { firebaseTimestamp, fromFirebaseTimestamp } from '@blackhole/firebase';
+import { bind } from '@fullstacksjs/toolbox';
 
 import type { BaseActionItem } from '../models';
-import { parseNodes } from '../models';
+import { hasGap, isDone, parseNodes } from '../models';
 import type { BaseActionItemDto, CreateActionItemDto } from './ActionItemDto';
 
 export interface RoutineDto extends BaseActionItemDto {
   type: 'routine';
-  streak?: number;
+  streak: number;
   maxStreak?: number;
 }
 
@@ -19,16 +19,15 @@ export const toRoutineDto = (
     ...routine,
     type: 'routine',
     userId,
-    createdAt: Number(serverTimestamp()) * 1000,
+    createdAt: firebaseTimestamp(),
     streak: 0,
     maxStreak: 0,
   };
 };
 
 export function toRoutine(id: string, data: RoutineDto): Routine {
-  const lastCompletedDate = Number(data.lastCompletedDate);
-  const createdAt = Number(data.createdAt);
-  const isDone = isToday(lastCompletedDate);
+  const lastCompletedDate = bind(data.lastCompletedDate, fromFirebaseTimestamp);
+  const createdAt = fromFirebaseTimestamp(data.createdAt);
 
   return {
     type: 'routine',
@@ -36,11 +35,11 @@ export function toRoutine(id: string, data: RoutineDto): Routine {
     name: data.name,
     order: data.order,
     repeat: data.repeat,
-    status: isDone ? 'done' : data.status,
+    status: isDone({ lastCompletedDate }) ? 'done' : data.status,
     lastCompletedDate,
     createdAt,
     maxStreak: data.maxStreak ?? 0,
-    streak: data.streak ?? 0,
+    streak: !hasGap({ lastCompletedDate }) ? data.streak : 0,
     nodes: parseNodes(data.name),
     experience: data.experience ?? 1,
   };

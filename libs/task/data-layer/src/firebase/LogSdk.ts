@@ -1,5 +1,5 @@
 import { getCurrentUserId } from '@blackhole/auth/data-layer';
-import { firestore } from '@blackhole/firebase';
+import { firestore, fromFirebaseTimestamp } from '@blackhole/firebase';
 import type { CollectionReference } from 'firebase/firestore';
 import {
   collection,
@@ -44,7 +44,10 @@ export class LogSDK {
       query(this.collection, limit(options.limit), orderBy('date', 'desc')),
     );
 
-    docs.forEach(l => logs.push({ ...l.data(), id: l.id }));
+    docs.forEach(l => {
+      const data = l.data();
+      logs.push({ ...data, id: l.id, date: fromFirebaseTimestamp(data.date) });
+    });
     return logs;
   }
 }

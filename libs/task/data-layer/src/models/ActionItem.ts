@@ -1,3 +1,5 @@
+import type { Nullable } from '@fullstacksjs/toolbox';
+
 import type { Node } from './Node';
 import type { Routine } from './Routine';
 import type { Task } from './Task';
@@ -10,8 +12,8 @@ export interface BaseActionItem {
   order: number;
   name: string;
   status: ActionItemStatus;
-  createdAt: number | undefined;
-  lastCompletedDate: number | undefined;
+  createdAt: Date;
+  lastCompletedDate: Nullable<Date>;
   repeat: RepeatType;
   experience: number;
   nodes: Node[];

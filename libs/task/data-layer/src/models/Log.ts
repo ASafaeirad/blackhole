@@ -1,7 +1,7 @@
 export interface Log {
   id: string;
   routineId: string;
-  date: number;
+  date: Date;
   streak: number;
   maxStreak: number;
 }

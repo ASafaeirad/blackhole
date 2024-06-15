@@ -9,8 +9,8 @@ dependencies:
     specifier: 1.1.0
     version: 1.1.0
   '@fullstacksjs/toolbox':
-    specifier: 4.14.1
-    version: 4.14.1
+    specifier: 4.15.0
+    version: 4.15.0
   '@radix-ui/react-dialog':
     specifier: 1.0.5
     version: 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -3164,8 +3164,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@fullstacksjs/toolbox@4.14.1:
-    resolution: {integrity: sha512-f3oIUEAM679ukp98N+NE98tcqrQxCLva8Z7rGZ9J6U0ZRYPbu1FKLk7vgVvYGV80+aqTKtgitBLNOe5or5jylA==}
+  /@fullstacksjs/toolbox@4.15.0:
+    resolution: {integrity: sha512-EQqAvB+eLdiT7fB9MIc+tKl3dL6i6B9ZWIPU4bImKdMoxH1sPS7Vurj9OFdogyM5ZFlrzR5DwYry2NfIDH/vfQ==}
     engines: {node: '>=16'}
     dev: false
 
@@ -14769,7 +14769,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.12.12
+      '@types/node': 20.14.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -16398,7 +16398,7 @@ packages:
       lilconfig: 3.1.1
       postcss: 8.4.38
       ts-node: 10.9.2(@swc/core@1.5.24)(@types/node@20.14.1)(typescript@5.5.0-beta)
-      yaml: 2.4.2
+      yaml: 2.4.3
     dev: true
 
   /postcss-nested@6.0.1(postcss@8.4.38):
@@ -19693,12 +19693,6 @@ packages:
   /yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
-    dev: true
-
-  /yaml@2.4.2:
-    resolution: {integrity: sha512-B3VqDZ+JAg1nZpaEmWtTXUlBneoGx6CPM9b0TENK6aoSu5t73dItudwdgmi6tHlIZZId4dZ9skcAQ2UbcyAeVA==}
-    engines: {node: '>= 14'}
-    hasBin: true
     dev: true
 
   /yaml@2.4.3:

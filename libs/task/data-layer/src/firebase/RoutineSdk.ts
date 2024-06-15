@@ -1,5 +1,5 @@
 import { UserSdk } from '@blackhole/auth/data-layer';
-import { firestore } from '@blackhole/firebase';
+import { firebaseTimestamp, firestore } from '@blackhole/firebase';
 import { deleteField, doc, runTransaction } from 'firebase/firestore';
 
 import type { Routine } from '../models';
@@ -22,7 +22,7 @@ export class RoutineSdk extends ActionItemSdk {
     const user = await userSdk.getUser();
 
     return runTransaction(firestore, transaction => {
-      const lastCompletedDate = Date.now();
+      const lastCompletedDate = firebaseTimestamp();
       const streak = hasStreak(routine) ? routine.streak + 1 : 1;
       const maxStreak = Math.max(streak, routine.maxStreak);
 
