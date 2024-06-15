@@ -1,7 +1,9 @@
+import type { Timestamp } from 'firebase/firestore';
+
 export interface LogDto {
   id: string;
   routineId: string;
-  date: number;
+  date: Timestamp;
   streak: number;
   maxStreak: number;
 }

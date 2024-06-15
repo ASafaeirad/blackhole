@@ -1,6 +1,6 @@
 import { getCurrentUserId } from '@blackhole/auth/data-layer';
 import type { RequiredBy } from '@fullstacksjs/toolbox';
-import type { FieldValue } from 'firebase/firestore';
+import type { Timestamp } from 'firebase/firestore';
 
 import type { ActionItemStatus, RepeatType } from '../models';
 import type { RoutineDto } from './RoutineDto';
@@ -13,8 +13,8 @@ export interface BaseActionItemDto {
   order: number;
   name: string;
   status: ActionItemStatus;
-  createdAt: number;
-  lastCompletedDate?: FieldValue;
+  createdAt: Timestamp;
+  lastCompletedDate?: Timestamp;
   repeat: RepeatType;
   userId: string;
   experience?: number;

@@ -10,7 +10,7 @@
     "build-storybook": "nx build storybook",
     "all": "nx run-many --target",
     "lint": "nx run-many --target lint --fix",
-    "test": "nx run-many --target test",
+    "test": "nx run-many --target test --watch false",
     "spell": "nx run-many --target spell",
     "prepare": "./scripts/prepare"
   },
@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "@fullstacksjs/config": "1.1.0",
-    "@fullstacksjs/toolbox": "4.14.1",
+    "@fullstacksjs/toolbox": "4.15.0",
     "@radix-ui/react-dialog": "1.0.5",
     "@radix-ui/react-separator": "1.0.3",
     "@storybook/test": "8.1.5",

@@ -17,7 +17,7 @@ export const TaskLoading = ({ name, type }: Props) => {
       <TaskSign type={type} />
       <TaskCheck status="pending" />
       <TaskName nodes={[{ type: 'text', label: name }]} />
-      <TaskDate date={Date.now()} />
+      <TaskDate date={new Date()} />
     </div>
   );
 };

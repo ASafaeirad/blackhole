@@ -72,10 +72,10 @@ export const Task = ({
       {!isEdit ? (
         <>
           <TaskName nodes={actionItem.nodes} />
-          <TaskDate date={actionItem.createdAt} />
           {actionItem.type === 'routine' ? (
             <TaskStreak streak={actionItem.streak} />
           ) : null}
+          <TaskDate date={actionItem.createdAt} />
         </>
       ) : (
         <Input
