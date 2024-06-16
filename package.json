@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "@fullstacksjs/config": "1.1.0",
-    "@fullstacksjs/toolbox": "4.15.0",
+    "@fullstacksjs/toolbox": "4.15.1",
     "@radix-ui/react-dialog": "1.0.5",
     "@radix-ui/react-separator": "1.0.3",
     "@storybook/test": "8.1.5",
