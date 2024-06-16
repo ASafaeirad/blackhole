@@ -28,3 +28,9 @@ export const visibleActionItemsAtom = atom(get => {
     t.name.toLowerCase().includes(filter.toLowerCase()),
   );
 });
+
+export const hasHiddenItemAtom = atom(get => {
+  const actionItems = get(actionItemsAtom);
+  const visibleActionItems = get(visibleActionItemsAtom);
+  return actionItems.length !== visibleActionItems.length;
+});

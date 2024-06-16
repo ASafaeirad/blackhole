@@ -8,15 +8,19 @@ import { isEmpty } from '@fullstacksjs/toolbox';
 
 import { FilterInput } from './components/FilterInput';
 import { SelectProjectDialog } from './components/SelectProjectDialog';
+import { SortByDialog } from './components/SortByDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
 import { useSelectProjectModal } from './useSelectProjectModal';
+import { useSortByModal } from './useSortByModal';
 import { useSubscribeTaskActions } from './useSubscribeTaskActions';
 
 export const TaskPage = () => {
   const actionItems = useActionItems();
   const { newActionItemState } = useActionItemListState();
-  const { close, isOpen } = useSelectProjectModal();
+  const { close: closeProject, isOpen: isProjectModalOpen } =
+    useSelectProjectModal();
+  const { close: closeSortBy, isOpen: isSortByModalOpen } = useSortByModal();
 
   useSubscribeTaskActions();
   useSubscribeActionItems();
@@ -29,7 +33,10 @@ export const TaskPage = () => {
       ) : (
         <TaskList />
       )}
-      {isOpen ? <SelectProjectDialog onClose={close} /> : null}
+      {isProjectModalOpen ? (
+        <SelectProjectDialog onClose={closeProject} />
+      ) : null}
+      {isSortByModalOpen ? <SortByDialog onClose={closeSortBy} /> : null}
       <FilterInput />
     </div>
   );

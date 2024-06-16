@@ -1,7 +1,9 @@
 import type { Nullable } from '@fullstacksjs/toolbox';
+import { assertNotNull } from '@fullstacksjs/toolbox';
 
 import type { Node } from './Node';
 import type { Routine } from './Routine';
+import type { SortBy } from './Sort';
 import type { Task } from './Task';
 
 export type ActionItemStatus = 'done' | 'focus' | 'pending';
@@ -28,15 +30,27 @@ export const getRepeat = (name: string) => {
   return 'once';
 };
 
-const statusWeight: Record<ActionItemStatus, number> = {
-  focus: -10,
-  pending: 10,
-  done: 10000,
+const weightMatrix: Partial<Record<SortBy, Record<any, number>>> = {
+  status: {
+    focus: -10,
+    pending: 10,
+    done: 10000,
+  },
 };
 
-export function sortActionItems(items: ActionItem[]) {
-  items.sort(
-    (a, b) =>
-      a.order * statusWeight[a.status] - b.order * statusWeight[b.status],
-  );
+export function sortActionItems(items: ActionItem[], sortBy: SortBy) {
+  return items.toSorted((a, b) => {
+    const weight = weightMatrix[sortBy];
+    const aValue = a[sortBy];
+    const bValue = b[sortBy];
+
+    if (!weight) return aValue.localeCompare(bValue);
+    const aWeight = weight[aValue];
+    const bWeight = weight[bValue];
+
+    assertNotNull(aWeight);
+    assertNotNull(bWeight);
+
+    return a.order * aWeight - b.order * bWeight;
+  });
 }
