@@ -3,7 +3,7 @@ import {
   useActionItemDispatch,
   useActionItemListState,
   useActionItems,
-  useAllActionItems,
+  useHasHiddenItems,
 } from '@blackhole/task/data-layer';
 import { AnimatePresence } from 'framer-motion';
 
@@ -17,8 +17,7 @@ export const TaskList = () => {
   const { activeActionItem, editedActionItem, newActionItemState } =
     useActionItemListState();
   const actionItems = useActionItems();
-  const allActionItems = useAllActionItems();
-  const hasHiddenItems = allActionItems.length !== actionItems.length;
+  const hasHiddenItems = useHasHiddenItems();
 
   return (
     <div className="layout fc scrollbar flex-1 gap-6 overflow-x-auto">

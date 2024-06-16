@@ -87,3 +87,44 @@ export const WithItems: Story = {
     });
   },
 };
+
+export const WithOptionLabel: Story = {
+  render: props => {
+    const ref = useRef<SelectRef>(null);
+    const [selected, setSelected] = useState('');
+
+    return (
+      <>
+        <div>
+          Selected: <span data-testid="selected">{selected}</span>
+        </div>
+        <Select
+          onKeyDown={e => {
+            if (e.key === 'j' && e.altKey) ref.current?.selectNext();
+            if (e.key === 'k' && e.altKey) ref.current?.selectPrev();
+          }}
+          onSelect={item => setSelected(item)}
+          ref={ref}
+          {...props}
+        />
+      </>
+    );
+  },
+  args: {
+    items: ['v-1', 'v-2', 'v-3'],
+    getOptionLabel: (option: string) => option.replace('v-', 'Item '),
+  },
+
+  play: async ({ canvasElement, step }) => {
+    const root = within(canvasElement.parentElement!);
+    const dialog = await root.findByRole('dialog');
+
+    await step('Filter', async () => {
+      const input = await within(dialog).findByRole('textbox');
+      await userEvent.type(input, 'Item 2');
+      const filtered = await within(dialog).findAllByRole('option');
+      await expect(filtered).toHaveLength(1);
+      await expect(filtered[0]).toHaveTextContent('Item 2');
+    });
+  },
+};

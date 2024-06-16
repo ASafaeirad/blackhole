@@ -24,12 +24,13 @@ export enum Actions {
   ShowSelectProject = 'ShowSelectProject',
   ToggleDoneVisibility = 'ToggleDoneVisibility',
   Undo = 'Undo',
-  SelectProject = 'SelectProject',
+  Confirm = 'Confirm',
   Open = 'Open',
   SignIn = 'SignIn',
   Search = 'Search',
   CancelSearch = 'CancelSearch',
   ClearSearch = 'ClearSearch',
+  SortBy = 'SortBy',
 }
 
 export enum ActionGroup {
@@ -167,11 +168,10 @@ export const keyMaps = {
     key: ['p'],
     description: 'Select Project',
   }),
-  [Actions.SelectProject]: map({
+  [Actions.SortBy]: nMap({
     group: ActionGroup.Task,
-    key: ['enter'],
-    description: 'Select Project',
-    mode: Mode.Normal | Mode.Overlay,
+    key: ['s'],
+    description: 'Sort Tasks',
   }),
 
   [Actions.CloseModal]: map({
@@ -179,19 +179,21 @@ export const keyMaps = {
     key: ['capslock', 'escape'],
     description: 'Close modal',
   }),
-
   [Actions.Search]: nMap({
     group: ActionGroup.Global,
     description: 'Search',
     key: ['/'],
   }),
-
   [Actions.CancelSearch]: cMap({
     group: ActionGroup.Global,
     description: 'Cancel search',
     key: ['capslock', 'escape'],
   }),
-
+  [Actions.Confirm]: map({
+    group: ActionGroup.Global,
+    key: ['enter'],
+    description: 'Confirm',
+  }),
   [Actions.ClearSearch]: nMap({
     group: ActionGroup.Global,
     description: 'Clear search',

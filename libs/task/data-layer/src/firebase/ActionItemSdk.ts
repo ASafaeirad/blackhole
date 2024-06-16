@@ -12,7 +12,6 @@ import {
 } from 'firebase/firestore';
 
 import type { ActionItem } from '../models';
-import { sortActionItems } from '../models';
 import type { ActionItemDto, CreateActionItemDto } from './ActionItemDto';
 import { toActionItem, toActionItemDto } from './ActionItemDto';
 
@@ -86,8 +85,6 @@ export class ActionItemSdk {
         const data = item.data();
         items.push(toActionItem(item.id, data));
       });
-
-      sortActionItems(items);
 
       callback(items);
     });

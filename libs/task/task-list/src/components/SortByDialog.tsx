@@ -7,19 +7,24 @@ import {
   useSubscribeAction,
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
-import { useProjects, useSetProjects } from '@blackhole/task/data-layer';
+import type { SortBy } from '@blackhole/task/data-layer';
+import { allSortBy, useSetSortBy } from '@blackhole/task/data-layer';
 import { useCallback, useMemo, useRef } from 'react';
 
 interface Props {
   onClose?: () => void;
 }
 
-export const SelectProjectDialog = ({ onClose }: Props) => {
-  const projects = useProjects();
+const sortByLabelMap: Record<SortBy, string> = {
+  name: 'Name',
+  status: 'Status',
+};
+
+export const SortByDialog = ({ onClose }: Props) => {
   const selectRef = useRef<SelectRef>(null);
   const setMode = useSetMode();
-  const { setProject, unSetProject } = useSetProjects();
-  const items = useMemo(() => ['None', ...projects], [projects]);
+  const setSortBy = useSetSortBy();
+  const items = useMemo(() => ['None', ...allSortBy] as const, []);
 
   useSubscribeAction(Actions.CloseModal, () => {
     onClose?.();
@@ -36,25 +41,27 @@ export const SelectProjectDialog = ({ onClose }: Props) => {
 
   const onSelect = useCallback(
     (name: string): void => {
-      if (name === 'None') {
-        void unSetProject();
-      } else {
-        void setProject(name);
-      }
+      const sortBy = allSortBy.includes(name) ? (name as SortBy) : null;
+
+      setSortBy(sortBy);
       setMode(Mode.Normal);
       onClose?.();
     },
-    [onClose, setMode, setProject, unSetProject],
+    [onClose, setMode, setSortBy],
   );
 
   return (
     <Select
       forceMount
-      emptyState="No Project"
+      emptyState="No Field"
       items={items}
       ref={selectRef}
       onSelect={onSelect}
-      title="Select Project"
+      getOptionLabel={v => {
+        // @ts-expect-error - map lookup can be undefined
+        return sortByLabelMap[v] ?? v;
+      }}
+      title="Sort by"
     />
   );
 };
