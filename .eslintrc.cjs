@@ -34,6 +34,7 @@ module.exports = init({
         '@nx/enforce-module-boundaries': ['error', moduleBoundaries],
         '@typescript-eslint/no-misused-promises': 'off',
         'no-bitwise': 'off',
+        'no-console': 'error',
       },
     },
   ],
