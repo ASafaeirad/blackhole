@@ -3,8 +3,8 @@ import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { actionItemsAtom } from './atoms/taskAtom';
+import { newActionItemStateAtom } from './atoms/taskListAtom';
 import { ActionItemSdk } from './firebase/ActionItemSdk';
-import { newActionItemStateAtom } from './useTaskListState';
 
 export function useSubscribeActionItems() {
   const user = useCurrentUser();

@@ -11,10 +11,11 @@ import { HiddenTaskMessage } from './HiddenTaskMessage';
 import { Task as TaskComponent } from './Task';
 import { NewTask } from './Task/NewTask';
 import { TaskLoading } from './Task/TaskLoading';
+import { TaskDeleteConfirmDialog } from './TaskDeleteConfirmDialog';
 
 export const TaskList = () => {
   const { createActionItem, editActionItem } = useActionItemDispatch();
-  const { activeActionItem, editedActionItem, newActionItemState } =
+  const { activeActionItem, editedActionItem, newActionItemState, isDeleting } =
     useActionItemListState();
   const actionItems = useActionItems();
   const hasHiddenItems = useHasHiddenItems();
@@ -41,6 +42,7 @@ export const TaskList = () => {
           type={newActionItemState.actionItem.type}
         />
       ) : null}
+      {isDeleting ? <TaskDeleteConfirmDialog /> : null}
       {hasHiddenItems ? <HiddenTaskMessage /> : null}
     </div>
   );

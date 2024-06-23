@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added delete confirmation
+
+## [v0.26.0]
+
+### Added
+
 - Added sort functionality
 
 ## [v0.25.2]
