@@ -1,4 +1,4 @@
-import { cMap, iMap, map, Mode, nMap } from '@blackhole/keyflow';
+import { cMap, iMap, map, Mode, nMap, oMap } from '@blackhole/keyflow';
 
 export enum Actions {
   FocusNextBlock = 'FocusNextBlock',
@@ -13,6 +13,7 @@ export enum Actions {
   CreateTask = 'CreateTask',
   SaveTask = 'SaveTask',
   DeleteTask = 'DeleteTask',
+  ConfirmDelete = 'ConfirmDelete',
   CloseModal = 'CloseModal',
   Toggle = 'Toggle',
   Focus = 'Focus',
@@ -152,6 +153,11 @@ export const keyMaps = {
     group: ActionGroup.Task,
     key: ['d'],
     description: 'Delete item',
+  }),
+  [Actions.ConfirmDelete]: oMap({
+    group: ActionGroup.Task,
+    key: ['d'],
+    description: 'Confirm delete item',
   }),
   [Actions.ToggleDoneVisibility]: nMap({
     group: ActionGroup.Task,

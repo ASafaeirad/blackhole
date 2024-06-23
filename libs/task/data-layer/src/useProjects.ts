@@ -4,9 +4,9 @@ import { atomWithDefault } from 'jotai/utils';
 import { useMemo } from 'react';
 
 import { actionItemsAtom } from './atoms/taskAtom';
+import { focusedActionItemAtom } from './atoms/taskListAtom';
 import { separator } from './config/config';
 import { ActionItemSdk } from './firebase/ActionItemSdk';
-import { focusedActionItemAtom } from './useTaskListState';
 
 const projectsAtom = atomWithDefault<string[]>(get =>
   uniq(

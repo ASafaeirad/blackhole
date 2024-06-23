@@ -4,24 +4,20 @@ import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import type { ActionItem } from '../models/ActionItem';
-import {
-  editIdAtom,
-  focusedActionItemAtom,
-  focusedIdAtom,
-  lastFocusedIdAtom,
-  lastFocusedIndexAtom,
-  newActionItemStateAtom,
-  saveActionItemIndex,
-} from '../useTaskListState';
-import {
-  doneActionItemsVisibilityAtom,
-  visibleActionItemsAtom,
-} from './filterAtom';
+import { doneActionItemsVisibilityAtom } from './filterAtom';
+import { fixIndexAtom } from './fixIndexAtom';
 import {
   actionItemsAtom,
   historyActionItemAtom,
   internalActionItemsAtom,
 } from './taskAtom';
+import {
+  editIdAtom,
+  focusedActionItemAtom,
+  focusedIdAtom,
+  lastFocusedIdAtom,
+  newActionItemStateAtom,
+} from './taskListAtom';
 
 export const toggleFocusAtom = atom(null, async get => {
   const focusedActionItem = get(focusedActionItemAtom);
@@ -58,30 +54,6 @@ export const closeAtom = atom(null, (_, set) => {
 export const revertAtom = atom(null, (get, set) => {
   set(focusedIdAtom, get(lastFocusedIdAtom));
   set(closeAtom);
-});
-
-export const fixIndexAtom = atom(null, (get, set) => {
-  const focusedId = get(focusedIdAtom);
-  const lastIndex = get(lastFocusedIndexAtom);
-
-  const actionItems = get(actionItemsAtom);
-  const focusedActionItem = get(visibleActionItemsAtom).find(
-    t => t.id === focusedId,
-  );
-
-  if (focusedActionItem) return;
-  const actionItemToFocus = actionItems[lastIndex - 1] ?? actionItems[0];
-  set(focusedIdAtom, actionItemToFocus?.id ?? '');
-});
-
-export const deleteActionItemAtom = atom(null, async (get, set) => {
-  const sdk = new ActionItemSdk();
-  const activeActionItem = get(focusedActionItemAtom);
-  if (!activeActionItem) return;
-  set(saveActionItemIndex);
-
-  await sdk.delete(activeActionItem.id);
-  set(fixIndexAtom);
 });
 
 export const goToEditModeAtom = atom(null, (get, set) => {

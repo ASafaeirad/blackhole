@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-import { focusedActionItemAtom } from '../useTaskListState';
+import { focusedActionItemAtom } from './taskListAtom';
 
 export const openLinksAtom = atom(null, get => {
   const item = get(focusedActionItemAtom);
