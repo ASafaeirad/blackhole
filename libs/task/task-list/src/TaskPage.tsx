@@ -11,6 +11,8 @@ import { SelectProjectDialog } from './components/SelectProjectDialog';
 import { SortByDialog } from './components/SortByDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
+import { DateModal } from './DateModal';
+import { useDateModal } from './useDateModal';
 import { useSelectProjectModal } from './useSelectProjectModal';
 import { useSortByModal } from './useSortByModal';
 import { useSubscribeTaskActions } from './useSubscribeTaskActions';
@@ -21,6 +23,7 @@ export const TaskPage = () => {
   const { close: closeProject, isOpen: isProjectModalOpen } =
     useSelectProjectModal();
   const { close: closeSortBy, isOpen: isSortByModalOpen } = useSortByModal();
+  const { close: closeDueDate, isOpen: isDueDateOpen } = useDateModal();
 
   useSubscribeTaskActions();
   useSubscribeActionItems();
@@ -37,6 +40,9 @@ export const TaskPage = () => {
         <SelectProjectDialog onClose={closeProject} />
       ) : null}
       {isSortByModalOpen ? <SortByDialog onClose={closeSortBy} /> : null}
+      {isDueDateOpen ? (
+        <DateModal open={isDueDateOpen} onClose={closeDueDate} />
+      ) : null}
       <FilterInput />
     </div>
   );

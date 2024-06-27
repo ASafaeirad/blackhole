@@ -75,7 +75,7 @@ export const Task = ({
           {actionItem.type === 'routine' ? (
             <TaskStreak streak={actionItem.streak} />
           ) : null}
-          <TaskDate date={actionItem.createdAt} />
+          {actionItem.dueDate ? <TaskDate date={actionItem.dueDate} /> : null}
         </>
       ) : (
         <Input

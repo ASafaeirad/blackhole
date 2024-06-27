@@ -42,6 +42,7 @@ export function toRoutine(id: string, data: RoutineDto): Routine {
     streak: !hasGap({ lastCompletedDate }) ? data.streak : 0,
     nodes: parseNodes(data.name),
     experience: data.experience ?? 1,
+    dueDate: bind(data.dueDate, fromFirebaseTimestamp),
   };
 }
 

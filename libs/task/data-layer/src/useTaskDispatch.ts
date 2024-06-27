@@ -19,6 +19,7 @@ import {
   goToEditModeAtom,
   initiateActionItemAtom,
   revertAtom,
+  setDueDateAtom,
   toggleDoneVisibilityAtom,
   toggleFocusAtom,
   undoAtom,
@@ -45,6 +46,7 @@ export const useActionItemDispatch = () => {
   const setFilter = useSetAtom(filterAtom);
   const setFilterMode = useSetAtom(filterModeAtom);
   const discardDeleting = useSetAtom(discardDeletingAtom);
+  const setDueDate = useSetAtom(setDueDateAtom);
 
   return {
     toggleDoneVisibility,
@@ -66,5 +68,6 @@ export const useActionItemDispatch = () => {
     setFilter,
     setFilterMode,
     discardDeleting,
+    setDueDate,
   } as const;
 };

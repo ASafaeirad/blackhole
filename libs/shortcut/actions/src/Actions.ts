@@ -24,6 +24,7 @@ export enum Actions {
   ShowHelp = 'ShowHelp',
   ShowSelectProject = 'ShowSelectProject',
   ToggleDoneVisibility = 'ToggleDoneVisibility',
+  OpenDueDate = 'OpenDueDate',
   Undo = 'Undo',
   Confirm = 'Confirm',
   Open = 'Open',
@@ -148,6 +149,11 @@ export const keyMaps = {
     group: ActionGroup.Task,
     key: [' '],
     description: 'Toggle done',
+  }),
+  [Actions.OpenDueDate]: nMap({
+    group: ActionGroup.Task,
+    key: ['w'],
+    description: 'Open due date',
   }),
   [Actions.DeleteTask]: nMap({
     group: ActionGroup.Task,

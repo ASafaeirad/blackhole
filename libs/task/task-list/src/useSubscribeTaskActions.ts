@@ -30,43 +30,46 @@ export function useSubscribeTaskActions() {
   const { focusNext, focusPrev, focusFirst, focusLast, activeId } =
     useActiveIndex();
 
-  useSubscribeAction(Actions.Open, openLinks, [actionItems, activeId]);
-  useSubscribeAction(Actions.CreateTask, initiateActionItem, [actionItems]);
-  useSubscribeAction(Actions.Insert, goToEditMode, [actionItems, activeId]);
-  useSubscribeAction(Actions.GoToEditMode, goToEditMode, [
-    activeId,
-    actionItems,
-  ]);
-  useSubscribeAction(Actions.DeleteTask, deleteActionItem, [
-    activeId,
-    actionItems,
-  ]);
-  useSubscribeAction(Actions.MoveDown, moveDown, [actionItems, activeId]);
-  useSubscribeAction(Actions.MoveUp, moveUp, [actionItems, activeId]);
-  useSubscribeAction(Actions.MoveToFirstBlock, moveToFirst, [
-    actionItems,
-    activeId,
-  ]);
-  useSubscribeAction(Actions.MoveToLastBlock, moveToLast, [
-    actionItems,
-    activeId,
-  ]);
-  useSubscribeAction(Actions.Toggle, toggle, [actionItems, activeId]);
-  useSubscribeAction(Actions.Focus, focus, [actionItems, activeId]);
-  useSubscribeAction(Actions.GoToNormalMode, revert, [actionItems, activeId]);
-  useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
-  useSubscribeAction(Actions.Undo, undo, []);
+  const activeItemDeps = [actionItems, activeId];
+  const itemLengthDeps = [actionItems.length];
 
-  useSubscribeActionOnMode(Actions.FocusNextBlock, Mode.Normal, focusNext, [
-    actionItems.length,
-  ]);
-  useSubscribeActionOnMode(Actions.FocusPrevBlock, Mode.Normal, focusPrev, [
-    actionItems.length,
-  ]);
-  useSubscribeActionOnMode(Actions.FocusLastBlock, Mode.Normal, focusLast, [
-    actionItems.length,
-  ]);
-  useSubscribeActionOnMode(Actions.FocusFirstBlock, Mode.Normal, focusFirst, [
-    actionItems.length,
-  ]);
+  useSubscribeAction(Actions.Open, openLinks, activeItemDeps);
+  useSubscribeAction(Actions.CreateTask, initiateActionItem, activeItemDeps);
+  useSubscribeAction(Actions.Insert, goToEditMode, activeItemDeps);
+  useSubscribeAction(Actions.GoToEditMode, goToEditMode, activeItemDeps);
+  useSubscribeAction(Actions.DeleteTask, deleteActionItem, activeItemDeps);
+  useSubscribeAction(Actions.MoveDown, moveDown, activeItemDeps);
+  useSubscribeAction(Actions.MoveUp, moveUp, activeItemDeps);
+  useSubscribeAction(Actions.MoveToFirstBlock, moveToFirst, activeItemDeps);
+  useSubscribeAction(Actions.MoveToLastBlock, moveToLast, activeItemDeps);
+  useSubscribeAction(Actions.Toggle, toggle, activeItemDeps);
+  useSubscribeAction(Actions.Focus, focus, activeItemDeps);
+  useSubscribeAction(Actions.GoToNormalMode, revert, activeItemDeps);
+  useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
+  useSubscribeAction(Actions.Undo, undo);
+
+  useSubscribeActionOnMode(
+    Actions.FocusNextBlock,
+    Mode.Normal,
+    focusNext,
+    itemLengthDeps,
+  );
+  useSubscribeActionOnMode(
+    Actions.FocusPrevBlock,
+    Mode.Normal,
+    focusPrev,
+    itemLengthDeps,
+  );
+  useSubscribeActionOnMode(
+    Actions.FocusLastBlock,
+    Mode.Normal,
+    focusLast,
+    itemLengthDeps,
+  );
+  useSubscribeActionOnMode(
+    Actions.FocusFirstBlock,
+    Mode.Normal,
+    focusFirst,
+    itemLengthDeps,
+  );
 }

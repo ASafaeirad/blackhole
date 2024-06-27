@@ -18,6 +18,7 @@ export interface BaseActionItemDto {
   repeat: RepeatType;
   userId: string;
   experience?: number;
+  dueDate?: Timestamp;
 }
 
 export const toActionItemDto = (
