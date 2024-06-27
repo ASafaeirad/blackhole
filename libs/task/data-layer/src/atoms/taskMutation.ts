@@ -37,6 +37,13 @@ export const toggleFocusAtom = atom(null, async get => {
     });
 });
 
+export const setDueDateAtom = atom(null, async (get, set, date: Date) => {
+  const sdk = new ActionItemSdk();
+  const item = get(focusedIdAtom);
+
+  return sdk.update(item, { dueDate: date });
+});
+
 export const initiateActionItemAtom = atom(null, (get, set) => {
   const focusedId = get(focusedIdAtom);
   set(newActionItemStateAtom, { mode: 'draft' });

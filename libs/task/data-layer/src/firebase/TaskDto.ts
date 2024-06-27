@@ -36,5 +36,6 @@ export function toTask(id: string, data: TaskDto): Task {
     createdAt,
     nodes: parseNodes(data.name),
     experience: data.experience ?? 1,
+    dueDate: bind(data.dueDate, fromFirebaseTimestamp),
   };
 }

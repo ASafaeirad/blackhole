@@ -1,5 +1,6 @@
+import { debug } from '@blackhole/debug';
 import type { Nullable } from '@fullstacksjs/toolbox';
-import { assertNotNull } from '@fullstacksjs/toolbox';
+import { assertNotNull, isString } from '@fullstacksjs/toolbox';
 
 import type { Node } from './Node';
 import type { Routine } from './Routine';
@@ -19,6 +20,7 @@ export interface BaseActionItem {
   repeat: RepeatType;
   experience: number;
   nodes: Node[];
+  dueDate: Nullable<Date>;
 }
 
 export type ActionItem = Routine | Task;
@@ -44,13 +46,25 @@ export function sortActionItems(items: ActionItem[], sortBy: SortBy) {
     const aValue = a[sortBy];
     const bValue = b[sortBy];
 
-    if (!weight) return aValue.localeCompare(bValue);
-    const aWeight = weight[aValue];
-    const bWeight = weight[bValue];
+    if (sortBy === 'dueDate') {
+      if (aValue instanceof Date && bValue instanceof Date) {
+        return aValue.getTime() - bValue.getTime();
+      }
 
-    assertNotNull(aWeight);
-    assertNotNull(bWeight);
+      return aValue instanceof Date ? -1 : 1;
+    }
 
-    return a.order * aWeight - b.order * bWeight;
+    if (isString(aValue) && isString(bValue)) {
+      if (!weight) return aValue.localeCompare(bValue);
+      const aWeight = weight[aValue];
+      const bWeight = weight[bValue];
+      assertNotNull(aWeight);
+      assertNotNull(bWeight);
+
+      return a.order * aWeight - b.order * bWeight;
+    }
+
+    debug.warn('Unknown sort type', sortBy, aValue, bValue);
+    return 0;
   });
 }

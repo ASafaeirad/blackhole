@@ -17,33 +17,35 @@ export default {
     open: true,
     selected: 0,
   },
-} as Meta<SelectProps>;
+} as Meta<SelectProps<string[]>>;
 
-type Story = StoryObj<SelectProps>;
+type Story = StoryObj<SelectProps<string[]>>;
+
+const Wrapper = (props: SelectProps<string[]>) => {
+  const ref = useRef<SelectRef>(null);
+  const [selected, setSelected] = useState('');
+
+  return (
+    <>
+      <div>
+        Selected: <span data-testid="selected">{selected}</span>
+      </div>
+      <Select
+        onKeyDown={e => {
+          if (e.key === 'j' && e.altKey) ref.current?.selectNext();
+          if (e.key === 'k' && e.altKey) ref.current?.selectPrev();
+        }}
+        onSelect={item => setSelected(item)}
+        {...props}
+        ref={ref}
+      />
+    </>
+  );
+};
 
 export const Default: Story = {};
 export const WithItems: Story = {
-  render: props => {
-    const ref = useRef<SelectRef>(null);
-    const [selected, setSelected] = useState('');
-
-    return (
-      <>
-        <div>
-          Selected: <span data-testid="selected">{selected}</span>
-        </div>
-        <Select
-          onKeyDown={e => {
-            if (e.key === 'j' && e.altKey) ref.current?.selectNext();
-            if (e.key === 'k' && e.altKey) ref.current?.selectPrev();
-          }}
-          onSelect={item => setSelected(item)}
-          ref={ref}
-          {...props}
-        />
-      </>
-    );
-  },
+  render: Wrapper,
   args: {
     items: ['Item 1', 'Item 2', 'Item 3'],
   },
@@ -89,27 +91,7 @@ export const WithItems: Story = {
 };
 
 export const WithOptionLabel: Story = {
-  render: props => {
-    const ref = useRef<SelectRef>(null);
-    const [selected, setSelected] = useState('');
-
-    return (
-      <>
-        <div>
-          Selected: <span data-testid="selected">{selected}</span>
-        </div>
-        <Select
-          onKeyDown={e => {
-            if (e.key === 'j' && e.altKey) ref.current?.selectNext();
-            if (e.key === 'k' && e.altKey) ref.current?.selectPrev();
-          }}
-          onSelect={item => setSelected(item)}
-          ref={ref}
-          {...props}
-        />
-      </>
-    );
-  },
+  render: Wrapper,
   args: {
     items: ['v-1', 'v-2', 'v-3'],
     getOptionLabel: (option: string) => option.replace('v-', 'Item '),

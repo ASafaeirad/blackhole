@@ -26,7 +26,12 @@ export class RoutineSdk extends ActionItemSdk {
       const streak = hasStreak(routine) ? routine.streak + 1 : 1;
       const maxStreak = Math.max(streak, routine.maxStreak);
 
-      transaction.update(item, { streak, maxStreak, lastCompletedDate });
+      transaction.update(item, {
+        streak,
+        maxStreak,
+        lastCompletedDate,
+        status: 'pending',
+      });
       const log: CreateLogDto = {
         routineId: routine.id,
         date: lastCompletedDate,
@@ -58,8 +63,14 @@ export class RoutineSdk extends ActionItemSdk {
             lastCompletedDate: prev.date,
             streak: prev.streak,
             maxStreak: prev.maxStreak,
+            status: 'pending',
           }
-        : { lastCompletedDate: deleteField(), streak: 0, maxStreak: 0 };
+        : {
+            lastCompletedDate: deleteField(),
+            streak: 0,
+            maxStreak: 0,
+            status: 'pending',
+          };
 
       transaction.update(item, body);
       transaction.update(userSdk.doc(), {

@@ -18,6 +18,7 @@ interface Props {
 const sortByLabelMap: Record<SortBy, string> = {
   name: 'Name',
   status: 'Status',
+  dueDate: 'Due Date',
 };
 
 export const SortByDialog = ({ onClose }: Props) => {
