@@ -13,12 +13,12 @@ export class TaskSdk extends ActionItemSdk {
     return runTransaction(firestore, async transaction => {
       if (item.status === 'done') {
         transaction.update(this.doc(item.id), { status: 'pending' });
-        transaction.update(userSdk.doc(), {
+        transaction.update(userSdk.currentUserDoc(), {
           experience: Math.min(user.experience - item.experience),
         });
       } else {
         transaction.update(this.doc(item.id), { status: 'done' });
-        transaction.update(userSdk.doc(), {
+        transaction.update(userSdk.currentUserDoc(), {
           experience: user.experience + item.experience,
         });
       }
