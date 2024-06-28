@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { actionItemsAtom } from './taskAtom';
+import { actionItemsAtom } from './actionItemAtom';
 
 export const doneActionItemsVisibilityAtom = atomWithStorage(
   'visibility',

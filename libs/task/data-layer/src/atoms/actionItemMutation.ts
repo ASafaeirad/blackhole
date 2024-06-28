@@ -1,23 +1,24 @@
+import { toFirebaseTimestamp } from '@blackhole/firebase';
 import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
 import { isEmpty } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import type { ActionItem } from '../models/ActionItem';
-import { doneActionItemsVisibilityAtom } from './filterAtom';
-import { fixIndexAtom } from './fixIndexAtom';
 import {
   actionItemsAtom,
   historyActionItemAtom,
   internalActionItemsAtom,
-} from './taskAtom';
+} from './actionItemAtom';
 import {
   editIdAtom,
   focusedActionItemAtom,
   focusedIdAtom,
   lastFocusedIdAtom,
   newActionItemStateAtom,
-} from './taskListAtom';
+} from './actionItemListAtom';
+import { doneActionItemsVisibilityAtom } from './filterAtom';
+import { fixIndexAtom } from './fixIndexAtom';
 
 export const toggleFocusAtom = atom(null, async get => {
   const focusedActionItem = get(focusedActionItemAtom);
@@ -37,11 +38,11 @@ export const toggleFocusAtom = atom(null, async get => {
     });
 });
 
-export const setDueDateAtom = atom(null, async (get, set, date: Date) => {
+export const setDueDateAtom = atom(null, async (get, _, date: Date) => {
   const sdk = new ActionItemSdk();
   const item = get(focusedIdAtom);
 
-  return sdk.update(item, { dueDate: date });
+  return sdk.update(item, { dueDate: toFirebaseTimestamp(date) });
 });
 
 export const initiateActionItemAtom = atom(null, (get, set) => {

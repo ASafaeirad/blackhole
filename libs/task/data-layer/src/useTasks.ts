@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 
+import { actionItemsAtom } from './atoms/actionItemAtom';
 import { hasHiddenItemAtom, visibleActionItemsAtom } from './atoms/filterAtom';
-import { actionItemsAtom } from './atoms/taskAtom';
 
 export const useActionItems = () => {
   const [actionItems] = useAtom(visibleActionItemsAtom);

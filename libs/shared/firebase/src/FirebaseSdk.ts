@@ -14,23 +14,23 @@ export class FirebaseSdk<T> {
     ) as CollectionReference<T>;
   }
 
-  protected get collection() {
+  public get collection() {
     return this._collection;
   }
 
-  protected doc(id: string) {
+  public doc(id: string) {
     return doc(this.collection, id);
   }
 
-  protected get(id: string) {
+  public get(id: string) {
     return doc(this.collection, id);
   }
 
-  protected delete(id: string) {
+  public delete(id: string) {
     return deleteDoc(this.doc(id));
   }
 
-  protected update(id: string, item: Partial<T>) {
+  public update(id: string, item: Partial<T>) {
     return updateDoc(this.doc(id), item);
   }
 }

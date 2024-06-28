@@ -2,8 +2,11 @@ import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
 import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
+import {
+  focusedActionItemAtom,
+  saveActionItemIndex,
+} from './actionItemListAtom';
 import { fixIndexAtom } from './fixIndexAtom';
-import { focusedActionItemAtom, saveActionItemIndex } from './taskListAtom';
 
 export const confirmDeleteActionItemIdAtom = atom<string | null>(null);
 
