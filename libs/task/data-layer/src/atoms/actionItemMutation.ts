@@ -1,10 +1,13 @@
 import { toFirebaseTimestamp } from '@blackhole/firebase';
 import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
-import { isEmpty } from '@fullstacksjs/toolbox';
+import { assertNotNull, isEmpty } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
+import { ViewSdk } from '../firebase/ViewSdk';
 import type { ActionItem } from '../models/ActionItem';
+import type { Filter } from '../models/Filter';
+import { hasRemaining } from '../models/Filter';
 import {
   actionItemsAtom,
   historyActionItemAtom,
@@ -17,8 +20,8 @@ import {
   lastFocusedIdAtom,
   newActionItemStateAtom,
 } from './actionItemListAtom';
-import { doneActionItemsVisibilityAtom } from './filterAtom';
 import { fixIndexAtom } from './fixIndexAtom';
+import { viewAtom } from './viewAtom';
 
 export const toggleFocusAtom = atom(null, async get => {
   const focusedActionItem = get(focusedActionItemAtom);
@@ -95,7 +98,17 @@ export const undoAtom = atom(
   },
 );
 
-export const toggleDoneVisibilityAtom = atom(null, (get, set) => {
-  set(doneActionItemsVisibilityAtom, v => !v);
+export const toggleDoneVisibilityAtom = atom(null, async (get, set) => {
+  const sdk = new ViewSdk();
+  const view = get(viewAtom);
+  assertNotNull(view, 'View not found');
+
+  const isVisible = hasRemaining(view.filters);
+  const newFilter: Filter[] = isVisible
+    ? view.filters.filter(f => f !== 'remaining')
+    : [...view.filters, 'remaining'];
+
+  await sdk.update(view.id, { filters: newFilter });
+  set(viewAtom, { ...view, filters: newFilter });
   set(fixIndexAtom);
 });

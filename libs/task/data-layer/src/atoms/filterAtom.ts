@@ -1,16 +1,8 @@
 import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 
+import { hasRemaining } from '../models/Filter';
 import { actionItemsAtom } from './actionItemAtom';
-
-export const doneActionItemsVisibilityAtom = atomWithStorage(
-  'visibility',
-  true,
-);
-
-export const remainingActionItemsAtom = atom(get =>
-  get(actionItemsAtom).filter(t => t.status !== 'done'),
-);
+import { viewAtom } from './viewAtom';
 
 export const filterAtom = atom('');
 export const filterModeAtom = atom(false);
@@ -18,9 +10,7 @@ export const filterModeAtom = atom(false);
 export const visibleActionItemsAtom = atom(get => {
   const filter = get(filterAtom);
 
-  const actionItems = get(doneActionItemsVisibilityAtom)
-    ? get(actionItemsAtom)
-    : get(remainingActionItemsAtom);
+  const actionItems = get(actionItemsAtom);
 
   if (!filter) return actionItems;
 
@@ -30,7 +20,6 @@ export const visibleActionItemsAtom = atom(get => {
 });
 
 export const hasHiddenItemAtom = atom(get => {
-  const actionItems = get(actionItemsAtom);
-  const visibleActionItems = get(visibleActionItemsAtom);
-  return actionItems.length !== visibleActionItems.length;
+  const view = get(viewAtom);
+  return hasRemaining(view?.filters);
 });

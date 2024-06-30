@@ -1,6 +1,7 @@
 import { getCurrentUserId } from '@blackhole/auth/data-layer';
 import { FirebaseSdk } from '@blackhole/firebase';
 import { assertNotNull } from '@fullstacksjs/toolbox';
+import type { QueryFieldFilterConstraint } from 'firebase/firestore';
 import {
   addDoc,
   onSnapshot,
@@ -10,6 +11,9 @@ import {
 } from 'firebase/firestore';
 
 import type { ActionItem } from '../models';
+import { isDone, isRoutine } from '../models';
+import type { Filter } from '../models/Filter';
+import { hasRemaining } from '../models/Filter';
 import type { ActionItemDto, CreateActionItemDto } from './ActionItemDto';
 import { toActionItem, toActionItemDto } from './ActionItemDto';
 
@@ -51,13 +55,18 @@ export class ActionItemSdk extends FirebaseSdk<ActionItemDto> {
     throw Error('Not Implemented');
   }
 
-  public subscribe(callback: (item: ActionItem[]) => void) {
-    const collectionRef = query(this.collection, where('status', '!=', 'done'));
+  public subscribe(callback: (item: ActionItem[]) => void, filters: Filter[]) {
+    const wheres: QueryFieldFilterConstraint[] = [];
+    if (hasRemaining(filters)) wheres.push(where('status', '!=', 'done'));
+
+    const collectionRef = query(this.collection, ...wheres);
     return onSnapshot(collectionRef, snapshot => {
       const items: ActionItem[] = [];
       snapshot.forEach(item => {
-        const data = item.data();
-        items.push(toActionItem(item.id, data));
+        const dto = item.data();
+        const data = toActionItem(item.id, dto);
+        if (isRoutine(data) && isDone(data)) return;
+        items.push(data);
       });
 
       callback(items);
