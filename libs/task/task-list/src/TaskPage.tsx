@@ -3,6 +3,7 @@ import {
   useActionItemListState,
   useActionItems,
   useSubscribeActionItems,
+  useSubscribeView,
 } from '@blackhole/task/data-layer';
 import { isEmpty } from '@fullstacksjs/toolbox';
 
@@ -25,6 +26,7 @@ export const TaskPage = () => {
   const { close: closeSortBy, isOpen: isSortByModalOpen } = useSortByModal();
   const { close: closeDueDate, isOpen: isDueDateOpen } = useDateModal();
 
+  useSubscribeView();
   useSubscribeTaskActions();
   useSubscribeActionItems();
 

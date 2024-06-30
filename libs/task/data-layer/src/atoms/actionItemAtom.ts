@@ -2,9 +2,10 @@ import { clone } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 import { atomWithDefault } from 'jotai/utils';
 
+import { defaultSortBy } from '../models';
 import type { ActionItem } from '../models/ActionItem';
 import { sortActionItems } from '../models/ActionItem';
-import { sortByAtom } from './sortByAtom';
+import { viewAtom } from './viewAtom';
 
 export type ActionItemAtomValue = ActionItem[];
 export const internalActionItemsAtom = atom<ActionItemAtomValue>([]);
@@ -21,7 +22,7 @@ export const saveHistoryAtom = atom(null, (get, set) => {
 export const actionItemsAtom = atom(
   get => {
     const items = get(internalActionItemsAtom);
-    const sortBy = get(sortByAtom) ?? 'status';
+    const sortBy = get(viewAtom)?.sortBy ?? defaultSortBy;
     return sortActionItems(items, sortBy);
   },
   (_, set, update: ActionItemAtomValue) => {

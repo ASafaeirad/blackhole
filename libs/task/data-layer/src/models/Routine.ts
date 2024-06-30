@@ -6,7 +6,7 @@ import {
   startOfYesterday,
 } from 'date-fns';
 
-import type { BaseActionItem } from './ActionItem';
+import type { ActionItem, BaseActionItem } from './ActionItem';
 
 export interface Routine extends BaseActionItem {
   type: 'routine';
@@ -18,6 +18,9 @@ export function hasStreak(routine: Routine) {
   if (!routine.lastCompletedDate) return false;
   return differenceInDays(Date.now(), routine.lastCompletedDate) < 2;
 }
+
+export const isRoutine = (item: ActionItem): item is Routine =>
+  item.type === 'routine';
 
 export const isDone = (routine: Pick<Routine, 'lastCompletedDate'>) =>
   bind(routine.lastCompletedDate, isToday);

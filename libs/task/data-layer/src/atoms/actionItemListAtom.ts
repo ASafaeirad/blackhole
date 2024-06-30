@@ -4,8 +4,8 @@ import { atomWithStorage } from 'jotai/utils';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import type { ActionItem } from '../models';
+import { actionItemsAtom } from './actionItemAtom';
 import { visibleActionItemsAtom } from './filterAtom';
-import { actionItemsAtom } from './taskAtom';
 
 export const focusedIdAtom = atomWithStorage('focusedActionItem', '');
 

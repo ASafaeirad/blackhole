@@ -3,9 +3,9 @@ import { atom } from 'jotai';
 import type { CreateActionItemDto } from '../firebase/ActionItemDto';
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import { getRepeat } from '../models/ActionItem';
-import { actionItemsAtom } from './taskAtom';
-import { focusedIdAtom, newActionItemStateAtom } from './taskListAtom';
-import { closeAtom } from './taskMutation';
+import { actionItemsAtom } from './actionItemAtom';
+import { focusedIdAtom, newActionItemStateAtom } from './actionItemListAtom';
+import { closeAtom } from './actionItemMutation';
 
 export const createActionItemAtom = atom(
   null,

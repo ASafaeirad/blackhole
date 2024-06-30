@@ -1,5 +1,4 @@
-import type { Timestamp } from 'firebase/firestore';
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, Timestamp } from 'firebase/firestore';
 
 export const firebaseTimestamp = () => serverTimestamp() as Timestamp;
 
@@ -9,4 +8,8 @@ export const fromFirebaseTimestamp = (timestamp: Timestamp | null) => {
   }
 
   return new Date(timestamp.seconds * 1000);
+};
+
+export const toFirebaseTimestamp = (date: Date) => {
+  return Timestamp.fromDate(date);
 };

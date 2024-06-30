@@ -1,3 +1,8 @@
 export { firebaseApp } from './firebase';
 export { firestore } from './firebase';
-export { firebaseTimestamp, fromFirebaseTimestamp } from './firebaseTimestamp';
+export { FirebaseSdk } from './FirebaseSdk';
+export {
+  firebaseTimestamp,
+  fromFirebaseTimestamp,
+  toFirebaseTimestamp,
+} from './firebaseTimestamp';

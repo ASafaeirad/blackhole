@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 
+import { actionItemsAtom } from './actionItemAtom';
+import { focusedIdAtom, lastFocusedIndexAtom } from './actionItemListAtom';
 import { visibleActionItemsAtom } from './filterAtom';
-import { actionItemsAtom } from './taskAtom';
-import { focusedIdAtom, lastFocusedIndexAtom } from './taskListAtom';
 
 export const fixIndexAtom = atom(null, (get, set) => {
   const focusedId = get(focusedIdAtom);

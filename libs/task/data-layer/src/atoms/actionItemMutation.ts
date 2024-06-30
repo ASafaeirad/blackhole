@@ -1,23 +1,27 @@
+import { toFirebaseTimestamp } from '@blackhole/firebase';
 import { Mode, setModeAtom } from '@blackhole/keybinding-manager';
-import { isEmpty } from '@fullstacksjs/toolbox';
+import { assertNotNull, isEmpty } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
+import { ViewSdk } from '../firebase/ViewSdk';
 import type { ActionItem } from '../models/ActionItem';
-import { doneActionItemsVisibilityAtom } from './filterAtom';
-import { fixIndexAtom } from './fixIndexAtom';
+import type { Filter } from '../models/Filter';
+import { hasRemaining } from '../models/Filter';
 import {
   actionItemsAtom,
   historyActionItemAtom,
   internalActionItemsAtom,
-} from './taskAtom';
+} from './actionItemAtom';
 import {
   editIdAtom,
   focusedActionItemAtom,
   focusedIdAtom,
   lastFocusedIdAtom,
   newActionItemStateAtom,
-} from './taskListAtom';
+} from './actionItemListAtom';
+import { fixIndexAtom } from './fixIndexAtom';
+import { viewAtom } from './viewAtom';
 
 export const toggleFocusAtom = atom(null, async get => {
   const focusedActionItem = get(focusedActionItemAtom);
@@ -37,11 +41,11 @@ export const toggleFocusAtom = atom(null, async get => {
     });
 });
 
-export const setDueDateAtom = atom(null, async (get, set, date: Date) => {
+export const setDueDateAtom = atom(null, async (get, _, date: Date) => {
   const sdk = new ActionItemSdk();
   const item = get(focusedIdAtom);
 
-  return sdk.update(item, { dueDate: date });
+  return sdk.update(item, { dueDate: toFirebaseTimestamp(date) });
 });
 
 export const initiateActionItemAtom = atom(null, (get, set) => {
@@ -94,7 +98,17 @@ export const undoAtom = atom(
   },
 );
 
-export const toggleDoneVisibilityAtom = atom(null, (get, set) => {
-  set(doneActionItemsVisibilityAtom, v => !v);
+export const toggleDoneVisibilityAtom = atom(null, async (get, set) => {
+  const sdk = new ViewSdk();
+  const view = get(viewAtom);
+  assertNotNull(view, 'View not found');
+
+  const isVisible = hasRemaining(view.filters);
+  const newFilter: Filter[] = isVisible
+    ? view.filters.filter(f => f !== 'remaining')
+    : [...view.filters, 'remaining'];
+
+  await sdk.update(view.id, { filters: newFilter });
+  set(viewAtom, { ...view, filters: newFilter });
   set(fixIndexAtom);
 });

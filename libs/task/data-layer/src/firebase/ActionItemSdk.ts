@@ -1,45 +1,40 @@
 import { getCurrentUserId } from '@blackhole/auth/data-layer';
-import { firestore } from '@blackhole/firebase';
-import type { CollectionReference } from 'firebase/firestore';
+import { FirebaseSdk } from '@blackhole/firebase';
+import { assertNotNull } from '@fullstacksjs/toolbox';
+import type { QueryFieldFilterConstraint } from 'firebase/firestore';
 import {
   addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 
 import type { ActionItem } from '../models';
+import { isDone, isRoutine } from '../models';
+import type { Filter } from '../models/Filter';
+import { hasRemaining } from '../models/Filter';
 import type { ActionItemDto, CreateActionItemDto } from './ActionItemDto';
 import { toActionItem, toActionItemDto } from './ActionItemDto';
 
-export class ActionItemSdk {
-  private _collection: CollectionReference<ActionItemDto>;
-
+export class ActionItemSdk extends FirebaseSdk<ActionItemDto> {
   constructor() {
     const userId = getCurrentUserId();
-    if (!userId) throw new Error('User not authenticated');
+    assertNotNull(userId, 'User not authenticated');
 
-    this._collection = collection(
-      firestore,
-      'users',
-      userId,
-      'tasks',
-    ) as CollectionReference<ActionItemDto>;
+    super('users', userId, 'tasks');
   }
 
-  get collection() {
-    return this._collection;
-  }
-
-  changeOrder(item: ActionItem, order: number) {
+  public changeOrder(item: ActionItem, order: number) {
     const itemRef = this.doc(item.id);
     return updateDoc(itemRef, { order });
   }
 
-  swap(a: ActionItem, b: ActionItem, onConflict: (aId: number) => number) {
+  public swap(
+    a: ActionItem,
+    b: ActionItem,
+    onConflict: (aId: number) => number,
+  ) {
     const aDoc = this.doc(a.id);
     const bDoc = this.doc(b.id);
 
@@ -52,38 +47,26 @@ export class ActionItemSdk {
     ]);
   }
 
-  add(item: CreateActionItemDto) {
+  public add(item: CreateActionItemDto) {
     return addDoc(this.collection, toActionItemDto(item));
   }
 
-  doc(id: string) {
-    return doc(this.collection, id);
-  }
-
-  async get(id: string) {
-    const item = await getDoc(this.doc(id));
-    return item.data();
-  }
-
-  toggle(_item: ActionItem): Promise<void> {
+  public toggle(_item: ActionItem): Promise<void> {
     throw Error('Not Implemented');
   }
 
-  delete(id: string) {
-    return deleteDoc(this.doc(id));
-  }
+  public subscribe(callback: (item: ActionItem[]) => void, filters: Filter[]) {
+    const wheres: QueryFieldFilterConstraint[] = [];
+    if (hasRemaining(filters)) wheres.push(where('status', '!=', 'done'));
 
-  update(id: string, item: Partial<ActionItem>) {
-    return updateDoc(this.doc(id), item);
-  }
-
-  subscribe(callback: (item: ActionItem[]) => void) {
-    const collectionRef = this.collection;
+    const collectionRef = query(this.collection, ...wheres);
     return onSnapshot(collectionRef, snapshot => {
       const items: ActionItem[] = [];
       snapshot.forEach(item => {
-        const data = item.data();
-        items.push(toActionItem(item.id, data));
+        const dto = item.data();
+        const data = toActionItem(item.id, dto);
+        if (isRoutine(data) && isDone(data)) return;
+        items.push(data);
       });
 
       callback(items);

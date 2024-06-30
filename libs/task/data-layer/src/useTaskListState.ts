@@ -1,10 +1,6 @@
 import { useAtom, useSetAtom } from 'jotai';
 
 import {
-  confirmDeleteActionItemIdAtom,
-  isDeletingAtom,
-} from './atoms/deleteActionItemAtom';
-import {
   editedActionItemAtom,
   focusedActionItemAtom,
   focusedIdAtom,
@@ -14,7 +10,11 @@ import {
   focusNextAtom,
   focusPrevAtom,
   newActionItemStateAtom,
-} from './atoms/taskListAtom';
+} from './atoms/actionItemListAtom';
+import {
+  confirmDeleteActionItemIdAtom,
+  isDeletingAtom,
+} from './atoms/deleteActionItemAtom';
 
 export const useActionItemListState = () => {
   const [newActionItemState] = useAtom(newActionItemStateAtom);

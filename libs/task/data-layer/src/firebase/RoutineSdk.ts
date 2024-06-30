@@ -39,7 +39,7 @@ export class RoutineSdk extends ActionItemSdk {
         streak,
       };
 
-      transaction.update(userSdk.doc(), {
+      transaction.update(userSdk.currentUserDoc(), {
         experience: user.experience + routine.experience,
       });
 
@@ -73,10 +73,10 @@ export class RoutineSdk extends ActionItemSdk {
           };
 
       transaction.update(item, body);
-      transaction.update(userSdk.doc(), {
+      transaction.update(userSdk.currentUserDoc(), {
         experience: Math.min(user.experience - routine.experience, 0),
       });
-      transaction.delete(logSdk.get(current.id));
+      transaction.delete(logSdk.doc(current.id));
       return Promise.resolve();
     });
   }

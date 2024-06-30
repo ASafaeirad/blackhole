@@ -51,21 +51,21 @@ export class Debug {
     return this.isInLogLevel(level) && this.isInScope(scope);
   }
 
-  trace(scope: DebugScope, ...data: unknown[]) {
+  trace = (scope: DebugScope, ...data: unknown[]) => {
     if (this.shouldLog(scope, 'trace'))
       this.logger.log(`%c${scope}`, this.style, ...data);
-  }
+  };
 
-  log(scope: DebugScope, ...data: unknown[]) {
+  log = (scope: DebugScope, ...data: unknown[]) => {
     if (this.shouldLog(scope, 'info'))
       this.logger.log(`%c${scope}`, this.style, ...data);
-  }
+  };
 
-  warn(...data: unknown[]) {
+  warn = (...data: unknown[]) => {
     if (this.isInLogLevel('warn')) this.logger.warn(...data);
-  }
+  };
 
-  error(...data: unknown[]) {
+  error = (...data: unknown[]) => {
     if (this.isInLogLevel('error')) this.logger.error(...data);
-  }
+  };
 }

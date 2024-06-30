@@ -4,7 +4,7 @@ import { assertNotNull, isString } from '@fullstacksjs/toolbox';
 
 import type { Node } from './Node';
 import type { Routine } from './Routine';
-import type { SortBy } from './Sort';
+import type { SortBy } from './SortBy';
 import type { Task } from './Task';
 
 export type ActionItemStatus = 'done' | 'focus' | 'pending';

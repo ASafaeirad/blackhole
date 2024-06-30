@@ -1,18 +1,11 @@
 import { useSetAtom } from 'jotai';
 
-import { createActionItemAtom } from './atoms/createActionItemAtom';
-import {
-  deleteActionItemAtom,
-  discardDeletingAtom,
-} from './atoms/deleteActionItemAtom';
-import { filterAtom, filterModeAtom } from './atoms/filterAtom';
-import { openLinksAtom } from './atoms/openLinksAtom';
 import {
   moveDownAtom,
   moveToFirstAtom,
   moveToLastAtom,
   moveUpAtom,
-} from './atoms/taskListAtom';
+} from './atoms/actionItemListAtom';
 import {
   closeAtom,
   editActionItemAtom,
@@ -23,7 +16,14 @@ import {
   toggleDoneVisibilityAtom,
   toggleFocusAtom,
   undoAtom,
-} from './atoms/taskMutation';
+} from './atoms/actionItemMutation';
+import { createActionItemAtom } from './atoms/createActionItemAtom';
+import {
+  deleteActionItemAtom,
+  discardDeletingAtom,
+} from './atoms/deleteActionItemAtom';
+import { filterAtom, filterModeAtom } from './atoms/filterAtom';
+import { openLinksAtom } from './atoms/openLinksAtom';
 import { toggleDoneAtom } from './atoms/toggleDoneAtom';
 
 export const useActionItemDispatch = () => {

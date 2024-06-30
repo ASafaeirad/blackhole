@@ -3,8 +3,8 @@ import { atom, useAtom, useSetAtom } from 'jotai';
 import { atomWithDefault } from 'jotai/utils';
 import { useMemo } from 'react';
 
-import { actionItemsAtom } from './atoms/taskAtom';
-import { focusedActionItemAtom } from './atoms/taskListAtom';
+import { actionItemsAtom } from './atoms/actionItemAtom';
+import { focusedActionItemAtom } from './atoms/actionItemListAtom';
 import { separator } from './config/config';
 import { ActionItemSdk } from './firebase/ActionItemSdk';
 
