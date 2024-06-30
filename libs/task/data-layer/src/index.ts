@@ -13,8 +13,8 @@ export type {
 } from './models';
 export { allSortBy } from './models';
 export { useProjects, useSetProjects } from './useProjects';
-export { useSetSortBy, useSortBy } from './useSortBy';
 export { useSubscribeActionItems } from './useSubscribeTasks';
+export { useSubscribeView } from './useSubscribeViews';
 export { useActionItemDispatch } from './useTaskDispatch';
 export { useActionItemListState, useActiveIndex } from './useTaskListState';
 export {
@@ -22,3 +22,4 @@ export {
   useAllActionItems,
   useHasHiddenItems,
 } from './useTasks';
+export { useSetSortBy, useView } from './useView';

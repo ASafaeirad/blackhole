@@ -76,7 +76,7 @@ export class RoutineSdk extends ActionItemSdk {
       transaction.update(userSdk.currentUserDoc(), {
         experience: Math.min(user.experience - routine.experience, 0),
       });
-      transaction.delete(logSdk.get(current.id));
+      transaction.delete(logSdk.doc(current.id));
       return Promise.resolve();
     });
   }

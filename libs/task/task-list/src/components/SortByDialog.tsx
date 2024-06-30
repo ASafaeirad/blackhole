@@ -1,4 +1,5 @@
 import { Actions } from '@blackhole/actions';
+import { debug } from '@blackhole/debug';
 import type { SelectRef } from '@blackhole/design';
 import { Select } from '@blackhole/design';
 import {
@@ -44,7 +45,7 @@ export const SortByDialog = ({ onClose }: Props) => {
     (name: string): void => {
       const sortBy = allSortBy.includes(name) ? (name as SortBy) : null;
 
-      setSortBy(sortBy);
+      setSortBy(sortBy)?.catch(debug.error);
       setMode(Mode.Normal);
       onClose?.();
     },

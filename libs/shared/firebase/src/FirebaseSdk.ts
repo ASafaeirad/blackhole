@@ -1,5 +1,12 @@
 import type { CollectionReference } from 'firebase/firestore';
-import { collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 import { firestore } from './firebase';
 
@@ -23,11 +30,15 @@ export class FirebaseSdk<T> {
   }
 
   public get(id: string) {
-    return doc(this.collection, id);
+    return getDoc(this.doc(id));
   }
 
   public delete(id: string) {
     return deleteDoc(this.doc(id));
+  }
+
+  public set(id: string, item: T) {
+    return setDoc(this.doc(id), item);
   }
 
   public update(id: string, item: Partial<T>) {

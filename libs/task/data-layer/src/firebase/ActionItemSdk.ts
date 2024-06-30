@@ -1,7 +1,13 @@
 import { getCurrentUserId } from '@blackhole/auth/data-layer';
 import { FirebaseSdk } from '@blackhole/firebase';
 import { assertNotNull } from '@fullstacksjs/toolbox';
-import { addDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 
 import type { ActionItem } from '../models';
 import type { ActionItemDto, CreateActionItemDto } from './ActionItemDto';
@@ -46,7 +52,7 @@ export class ActionItemSdk extends FirebaseSdk<ActionItemDto> {
   }
 
   public subscribe(callback: (item: ActionItem[]) => void) {
-    const collectionRef = this.collection;
+    const collectionRef = query(this.collection, where('status', '!=', 'done'));
     return onSnapshot(collectionRef, snapshot => {
       const items: ActionItem[] = [];
       snapshot.forEach(item => {
