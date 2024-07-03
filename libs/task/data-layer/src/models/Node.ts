@@ -58,6 +58,7 @@ function parseTokens(lexer: Lexer, nodes: Node[] = []): Node[] {
 
   const type = token?.type;
   if (!type) return nodes;
+
   if (type === 'WS') return parseTokens(lexer, nodes);
   // @ts-expect-error - it's a runtime check
   const factory = tokenFactory[type];
@@ -74,9 +75,14 @@ const lexer = Moo.compile({
   text: { match: /[^@[#\]+]+/, lineBreaks: true },
 } satisfies Record<Exclude<Node['type'] | 'WS', 'group'>, RegExp | Rule>);
 
-function parseUrlsInText(input: string): Node[] {
+function parseGroup(input: string): Node[] {
   lexer.reset(input);
-  return parseTokens(lexer);
+
+  try {
+    return parseTokens(lexer);
+  } catch (e) {
+    return [{ type: 'text', label: input }];
+  }
 }
 
 export const parseNodes = (text: string): Node[] => {
@@ -86,6 +92,6 @@ export const parseNodes = (text: string): Node[] => {
 
     if (!isTitle) return { type: 'group', label: group.trim() };
 
-    return parseUrlsInText(group);
+    return parseGroup(group);
   });
 };
