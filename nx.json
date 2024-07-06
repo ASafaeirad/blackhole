@@ -1,24 +1,13 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "test": {
-      "cache": true
-    },
-    "lint": {
-      "options": {
-        "max-warnings": 0
-      }
-    },
-    "e2e": {
-      "inputs": ["default", "^production"],
-      "cache": true
-    },
+    "test": { "cache": true },
+    "lint": { "options": { "max-warnings": 0 } },
+    "e2e": { "inputs": ["default", "^production"], "cache": true },
     "spell": {
       "cache": true,
       "executor": "nx:run-commands",
-      "options": {
-        "command": "cspell {projectRoot}"
-      },
+      "options": { "command": "cspell {projectRoot}" },
       "inputs": [
         "default",
         "{workspaceRoot}/.cspell.json",
@@ -64,12 +53,9 @@
     "sharedGlobals": []
   },
   "plugins": [
-    {
-      "plugin": "@nx/vite/plugin"
-    },
-    {
-      "plugin": "@nx/eslint/plugin"
-    }
+    { "plugin": "@nx/vite/plugin" },
+    { "plugin": "@nx/eslint/plugin" }
   ],
-  "defaultProject": "web"
+  "defaultProject": "web",
+  "nxCloudAccessToken": "ZTM5ZTdhNmItMDMzOS00ODk1LTliMGUtZjQ3NmJiZmE2OWI0fHJlYWQtd3JpdGU="
 }
