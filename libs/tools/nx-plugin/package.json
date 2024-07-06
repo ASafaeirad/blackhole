@@ -2,7 +2,6 @@
   "name": "@blackhole/nx",
   "version": "0.0.1",
   "dependencies": {
-    "@nx/devkit": "19.1.2",
     "@swc/helpers": "0.5.11"
   },
   "type": "commonjs",

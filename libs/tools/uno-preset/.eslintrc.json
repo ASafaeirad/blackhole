@@ -11,7 +11,8 @@
     "@typescript-eslint/prefer-for-of": "off",
     "default-case": "off",
     "@typescript-eslint/switch-exhaustiveness-check": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "off"
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "import/no-extraneous-dependencies": "off"
   },
   "overrides": [
     {

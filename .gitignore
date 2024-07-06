@@ -36,5 +36,7 @@ Thumbs.db
 .env.local
 
 .nx/cache
+.nx/workspace-data
 migrations.json
 migration.js
+nx-cloud.env

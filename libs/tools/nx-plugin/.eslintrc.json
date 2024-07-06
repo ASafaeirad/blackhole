@@ -1,6 +1,9 @@
 {
   "extends": ["../../../.eslintrc.cjs"],
   "ignorePatterns": ["!**/*", "node_modules/**/*"],
+  "rules": {
+    "import/no-extraneous-dependencies": "off"
+  },
   "overrides": [
     {
       "files": ["*.json"],

@@ -2,3 +2,4 @@
 **/dist
 *.sql
 /.nx/cache
+/.nx/workspace-data
