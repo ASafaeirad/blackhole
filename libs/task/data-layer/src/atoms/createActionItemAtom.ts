@@ -2,7 +2,7 @@ import { atom } from 'jotai';
 
 import type { CreateActionItemDto } from '../firebase/ActionItemDto';
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
-import { getRepeat } from '../models/ActionItem';
+import { getRepeat } from '../models';
 import { actionItemsAtom } from './actionItemAtom';
 import { focusedIdAtom, newActionItemStateAtom } from './actionItemListAtom';
 import { closeAtom } from './actionItemMutation';

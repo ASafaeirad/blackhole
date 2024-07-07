@@ -20,6 +20,7 @@ const sortByLabelMap: Record<SortBy, string> = {
   name: 'Name',
   status: 'Status',
   dueDate: 'Due Date',
+  createdAt: 'Creation Date',
 };
 
 export const SortByDialog = ({ onClose }: Props) => {

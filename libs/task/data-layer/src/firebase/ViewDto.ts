@@ -1,8 +1,6 @@
 import type { Nullable } from '@fullstacksjs/toolbox';
 
-import type { SortBy } from '../models';
-import type { Filter } from '../models/Filter';
-import type { View } from '../models/View';
+import type { Filter, SortBy, View } from '../models';
 
 export interface ViewDto {
   id: string;

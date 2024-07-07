@@ -2,9 +2,8 @@ import { clone } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 import { atomWithDefault } from 'jotai/utils';
 
-import { defaultSortBy } from '../models';
-import type { ActionItem } from '../models/ActionItem';
-import { sortActionItems } from '../models/ActionItem';
+import type { ActionItem } from '../models';
+import { defaultSortBy, sortActionItems } from '../models';
 import { viewAtom } from './viewAtom';
 
 export type ActionItemAtomValue = ActionItem[];

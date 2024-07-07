@@ -10,10 +10,8 @@ import {
   where,
 } from 'firebase/firestore';
 
-import type { ActionItem } from '../models';
-import { isDone, isRoutine } from '../models';
-import type { Filter } from '../models/Filter';
-import { hasRemaining } from '../models/Filter';
+import type { ActionItem, Filter } from '../models';
+import { hasRemaining, isDone, isRoutine } from '../models';
 import type { ActionItemDto, CreateActionItemDto } from './ActionItemDto';
 import { toActionItem, toActionItemDto } from './ActionItemDto';
 

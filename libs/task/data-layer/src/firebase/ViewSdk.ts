@@ -3,8 +3,8 @@ import { FirebaseSdk } from '@blackhole/firebase';
 import { assertNotNull } from '@fullstacksjs/toolbox';
 import { onSnapshot, query, where } from 'firebase/firestore';
 
-import type { View } from '../models/View';
-import { defaultView } from '../models/View';
+import type { View } from '../models';
+import { defaultView } from '../models';
 import type { ViewDto } from './ViewDto';
 import { toView } from './ViewDto';
 

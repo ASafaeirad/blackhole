@@ -5,9 +5,8 @@ import { atom } from 'jotai';
 
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import { ViewSdk } from '../firebase/ViewSdk';
-import type { ActionItem } from '../models/ActionItem';
-import type { Filter } from '../models/Filter';
-import { hasRemaining } from '../models/Filter';
+import type { ActionItem, Filter } from '../models';
+import { hasRemaining } from '../models';
 import {
   actionItemsAtom,
   historyActionItemAtom,

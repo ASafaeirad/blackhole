@@ -1,4 +1,4 @@
-import type { ActionItem, ActionItemType } from '../models/ActionItem';
+import type { ActionItem, ActionItemType } from '../models';
 import type { ActionItemSdk } from './ActionItemSdk';
 import { RoutineSdk } from './RoutineSdk';
 import { TaskSdk } from './TaskSdk';

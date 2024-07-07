@@ -2,8 +2,7 @@ import type { Nullable } from '@fullstacksjs/toolbox';
 import { atom } from 'jotai';
 
 import { ViewSdk } from '../firebase/ViewSdk';
-import type { SortBy } from '../models';
-import type { View } from '../models/View';
+import type { SortBy, View } from '../models';
 
 export const viewAtom = atom<Nullable<View>>(undefined);
 

@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-import { hasRemaining } from '../models/Filter';
+import { hasRemaining } from '../models';
 import { actionItemsAtom } from './actionItemAtom';
 import { viewAtom } from './viewAtom';
 
