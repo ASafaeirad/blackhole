@@ -5,6 +5,7 @@ export * from './Dialog';
 export * from './Heading';
 export * from './Input';
 export * from './Key';
+export * from './List';
 export * from './Loading';
 export * from './Logo';
 export * from './NavLink';

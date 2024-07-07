@@ -1,4 +1,4 @@
-import { Transition } from '@blackhole/design';
+import { List, Transition } from '@blackhole/design';
 import {
   useActionItemDispatch,
   useActionItemListState,
@@ -21,13 +21,13 @@ export const TaskList = () => {
   const hasHiddenItems = useHasHiddenItems();
 
   return (
-    <div className="layout fc scrollbar flex-1 gap-6 overflow-x-auto">
+    <List className="layout">
       <AnimatePresence>
         {actionItems.map(item => (
           <Transition key={item.id}>
             <TaskComponent
               edit={item.id === editedActionItem?.id}
-              focus={item.id === activeActionItem?.id}
+              focused={item.id === activeActionItem?.id}
               actionItem={item}
               onSubmit={name => editActionItem({ ...item, name })}
             />
@@ -44,6 +44,6 @@ export const TaskList = () => {
       ) : null}
       {isDeleting ? <TaskDeleteConfirmDialog /> : null}
       {hasHiddenItems ? <HiddenTaskMessage /> : null}
-    </div>
+    </List>
   );
 };

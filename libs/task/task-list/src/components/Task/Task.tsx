@@ -1,6 +1,6 @@
 import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
-import { Input } from '@blackhole/design';
+import { Input, List } from '@blackhole/design';
 import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import type { ActionItem } from '@blackhole/task/data-layer';
 import type { MaybePromise } from '@fullstacksjs/toolbox';
@@ -14,14 +14,14 @@ import { TaskSign } from './TaskSign';
 import { TaskStreak } from './TaskStreak';
 
 interface Props {
-  focus: boolean;
+  focused: boolean;
   actionItem: ActionItem;
   edit?: boolean;
   onSubmit: (name: string) => MaybePromise<void>;
 }
 
 export const Task = ({
-  focus: isFocused,
+  focused: isFocused,
   actionItem,
   edit: isEdit,
   onSubmit,
@@ -59,13 +59,10 @@ export const Task = ({
   );
 
   return (
-    <div
+    <List.Item
       ref={containerRef}
-      className={cn('fr text-body gap-3 items-start', {
-        'color-primary': actionItem.status !== 'focus' && isFocused,
-        'color-muted': actionItem.status !== 'focus' && !isFocused,
-        'color-cta': actionItem.status === 'focus',
-      })}
+      selected={isFocused}
+      className={cn({ 'color-cta': actionItem.status === 'focus' })}
     >
       <TaskSign type={actionItem.type} />
       <TaskCheck status={actionItem.status} />
@@ -87,6 +84,6 @@ export const Task = ({
           value={name}
         />
       )}
-    </div>
+    </List.Item>
   );
 };

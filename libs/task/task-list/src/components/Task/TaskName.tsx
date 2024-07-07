@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-import { cn } from '@blackhole/cn';
 import { Tag } from '@blackhole/design';
 import type {
   GroupNode,
@@ -17,7 +16,7 @@ interface Props {
 
 const Group = ({ label }: GroupNode) => {
   return (
-    <span className={cn('self-start inline-flex gap-3 flex-shrink-0 op-80')}>
+    <span className="op-80 inline-flex flex-shrink-0 gap-3 self-start">
       <Tag>{label}</Tag>
       <span>&gt;</span>
     </span>
