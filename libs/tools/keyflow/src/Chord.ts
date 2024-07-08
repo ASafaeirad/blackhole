@@ -15,6 +15,15 @@ const codeMap: Partial<Record<KeyboardEventKey, KeyboardEventCode>> = {
 };
 // cspell:enable
 
+export interface CustomKeyboardEvent {
+  altKey: boolean;
+  ctrlKey: boolean;
+  code: string;
+  metaKey: boolean;
+  shiftKey: boolean;
+  preventDefault: () => void;
+}
+
 export class Chord {
   private ctrl: boolean;
   private shift: boolean;
@@ -22,7 +31,7 @@ export class Chord {
   private meta: boolean;
   private code: string;
 
-  static fromKeyboardEvent(event: KeyboardEvent) {
+  static fromKeyboardEvent(event: CustomKeyboardEvent) {
     return new Chord({
       alt: event.altKey,
       ctrl: event.ctrlKey,

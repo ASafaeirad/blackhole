@@ -1,15 +1,35 @@
 import { debug } from '@blackhole/debug';
 import { isEmpty } from '@fullstacksjs/toolbox';
 
+import type { CustomKeyboardEvent } from './Chord';
 import { Chord } from './Chord';
 import type { Keybinding } from './Keybinding';
 import { Mode } from './keyMapper';
 
-type Subscriber = (x: { mode: Mode }) => void;
+type Subscriber = (e: CustomKeyboardEvent, x: { mode: Mode }) => void;
 
 interface Action {
   mode: Mode;
   subscribers: Subscriber[];
+}
+
+class Context<TAction extends string> {
+  #actions = new Map<TAction, Action>();
+
+  constructor(
+    private keyflow: KeyFlow<TAction>,
+    actions: Record<TAction, Subscriber>,
+  ) {
+    // @ts-expect-error - TS doesn't understand that Object.keys
+    Object.keys(actions).forEach((action: TAction) => {
+      const { mode } = this.keyflow.actions.get(action)!;
+      this.#actions.set(action, { mode, subscribers: [actions[action]] });
+    });
+  }
+
+  public keyHandler = <T extends CustomKeyboardEvent>(event: T) => {
+    return this.keyflow.getKeyHandler(event, this.#actions);
+  };
 }
 
 export class KeyFlow<TAction extends string> {
@@ -19,6 +39,10 @@ export class KeyFlow<TAction extends string> {
 
   #mode: Mode = Mode.Normal;
   #modeSubscribers = new Set<(mode: Mode) => void>();
+
+  public get actions() {
+    return this.#actions;
+  }
 
   public get mode() {
     return this.#mode;
@@ -49,6 +73,10 @@ export class KeyFlow<TAction extends string> {
     });
   }
 
+  public createContext(actions: Record<TAction, Subscriber>) {
+    return new Context(this, actions);
+  }
+
   public subscribeOnModeChange(callback: (mode: Mode) => void) {
     this.#modeSubscribers.add(callback);
     return () => void this.#modeSubscribers.delete(callback);
@@ -66,46 +94,54 @@ export class KeyFlow<TAction extends string> {
     };
   }
 
+  public getKeyHandler(
+    event: CustomKeyboardEvent,
+    actions: Map<TAction, Action>,
+  ) {
+    const chord = Chord.fromKeyboardEvent(event).hash;
+    const actionDict =
+      this.#chords.get(`${this.#prevKey},${chord}`) ?? this.#chords.get(chord);
+
+    if (!actionDict) {
+      this.#prevKey = chord;
+      return;
+    }
+
+    const selectedActions = Object.keys(actionDict)
+      .filter(k => Number(k) & this.#mode)
+      .map(k => ({
+        mode: k,
+        action: actions.get(actionDict[k as unknown as number]!),
+      }));
+
+    debug.trace('KeybindingManager', {
+      mode: this.#mode,
+      chord,
+      actionDict,
+      actions: selectedActions,
+    });
+
+    if (isEmpty(selectedActions)) {
+      this.#prevKey = chord;
+      return;
+    }
+
+    this.#prevKey = '';
+
+    event.preventDefault();
+    selectedActions.forEach(subscriber =>
+      subscriber.action?.subscribers.forEach(s =>
+        s(event, { mode: this.#mode }),
+      ),
+    );
+  }
+
+  public keyHandler = (event: CustomKeyboardEvent) => {
+    return this.getKeyHandler(event, this.#actions);
+  };
+
   public register(document: Document) {
-    const handleEvent = (event: KeyboardEvent) => {
-      const chord = Chord.fromKeyboardEvent(event).hash;
-      const actionDict =
-        this.#chords.get(`${this.#prevKey},${chord}`) ??
-        this.#chords.get(chord);
-
-      if (!actionDict) {
-        this.#prevKey = chord;
-        return;
-      }
-
-      const actions = Object.keys(actionDict)
-        .filter(k => Number(k) & this.#mode)
-        .map(k => ({
-          mode: k,
-          action: this.#actions.get(actionDict[k as unknown as number]!),
-        }));
-
-      debug.trace('KeybindingManager', {
-        mode: this.#mode,
-        chord,
-        actionDict,
-        actions,
-      });
-
-      if (isEmpty(actions)) {
-        this.#prevKey = chord;
-        return;
-      }
-
-      this.#prevKey = '';
-      event.preventDefault();
-      actions.forEach(subscriber =>
-        subscriber.action?.subscribers.forEach(s => s({ mode: this.#mode })),
-      );
-    };
-
-    document.addEventListener('keydown', handleEvent);
-
-    return () => document.removeEventListener('keydown', handleEvent);
+    document.addEventListener('keydown', this.keyHandler);
+    return () => document.removeEventListener('keydown', this.keyHandler);
   }
 }
