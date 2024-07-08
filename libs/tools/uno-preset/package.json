@@ -8,6 +8,8 @@
     "vite-plugin-dts": "3.9.1",
     "@unocss/core": "0.61.2",
     "@unocss/extractor-arbitrary-variants": "0.61.2",
-    "@unocss/rule-utils": "0.61.2"
+    "@unocss/rule-utils": "0.61.2",
+    "@nx/vite": "19.4.0",
+    "vite": "5.3.3"
   }
 }

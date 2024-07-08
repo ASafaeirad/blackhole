@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       sourceTag: 'type:ui',
-      onlyDependOnLibsWithTags: ['type:ui', 'type:util'],
+      onlyDependOnLibsWithTags: ['type:ui', 'type:util', 'type:config'],
     },
     {
       sourceTag: 'type:config',
