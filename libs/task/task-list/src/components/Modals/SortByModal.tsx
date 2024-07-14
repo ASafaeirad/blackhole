@@ -1,20 +1,10 @@
-import { Actions } from '@blackhole/actions';
 import { debug } from '@blackhole/debug';
-import type { SelectRef } from '@blackhole/design';
 import { Select } from '@blackhole/design';
-import {
-  Mode,
-  useSetMode,
-  useSubscribeAction,
-  useSubscribeActionOnMode,
-} from '@blackhole/keybinding-manager';
 import type { SortBy } from '@blackhole/task/data-layer';
 import { allSortBy, useSetSortBy } from '@blackhole/task/data-layer';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 
-interface Props {
-  onClose?: () => void;
-}
+import type { ModalProps } from './useTaskModalState';
 
 const sortByLabelMap: Record<SortBy, string> = {
   name: 'Name',
@@ -23,42 +13,26 @@ const sortByLabelMap: Record<SortBy, string> = {
   createdAt: 'Creation Date',
 };
 
-export const SortByDialog = ({ onClose }: Props) => {
-  const selectRef = useRef<SelectRef>(null);
-  const setMode = useSetMode();
+export const SortByModal = ({ onClose, open }: ModalProps) => {
   const setSortBy = useSetSortBy();
   const items = useMemo(() => ['None', ...allSortBy] as const, []);
-
-  useSubscribeAction(Actions.CloseModal, () => {
-    onClose?.();
-    setMode(Mode.Normal);
-  });
-
-  useSubscribeActionOnMode(Actions.FocusNextBlockInsert, Mode.Insert, () => {
-    selectRef.current?.selectNext();
-  });
-
-  useSubscribeActionOnMode(Actions.FocusPrevBlockInsert, Mode.Insert, () => {
-    selectRef.current?.selectPrev();
-  });
 
   const onSelect = useCallback(
     (name: string): void => {
       const sortBy = allSortBy.includes(name) ? (name as SortBy) : null;
 
       setSortBy(sortBy)?.catch(debug.error);
-      setMode(Mode.Normal);
       onClose?.();
     },
-    [onClose, setMode, setSortBy],
+    [onClose, setSortBy],
   );
 
   return (
     <Select
-      forceMount
+      open={open}
+      onClose={onClose}
       emptyState="No Field"
       items={items}
-      ref={selectRef}
       onSelect={onSelect}
       getOptionLabel={v => {
         // @ts-expect-error - map lookup can be undefined

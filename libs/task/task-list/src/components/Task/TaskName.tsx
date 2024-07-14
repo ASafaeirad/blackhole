@@ -28,7 +28,11 @@ const Text = ({ label }: TextNode) => {
 };
 
 const Link = ({ label, href }: LinkNode) => {
-  return <a href={href}>{label}</a>;
+  return (
+    <a tabIndex={-1} href={href}>
+      {label}
+    </a>
+  );
 };
 
 const Repeat = ({ label }: RepeatNode) => {

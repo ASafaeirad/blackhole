@@ -4,7 +4,10 @@ import type { CreateActionItemDto } from '../firebase/ActionItemDto';
 import { ActionItemSdk } from '../firebase/ActionItemSdk';
 import { getRepeat } from '../models';
 import { actionItemsAtom } from './actionItemAtom';
-import { focusedIdAtom, newActionItemStateAtom } from './actionItemListAtom';
+import {
+  newActionItemStateAtom,
+  selectedActionItemIdAtom,
+} from './actionItemListAtom';
 import { closeAtom } from './actionItemMutation';
 
 export const createActionItemAtom = atom(
@@ -36,7 +39,7 @@ export const createActionItemAtom = atom(
     const sdk = new ActionItemSdk();
     const newActionItem = await sdk.add(actionItem);
 
-    set(focusedIdAtom, newActionItem.id);
+    set(selectedActionItemIdAtom, newActionItem.id);
     set(closeAtom);
   },
 );

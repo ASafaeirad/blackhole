@@ -7,8 +7,6 @@ import {
 import { Help } from '@blackhole/shortcut/help';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 
-import { Layout } from '../Layout';
-
 export const Route = createRootRoute({
   component: Root,
 });
@@ -19,10 +17,8 @@ function Root() {
 
   return (
     <KeybindingProvider>
-      <Layout>
-        <Help />
-        <Outlet />
-      </Layout>
+      <Help />
+      <Outlet />
     </KeybindingProvider>
   );
 }

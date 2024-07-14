@@ -1,5 +1,5 @@
 import { debug } from '@blackhole/debug';
-import { isEmpty } from '@fullstacksjs/toolbox';
+import { isEmpty, isNullOrEmptyArray } from '@fullstacksjs/toolbox';
 
 import type { CustomKeyboardEvent } from './Chord';
 import { Chord } from './Chord';
@@ -29,6 +29,13 @@ class Context<TAction extends string> {
 
   public keyHandler = <T extends CustomKeyboardEvent>(event: T) => {
     return this.keyflow.getKeyHandler(event, this.#actions);
+  };
+
+  public register = (document: Document | HTMLElement) => {
+    // @ts-expect-error - keyHandler should work for both Document and HTMLElement
+    document.addEventListener('keydown', this.keyHandler);
+    // @ts-expect-error - keyHandler should work for both Document and HTMLElement
+    return () => document.removeEventListener('keydown', this.keyHandler);
   };
 }
 
@@ -112,7 +119,8 @@ export class KeyFlow<TAction extends string> {
       .map(k => ({
         mode: k,
         action: actions.get(actionDict[k as unknown as number]!),
-      }));
+      }))
+      .filter(a => !isNullOrEmptyArray(a.action?.subscribers));
 
     debug.trace('KeybindingManager', {
       mode: this.#mode,
@@ -128,20 +136,24 @@ export class KeyFlow<TAction extends string> {
 
     this.#prevKey = '';
 
-    event.preventDefault();
-    selectedActions.forEach(subscriber =>
+    selectedActions.forEach(subscriber => {
+      if (isNullOrEmptyArray(subscriber.action?.subscribers)) return;
+
+      event.preventDefault();
       subscriber.action?.subscribers.forEach(s =>
         s(event, { mode: this.#mode }),
-      ),
-    );
+      );
+    });
   }
 
   public keyHandler = (event: CustomKeyboardEvent) => {
     return this.getKeyHandler(event, this.#actions);
   };
 
-  public register(document: Document) {
+  public register(document: Document | HTMLElement) {
+    // @ts-expect-error - keyHandler should work for both Document and HTMLElement
     document.addEventListener('keydown', this.keyHandler);
+    // @ts-expect-error - keyHandler should work for both Document and HTMLElement
     return () => document.removeEventListener('keydown', this.keyHandler);
   }
 }

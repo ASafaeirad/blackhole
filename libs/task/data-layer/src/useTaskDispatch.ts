@@ -5,6 +5,7 @@ import {
   moveToFirstAtom,
   moveToLastAtom,
   moveUpAtom,
+  selectedActionItemIdAtom,
 } from './atoms/actionItemListAtom';
 import {
   closeAtom,
@@ -21,6 +22,7 @@ import { createActionItemAtom } from './atoms/createActionItemAtom';
 import {
   deleteActionItemAtom,
   discardDeletingAtom,
+  showDeleteActionItemDialogAtom,
 } from './atoms/deleteActionItemAtom';
 import { filterAtom, filterModeAtom } from './atoms/filterAtom';
 import { openLinksAtom } from './atoms/openLinksAtom';
@@ -36,6 +38,7 @@ export const useActionItemDispatch = () => {
   const createActionItem = useSetAtom(createActionItemAtom);
   const close = useSetAtom(closeAtom);
   const deleteActionItem = useSetAtom(deleteActionItemAtom);
+  const showDeleteActionItemDialog = useSetAtom(showDeleteActionItemDialogAtom);
   const revert = useSetAtom(revertAtom);
   const focus = useSetAtom(toggleFocusAtom);
   const toggle = useSetAtom(toggleDoneAtom);
@@ -47,6 +50,7 @@ export const useActionItemDispatch = () => {
   const setFilterMode = useSetAtom(filterModeAtom);
   const discardDeleting = useSetAtom(discardDeletingAtom);
   const setDueDate = useSetAtom(setDueDateAtom);
+  const selectedActionItem = useSetAtom(selectedActionItemIdAtom);
 
   return {
     toggleDoneVisibility,
@@ -69,5 +73,7 @@ export const useActionItemDispatch = () => {
     setFilterMode,
     discardDeleting,
     setDueDate,
+    showDeleteActionItemDialog,
+    selectedActionItem,
   } as const;
 };

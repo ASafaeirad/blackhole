@@ -1,9 +1,11 @@
+import { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
+import { useKeyFlowContext } from '@blackhole/keybinding-manager';
 import { clamp, isEmpty } from '@fullstacksjs/toolbox';
-import { useCallback, useEffect, useImperativeHandle, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Dialog } from '../Dialog';
 import { Input } from '../Input';
+import { Modal } from '../Modal';
 
 export interface SelectRef {
   selectNext: () => void;
@@ -17,10 +19,9 @@ export interface SelectProps<T extends unknown[] | readonly unknown[]> {
   emptyState: React.ReactNode;
   title: React.ReactNode;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+  onClose?: () => void;
   getOptionLabel?: (option: T[number]) => string;
   getKey?: (option: T[number]) => string;
-  forceMount?: true;
-  ref: React.RefObject<SelectRef>;
 }
 
 export const Select = <T extends unknown[] | readonly unknown[]>({
@@ -30,10 +31,9 @@ export const Select = <T extends unknown[] | readonly unknown[]>({
   onSelect,
   title,
   onKeyDown,
-  forceMount,
+  onClose,
   getOptionLabel = String,
   getKey = String,
-  ref,
 }: SelectProps<T>) => {
   const [filter, setFilter] = useState('');
   const [selected, setSelected] = useState(0);
@@ -49,36 +49,36 @@ export const Select = <T extends unknown[] | readonly unknown[]>({
     setSelected(clamp(selected, 0, filtered.length - 1));
   }, [filtered, selected]);
 
-  useImperativeHandle(ref, () => ({
-    selectNext: () => {
-      if (selected === filtered.length - 1) return;
-      setSelected(clamp(selected + 1, 0, filtered.length - 1));
-    },
-    selectPrev: () => {
-      if (selected === 0) return;
-      setSelected(clamp(selected - 1, 0, filtered.length - 1));
-    },
-  }));
+  const submit = () => {
+    onSelect?.(filtered[selected]);
+    setFilter('');
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(e);
-      if (e.key !== 'Enter') return;
-      if (filtered.length === 0) onSelect?.(filter);
-      else onSelect?.(filtered[selected]);
-    },
-    [filter, filtered, onKeyDown, onSelect, selected],
-  );
+  const close = () => {
+    onClose?.();
+    setFilter('');
+  };
+
+  const { keyHandler } = useKeyFlowContext({
+    [Actions.Confirm]: submit,
+    [Actions.FocusNextBlockInsert]: () =>
+      setSelected(clamp(selected + 1, 0, filtered.length - 1)),
+    [Actions.FocusPrevBlockInsert]: () =>
+      setSelected(clamp(selected - 1, 0, filtered.length - 1)),
+    [Actions.CloseModal]: close,
+  });
 
   return (
-    <Dialog open={open}>
-      <Dialog.Content
-        forceMount={forceMount}
-        onKeyDown={handleKeyDown}
+    <Modal open={open}>
+      <Modal.Content
         position="fixed"
         className="w-sm"
+        onKeyDown={e => {
+          keyHandler(e);
+          onKeyDown?.(e);
+        }}
       >
-        <Dialog.Title>{title}</Dialog.Title>
+        <Modal.Title>{title}</Modal.Title>
         <Input placeholder="Search..." autoFocus onChange={handleFilter} />
         {isEmpty(items) ? (
           <span className="color-muted">{emptyState}</span>
@@ -97,7 +97,7 @@ export const Select = <T extends unknown[] | readonly unknown[]>({
             </div>
           ))
         )}
-      </Dialog.Content>
-    </Dialog>
+      </Modal.Content>
+    </Modal>
   );
 };

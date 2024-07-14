@@ -14,44 +14,40 @@ import {
 } from './actionItemAtom';
 import {
   editIdAtom,
-  focusedActionItemAtom,
-  focusedIdAtom,
   lastFocusedIdAtom,
   newActionItemStateAtom,
+  selectedActionItemIdAtom,
 } from './actionItemListAtom';
-import { fixIndexAtom } from './fixIndexAtom';
 import { viewAtom } from './viewAtom';
 
-export const toggleFocusAtom = atom(null, async get => {
-  const focusedActionItem = get(focusedActionItemAtom);
-  const actionItems = get(actionItemsAtom);
-  if (!focusedActionItem) return;
-  const currentActionItem = actionItems.find(t => t.status === 'focus');
-  const sdk = new ActionItemSdk();
+export const toggleFocusAtom = atom(
+  null,
+  async (get, set, item: ActionItem) => {
+    const actionItems = get(actionItemsAtom);
+    const currentActionItem = actionItems.find(t => t.status === 'focus');
+    const sdk = new ActionItemSdk();
 
-  if (currentActionItem)
-    await sdk.update(currentActionItem.id, {
-      status: 'pending',
-    });
+    if (currentActionItem)
+      await sdk.update(currentActionItem.id, {
+        status: 'pending',
+      });
 
-  if (currentActionItem !== focusedActionItem)
-    await sdk.update(focusedActionItem.id, {
-      status: 'focus',
-    });
-});
+    if (currentActionItem !== item)
+      await sdk.update(item.id, {
+        status: 'focus',
+      });
+  },
+);
 
 export const setDueDateAtom = atom(null, async (get, _, date: Date) => {
   const sdk = new ActionItemSdk();
-  const item = get(focusedIdAtom);
+  const item = get(selectedActionItemIdAtom);
 
   return sdk.update(item, { dueDate: toFirebaseTimestamp(date) });
 });
 
 export const initiateActionItemAtom = atom(null, (get, set) => {
-  const focusedId = get(focusedIdAtom);
   set(newActionItemStateAtom, { mode: 'draft' });
-  set(focusedIdAtom, '');
-  set(lastFocusedIdAtom, focusedId);
   set(setModeAtom, Mode.Insert);
 });
 
@@ -62,14 +58,12 @@ export const closeAtom = atom(null, (_, set) => {
 });
 
 export const revertAtom = atom(null, (get, set) => {
-  set(focusedIdAtom, get(lastFocusedIdAtom));
   set(closeAtom);
 });
 
-export const goToEditModeAtom = atom(null, (get, set) => {
-  const focusedId = get(focusedIdAtom);
-  set(lastFocusedIdAtom, focusedId);
-  set(editIdAtom, focusedId);
+export const goToEditModeAtom = atom(null, (get, set, id: string) => {
+  set(lastFocusedIdAtom, id);
+  set(editIdAtom, id);
   set(setModeAtom, Mode.Insert);
 });
 
@@ -93,7 +87,6 @@ export const undoAtom = atom(
 
     set(internalActionItemsAtom, last);
     set(historyActionItemAtom, rest);
-    set(fixIndexAtom);
   },
 );
 
@@ -109,5 +102,4 @@ export const toggleDoneVisibilityAtom = atom(null, async (get, set) => {
 
   await sdk.update(view.id, { filters: newFilter });
   set(viewAtom, { ...view, filters: newFilter });
-  set(fixIndexAtom);
 });

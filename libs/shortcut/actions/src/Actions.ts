@@ -33,13 +33,25 @@ export enum Actions {
   CancelSearch = 'CancelSearch',
   ClearSearch = 'ClearSearch',
   SortBy = 'SortBy',
+  GoToTasks = 'GoToTasks',
+  GoToValues = 'GoToValues',
+
+  FocusNextDay = 'GoToNextDay',
+  FocusPrevDay = 'GoToPrevDay',
+  FocusNextWeek = 'GoToNextWeek',
+  FocusPrevWeek = 'GoToPrevWeek',
+  FocusNextMonth = 'GoToNextMonth',
+  FocusPrevMonth = 'GoToPrevMonth',
+  FocusToday = 'GoToToday',
 }
 
 export enum ActionGroup {
+  DatePicker = 'DatePicker',
   Movement = 'Movement',
   Task = 'Task',
   Modal = 'Modal',
   Global = 'Global',
+  Navigation = 'Navigation',
 }
 
 // cspell:disable
@@ -210,6 +222,53 @@ export const keyMaps = {
     group: ActionGroup.Global,
     description: 'Clear search',
     key: ['capslock', 'escape'],
+  }),
+
+  [Actions.FocusNextDay]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['l'],
+    description: 'Select next day',
+  }),
+  [Actions.FocusPrevDay]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['h'],
+    description: 'Select previous day',
+  }),
+  [Actions.FocusNextWeek]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['j'],
+    description: 'Select next week',
+  }),
+  [Actions.FocusPrevWeek]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['k'],
+    description: 'Select previous week',
+  }),
+  [Actions.FocusPrevMonth]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['p'],
+    description: 'Select previous week',
+  }),
+  [Actions.FocusNextMonth]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['n'],
+    description: 'Select previous week',
+  }),
+  [Actions.FocusToday]: oMap({
+    group: ActionGroup.DatePicker,
+    key: ['t'],
+    description: 'Select today',
+  }),
+
+  [Actions.GoToTasks]: nMap({
+    group: ActionGroup.Navigation,
+    key: ['g,t'],
+    description: 'Go to tasks',
+  }),
+  [Actions.GoToValues]: nMap({
+    group: ActionGroup.Navigation,
+    key: ['g,v'],
+    description: 'Go to values',
   }),
 } as const;
 // cspell:enable

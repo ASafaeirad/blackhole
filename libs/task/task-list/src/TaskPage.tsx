@@ -1,51 +1,68 @@
-import { Heading } from '@blackhole/design';
+import { Actions } from '@blackhole/actions';
+import { useSubscribeAction } from '@blackhole/keybinding-manager';
 import {
+  useActionItemDispatch,
   useActionItemListState,
   useActionItems,
+  useHasHiddenItems,
   useSubscribeActionItems,
   useSubscribeView,
 } from '@blackhole/task/data-layer';
 import { isEmpty } from '@fullstacksjs/toolbox';
+import { FocusScope } from 'react-aria';
 
 import { FilterInput } from './components/FilterInput';
-import { SelectProjectDialog } from './components/SelectProjectDialog';
-import { SortByDialog } from './components/SortByDialog';
+import { HiddenTaskMessage } from './components/HiddenTaskMessage';
+import { DueDateModal } from './components/Modals/DueDateModal';
+import { SelectProjectModal } from './components/Modals/SelectProjectModal';
+import { SortByModal } from './components/Modals/SortByModal';
+import {
+  TaskModalState,
+  useTaskModalState,
+} from './components/Modals/useTaskModalState';
+import { TaskDeleteConfirmDialog } from './components/TaskDeleteConfirmDialog';
 import { TaskEmptyState } from './components/TaskEmptyState';
 import { TaskList } from './components/TaskList';
-import { DateModal } from './DateModal';
-import { useDateModal } from './useDateModal';
-import { useSelectProjectModal } from './useSelectProjectModal';
-import { useSortByModal } from './useSortByModal';
-import { useSubscribeTaskActions } from './useSubscribeTaskActions';
 
 export const TaskPage = () => {
   const actionItems = useActionItems();
   const { newActionItemState } = useActionItemListState();
-  const { close: closeProject, isOpen: isProjectModalOpen } =
-    useSelectProjectModal();
-  const { close: closeSortBy, isOpen: isSortByModalOpen } = useSortByModal();
-  const { close: closeDueDate, isOpen: isDueDateOpen } = useDateModal();
+  const { close, modalState } = useTaskModalState();
+  const { toggleDoneVisibility, undo, initiateActionItem } =
+    useActionItemDispatch();
+  const hasHiddenItems = useHasHiddenItems();
 
   useSubscribeView();
-  useSubscribeTaskActions();
   useSubscribeActionItems();
 
+  useSubscribeAction(Actions.CreateTask, initiateActionItem, [actionItems]);
+  useSubscribeAction(Actions.ToggleDoneVisibility, toggleDoneVisibility, []);
+  useSubscribeAction(Actions.Undo, undo);
+
+  const shouldRenderEmptyState = isEmpty(actionItems) && !newActionItemState;
+
   return (
-    <div className="fc gap-8 h-full overflow-auto">
-      <Heading className="layout text-large">Tasks</Heading>
-      {isEmpty(actionItems) && !newActionItemState ? (
-        <TaskEmptyState />
-      ) : (
-        <TaskList />
-      )}
-      {isProjectModalOpen ? (
-        <SelectProjectDialog onClose={closeProject} />
-      ) : null}
-      {isSortByModalOpen ? <SortByDialog onClose={closeSortBy} /> : null}
-      {isDueDateOpen ? (
-        <DateModal open={isDueDateOpen} onClose={closeDueDate} />
-      ) : null}
-      <FilterInput />
+    <div className="layout fc scrollbar gap-4 h-full">
+      <FocusScope restoreFocus>
+        {shouldRenderEmptyState ? <TaskEmptyState /> : <TaskList />}
+        <div className="f1">
+          <FilterInput className="align-end" />
+        </div>
+        <TaskDeleteConfirmDialog />
+        <SelectProjectModal
+          open={modalState === TaskModalState.SelectProject}
+          onClose={close}
+        />
+        <SortByModal
+          open={modalState === TaskModalState.SortBy}
+          onClose={close}
+        />
+        <DueDateModal
+          open={modalState === TaskModalState.DueDate}
+          onClose={close}
+        />
+        {hasHiddenItems ? <HiddenTaskMessage /> : null}
+      </FocusScope>
     </div>
   );
 };

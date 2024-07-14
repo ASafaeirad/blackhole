@@ -1,12 +1,12 @@
-import { TaskPage } from '@blackhole/task/task-list';
+import { ValuesPage } from '@blackhole/task/values-page';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { Layout } from '../Layout';
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/values')({
   component: () => (
     <Layout title="values">
-      <TaskPage />
+      <ValuesPage />
     </Layout>
   ),
 });

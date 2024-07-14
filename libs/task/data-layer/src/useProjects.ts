@@ -4,7 +4,7 @@ import { atomWithDefault } from 'jotai/utils';
 import { useMemo } from 'react';
 
 import { actionItemsAtom } from './atoms/actionItemAtom';
-import { focusedActionItemAtom } from './atoms/actionItemListAtom';
+import { selectedActionItemAtom } from './atoms/actionItemListAtom';
 import { separator } from './config/config';
 import { ActionItemSdk } from './firebase/ActionItemSdk';
 
@@ -18,7 +18,7 @@ const projectsAtom = atomWithDefault<string[]>(get =>
 );
 
 const setProjectsAtom = atom(null, async (get, _, project: string) => {
-  const actionItem = get(focusedActionItemAtom);
+  const actionItem = get(selectedActionItemAtom);
 
   if (!actionItem) return;
 
@@ -30,7 +30,7 @@ const setProjectsAtom = atom(null, async (get, _, project: string) => {
 });
 
 const unSetProjectAtom = atom(null, async get => {
-  const actionItem = get(focusedActionItemAtom);
+  const actionItem = get(selectedActionItemAtom);
 
   if (!actionItem) return;
 

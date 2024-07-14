@@ -1,10 +1,4 @@
-import { Actions } from '@blackhole/actions';
 import { CalendarDialog } from '@blackhole/design';
-import {
-  Mode,
-  useSetMode,
-  useSubscribeAction,
-} from '@blackhole/keybinding-manager';
 import {
   useActionItemDispatch,
   useActionItemListState,
@@ -13,32 +7,22 @@ import { bind } from '@fullstacksjs/toolbox';
 import type { ZonedDateTime } from '@internationalized/date';
 import { fromDate, getLocalTimeZone } from '@internationalized/date';
 
-interface Props {
-  open?: boolean;
-  onClose?: () => void;
-}
+import type { ModalProps } from './useTaskModalState';
 
-export const DateModal = ({ open, onClose }: Props) => {
-  const setMode = useSetMode();
+export const DueDateModal = ({ onClose, open }: ModalProps) => {
   const { setDueDate } = useActionItemDispatch();
   const { activeActionItem } = useActionItemListState();
 
-  const close = () => {
+  const handleChange = async (date: ZonedDateTime) => {
+    await setDueDate(date.toDate());
     onClose?.();
-    setMode(Mode.Normal);
-  };
-
-  useSubscribeAction(Actions.CloseModal, close);
-
-  const handleChange = (date: ZonedDateTime): void => {
-    void setDueDate(date.toDate());
-    close();
   };
 
   return (
     <CalendarDialog
       title="Due Date"
       open={open}
+      onClose={onClose}
       value={bind(activeActionItem?.dueDate, v =>
         fromDate(v, getLocalTimeZone()),
       )}

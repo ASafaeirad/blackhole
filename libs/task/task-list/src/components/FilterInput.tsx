@@ -6,19 +6,27 @@ import {
   useSubscribeAction,
   useSubscribeActionOnMode,
 } from '@blackhole/keybinding-manager';
-import { useActionItemDispatch } from '@blackhole/task/data-layer';
-import { useCallback, useRef } from 'react';
+import {
+  useActionItemDispatch,
+  useFilterMode,
+} from '@blackhole/task/data-layer';
+import { useCallback, useEffect, useRef } from 'react';
+import { useFocusManager } from 'react-aria';
 
-export const FilterInput = () => {
+interface Props {
+  className?: string;
+}
+
+export const FilterInput = ({ className }: Props) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const { setFilterMode, setFilter } = useActionItemDispatch();
   const setMode = useSetMode();
+  const filterMode = useFilterMode();
+  const focusManager = useFocusManager();
 
   useSubscribeAction(Actions.Search, () => {
     setFilterMode(true);
     setMode(Mode.Command);
-    if (!searchRef.current) return;
-    searchRef.current.focus();
   });
 
   useSubscribeActionOnMode(Actions.ClearSearch, Mode.Normal, () => {
@@ -34,6 +42,7 @@ export const FilterInput = () => {
     if (!searchRef.current) return;
     searchRef.current.value = '';
     searchRef.current.blur();
+    focusManager?.focusFirst();
   });
 
   const saveFilter = useCallback(
@@ -41,19 +50,22 @@ export const FilterInput = () => {
       if (e.key === 'Enter') {
         setMode(Mode.Normal);
         setFilterMode(false);
-        e.currentTarget.blur();
+        focusManager?.focusFirst();
       }
     },
-    [setFilterMode, setMode],
+    [focusManager, setFilterMode, setMode],
   );
+  useEffect(() => {
+    searchRef.current?.focus();
+  }, [filterMode]);
 
   return (
-    <div className="layout">
-      <Input
-        ref={searchRef}
-        onChange={e => setFilter(e.target.value)}
-        onKeyDown={saveFilter}
-      />
-    </div>
+    <Input
+      ref={searchRef}
+      onChange={e => setFilter(e.target.value)}
+      onKeyDown={saveFilter}
+      className={className}
+      disabled={!filterMode}
+    />
   );
 };

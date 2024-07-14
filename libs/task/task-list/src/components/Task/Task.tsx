@@ -1,11 +1,14 @@
 import { Actions } from '@blackhole/actions';
-import { cn } from '@blackhole/cn';
-import { Input, List } from '@blackhole/design';
-import { useSubscribeAction } from '@blackhole/keybinding-manager';
+import { Input } from '@blackhole/design';
+import { useKeyFlowContext } from '@blackhole/keybinding-manager';
 import type { ActionItem } from '@blackhole/task/data-layer';
-import type { MaybePromise } from '@fullstacksjs/toolbox';
-import { isNullOrEmptyString, not } from '@fullstacksjs/toolbox';
+import {
+  useActionItemDispatch,
+  useActionItemListState,
+} from '@blackhole/task/data-layer';
+import { not } from '@fullstacksjs/toolbox';
 import { useEffect, useRef, useState } from 'react';
+import { useFocusManager } from 'react-aria';
 
 import { TaskCheck } from './TaskCheck';
 import { TaskDate } from './TaskDate';
@@ -14,56 +17,69 @@ import { TaskSign } from './TaskSign';
 import { TaskStreak } from './TaskStreak';
 
 interface Props {
-  focused: boolean;
   actionItem: ActionItem;
-  edit?: boolean;
-  onSubmit: (name: string) => MaybePromise<void>;
+  itemRef: HTMLElement | undefined;
 }
 
-export const Task = ({
-  focused: isFocused,
-  actionItem,
-  edit: isEdit,
-  onSubmit,
-}: Props) => {
+export const Task = ({ actionItem, itemRef }: Props) => {
   const [name, setName] = useState('');
-  const ref = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [insert, setInsert] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
+  const { editedActionItem } = useActionItemListState();
+
+  const isEdit = actionItem.id === editedActionItem?.id;
 
   useEffect(() => {
-    if (isEdit) setName(actionItem.name);
-  }, [isEdit, actionItem.name]);
+    if (isEdit) {
+      setName(actionItem.name);
+    } else {
+      itemRef?.focus();
+    }
+  }, [isEdit, actionItem.name, itemRef]);
 
   useEffect(() => {
-    setTimeout(() => {
-      ref.current?.setSelectionRange(0, 0);
-    }, 0);
+    setTimeout(() => ref.current?.setSelectionRange(0, 0), 0);
   }, [insert]);
 
-  useEffect(() => {
-    if (!isFocused) return;
-    containerRef.current?.scrollIntoView({ block: 'nearest' });
-  }, [isFocused]);
+  const focusManager = useFocusManager();
 
-  useSubscribeAction(Actions.Insert, () => setInsert(not), []);
+  const {
+    revert,
+    goToEditMode,
+    openLinks,
+    showDeleteActionItemDialog,
+    toggle,
+    focus,
+    editActionItem,
+  } = useActionItemDispatch();
 
-  useSubscribeAction(
-    Actions.SaveTask,
-    async () => {
-      if (!isEdit) return;
-      if (isNullOrEmptyString(name.trim())) return;
-      await onSubmit(name);
+  const getToInsertMode = () => {
+    goToEditMode(actionItem.id);
+    setInsert(not);
+  };
+
+  const { register } = useKeyFlowContext({
+    [Actions.SaveTask]: () => editActionItem({ ...actionItem, name }),
+    [Actions.DeleteTask]: () => showDeleteActionItemDialog(actionItem.id),
+    [Actions.GoToEditMode]: () => goToEditMode(actionItem.id),
+    [Actions.Open]: () => openLinks(actionItem),
+    [Actions.GoToNormalMode]: () => revert(),
+    [Actions.Insert]: () => getToInsertMode(),
+    [Actions.Toggle]: async () => {
+      await toggle(actionItem);
+      focusManager?.focusNext({ wrap: true });
     },
-    [name, isEdit, onSubmit],
-  );
+    [Actions.Focus]: () => focus(actionItem),
+  });
+
+  useEffect(() => {
+    if (!itemRef) return;
+    return register(itemRef);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemRef]);
 
   return (
-    <List.Item
-      ref={containerRef}
-      selected={isFocused}
-      className={cn({ 'color-cta': actionItem.status === 'focus' })}
-    >
+    <>
       <TaskSign type={actionItem.type} />
       <TaskCheck status={actionItem.status} />
       {!isEdit ? (
@@ -84,6 +100,6 @@ export const Task = ({
           value={name}
         />
       )}
-    </List.Item>
+    </>
   );
 };

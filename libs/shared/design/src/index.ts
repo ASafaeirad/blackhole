@@ -8,6 +8,7 @@ export * from './Key';
 export * from './List';
 export * from './Loading';
 export * from './Logo';
+export * from './Modal';
 export * from './NavLink';
 export * from './Select';
 export * from './Separator';

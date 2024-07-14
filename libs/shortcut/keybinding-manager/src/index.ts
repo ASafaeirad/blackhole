@@ -1,5 +1,5 @@
 export { KeybindingProvider } from './KeybindingProvider';
-export { useInitManager } from './managerAtom';
+export { useInitManager, useKeyFlowContext, useManager } from './managerAtom';
 export { setModeAtom, useMode, useSetMode } from './modeAtom';
 export {
   useSubscribeAction,

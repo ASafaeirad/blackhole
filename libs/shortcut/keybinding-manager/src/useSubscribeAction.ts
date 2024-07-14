@@ -30,7 +30,7 @@ export const useSubscribeActionOnMode = <T extends string>(
 
   useEffect(
     () =>
-      manager?.subscribe(action, ({ mode: current }) => {
+      manager?.subscribe(action, (e, { mode: current }) => {
         if (current & mode) callback(current);
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
