@@ -22,6 +22,7 @@ export interface CustomKeyboardEvent {
   metaKey: boolean;
   shiftKey: boolean;
   preventDefault: () => void;
+  isPropagationStopped: boolean;
 }
 
 export class Chord {

@@ -47,6 +47,7 @@
       "@blackhole/shortcut/help": ["libs/shortcut/help/src/index.ts"],
       "@blackhole/task/data-layer": ["libs/task/data-layer/src/index.ts"],
       "@blackhole/task/task-list": ["libs/task/task-list/src/index.ts"],
+      "@blackhole/task/values-page": ["libs/task/values-page/src/index.ts"],
       "@blackhole/uno-preset": ["libs/tools/uno-preset/src/index.ts"]
     }
   },

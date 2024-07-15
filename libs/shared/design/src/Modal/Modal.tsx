@@ -1,5 +1,14 @@
+import type { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
+import {
+  Mode,
+  useSetMode,
+  useSubscribeAction,
+  useSubscribeActionOnMode,
+} from '@blackhole/keybinding-manager';
+import { isFunction } from '@fullstacksjs/toolbox';
 import { cva } from 'class-variance-authority';
+import { useState } from 'react';
 import { FocusScope } from 'react-aria';
 import type { DialogProps } from 'react-aria-components';
 import {
@@ -10,7 +19,8 @@ import {
 } from 'react-aria-components';
 
 export interface ModalProps extends DialogProps {
-  open?: boolean;
+  action: Actions;
+  onClose?: () => void;
 }
 
 const content = cva(
@@ -29,10 +39,32 @@ const content = cva(
   },
 );
 
-export const Modal = ({ open, ...props }: ModalProps) => {
+export const Modal = ({ onClose, action, ...props }: ModalProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const setMode = useSetMode();
+
+  const close = () => {
+    setIsOpen(false);
+    setMode(Mode.Normal);
+    onClose?.();
+  };
+
+  // useSubscribeAction(action, () => {
+  //   setIsOpen(true);
+  //   setMode(Mode.Overlay);
+  // });
+
+  // useSubscribeAction(Actions.CloseModal, () => {
+  //   close();
+  // });
+
   return (
-    <BaseModal isOpen={open}>
-      <Dialog {...props} />
+    <BaseModal isOpen={isOpen}>
+      <Dialog {...props}>
+        {isFunction(props.children)
+          ? props.children({ close })
+          : props.children}
+      </Dialog>
     </BaseModal>
   );
 };

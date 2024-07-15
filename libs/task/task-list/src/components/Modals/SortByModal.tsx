@@ -1,3 +1,4 @@
+import { Actions } from '@blackhole/actions';
 import { debug } from '@blackhole/debug';
 import { Select } from '@blackhole/design';
 import type { SortBy } from '@blackhole/task/data-layer';
@@ -13,7 +14,7 @@ const sortByLabelMap: Record<SortBy, string> = {
   createdAt: 'Creation Date',
 };
 
-export const SortByModal = ({ onClose, open }: ModalProps) => {
+export const SortByModal = ({ onClose }: ModalProps) => {
   const setSortBy = useSetSortBy();
   const items = useMemo(() => ['None', ...allSortBy] as const, []);
 
@@ -22,17 +23,15 @@ export const SortByModal = ({ onClose, open }: ModalProps) => {
       const sortBy = allSortBy.includes(name) ? (name as SortBy) : null;
 
       setSortBy(sortBy)?.catch(debug.error);
-      onClose?.();
     },
-    [onClose, setSortBy],
+    [setSortBy],
   );
 
   return (
     <Select
-      open={open}
-      onClose={onClose}
       emptyState="No Field"
       items={items}
+      action={Actions.SortBy}
       onSelect={onSelect}
       getOptionLabel={v => {
         // @ts-expect-error - map lookup can be undefined

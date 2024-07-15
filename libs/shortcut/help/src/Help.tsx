@@ -1,5 +1,5 @@
 import { Actions, keyMaps } from '@blackhole/actions';
-import { Button, Dialog } from '@blackhole/design';
+import { Button, Modal } from '@blackhole/design';
 import {
   Mode,
   useSetMode,
@@ -15,31 +15,20 @@ const helpGroups = Object.entries(
 );
 
 export const Help = () => {
-  const [isOpen, setIsOpen] = useAtom(helpAtom);
-  const setMode = useSetMode();
-
-  useSubscribeAction(Actions.ShowHelp, () => {
-    setIsOpen(true);
-    setMode(Mode.Overlay);
-  });
-
-  useSubscribeAction(Actions.CloseModal, () => {
-    setIsOpen(false);
-    setMode(Mode.Normal);
-  });
-
   return (
-    <Dialog open={isOpen}>
-      <Dialog.Content position="fixed" className="w-md">
-        <Dialog.Title>Help</Dialog.Title>
-        <div className="fc gap-5">
-          {helpGroups.map(([title, items]) => (
-            <HelpGroup title={title} items={items!} key={title} />
-          ))}
+    <Modal action={Actions.ShowHelp}>
+      {({ close }) => (
+        <Modal.Content position="fixed" className="w-md">
+          <Modal.Title>Help</Modal.Title>
+          <div className="fc gap-5">
+            {helpGroups.map(([title, items]) => (
+              <HelpGroup title={title} items={items!} key={title} />
+            ))}
 
-          <Button onPress={() => setIsOpen(false)}>Close</Button>
-        </div>
-      </Dialog.Content>
-    </Dialog>
+            <Button onPress={() => close()}>Close</Button>
+          </div>
+        </Modal.Content>
+      )}
+    </Modal>
   );
 };

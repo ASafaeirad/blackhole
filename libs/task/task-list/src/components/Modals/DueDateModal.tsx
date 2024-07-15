@@ -1,3 +1,4 @@
+import { Actions } from '@blackhole/actions';
 import { CalendarDialog } from '@blackhole/design';
 import {
   useActionItemDispatch,
@@ -21,8 +22,6 @@ export const DueDateModal = ({ onClose, open }: ModalProps) => {
   return (
     <CalendarDialog
       title="Due Date"
-      open={open}
-      onClose={onClose}
       value={bind(activeActionItem?.dueDate, v =>
         fromDate(v, getLocalTimeZone()),
       )}
@@ -30,6 +29,7 @@ export const DueDateModal = ({ onClose, open }: ModalProps) => {
         activeActionItem?.dueDate ?? new Date(),
         getLocalTimeZone(),
       )}
+      action={Actions.OpenDueDate}
       onChange={handleChange}
     />
   );

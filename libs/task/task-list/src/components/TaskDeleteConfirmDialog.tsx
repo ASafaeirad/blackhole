@@ -21,19 +21,11 @@ export const TaskDeleteConfirmDialog = () => {
 
   const discard = () => discardDeleting();
 
-  const { keyHandler } = useKeyFlowContext({
-    [Actions.CloseModal]: discard,
-  });
-
   if (!activeActionItem) return null;
 
   return (
-    <Modal open={isDeleting}>
-      <Modal.Content
-        onKeyDown={keyHandler}
-        position="fixed"
-        className="min-w-100"
-      >
+    <Modal action={Actions.DeleteTask} open={isDeleting} onClose={discard}>
+      <Modal.Content position="fixed" className="min-w-100">
         <Modal.Title>Delete</Modal.Title>
         <TaskName nodes={activeActionItem.nodes} />
         <div className="fr gap-4">

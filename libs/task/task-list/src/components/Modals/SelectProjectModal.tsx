@@ -1,10 +1,11 @@
+import { Actions } from '@blackhole/actions';
 import { Select } from '@blackhole/design';
 import { useProjects, useSetProjects } from '@blackhole/task/data-layer';
 import { useCallback, useMemo } from 'react';
 
 import type { ModalProps } from './useTaskModalState';
 
-export const SelectProjectModal = ({ onClose, open }: ModalProps) => {
+export const SelectProjectModal = ({ onClose }: ModalProps) => {
   const projects = useProjects();
   const { setProject, unSetProject } = useSetProjects();
   const items = useMemo(() => ['None', ...projects], [projects]);
@@ -23,10 +24,9 @@ export const SelectProjectModal = ({ onClose, open }: ModalProps) => {
 
   return (
     <Select
-      open={open}
-      onClose={onClose}
       emptyState="No Project"
       items={items}
+      action={Actions.ShowSelectProject}
       onSelect={onSelect}
       title="Select Project"
     />

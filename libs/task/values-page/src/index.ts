@@ -1,0 +1,1 @@
+export { ValuesPage } from './ValuesPage';

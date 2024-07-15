@@ -1,4 +1,4 @@
-import { Actions } from '@blackhole/actions';
+import type { Actions } from '@blackhole/actions';
 import { cn } from '@blackhole/cn';
 import { useKeyFlowContext } from '@blackhole/keybinding-manager';
 import { clamp, isEmpty } from '@fullstacksjs/toolbox';
@@ -13,7 +13,6 @@ export interface SelectRef {
 }
 
 export interface SelectProps<T extends unknown[] | readonly unknown[]> {
-  open?: boolean;
   items: T;
   onSelect?: (value: T[number]) => void;
   emptyState: React.ReactNode;
@@ -22,10 +21,10 @@ export interface SelectProps<T extends unknown[] | readonly unknown[]> {
   onClose?: () => void;
   getOptionLabel?: (option: T[number]) => string;
   getKey?: (option: T[number]) => string;
+  action: Actions;
 }
 
 export const Select = <T extends unknown[] | readonly unknown[]>({
-  open,
   emptyState,
   items,
   onSelect,
@@ -34,6 +33,7 @@ export const Select = <T extends unknown[] | readonly unknown[]>({
   onClose,
   getOptionLabel = String,
   getKey = String,
+  action,
 }: SelectProps<T>) => {
   const [filter, setFilter] = useState('');
   const [selected, setSelected] = useState(0);
@@ -55,28 +55,29 @@ export const Select = <T extends unknown[] | readonly unknown[]>({
   };
 
   const close = () => {
+    console.log('close');
+
     onClose?.();
     setFilter('');
   };
 
-  const { keyHandler } = useKeyFlowContext({
-    [Actions.Confirm]: submit,
-    [Actions.FocusNextBlockInsert]: () =>
-      setSelected(clamp(selected + 1, 0, filtered.length - 1)),
-    [Actions.FocusPrevBlockInsert]: () =>
-      setSelected(clamp(selected - 1, 0, filtered.length - 1)),
-    [Actions.CloseModal]: close,
-  });
+  // const { keyHandler } = useKeyFlowContext({
+  //   [Actions.Confirm]: submit,
+  //   [Actions.FocusNextBlockInsert]: () =>
+  //     setSelected(clamp(selected + 1, 0, filtered.length - 1)),
+  //   [Actions.FocusPrevBlockInsert]: () =>
+  //     setSelected(clamp(selected - 1, 0, filtered.length - 1)),
+  // });
 
   return (
-    <Modal open={open}>
+    <Modal action={action} onClose={close}>
       <Modal.Content
         position="fixed"
         className="w-sm"
-        onKeyDown={e => {
-          keyHandler(e);
-          onKeyDown?.(e);
-        }}
+        // onKeyDown={e => {
+        //   keyHandler(e);
+        //   onKeyDown?.(e);
+        // }}
       >
         <Modal.Title>{title}</Modal.Title>
         <Input placeholder="Search..." autoFocus onChange={handleFilter} />

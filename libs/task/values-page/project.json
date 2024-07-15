@@ -1,0 +1,11 @@
+{
+  "name": "values-page",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/task/values-page/src",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:task"],
+  "targets": {
+    "spell": {},
+    "tsc": {}
+  }
+}

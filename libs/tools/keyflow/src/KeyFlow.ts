@@ -94,6 +94,7 @@ export class KeyFlow<TAction extends string> {
     if (!action) throw new Error(`Action "${name}" not found`);
 
     action.subscribers.push(command);
+    console.log(name, action.subscribers);
 
     return () => {
       const index = action.subscribers.indexOf(command);
@@ -108,6 +109,8 @@ export class KeyFlow<TAction extends string> {
     const chord = Chord.fromKeyboardEvent(event).hash;
     const actionDict =
       this.#chords.get(`${this.#prevKey},${chord}`) ?? this.#chords.get(chord);
+    console.log('actions', actions);
+    console.log('actionDict', actionDict);
 
     if (!actionDict) {
       this.#prevKey = chord;
@@ -116,13 +119,18 @@ export class KeyFlow<TAction extends string> {
 
     const selectedActions = Object.keys(actionDict)
       .filter(k => Number(k) & this.#mode)
-      .map(k => ({
-        mode: k,
-        action: actions.get(actionDict[k as unknown as number]!),
-      }))
-      .filter(a => !isNullOrEmptyArray(a.action?.subscribers));
+      .map(k => {
+        console.log('k', k);
+        console.log('actionDict[k]', actionDict[k]);
 
-    debug.trace('KeybindingManager', {
+        return {
+          mode: k,
+          action: actions.get(actionDict[k as unknown as number]!),
+        };
+      });
+    // .filter(a => !isNullOrEmptyArray(a.action?.subscribers));
+
+    debug.log('KeybindingManager', {
       mode: this.#mode,
       chord,
       actionDict,

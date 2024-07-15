@@ -13,13 +13,13 @@ interface Props<T extends DateValue>
 }
 
 export const CalendarDialog = <T extends DateValue>({
-  open,
   title,
   onClose,
+  action,
   ...props
 }: Props<T>) => {
   return (
-    <Modal open={open}>
+    <Modal action={action}>
       <Modal.Content position="fixed">
         <Modal.Title>{title}</Modal.Title>
         <Calendar onClose={onClose} autoFocus {...props} />
